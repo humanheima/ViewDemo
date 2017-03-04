@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hm.viewdemo.R;
-import com.hm.viewdemo.activity.CustomerViewActivity;
-import com.hm.viewdemo.activity.HorizontalVerticalConflictActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view})
+    @OnClick({R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
+            R.id.btn_vertical_verticla_activity})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_horizontal_vertical_conflict:
@@ -33,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_customer_view:
                 CustomerViewActivity.launch(this);
+                break;
+            case R.id.btn_expandable_listview:
+                ExpandableListViewActivity.launch(this);
+                break;
+            case R.id.btn_vertical_verticla_activity:
+                VerticalVerticalActivity.launch(this);
                 break;
             default:
                 break;

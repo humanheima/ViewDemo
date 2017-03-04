@@ -20,5 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义viewActivity" />
+
+        <Button
+            android:id="@+id/btn_expandable_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ExpandableListView" />
+
+        <Button
+            android:id="@+id/btn_vertical_verticla_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="同一方向的滑动冲突" />
     </LinearLayout>
 </ScrollView>
