@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
-            R.id.btn_vertical_verticla_activity})
+            R.id.btn_vertical_verticla_activity, R.id.btn_scrollview_recyclerview_activity})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_horizontal_vertical_conflict:
@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_vertical_verticla_activity:
                 VerticalVerticalActivity.launch(this);
+                break;
+            case R.id.btn_scrollview_recyclerview_activity:
+                ScrollViewNestRecyclerViewActivity.launch(this);
                 break;
             default:
                 break;

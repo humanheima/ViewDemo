@@ -32,5 +32,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="同一方向的滑动冲突" />
+
+        <Button
+            android:id="@+id/btn_scrollview_recyclerview_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ScrollView 嵌套 RecyclerView" />
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hm.viewdemo.widget.MyNestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_scroll_view_nest_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="i am header" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</com.hm.viewdemo.widget.MyNestedScrollView>

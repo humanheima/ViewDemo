@@ -18,7 +18,8 @@
         <activity android:name=".activity.HorizontalVerticalConflictActivity" />
         <activity android:name=".activity.CustomerViewActivity" />
         <activity android:name=".activity.ExpandableListViewActivity" />
-        <activity android:name=".activity.VerticalVerticalActivity"></activity>
+        <activity android:name=".activity.VerticalVerticalActivity" />
+        <activity android:name=".activity.ScrollViewNestRecyclerViewActivity"></activity>
     </application>
 
 </manifest>
