@@ -3,4 +3,9 @@
     <declare-styleable name="CircleView">
         <attr name="circle_color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="MaxHeightLayout">
+        <attr name="heightRatio" format="reference|float" />
+        <attr name="heightDimen" format="reference|dimension" />
+    </declare-styleable>
 </resources>
