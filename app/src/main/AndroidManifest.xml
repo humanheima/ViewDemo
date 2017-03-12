@@ -19,7 +19,8 @@
         <activity android:name=".activity.CustomerViewActivity" />
         <activity android:name=".activity.ExpandableListViewActivity" />
         <activity android:name=".activity.VerticalVerticalActivity" />
-        <activity android:name=".activity.ScrollViewNestRecyclerViewActivity"></activity>
+        <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
+        <activity android:name=".activity.MaxHeightLayoutActivity"></activity>
     </application>
 
 </manifest>
