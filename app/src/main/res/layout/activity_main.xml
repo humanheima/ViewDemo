@@ -44,5 +44,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="popWindow设置最大高度" />
+
+        <Button
+            android:id="@+id/btn_bottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BottomSheet" />
     </LinearLayout>
 </ScrollView>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.inter.OnItemClickListener;
 
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     private List<String> dataList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public RecycleViewAdapter(List<String> dataList, Context context) {
         this.dataList = dataList;
@@ -34,8 +40,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(final VH holder, final int position) {
         holder.text1.setText(dataList.get(position));
+        if (onItemClickListener != null) {
+            holder.text1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, holder.getAdapterPosition());
+                }
+            });
+        }
     }
 
     @Override
