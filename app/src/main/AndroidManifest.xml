@@ -21,7 +21,8 @@
         <activity android:name=".activity.VerticalVerticalActivity" />
         <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
         <activity android:name=".activity.MaxHeightLayoutActivity" />
-        <activity android:name=".activity.BottomSheetActivity"></activity>
+        <activity android:name=".activity.BottomSheetActivity" />
+        <activity android:name=".activity.ConstraintActivity"></activity>
     </application>
 
 </manifest>
