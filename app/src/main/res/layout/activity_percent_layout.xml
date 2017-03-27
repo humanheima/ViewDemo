@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hm.viewdemo.widget.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_heightPercent="20%">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#44ff0000"
+            android:gravity="center"
+            app:layout_heightPercent="50%"
+            app:layout_widthPercent="60%" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_heightPercent="50%"
+            app:layout_widthPercent="70%" />
+
+    </com.hm.viewdemo.widget.PercentLinearLayout>
+
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_gravity="center"
+        android:background="#bdbdbd"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="100%">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="hello"
+            android:textColor="@color/colorAccent"
+            app:layout_heightPercent="40%"
+            app:layout_widthPercent="20%" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="hello"
+            android:textColor="@color/colorAccent"
+            app:layout_heightPercent="40%"
+            app:layout_widthPercent="20%" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="hello"
+            android:textColor="@color/colorAccent"
+            app:layout_heightPercent="40%"
+            app:layout_widthPercent="20%" />
+
+    </android.support.percent.PercentRelativeLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="width:70%,height:20%"
+        app:layout_heightPercent="20%"
+        app:layout_marginBottomPercent="5%"
+        app:layout_marginLeftPercent="10%"
+        app:layout_marginRightPercent="10%"
+        app:layout_widthPercent="80%" />
+
+</android.support.percent.PercentFrameLayout>
