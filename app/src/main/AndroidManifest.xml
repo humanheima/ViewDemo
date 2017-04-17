@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hm.viewdemo">
+          package="com.hm.viewdemo">
 
     <application
         android:allowBackup="true"
@@ -9,21 +9,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
+        </activity>
+        <activity android:name=".activity.HorizontalVerticalConflictActivity"/>
+        <activity android:name=".activity.CustomerViewActivity"/>
+        <activity android:name=".activity.ExpandableListViewActivity"/>
+        <activity android:name=".activity.VerticalVerticalActivity"/>
+        <activity android:name=".activity.ScrollViewNestRecyclerViewActivity"/>
+        <activity android:name=".activity.MaxHeightLayoutActivity"/>
+        <activity android:name=".activity.BottomSheetActivity"/>
+        <activity android:name=".activity.ConstraintActivity"/>
+        <activity android:name=".activity.PercentLayoutActivity"/>
+        <activity android:name=".activity.TestDragDeleteItemActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HorizontalVerticalConflictActivity" />
-        <activity android:name=".activity.CustomerViewActivity" />
-        <activity android:name=".activity.ExpandableListViewActivity" />
-        <activity android:name=".activity.VerticalVerticalActivity" />
-        <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
-        <activity android:name=".activity.MaxHeightLayoutActivity" />
-        <activity android:name=".activity.BottomSheetActivity" />
-        <activity android:name=".activity.ConstraintActivity" />
-        <activity android:name=".activity.PercentLayoutActivity" />
     </application>
 
 </manifest>

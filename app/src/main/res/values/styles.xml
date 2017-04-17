@@ -6,6 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+         <item name="SlideDeleteLayoutDefStyleAttr">@style/SlideDeleteLayoutDefStyleAttrImpl</item>
+    </style>
+
+    <style name="DefaultSlideDeleteLayout">
+        <item name="slideEnable">false</item>
+        <item name="iosStyle">false</item>
+    </style>
+
+    <style name="SlideDeleteLayoutDefStyleAttrImpl">
+        <item name="slideEnable">true</item>
+        <item name="iosStyle">true</item>
+        <item name="leftSlide">true</item>
+    </style>
+
+    <style name="SlideDeleteLayoutDefStyleAttrRes">
+        <item name="slideEnable">true</item>
+        <item name="iosStyle">true</item>
+        <item name="leftSlide">false</item>
     </style>
 
 </resources>

@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircleView">
-        <attr name="circle_color" format="color" />
+        <attr name="circle_color" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="MaxHeightLayout">
-        <attr name="heightRatio" format="reference|float" />
-        <attr name="heightDimen" format="reference|dimension" />
+        <attr name="heightRatio" format="reference|float"/>
+        <attr name="heightDimen" format="reference|dimension"/>
     </declare-styleable>
+
+    <!--侧滑删除-->
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
+
+    <!--侧滑删除-->
+    <declare-styleable name="SlideDeleteLayout">
+        <!--是否可以通过滑动，显示删除菜单，默认true-->
+        <attr name="slideEnable" format="boolean"/>
+        <!--是否是ios方式的滑动方式,默认true-->
+        <attr name="iosStyle" format="boolean"/>
+        <!--标记是左滑还是右滑显示删除菜单，默认左滑显示删除菜单-->
+        <attr name="leftSlide" format="boolean"/>
+    </declare-styleable>
+    <attr name="SlideDeleteLayoutDefStyleAttr" format="reference"/>
 </resources>
