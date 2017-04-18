@@ -36,7 +36,7 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_drag_delete_item);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         stringList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 30; i++) {
             stringList.add("string" + i);
         }
         adapter = new RvAdapter(this, stringList);

@@ -11,7 +11,13 @@
         <activity android:name=".activity.MainActivity">
         </activity>
         <activity android:name=".activity.HorizontalVerticalConflictActivity"/>
-        <activity android:name=".activity.CustomerViewActivity"/>
+        <activity android:name=".activity.CustomerViewActivity">>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.ExpandableListViewActivity"/>
         <activity android:name=".activity.VerticalVerticalActivity"/>
         <activity android:name=".activity.ScrollViewNestRecyclerViewActivity"/>
@@ -20,11 +26,7 @@
         <activity android:name=".activity.ConstraintActivity"/>
         <activity android:name=".activity.PercentLayoutActivity"/>
         <activity android:name=".activity.TestDragDeleteItemActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 
