@@ -6,12 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.hm.viewdemo.R;
-
-import static com.hm.viewdemo.activity.TestDragDeleteItemActivity.TAG;
 
 /**
  * Created by dumingwei on 2017/3/4.
@@ -19,6 +16,7 @@ import static com.hm.viewdemo.activity.TestDragDeleteItemActivity.TAG;
 public class CircleView extends View {
 
     private int mColor;
+    private int bgColor;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private static final int DEFAULT_SIZE = 200;
 
@@ -34,12 +32,8 @@ public class CircleView extends View {
         super(context, attrs, defStyleAttr);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleView, defStyleAttr, 0);
         mColor = array.getColor(R.styleable.CircleView_circle_color, Color.RED);
+        bgColor = array.getColor(R.styleable.CircleView_bg_color, Color.BLUE);
         array.recycle();
-        init();
-    }
-
-    private void init() {
-        mPaint.setColor(mColor);
     }
 
     @Override
@@ -71,7 +65,9 @@ public class CircleView extends View {
         int width = getWidth() - paddingLeft - paddingRight;
         int height = getHeight() - paddingTop - paddingBottom;
         int radius = Math.min(width, height) / 2;
-        Log.e(TAG, "onDraw: width=" + width + ",height=" + height);
+        mPaint.setColor(bgColor);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
+        mPaint.setColor(mColor);
         canvas.drawCircle(paddingLeft + width / 2, paddingTop + height / 2, radius, mPaint);
     }
 
