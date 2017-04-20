@@ -26,8 +26,24 @@
         <attr name="leftSlide" format="boolean"/>
     </declare-styleable>
     <attr name="SlideDeleteLayoutDefStyleAttr" format="reference"/>
+    <attr name="CustomView_Theme_Style" format="reference"/>
 
     <declare-styleable name="CustomView">
-        <attr name="text_color" format="color"/>
+        <!--颜色-->
+        <attr name="color" format="color"/>
+        <!--字体大小-->
+        <attr name="font" format="dimension"/>
+        <!--文字-->
+        <attr name="text" format="string"/>
+        <attr name="type" format="enum">
+            <enum name="common" value="1"/>
+            <enum name="material" value="2"/>
+        </attr>
+        <attr name="flag">
+            <flag name="flag1" value="0x01"/>
+            <flag name="flag2" value="0x02"/>
+            <flag name="flag4" value="0x04"/>
+        </attr>
     </declare-styleable>
+
 </resources>

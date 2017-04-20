@@ -2,14 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_custome_view"
+    android:id="@+id/rl_custome_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <com.hm.viewdemo.widget.CircleView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:circle_color="#0000ff"/>
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:horizontalSpacing="8dp"
+        android:scrollbars="none"
+        android:verticalSpacing="8dp"/>
 
 </RelativeLayout>

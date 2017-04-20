@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-         <item name="SlideDeleteLayoutDefStyleAttr">@style/SlideDeleteLayoutDefStyleAttrImpl</item>
+        <item name="CustomView_Theme_Style">@style/CustomView_Green_Style</item>
     </style>
 
     <style name="DefaultSlideDeleteLayout">
@@ -25,5 +25,19 @@
         <item name="iosStyle">true</item>
         <item name="leftSlide">false</item>
     </style>
+
+    <style name="CustomView_Yellow_Style">
+        <item name="color">#FFFF00</item>
+        <item name="text">hello yellow style</item>
+    </style>
+
+    <style name="CustomView_Green_Style">
+    </style>
+
+    <style name="CustomView_Red_Style">
+
+        <item name="text">hello red style</item>
+    </style>
+    <!-- <item name="color">#FF0000</item>-->
 
 </resources>
