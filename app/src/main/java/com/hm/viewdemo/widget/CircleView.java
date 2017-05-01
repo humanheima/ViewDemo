@@ -19,7 +19,6 @@ public class CircleView extends View {
     private int bgColor;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private static final int DEFAULT_SIZE = 200;
-
     public CircleView(Context context) {
         this(context, null);
     }
@@ -38,6 +37,7 @@ public class CircleView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
         int widthSpecModel = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
 
@@ -50,10 +50,9 @@ public class CircleView extends View {
             setMeasuredDimension(DEFAULT_SIZE, heightSpecSize);
         } else if (heightSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(widthSpecSize, DEFAULT_SIZE);
-        } else {
-            setMeasuredDimension(widthSpecSize, heightSpecSize);
         }
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
