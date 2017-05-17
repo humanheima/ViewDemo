@@ -3,6 +3,7 @@
           package="com.hm.viewdemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,14 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
-        </activity>
-        <activity android:name=".activity.HorizontalVerticalConflictActivity"/>
-        <activity android:name=".activity.CustomerViewActivity">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.HorizontalVerticalConflictActivity"/>
+        <activity android:name=".activity.CustomerViewActivity">
         </activity>
         <activity android:name=".activity.ExpandableListViewActivity"/>
         <activity android:name=".activity.VerticalVerticalActivity"/>
@@ -27,7 +28,8 @@
         <activity android:name=".activity.ConstraintActivity"/>
         <activity android:name=".activity.PercentLayoutActivity"/>
         <activity android:name=".activity.TestDragDeleteItemActivity">
-
+        </activity>
+        <activity android:name=".activity.AutoWrapTextViewActivity">
         </activity>
     </application>
 

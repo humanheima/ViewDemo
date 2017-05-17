@@ -64,4 +64,11 @@ public class ScreenUtil {
         Log.e(TAG, "getViewTop: " + top);
         return top;
     }
+
+    public static int dpToPx(Context context, int dpValue) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return (int) (displayMetrics.density * dpValue);
+    }
 }

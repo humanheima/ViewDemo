@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,54 +14,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="activity_horizontal_vertical_conflict"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"/>
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/btn_customer_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="自定义viewActivity" />
+            android:text="自定义viewActivity"
+            android:textAllCaps="false"/>
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/btn_expandable_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ExpandableListView" />
+            android:text="ExpandableListView"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_vertical_verticla_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="同一方向的滑动冲突" />
+            android:text="同一方向的滑动冲突"/>
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/btn_scrollview_recyclerview_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ScrollView 嵌套 RecyclerView" />
+            android:text="ScrollView 嵌套 RecyclerView"
+            android:textAllCaps="false"/>
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/btn_MaxHeightLayoutActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="popWindow设置最大高度" />
+            android:text="popWindow设置最大高度"
+            android:textAllCaps="false"/>
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/btn_bottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BottomSheet" />
+            android:text="BottomSheet"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ConstraintLayoutActivity"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_autowrap_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="左右对齐的TextView"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </ScrollView>
