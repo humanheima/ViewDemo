@@ -18,7 +18,7 @@ public class Images {
             "http://img.my.csdn.net/uploads/201309/01/1378037152_6352.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037151_9565.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037151_7904.jpg",
-          /*  "http://img.my.csdn.net/uploads/201309/01/1378037148_7104.jpg",
+            "http://img.my.csdn.net/uploads/201309/01/1378037148_7104.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037129_8825.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037128_5291.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037128_3531.jpg",
@@ -54,5 +54,5 @@ public class Images {
             "http://img.my.csdn.net/uploads/201308/31/1377949441_8987.jpg",
             "http://img.my.csdn.net/uploads/201308/31/1377949441_5454.jpg",
             "http://img.my.csdn.net/uploads/201308/31/1377949454_6367.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"*/};
+            "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"};
 }  

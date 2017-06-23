@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".activity.AutoWrapTextViewActivity">
         </activity>
+        <activity android:name=".activity.DragSlopLayoutActivity">
+        </activity>
     </application>
 
 </manifest>

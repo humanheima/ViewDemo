@@ -58,4 +58,10 @@
         </attr>
     </declare-styleable>
 
+    <!--网易新闻底部文字介绍布局-->
+    <declare-styleable name="DragSlopLayout">
+        <attr name="fix_height" format="dimension"/>
+        <attr name="max_height" format="dimension"/>
+    </declare-styleable>
+
 </resources>

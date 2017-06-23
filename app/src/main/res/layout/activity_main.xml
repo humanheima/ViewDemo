@@ -17,6 +17,13 @@
             android:textAllCaps="false"/>
 
         <Button
+            android:id="@+id/btn_drag_slop_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="仿网易新闻底部文字介绍布局"
+            android:textAllCaps="false"/>
+
+        <Button
             android:id="@+id/btn_customer_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
