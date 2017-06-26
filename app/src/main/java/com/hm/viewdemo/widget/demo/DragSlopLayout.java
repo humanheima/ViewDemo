@@ -1,15 +1,20 @@
 package com.hm.viewdemo.widget.demo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.ScrollerCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
@@ -40,6 +45,12 @@ public class DragSlopLayout extends FrameLayout {
     private View mAttachScrollView;
     // DragView的Top属性值
     private int mDragViewTop = 0;
+    // 回升滚动辅助类
+    private ScrollerCompat mDecelerateScroller;
+    // 整个布局高度
+    private int mHeight;
+    private ObjectAnimator drawViewOutAnimator;
+    private ObjectAnimator drawViewInAnimator;
 
     public DragSlopLayout(Context context) {
         this(context, null);
@@ -60,6 +71,7 @@ public class DragSlopLayout extends FrameLayout {
         mFixHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_fix_height, mFixHeight);
         mMaxHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_max_height, 0);
         a.recycle();
+        mDecelerateScroller = ScrollerCompat.create(context, new DecelerateInterpolator());
     }
 
     @Override
@@ -70,6 +82,12 @@ public class DragSlopLayout extends FrameLayout {
             throw new IllegalArgumentException("DragLayout must contains two sub-views.");
         }
         mDragView = getChildAt(1);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mHeight = h;
     }
 
     @Override
@@ -149,6 +167,39 @@ public class DragSlopLayout extends FrameLayout {
             mDragHelper.processTouchEvent(event);
         }
         return mIsDrag;
+    }
+
+    /**
+     * 滚出屏幕
+     *
+     * @param duration 时间
+     */
+    public void scrollOutScreen(int duration) {
+        Log.e(TAG, "scrollOutScreen");
+        drawViewOutAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", 0, mDragView.getHeight())
+                .setDuration(duration);
+        drawViewOutAnimator.start();
+    }
+
+    /**
+     * 滚进屏幕
+     *
+     * @param duration 时间
+     */
+    public void scrollInScreen(int duration) {
+        Log.e(TAG, "scrollInScreen");
+        drawViewInAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", mDragView.getHeight(), 0)
+                .setDuration(duration);
+        drawViewInAnimator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (drawViewOutAnimator != null && drawViewOutAnimator.isRunning())
+            drawViewOutAnimator.cancel();
+        if (drawViewInAnimator != null && drawViewInAnimator.isRunning())
+            drawViewInAnimator.cancel();
     }
 
     private ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {

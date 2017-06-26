@@ -1,9 +1,13 @@
 package com.hm.viewdemo.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,8 +32,6 @@ public class DragSlopLayoutActivity extends BaseActivity {
     DragSlopLayout dragSlopLayout;
     @BindView(R.id.text_drag_title)
     TextView textDragTitle;
-    @BindView(R.id.text_drag_number)
-    TextView textDragNumber;
     @BindView(R.id.text_drag_content)
     TextView textDragContent;
     @BindView(R.id.text_drag_press)
@@ -40,10 +42,36 @@ public class DragSlopLayoutActivity extends BaseActivity {
     RelativeLayout rlDragView;
     @BindView(R.id.scroll_view_drag_content)
     NestedScrollView scrollViewDragContent;
+    @BindView(R.id.img_back)
+    ImageView imgBack;
+    @BindView(R.id.rl_top)
+    RelativeLayout rlTop;
+    @BindView(R.id.text_hide_number_now)
+    TextView textHideNumberNow;
+    @BindView(R.id.text_hide_number_sum)
+    TextView textHideNumberSum;
+    @BindView(R.id.rl_hide)
+    RelativeLayout rlHide;
+    @BindView(R.id.text_now_number)
+    TextView textNowNumber;
+    @BindView(R.id.text_total_number)
+    TextView textTotalNumber;
 
     private List<String> imageList;
     private List<String> contentList;
     private AlbumAdapter adapter;
+
+    private ObjectAnimator rlTopOutAnimator;
+    private ObjectAnimator rlTopInAnimator;
+    private ObjectAnimator rlHideOutAnimator;
+    private ObjectAnimator rlHideInAnimator;
+
+    private float rlTopHeight;
+
+    private int rlHideHeight;
+
+    //点击隐藏顶部和文字介绍
+    private boolean clickToHide = true;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, DragSlopLayoutActivity.class);
@@ -68,17 +96,78 @@ public class DragSlopLayoutActivity extends BaseActivity {
         contentList.add(getString(R.string.MarkWahlberg));
         contentList.add(getString(R.string.WillSmith));
         contentList.add(getString(R.string.DenzelWashington));
-        adapter = new AlbumAdapter(this, imageList);
-        viewPager.setAdapter(adapter);
+        textTotalNumber.setText("/" + String.valueOf(contentList.size()));
+        textHideNumberSum.setText("/" + String.valueOf(contentList.size()));
+        textNowNumber.setText("1");
+        textHideNumberNow.setText("1");
+        rlTop.post(new Runnable() {
+            @Override
+            public void run() {
+                rlTopHeight = rlTop.getHeight();
+                rlTopOutAnimator = ObjectAnimator.ofFloat(rlTop, "translationY", 0, -rlTopHeight)
+                        .setDuration(400);
+                rlTopInAnimator = ObjectAnimator.ofFloat(rlTop, "translationY", -rlTopHeight, 0)
+                        .setDuration(400);
+            }
+        });
+        rlHide.post(new Runnable() {
+            @Override
+            public void run() {
+                rlHideHeight = rlHide.getHeight();
+                rlHide.setTranslationY(rlHideHeight);
+                rlHideInAnimator = ObjectAnimator.ofFloat(rlHide, "translationY", rlHideHeight, 0)
+                        .setDuration(400);
+                rlHideOutAnimator = ObjectAnimator.ofFloat(rlHide, "translationY", 0, rlHideHeight)
+                        .setDuration(400);
+            }
+        });
 
+        adapter = new AlbumAdapter(this, imageList);
+        adapter.setAlbumClickListener(new AlbumAdapter.AlbumClickListener() {
+            @Override
+            public void onAlbumClick() {
+                if (clickToHide) {
+                    clickToHide = false;
+                    rlTopOutAnimator.start();
+                    rlHideInAnimator.start();
+                    dragSlopLayout.scrollOutScreen(400);
+                    rlHide.setVisibility(View.VISIBLE);
+                } else {
+                    clickToHide = true;
+                    rlTopInAnimator.start();
+                    rlHideOutAnimator.start();
+                    dragSlopLayout.scrollInScreen(400);
+                    rlHide.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        viewPager.setAdapter(adapter);
         textDragContent.setText(contentList.get(0));
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 textDragContent.setText(contentList.get(position));
+                textNowNumber.setText(String.valueOf(position + 1));
+                textHideNumberNow.setText(String.valueOf(position + 1));
             }
         });
         dragSlopLayout.setAttachScrollView(scrollViewDragContent);
+        scrollViewDragContent.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.e(TAG, "scrollY=" + scrollY);
+            }
+        });
+    }
+
+    @Override
+    protected void bindEvent() {
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }
