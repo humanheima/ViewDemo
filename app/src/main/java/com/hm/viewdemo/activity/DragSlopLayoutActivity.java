@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.AlbumAdapter;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.util.Images;
-import com.hm.viewdemo.widget.DragSlopLayout;
+import com.hm.viewdemo.widget.demo.DragSlopLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,8 @@ public class DragSlopLayoutActivity extends BaseActivity {
     TextView textDragDate;
     @BindView(R.id.rl_drag_view)
     RelativeLayout rlDragView;
+    @BindView(R.id.scroll_view_drag_content)
+    NestedScrollView scrollViewDragContent;
 
     private List<String> imageList;
     private List<String> contentList;
@@ -59,8 +62,8 @@ public class DragSlopLayoutActivity extends BaseActivity {
         for (int i = 0; i < 6; i++) {
             imageList.add(Images.imageUrls[i]);
         }
-        contentList.add(getString(R.string.TomHardy));
         contentList.add(getString(R.string.news_content));
+        contentList.add(getString(R.string.TomHardy));
         contentList.add(getString(R.string.ChristianBale));
         contentList.add(getString(R.string.MarkWahlberg));
         contentList.add(getString(R.string.WillSmith));
@@ -72,9 +75,11 @@ public class DragSlopLayoutActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                dragSlopLayout.setmDragStatus(DragSlopLayout.STATUS_COLLAPSED);
                 textDragContent.setText(contentList.get(position));
             }
         });
+        dragSlopLayout.setAttachScrollView(scrollViewDragContent);
     }
 
 }

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -24,13 +25,17 @@ public class DragSlopLayout extends FrameLayout {
     private int DEFAULT_FIX_HEIGHT;
     private int DEFAULT_MAX_HEIGHT;
 
-    //向上拉的时候最高的高度
+    // 拖拽模式的临界Top值
+    private int mCriticalTop;
+    //可拖拽布局达到的最高高度
     private int maxHeight;
     //底部固定高度
     private int fixHeight;
     //拖动
+    //可拖动视图
+    private View dragView;
     private ViewDragHelper viewDragHelper;
-    private ViewDragHelper.Callback callback;
+
 
     public DragSlopLayout(@NonNull Context context) {
         this(context, null);
@@ -43,6 +48,7 @@ public class DragSlopLayout extends FrameLayout {
     public DragSlopLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initCustomAttrs(context, attrs, defStyleAttr);
+        initViewDragHelper();
     }
 
     private void initCustomAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -55,6 +61,10 @@ public class DragSlopLayout extends FrameLayout {
         ta.recycle();
     }
 
+    private void initViewDragHelper() {
+        viewDragHelper = ViewDragHelper.create(this, 1.0f, callback);
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -62,6 +72,7 @@ public class DragSlopLayout extends FrameLayout {
         if (childCount != 1) {
             throw new IllegalArgumentException("DragLayout must contains only one childView");
         }
+        dragView = getChildAt(0);
     }
 
     @Override
@@ -101,4 +112,37 @@ public class DragSlopLayout extends FrameLayout {
         //childView放置在父布局的底部
         childView.layout(lp.leftMargin, childTop, lp.leftMargin + childWidth, childTop + childHeight);
     }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        super.onInterceptTouchEvent(ev);
+        return viewDragHelper.shouldInterceptTouchEvent(ev);
+    }
+
+    private boolean needIntercept(MotionEvent ev) {
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        viewDragHelper.processTouchEvent(event);
+        return true;
+    }
+
+    private ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
+        @Override
+        public boolean tryCaptureView(View child, int pointerId) {
+            //只有dragView可拖动
+            return dragView == child;
+        }
+
+        @Override
+        public int clampViewPositionVertical(View child, int top, int dy) {
+            //top表示child最上边的移动范围
+            int topBound = maxHeight;
+            int bottomBound = getHeight() - getPaddingBottom() - child.getHeight();//下边界为VDHLayout的高度减去bottomPadding再减去child的高度
+            top = Math.min(Math.max(top, topBound), bottomBound);
+            return top;
+        }
+    };
 }
