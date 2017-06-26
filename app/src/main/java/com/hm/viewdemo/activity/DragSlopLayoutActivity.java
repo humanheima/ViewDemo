@@ -75,7 +75,6 @@ public class DragSlopLayoutActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                dragSlopLayout.setmDragStatus(DragSlopLayout.STATUS_COLLAPSED);
                 textDragContent.setText(contentList.get(position));
             }
         });

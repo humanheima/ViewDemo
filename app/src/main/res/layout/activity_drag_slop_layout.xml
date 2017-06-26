@@ -66,7 +66,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text_drag_content"
-                        android:layout_margin="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
                         android:text="网易新闻"
                         android:textColor="#ffffff"/>
 
