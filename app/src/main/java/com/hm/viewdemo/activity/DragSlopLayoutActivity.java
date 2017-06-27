@@ -15,7 +15,7 @@ import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.AlbumAdapter;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.util.Images;
-import com.hm.viewdemo.widget.demo.DragSlopLayout;
+import com.hm.viewdemo.widget.DragSlopLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +30,15 @@ public class DragSlopLayoutActivity extends BaseActivity {
     ViewPager viewPager;
     @BindView(R.id.drag_slop_layout)
     DragSlopLayout dragSlopLayout;
-    @BindView(R.id.text_drag_title)
+    @BindView(R.id.text_title)
     TextView textDragTitle;
-    @BindView(R.id.text_drag_content)
+    @BindView(R.id.text_content)
     TextView textDragContent;
-    @BindView(R.id.text_drag_press)
+    @BindView(R.id.text_press)
     TextView textDragPress;
-    @BindView(R.id.text_drag_date)
+    @BindView(R.id.text_date)
     TextView textDragDate;
-    @BindView(R.id.rl_drag_view)
-    RelativeLayout rlDragView;
-    @BindView(R.id.scroll_view_drag_content)
+    @BindView(R.id.nested_scroll_view)
     NestedScrollView scrollViewDragContent;
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -52,9 +50,9 @@ public class DragSlopLayoutActivity extends BaseActivity {
     TextView textHideNumberSum;
     @BindView(R.id.rl_hide)
     RelativeLayout rlHide;
-    @BindView(R.id.text_now_number)
+    @BindView(R.id.text_number_now)
     TextView textNowNumber;
-    @BindView(R.id.text_total_number)
+    @BindView(R.id.text_number_sum)
     TextView textTotalNumber;
 
     private List<String> imageList;
@@ -155,6 +153,7 @@ public class DragSlopLayoutActivity extends BaseActivity {
         scrollViewDragContent.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //向上滑动scrollY是正值
                 Log.e(TAG, "scrollY=" + scrollY);
             }
         });

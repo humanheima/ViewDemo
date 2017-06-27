@@ -1,148 +1,283 @@
 package com.hm.viewdemo.widget;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.util.ScreenUtil;
 
 /**
- * Created by dumingwei on 2017/6/23.
- * 仿网易新闻底部文字介绍布局
+ * Created by long on 2016/9/6.
+ * 实现拖拽出界外的布局
+ * 链接 https://github.com/Rukey7/DragSlopLayout
  */
 public class DragSlopLayout extends FrameLayout {
 
     private static final String TAG = "DragSlopLayout";
+    // 固定高度
+    private int mFixHeight;
+    // 最大高度
+    private int mMaxHeight;
+    // 拖拽模式的展开状态Top值
+    private int mExpandedTop;
+    // 拖拽模式的收缩状态Top值
+    private int mCollapsedTop;
+    // 是否处于拖拽状态
+    private boolean mIsDrag = false;
+    // 可拖拽的视图，为布局的第2个子视图
+    private View mDragView;
+    // 拖拽帮助类
+    private ViewDragHelper mDragHelper;
+    // 关联的 ScrollView，实现垂直方向的平滑滚动
+    private View mAttachScrollView;
+    // DragView的Top属性值
+    private int mDragViewTop = 0;
+    // 回升滚动辅助类
+    private ObjectAnimator dragOutAnimator;
+    private ObjectAnimator dragInAnimator;
 
-    private int DEFAULT_FIX_HEIGHT;
-    private int DEFAULT_MAX_HEIGHT;
-
-    // 拖拽模式的临界Top值
-    private int mCriticalTop;
-    //可拖拽布局达到的最高高度
-    private int maxHeight;
-    //底部固定高度
-    private int fixHeight;
-    //拖动
-    //可拖动视图
-    private View dragView;
-    private ViewDragHelper viewDragHelper;
-
-
-    public DragSlopLayout(@NonNull Context context) {
+    public DragSlopLayout(Context context) {
         this(context, null);
     }
 
-    public DragSlopLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+    public DragSlopLayout(Context context, AttributeSet attrs) {
+        this(context, attrs, -1);
     }
 
-    public DragSlopLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public DragSlopLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initCustomAttrs(context, attrs, defStyleAttr);
-        initViewDragHelper();
+        init(context, attrs, defStyleAttr);
     }
 
-    private void initCustomAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DragSlopLayout, defStyleAttr, 0);
-        //默认140dp
-        DEFAULT_FIX_HEIGHT = ScreenUtil.dpToPx(context, 140);
-        DEFAULT_MAX_HEIGHT = ScreenUtil.dpToPx(context, 200);
-        fixHeight = ta.getDimensionPixelOffset(R.styleable.DragSlopLayout_fix_height, DEFAULT_FIX_HEIGHT);
-        maxHeight = ta.getDimensionPixelOffset(R.styleable.DragSlopLayout_max_height, DEFAULT_MAX_HEIGHT);
-        ta.recycle();
-    }
-
-    private void initViewDragHelper() {
-        viewDragHelper = ViewDragHelper.create(this, 1.0f, callback);
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+        mDragHelper = ViewDragHelper.create(this, 1.0f, callback);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DragSlopLayout, defStyleAttr, 0);
+        mFixHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_fix_height, ScreenUtil.dpToPx(context, 180));
+        mMaxHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_max_height, ScreenUtil.dpToPx(context, 260));
+        a.recycle();
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         int childCount = getChildCount();
-        if (childCount != 1) {
-            throw new IllegalArgumentException("DragLayout must contains only one childView");
+        if (childCount < 2) {
+            throw new IllegalArgumentException("DragLayout must contains two sub-views.");
         }
-        dragView = getChildAt(0);
+        mDragView = getChildAt(1);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (fixHeight < DEFAULT_FIX_HEIGHT) {
-            fixHeight = DEFAULT_FIX_HEIGHT;
+        Log.e(TAG, "onMeasure");
+        if (mMaxHeight > getMeasuredHeight()) {
+            // MODE_DRAG 模式最大高度不超过布局高度
+            mMaxHeight = getMeasuredHeight();
         }
-        if (maxHeight < DEFAULT_MAX_HEIGHT) {
-            maxHeight = DEFAULT_MAX_HEIGHT;
-        }
-        View childView = getChildAt(0);
+        View childView = getChildAt(1);
         MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
         int childWidth = childView.getMeasuredWidth();
         int childHeight = childView.getMeasuredHeight();
         // 限定视图的最大高度
-        if (childHeight > maxHeight) {
+        if (childHeight > mMaxHeight) {
             childView.measure(MeasureSpec.makeMeasureSpec(childWidth - lp.leftMargin - lp.rightMargin, MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(maxHeight - lp.topMargin - lp.bottomMargin, MeasureSpec.EXACTLY));
+                    MeasureSpec.makeMeasureSpec(mMaxHeight - lp.topMargin - lp.bottomMargin, MeasureSpec.EXACTLY));
         }
-        //限定视图最小高度，必须大于等于fix_height
-        if (childHeight < fixHeight) {
+        //限定视图最小高度
+        if (childHeight < mFixHeight) {
             childView.measure(MeasureSpec.makeMeasureSpec(childWidth - lp.leftMargin - lp.rightMargin, MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(fixHeight, MeasureSpec.EXACTLY));
+                    MeasureSpec.makeMeasureSpec(mFixHeight - lp.topMargin - lp.bottomMargin, MeasureSpec.EXACTLY));
         }
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        //如果测量高度measuredHeight大于fixHeight,则应该设置translationX属性，向下偏移
-        View childView = getChildAt(0);
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        Log.e(TAG, "onLayout");
+        View childView = getChildAt(1);
         MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
         int childWidth = childView.getMeasuredWidth();
         int childHeight = childView.getMeasuredHeight();
-        int childTop = bottom - fixHeight;
-        //childView放置在父布局的底部
-        childView.layout(lp.leftMargin, childTop, lp.leftMargin + childWidth, childTop + childHeight);
+        mExpandedTop = b - childHeight;
+        //向下滑动时最小高度为固定高度
+        mCollapsedTop = b - mFixHeight;
+        //可拖拽view的top属性设为固定高度
+        mDragViewTop = b - mFixHeight;
+        if (mAttachScrollView != null)
+            mAttachScrollView.scrollTo(0, 0);
+        childView.layout(lp.leftMargin, mDragViewTop, lp.leftMargin + childWidth, mDragViewTop + childHeight);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (MotionEventCompat.getActionMasked(ev)) {
+            //手抬起mIsDrag置为false
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                mIsDrag = false;
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        // 调用父类的方法，避免可能出现的 IllegalArgumentException: pointerIndex out of range
         super.onInterceptTouchEvent(ev);
-        return viewDragHelper.shouldInterceptTouchEvent(ev);
-    }
-
-    private boolean needIntercept(MotionEvent ev) {
-        return false;
+        boolean isIntercept = mDragHelper.shouldInterceptTouchEvent(ev);
+        if (isNeedIntercept(ev)) {
+            isIntercept = true;
+        }
+        return isIntercept;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        viewDragHelper.processTouchEvent(event);
-        return true;
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN && (
+                mDragHelper.isViewUnder(mDragView, (int) event.getX(), (int) event.getY()))) {
+            //当触摸点在dragView范围之内，把mIsDrag置为true
+            Log.e(TAG, "onTouchEvent MotionEvent.ACTION_DOWN");
+            mIsDrag = true;
+        } else {
+            mDragHelper.processTouchEvent(event);
+        }
+        return mIsDrag;
+    }
+
+    /**
+     * 滚出屏幕
+     *
+     * @param duration 时间
+     */
+    public void scrollOutScreen(int duration) {
+        Log.e(TAG, "scrollOutScreen");
+        if (dragOutAnimator == null) {
+            dragOutAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", 0, mDragView.getHeight())
+                    .setDuration(duration);
+        }
+        dragOutAnimator.start();
+    }
+
+    /**
+     * 滚进屏幕
+     *
+     * @param duration 时间
+     */
+    public void scrollInScreen(int duration) {
+        Log.e(TAG, "scrollInScreen");
+        if (dragInAnimator == null) {
+            dragInAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", mDragView.getHeight(), 0)
+                    .setDuration(duration);
+        }
+        dragInAnimator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (dragOutAnimator != null && dragOutAnimator.isRunning())
+            dragOutAnimator.cancel();
+        if (dragInAnimator != null && dragInAnimator.isRunning())
+            dragInAnimator.cancel();
     }
 
     private ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
+
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            //只有dragView可拖动
-            return dragView == child;
+            //只有mDragView才可以拖动
+            return child == mDragView;
         }
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            //top表示child最上边的移动范围
-            int topBound = maxHeight;
-            int bottomBound = getHeight() - getPaddingBottom() - child.getHeight();//下边界为VDHLayout的高度减去bottomPadding再减去child的高度
-            top = Math.min(Math.max(top, topBound), bottomBound);
-            return top;
+            if (mAttachScrollView != null) {
+                /**
+                 * mAttachScrollView.getScrollY() > 0 ： 如果mAttachScrollView向上滚动了，那么向下拖动的时候，先让mAttachScrollView滚动到初始位置
+                 * (mDragView.getTop() == mExpandedTop && dy < 0) ：当向上拖动mDragView到了最高的高度后继续向上拖动，就让ScrollView向上滚动，
+                 */
+                if (mAttachScrollView.getScrollY() > 0 || (mDragView.getTop() == mExpandedTop && dy < 0)) {
+                    mAttachScrollView.scrollBy(0, -dy);
+                    return mExpandedTop;
+                }
+            }
+            int newTop = Math.max(mExpandedTop, top);
+            newTop = Math.min(mCollapsedTop, newTop);
+            return newTop;
+        }
+
+        @Override
+        public int getViewVerticalDragRange(View child) {
+            //可拖动范围是mDragView的高度
+            return child == mDragView ? child.getHeight() : 0;
         }
     };
+
+    @Override
+    public void computeScroll() {
+        if (mDragHelper.continueSettling(true)) {
+            invalidate();
+        }
+    }
+
+    /*********************************** ScrollView ********************************************/
+
+    /**
+     * 设置关联的 ScrollView 如果有的话，目前只支持 ScrollView 和 NestedScrollView 及其自视图
+     *
+     * @param attachScrollView ScrollView or NestedScrollView
+     */
+    public void setAttachScrollView(View attachScrollView) {
+        if (!isScrollView(attachScrollView)) {
+            throw new IllegalArgumentException("The view must be ScrollView or NestedScrollView.");
+        }
+        mAttachScrollView = attachScrollView;
+    }
+
+    private boolean isNeedIntercept(MotionEvent ev) {
+        if (mAttachScrollView == null) {
+            return false;
+        }
+        int y = (int) ev.getY() - mDragView.getTop();
+        Log.e(TAG, "isNeedIntercept y=" + y + ",mAttachScrollView.getTop()=" + mAttachScrollView.getTop());
+        //如果拖拽的区域是关联的ScrollView的区域，拦截事件
+        if (mDragHelper.isViewUnder(mAttachScrollView, (int) ev.getX(), y)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断视图是否为 ScrollView or NestedScrollView 或它的子类
+     *
+     * @param view View
+     * @return
+     */
+    private boolean isScrollView(View view) {
+        boolean isScrollView = false;
+        if (view instanceof ScrollView || view instanceof NestedScrollView) {
+            isScrollView = true;
+        } else {
+            ViewParent parent = view.getParent();
+            while (parent != null) {
+                if (parent instanceof ScrollView || parent instanceof NestedScrollView) {
+                    isScrollView = true;
+                    break;
+                }
+            }
+        }
+        return isScrollView;
+    }
 }
