@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".activity.ViewDragHelperActivity">
         </activity>
+        <activity android:name=".activity.PullToRefreshActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -84,5 +84,12 @@
             android:layout_height="wrap_content"
             android:text="左右对齐的TextView"
             android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_pullrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下拉刷新上拉加载"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </ScrollView>

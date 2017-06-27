@@ -1,1 +1,1 @@
-include ':app', ':slidedeletelayout'
+include ':app', ':slidedeletelayout', ':pullrefresh', ':library'

@@ -18,11 +18,14 @@ import butterknife.ButterKnife;
 /**
  * Created by dumingwei on 2017/3/12.
  */
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.VH> {
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> dataList;
     private Context context;
     private OnItemClickListener onItemClickListener;
+    private View footerView;
+    protected static final int NORMAL_TYPE = 100;
+    protected static final int FOOT_VIEW_TYPE = 200;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -34,28 +37,73 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_recycler_view, parent, false);
-        return new VH(view);
+    public int getItemCount() {
+        if (footerView != null)
+            return dataList.size() + 1;
+        return dataList.size();
     }
 
     @Override
-    public void onBindViewHolder(final VH holder, final int position) {
-        holder.text1.setText(dataList.get(position));
-        if (onItemClickListener != null) {
-            holder.text1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(v, holder.getAdapterPosition());
-                }
-            });
+    public int getItemViewType(int position) {
+        if (footerView != null && position >= getItemCount() - 1) {
+            return FOOT_VIEW_TYPE;
+        }
+        return NORMAL_TYPE;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == FOOT_VIEW_TYPE) {
+            return new SpecialHolder(footerView);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_recycler_view, parent, false);
+            return new VH(view);
         }
     }
 
     @Override
-    public int getItemCount() {
-        return dataList.size();
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof VH) {
+            ((VH) holder).text1.setText(dataList.get(position));
+            if (onItemClickListener != null) {
+                ((VH) holder).text1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemClick(v, holder.getAdapterPosition());
+                    }
+                });
+            }
+        }
     }
+
+    /**
+     * 添加底部
+     *
+     * @param view
+     */
+    public void addFooterView(View view) {
+        if (view == null) {
+            throw new NullPointerException("FooterView is null!");
+        }
+        if (footerView != null) {
+            return;
+        }
+        footerView = view;
+        footerView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT));
+        notifyItemInserted(getItemCount());
+    }
+
+    /**
+     * 移除底部View
+     */
+    public void removeFooterView() {
+        if (footerView != null) {
+            footerView = null;
+            notifyItemRemoved(getItemCount());
+        }
+    }
+
 
     static class VH extends RecyclerView.ViewHolder {
 
@@ -65,6 +113,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public VH(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    static class SpecialHolder extends RecyclerView.ViewHolder {
+
+        public SpecialHolder(View itemView) {
+            super(itemView);
         }
     }
 
