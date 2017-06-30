@@ -164,7 +164,7 @@ public class DragSlopLayout extends FrameLayout {
     public void scrollOutScreen(int duration) {
         Log.e(TAG, "scrollOutScreen");
         if (dragOutAnimator == null) {
-            dragOutAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", 0, mDragView.getHeight())
+            dragOutAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", 0, mMaxHeight)
                     .setDuration(duration);
         }
         dragOutAnimator.start();
@@ -178,7 +178,7 @@ public class DragSlopLayout extends FrameLayout {
     public void scrollInScreen(int duration) {
         Log.e(TAG, "scrollInScreen");
         if (dragInAnimator == null) {
-            dragInAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", mDragView.getHeight(), 0)
+            dragInAnimator = ObjectAnimator.ofFloat(mDragView, "translationY", mMaxHeight, 0)
                     .setDuration(duration);
         }
         dragInAnimator.start();

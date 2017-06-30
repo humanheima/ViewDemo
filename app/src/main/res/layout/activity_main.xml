@@ -91,5 +91,12 @@
             android:layout_height="wrap_content"
             android:text="下拉刷新上拉加载"
             android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="spannable的使用"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </ScrollView>

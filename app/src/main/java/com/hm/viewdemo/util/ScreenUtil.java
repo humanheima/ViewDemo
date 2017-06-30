@@ -71,4 +71,11 @@ public class ScreenUtil {
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return (int) (displayMetrics.density * dpValue);
     }
+
+    public static int spToPx(Context context, int dpValue) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return (int) (displayMetrics.scaledDensity * dpValue);
+    }
 }
