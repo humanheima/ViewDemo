@@ -128,12 +128,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        final T refreshableView = getRefreshableView();
         if (DEBUG) {
+            Log.d(LOG_TAG, "addView:" + refreshableView.getClass().getSimpleName());
             Log.d(LOG_TAG, "addView: " + child.getClass().getSimpleName());
         }
-
-        final T refreshableView = getRefreshableView();
-
         if (refreshableView instanceof ViewGroup) {
             ((ViewGroup) refreshableView).addView(child, index, params);
         } else {
@@ -143,6 +142,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     @Override
     public final boolean demo() {
+        Log.d(LOG_TAG, "demo");
         if (mMode.showHeaderLoadingLayout() && isReadyForPullStart()) {
             smoothScrollToAndBack(-getHeaderSize() * 2);
             return true;
@@ -241,7 +241,14 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         }
 
         switch (action) {
-            case MotionEvent.ACTION_MOVE: {
+            case MotionEvent.ACTION_DOWN:
+                if (isReadyForPull()) {
+                    mLastMotionY = mInitialMotionY = event.getY();
+                    mLastMotionX = mInitialMotionX = event.getX();
+                    mIsBeingDragged = false;
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
                 // If we're refreshing, and the flag is set. Eat all MOVE events
                 if (!mScrollingWhileRefreshingEnabled && isRefreshing()) {
                     return true;
@@ -283,17 +290,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
                             }
                         }
                     }
+                    break;
                 }
-                break;
-            }
-            case MotionEvent.ACTION_DOWN: {
-                if (isReadyForPull()) {
-                    mLastMotionY = mInitialMotionY = event.getY();
-                    mLastMotionX = mInitialMotionX = event.getX();
-                    mIsBeingDragged = false;
-                }
-                break;
-            }
+
         }
 
         return mIsBeingDragged;
@@ -734,23 +733,31 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
         if (doScroll) {
             if (mShowViewWhileRefreshing) {
-
                 // Call Refresh Listener when the Scroll has finished
-                OnSmoothScrollFinishedListener listener = new OnSmoothScrollFinishedListener() {
+                final OnSmoothScrollFinishedListener listener = new OnSmoothScrollFinishedListener() {
                     @Override
                     public void onSmoothScrollFinished() {
                         callRefreshListener();
                     }
                 };
-
                 switch (mCurrentMode) {
                     case MANUAL_REFRESH_ONLY:
                     case PULL_FROM_END:
-                        smoothScrollTo(getFooterSize(), listener);
+                        mHeaderLayout.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                smoothScrollTo(getFooterSize(), listener);
+                            }
+                        });
                         break;
                     default:
                     case PULL_FROM_START:
-                        smoothScrollTo(-getHeaderSize(), listener);
+                        mHeaderLayout.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                smoothScrollTo(-getHeaderSize(), listener);
+                            }
+                        });
                         break;
                 }
             } else {
@@ -1260,7 +1267,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
                 oldScrollValue = getScrollY();
                 break;
         }
-
+        Log.e(LOG_TAG, "oldScrollValue==" + oldScrollValue + ",newScrollValue==" + newScrollValue);
         if (oldScrollValue != newScrollValue) {
             if (null == mScrollAnimationInterpolator) {
                 // Default interpolator is a Decelerate Interpolator
@@ -1269,8 +1276,10 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
             mCurrentSmoothScrollRunnable = new SmoothScrollRunnable(oldScrollValue, newScrollValue, duration, listener);
 
             if (delayMillis > 0) {
+                Log.e(LOG_TAG, "thread name " + Thread.currentThread().getName());
                 postDelayed(mCurrentSmoothScrollRunnable, delayMillis);
             } else {
+                Log.e(LOG_TAG, "thread name " + Thread.currentThread().getName());
                 post(mCurrentSmoothScrollRunnable);
             }
         }
@@ -1635,6 +1644,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
                 ViewCompat.postOnAnimation(PullToRefreshBase.this, this);
             } else {
                 if (null != mListener) {
+                    Log.d(LOG_TAG, "SmoothScrollRunnable:" + Thread.currentThread().getName());
                     mListener.onSmoothScrollFinished();
                 }
             }

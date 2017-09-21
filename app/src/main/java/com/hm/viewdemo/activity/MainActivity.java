@@ -1,28 +1,29 @@
 package com.hm.viewdemo.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.base.BaseActivity;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    protected int bindLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initData() {
     }
 
     @OnClick({R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
             R.id.btn_vertical_verticla_activity, R.id.btn_scrollview_recyclerview_activity,
             R.id.btn_MaxHeightLayoutActivity, R.id.btn_bottomSheet, R.id.btn_constraint_layout,
             R.id.btn_autowrap_textview, R.id.btn_drag_slop_layout, R.id.btn_view_drag_helper,
-            R.id.btn_pullrefresh, R.id.btn_textview})
+            R.id.btn_pullrefresh, R.id.btn_textview, R.id.btn_histogram_view, R.id.btn_test_fudan,
+            R.id.btn_show_loading})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_horizontal_vertical_conflict:
@@ -63,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_textview:
                 TextViewActivity.launch(this);
+                break;
+            case R.id.btn_histogram_view:
+                MpAndroidChartActivity.launch(this);
+                break;
+            case R.id.btn_test_fudan:
+                TestFuDanActivity.launch(this);
+                break;
+            case R.id.btn_show_loading:
+                LoadingDialogActivity.launch(this);
                 break;
             default:
                 break;

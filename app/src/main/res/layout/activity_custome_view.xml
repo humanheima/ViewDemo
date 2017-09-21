@@ -4,16 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_custome_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <com.hm.viewdemo.widget.CircleView
-        android:layout_width="200dp"
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        android:padding="40dp"
-        app:bg_color="@color/colorPrimary"
-        app:circle_color="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"/>
+
+    <com.hm.viewdemo.widget.RoundView
+        android:layout_width="match_parent"
+        android:layout_height="12dp"/>
 
 
 </RelativeLayout>

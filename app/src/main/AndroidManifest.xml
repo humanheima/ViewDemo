@@ -39,6 +39,12 @@
         </activity>
         <activity android:name=".activity.TextViewActivity">
         </activity>
+        <activity android:name=".activity.MpAndroidChartActivity">
+        </activity>
+        <activity android:name=".activity.TestFuDanActivity">
+        </activity>
+        <activity android:name=".activity.LoadingDialogActivity">
+        </activity>
     </application>
 
 </manifest>

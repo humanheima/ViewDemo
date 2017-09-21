@@ -98,5 +98,27 @@
             android:layout_height="wrap_content"
             android:text="spannable的使用"
             android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_histogram_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="简单的柱状显示"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_test_fudan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试复旦的动画"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_show_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试LoadingDialog"
+            android:textAllCaps="false"/>
+
     </LinearLayout>
 </ScrollView>
