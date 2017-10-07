@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
             R.id.btn_MaxHeightLayoutActivity, R.id.btn_bottomSheet, R.id.btn_constraint_layout,
             R.id.btn_autowrap_textview, R.id.btn_drag_slop_layout, R.id.btn_view_drag_helper,
             R.id.btn_pullrefresh, R.id.btn_textview, R.id.btn_histogram_view, R.id.btn_test_fudan,
-            R.id.btn_show_loading})
+            R.id.btn_show_loading,R.id.btn_event_dispatch})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_horizontal_vertical_conflict:
@@ -73,6 +73,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_show_loading:
                 LoadingDialogActivity.launch(this);
+                break;
+            case R.id.btn_event_dispatch:
+                EventDispatchActivity.launch(this);
                 break;
             default:
                 break;

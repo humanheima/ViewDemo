@@ -34,7 +34,7 @@
                 android:max="100"
                 android:progressDrawable="@drawable/progress_horizontal_stars"/>-->
 
-            <!--<ProgressBar
+           <!-- <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="275dp"
                 android:layout_height="100dp"
@@ -42,8 +42,7 @@
                 android:layout_marginTop="8dp"
                 android:indeterminateOnly="false"
                 android:max="100"
-                android:progressDrawable="@drawable/bg_loading_text"/>
--->
+                android:progressDrawable="@drawable/bg_loading_text"/>-->
             <TextView
                 android:id="@+id/text_progress"
                 android:layout_width="wrap_content"

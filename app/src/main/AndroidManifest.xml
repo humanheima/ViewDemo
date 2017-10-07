@@ -45,6 +45,8 @@
         </activity>
         <activity android:name=".activity.LoadingDialogActivity">
         </activity>
+        <activity android:name=".activity.EventDispatchActivity">
+        </activity>
     </application>
 
 </manifest>

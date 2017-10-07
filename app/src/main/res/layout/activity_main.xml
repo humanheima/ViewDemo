@@ -120,5 +120,12 @@
             android:text="测试LoadingDialog"
             android:textAllCaps="false"/>
 
+        <Button
+            android:id="@+id/btn_event_dispatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试事件分发机制"
+            android:textAllCaps="false"/>
+
     </LinearLayout>
 </ScrollView>
