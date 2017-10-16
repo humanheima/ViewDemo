@@ -21,7 +21,6 @@ public class EventDispatchActivity extends BaseActivity {
 
     private EventDispatchButton btnTestEvent;
     private MyHandler handler;
-    private ThreadLocal<String>threadLocal;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, EventDispatchActivity.class);
@@ -35,6 +34,7 @@ public class EventDispatchActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        handler = new MyHandler(this);
         btnTestEvent = (EventDispatchButton) findViewById(R.id.btn_touch_event);
         btnTestEvent.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -43,6 +43,9 @@ public class EventDispatchActivity extends BaseActivity {
                     case MotionEvent.ACTION_DOWN:
                         /**
                          * 当前view 在down事件中返回了false,view依然可以收到move事件
+                         * 因为onTouch方法返回false以后，View的onTouchEvent会被调用，这里会进行判断
+                         * 如果 View是 CLICKABLE 或者 LONG_CLICKABLE 那么 CONTEXT_CLICKABLE 的话，
+                         * onTouchEvent返回true
                          */
                         Log.d(TAG, "onTouch MotionEvent.ACTION_DOWN 方法返回false");
                         return false;
@@ -74,18 +77,35 @@ public class EventDispatchActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e(TAG, "Activity dispatchTouchEvent");
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.e(TAG, "Activity onTouchEvent");
+        return super.onTouchEvent(event);
+    }
+
+    public void testHandler() {
+        Log.e(TAG, "testHandler");
+    }
+
+
     private static class MyHandler extends Handler {
 
         private WeakReference<EventDispatchActivity> weakReference;
 
         public MyHandler(EventDispatchActivity activity) {
-            weakReference = new WeakReference<EventDispatchActivity>(activity);
+            weakReference = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
             EventDispatchActivity activity = weakReference.get();
-            super.handleMessage(msg);
+            activity.testHandler();
         }
     }
 }

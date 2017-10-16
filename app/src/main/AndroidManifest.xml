@@ -47,6 +47,8 @@
         </activity>
         <activity android:name=".activity.EventDispatchActivity">
         </activity>
+        <activity android:name=".activity.ViewStubActivity">
+        </activity>
     </application>
 
 </manifest>

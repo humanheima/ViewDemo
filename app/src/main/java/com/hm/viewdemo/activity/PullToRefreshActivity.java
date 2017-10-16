@@ -8,8 +8,9 @@ import android.view.View;
 
 import com.brotherd.pullrefresh.PullToRefreshBase;
 import com.hm.viewdemo.R;
-import com.hm.viewdemo.adapter.RecycleViewAdapter;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.base.CommonViewHolder;
+import com.hm.viewdemo.base.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,11 @@ public class PullToRefreshActivity extends BaseActivity {
     @BindView(R.id.pr_recycler_view)
     com.brotherd.pullrefresh.PullToRefreshRecyclerView prRecyclerView;
     private RecyclerView recyclerView;
-    private RecycleViewAdapter adapter;
+    //private RecycleViewAdapter adapter;
     private List<String> dataList;
     private int page = 1;
     private View loadAllView;
+    private CommonAdapter<String> adapter1;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, PullToRefreshActivity.class);
@@ -42,10 +44,19 @@ public class PullToRefreshActivity extends BaseActivity {
         recyclerView = prRecyclerView.getRefreshableView();
         loadAllView = getLayoutInflater().inflate(R.layout.item_load_all, null);
         dataList = new ArrayList<>();
-        LinearLayoutManager l = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(l);
-        adapter = new RecycleViewAdapter(dataList, this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter1 = new CommonAdapter<String>(this, dataList) {
+            @Override
+            public void bindViewHolder(CommonViewHolder holder, String s, int position) {
+                holder.setTextViewText(R.id.text1, s);
+            }
+
+            @Override
+            public int getHolderType(int position, String s) {
+                return R.layout.item_recycler_view;
+            }
+        };
+        recyclerView.setAdapter(adapter1);
     }
 
     @Override
@@ -57,15 +68,15 @@ public class PullToRefreshActivity extends BaseActivity {
                     @Override
                     public void run() {
                         prRecyclerView.onRefreshComplete();
-                        if (adapter != null)
-                            adapter.removeFooterView();
+                        if (adapter1 != null)
+                            adapter1.removeFooterView();
                         prRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
                         page = 1;
                         dataList.clear();
                         for (int i = 0; i < 20; i++) {
                             dataList.add("String" + i);
                         }
-                        adapter.notifyDataSetChanged();
+                        adapter1.notifyDataSetChanged();
                     }
                 }, 2000);
             }
@@ -81,10 +92,10 @@ public class PullToRefreshActivity extends BaseActivity {
                                 dataList.add("string" + i);
                             }
                             page++;
-                            adapter.notifyDataSetChanged();
+                            adapter1.notifyDataSetChanged();
                         } else {
                             prRecyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                            adapter.addFooterView(loadAllView);
+                            adapter1.addFooterView(loadAllView);
                         }
                     }
                 }, 2000);
