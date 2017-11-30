@@ -18,12 +18,12 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
     }
 
-    @OnClick({R.id.btn_view_stub,R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
+    @OnClick({R.id.btn_view_stub, R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
             R.id.btn_vertical_verticla_activity, R.id.btn_scrollview_recyclerview_activity,
             R.id.btn_MaxHeightLayoutActivity, R.id.btn_bottomSheet, R.id.btn_constraint_layout,
             R.id.btn_autowrap_textview, R.id.btn_drag_slop_layout, R.id.btn_view_drag_helper,
             R.id.btn_pullrefresh, R.id.btn_textview, R.id.btn_histogram_view, R.id.btn_test_fudan,
-            R.id.btn_show_loading,R.id.btn_event_dispatch})
+            R.id.btn_show_loading, R.id.btn_event_dispatch})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_stub:
@@ -84,6 +84,10 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    public void launchRoundImageViewActivity(View view) {
+        RoundImageViewActivity.launch(this);
     }
 
     @Override

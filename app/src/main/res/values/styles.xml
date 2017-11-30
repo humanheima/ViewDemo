@@ -14,12 +14,6 @@
         <item name="iosStyle">false</item>
     </style>
 
-    <style name="SlideDeleteLayoutDefStyleAttrImpl">
-        <item name="slideEnable">true</item>
-        <item name="iosStyle">true</item>
-        <item name="leftSlide">true</item>
-    </style>
-
     <style name="SlideDeleteLayoutDefStyleAttrRes">
         <item name="slideEnable">true</item>
         <item name="iosStyle">true</item>
@@ -31,8 +25,7 @@
         <item name="text">hello yellow style</item>
     </style>
 
-    <style name="CustomView_Green_Style">
-    </style>
+    <style name="CustomView_Green_Style"></style>
 
     <style name="CustomView_Red_Style">
 
@@ -52,5 +45,13 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="borderRadius" format="dimension" />
+        <attr name="imageType">
+            <enum name="circle" value="0" />
+            <enum name="round" value="1" />
+        </attr>
+    </declare-styleable>
 
 </resources>
