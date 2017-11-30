@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HorizontalVerticalConflictActivity" />
-        <activity android:name=".activity.CustomerViewActivity"></activity>
+        <activity android:name=".activity.CustomerViewActivity" />
         <activity android:name=".activity.ExpandableListViewActivity" />
         <activity android:name=".activity.VerticalVerticalActivity" />
         <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
@@ -26,18 +26,20 @@
         <activity android:name=".activity.BottomSheetActivity" />
         <activity android:name=".activity.ConstraintActivity" />
         <activity android:name=".activity.PercentLayoutActivity" />
-        <activity android:name=".activity.TestDragDeleteItemActivity"></activity>
-        <activity android:name=".activity.AutoWrapTextViewActivity"></activity>
-        <activity android:name=".activity.DragSlopLayoutActivity"></activity>
-        <activity android:name=".activity.ViewDragHelperActivity"></activity>
-        <activity android:name=".activity.PullToRefreshActivity"></activity>
-        <activity android:name=".activity.TextViewActivity"></activity>
-        <activity android:name=".activity.MpAndroidChartActivity"></activity>
-        <activity android:name=".activity.TestFuDanActivity"></activity>
-        <activity android:name=".activity.LoadingDialogActivity"></activity>
-        <activity android:name=".activity.EventDispatchActivity"></activity>
-        <activity android:name=".activity.ViewStubActivity"></activity>
-        <activity android:name=".activity.RoundImageViewActivity"></activity>
+        <activity android:name=".activity.TestDragDeleteItemActivity" />
+        <activity android:name=".activity.AutoWrapTextViewActivity" />
+        <activity android:name=".activity.DragSlopLayoutActivity" />
+        <activity android:name=".activity.ViewDragHelperActivity" />
+        <activity android:name=".activity.PullToRefreshActivity" />
+        <activity android:name=".activity.TextViewActivity" />
+        <activity android:name=".activity.MpAndroidChartActivity" />
+        <activity android:name=".activity.TestFuDanActivity" />
+        <activity android:name=".activity.LoadingDialogActivity" />
+        <activity android:name=".activity.EventDispatchActivity" />
+        <activity android:name=".activity.ViewStubActivity" />
+        <activity android:name=".activity.RoundImageViewActivity" />
+        <activity android:name=".activity.RoundImageViewXfermodeActivity" />
+        <activity android:name=".activity.XfermodeTestActivity"></activity>
     </application>
 
 </manifest>

@@ -46,12 +46,20 @@
 
     </style>
 
+    <attr name="borderRadius" format="dimension" />
+    <attr name="imageType">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+
     <declare-styleable name="RoundImageView">
-        <attr name="borderRadius" format="dimension" />
-        <attr name="imageType">
-            <enum name="circle" value="0" />
-            <enum name="round" value="1" />
-        </attr>
+        <attr name="borderRadius" />
+        <attr name="imageType" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageViewByXfermode">
+        <attr name="borderRadius" />
+        <attr name="imageType" />
     </declare-styleable>
 
 </resources>

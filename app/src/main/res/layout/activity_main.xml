@@ -142,5 +142,20 @@
             android:text="圆角图片和圆形图片"
             android:textAllCaps="false" />
 
+        <Button
+            android:id="@+id/btn_hongyang_round_imageview_xfermode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="launchRoundImageViewActivity"
+            android:text="xfermode实现圆角图片和圆形图片"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="launchXfermodeTestActivity"
+            android:text="xfermodeTest"
+            android:textAllCaps="false" />
+
     </LinearLayout>
 </ScrollView>

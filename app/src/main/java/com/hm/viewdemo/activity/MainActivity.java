@@ -90,6 +90,14 @@ public class MainActivity extends BaseActivity {
         RoundImageViewActivity.launch(this);
     }
 
+    public void launchRoundImageViewXfermodeActivity(View view) {
+        RoundImageViewXfermodeActivity.launch(this);
+    }
+
+    public void launchXfermodeTestActivity(View view) {
+        XfermodeTestActivity.launch(this);
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
