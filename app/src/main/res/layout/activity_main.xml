@@ -10,6 +10,13 @@
         android:orientation="vertical">
 
         <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="launchDrawEveryThingActivity"
+            android:text="drawEveryThing"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btn_view_stub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

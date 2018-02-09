@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -39,7 +40,9 @@
         <activity android:name=".activity.ViewStubActivity" />
         <activity android:name=".activity.RoundImageViewActivity" />
         <activity android:name=".activity.RoundImageViewXfermodeActivity" />
-        <activity android:name=".activity.XfermodeTestActivity"></activity>
+        <activity android:name=".activity.XfermodeTestActivity" />
+        <activity android:name=".activity.DrawEveryThingActivity" />
+        <activity android:name=".activity.ToolsNameSpaceActivity"></activity>
     </application>
 
 </manifest>

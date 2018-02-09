@@ -98,6 +98,10 @@ public class MainActivity extends BaseActivity {
         XfermodeTestActivity.launch(this);
     }
 
+    public void launchDrawEveryThingActivity(View view) {
+        DrawEveryThingActivity.launch(this);
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
