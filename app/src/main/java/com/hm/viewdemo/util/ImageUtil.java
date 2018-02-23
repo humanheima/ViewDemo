@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.hm.viewdemo.R;
 
 /**
@@ -11,7 +12,9 @@ import com.hm.viewdemo.R;
  */
 public class ImageUtil {
 
+    private static RequestOptions options = new RequestOptions().placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).dontAnimate();
+
     public static void loadImage(Context context, String imageUrl, ImageView imageView) {
-        Glide.with(context).load(imageUrl).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Glide.with(context).load(imageUrl).apply(options).into(imageView);
     }
 }

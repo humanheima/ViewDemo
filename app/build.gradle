@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.android.support:design:' + rootProject.ext.supprotVersion
     implementation 'com.android.support:percent:' + rootProject.ext.supprotVersion
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
     implementation 'com.hm.kof97:slidedeletelayout:1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
