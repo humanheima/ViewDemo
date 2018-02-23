@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/progress_indeterminate_running1" android:duration="80" />
+    <item android:drawable="@drawable/progress_indeterminate_running2" android:duration="80" />
+    <item android:drawable="@drawable/progress_indeterminate_running3" android:duration="80" />
+    <item android:drawable="@drawable/progress_indeterminate_running4" android:duration="80" />
+    <item android:drawable="@drawable/progress_indeterminate_running5" android:duration="80" />
+    <item android:drawable="@drawable/progress_indeterminate_running6" android:duration="80" />
+</animation-list>

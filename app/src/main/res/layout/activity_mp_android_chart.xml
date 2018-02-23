@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.hm.viewdemo.widget.HistogramView
+        android:id="@+id/histogram_view_1"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"/>
+
+    <com.hm.viewdemo.widget.HistogramView
+        android:id="@+id/histogram_view_2"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"/>
+
+    <com.hm.viewdemo.widget.HistogramView
+        android:id="@+id/histogram_view_3"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"/>
+
+    <com.hm.viewdemo.widget.HistogramView
+        android:id="@+id/histogram_view_4"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"/>
+
+</LinearLayout>

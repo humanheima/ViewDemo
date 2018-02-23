@@ -3,12 +3,16 @@ package com.hm.viewdemo.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hm.viewdemo.widget.LoadingDialog;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by dumingwei on 2017/2/26.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,4 +30,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void bindEvent() {
 
     }
+
+    public final void showLoading() {
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(this);
+        }
+        if (!loadingDialog.isShowing()) {
+            loadingDialog.show();
+        }
+    }
+
+    public final void hideLoading() {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
+    }
+
 }
