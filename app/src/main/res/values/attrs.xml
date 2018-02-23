@@ -44,7 +44,7 @@
         <!--颜色-->
         <attr name="color" format="color"/>
         <!--字体大小-->
-        <attr name="font" format="dimension"/>
+        <attr name="cus_font" format="dimension"/>
         <!--文字-->
         <attr name="text" format="string"/>
         <attr name="type" format="enum">

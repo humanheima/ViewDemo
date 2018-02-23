@@ -42,7 +42,8 @@
         <activity android:name=".activity.RoundImageViewXfermodeActivity" />
         <activity android:name=".activity.XfermodeTestActivity" />
         <activity android:name=".activity.DrawEveryThingActivity" />
-        <activity android:name=".activity.ToolsNameSpaceActivity"></activity>
+        <activity android:name=".activity.ToolsNameSpaceActivity" />
+        <activity android:name=".activity.TestHandlerAsyncTaskActivity"></activity>
     </application>
 
 </manifest>

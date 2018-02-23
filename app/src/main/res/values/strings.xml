@@ -20,4 +20,9 @@
     <string name="string_mitty_motto">To see the world, \nthings dangerous to come to, \nto see behind walls,\nto draw closer,\nto find each other and to feel.\nThat is the purpose of LIFE.\n开拓视野，冲破艰险，洞悉所有，贴近生活，寻找真爱，感受彼此。\n这就是人生的目的。</string>
 
     <string name="loading">正在加载...</string>
+    <string name="handler_inner_thread_communicate">handler用于线程间通信</string>
+    <string name="about_handler">关于Handler</string>
+    <string name="test_handlerthread">测试HandlerThread的用法</string>
+    <string name="test_asynctask">测试AsyncTask</string>
+    <string name="asynctask_cancel">asyncTask cancel</string>
 </resources>
