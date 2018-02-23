@@ -235,7 +235,7 @@ public class DragSlopLayout extends FrameLayout {
     /*********************************** ScrollView ********************************************/
 
     /**
-     * 设置关联的 ScrollView 如果有的话，目前只支持 ScrollView 和 NestedScrollView 及其自视图
+     * 设置关联的 ScrollView 如果有的话，目前只支持 ScrollView 和 NestedScrollView 及其子视图
      *
      * @param attachScrollView ScrollView or NestedScrollView
      */

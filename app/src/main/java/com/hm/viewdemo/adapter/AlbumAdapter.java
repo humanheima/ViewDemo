@@ -1,11 +1,17 @@
 package com.hm.viewdemo.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.util.ImageUtil;
 import com.hm.viewdemo.widget.TouchImageView;
@@ -37,7 +43,7 @@ public class AlbumAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_album_img, container, false);
-        TouchImageView imageView = (TouchImageView) view.findViewById(R.id.img_main);
+        final TouchImageView imageView = view.findViewById(R.id.img_main);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +52,13 @@ public class AlbumAdapter extends PagerAdapter {
                 }
             }
         });
-        ImageUtil.loadImage(context, list.get(position), imageView);
+        Glide.with(context).asBitmap().load(list.get(position)).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                imageView.setImageBitmap(resource);
+                imageView.setZoom(1);
+            }
+        });
         container.addView(view);
         return view;
     }
