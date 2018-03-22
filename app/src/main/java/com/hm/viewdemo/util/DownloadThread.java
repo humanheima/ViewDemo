@@ -1,5 +1,6 @@
 package com.hm.viewdemo.util;
 
+import android.app.IntentService;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -22,6 +23,8 @@ public class DownloadThread extends HandlerThread implements Handler.Callback {
     private Handler mWorkHandler;
     private Handler mUIHandler;
     private List<String> urlList;
+
+    private IntentService intentService;
 
     public DownloadThread(String name) {
         super(name);

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -22,7 +21,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.MaskFilterSpan;
-import android.text.style.QuoteSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
 import android.text.style.StrikethroughSpan;
@@ -33,6 +31,7 @@ import android.text.style.TabStopSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,15 +45,14 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static android.view.View.X;
 
 /**
  * 测试TextView 设置Span
  */
 public class TextViewActivity extends BaseActivity {
 
+
+    private final String TAG = getClass().getSimpleName();
 
     @BindView(R.id.text_view_8)
     TextView textView8;
@@ -162,8 +160,10 @@ public class TextViewActivity extends BaseActivity {
     private void setTextView1() {
         SpannableString spannableString = new SpannableString("暗影IV已经开始暴走了");
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        spannableString.setSpan(colorSpan, 0, 8, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        textView1.setText(spannableString);
+        spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString spannableString1=new SpannableString(spannableString);
+        spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView1.setText(spannableString1);
     }
 
     private void setTextView2() {
@@ -192,6 +192,7 @@ public class TextViewActivity extends BaseActivity {
         builder.append("已经开始暴走了");
         builder.append("艰难苦恨繁霜鬓");
         StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+        StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
         UnderlineSpan underlineSpan = new UnderlineSpan();
         //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
         Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
@@ -204,7 +205,7 @@ public class TextViewActivity extends BaseActivity {
             }
         };
         builder.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(underlineSpan, 4, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.setSpan(imageSpan1, 9, 10, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         textView3.setText(builder);
@@ -213,16 +214,37 @@ public class TextViewActivity extends BaseActivity {
     }
 
     private void setTextView4() {
+        String days = "100";
+        String mileage = "1000";
+        String result = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+        SpannableStringBuilder builder = new SpannableStringBuilder(result);
+        int dayStart = result.indexOf(days);
+        int mileageStart = result.indexOf(mileage);
+        Log.d(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
+
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
+        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        RelativeSizeSpan sizeSpan1 = new RelativeSizeSpan(2.0F);
+
+        builder.setSpan(colorSpan, dayStart, dayStart + days.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(sizeSpan, dayStart, dayStart + days.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        textView4.setText(builder);
+    }
+    /*private void setTextView4() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append("暗影IV");
         builder.append("已经开始暴走了");
         builder.append("艰难苦恨繁霜鬓");
         RelativeSizeSpan sizeSpan = new RelativeSizeSpan(3.0F);
         MaskFilterSpan maskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2.0F, BlurMaskFilter.Blur.NORMAL));
-        builder.setSpan(sizeSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(maskFilterSpan, 5, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //builder.setSpan(sizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(sizeSpan, 5, 7, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView4.setText(builder);
-    }
+    }*/
 
     private void setTextView5() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -249,7 +271,8 @@ public class TextViewActivity extends BaseActivity {
         TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan("serif", Typeface.BOLD_ITALIC,
                 getResources().getDimensionPixelSize(R.dimen.default_size), colorStateList, colorStateList);
         // TextAppearanceSpan textAppearanceSpan1 = new TextAppearanceSpan(this, R.style.MyTextViewStyle);
-        builder.setSpan(textAppearanceSpan, 0, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(textAppearanceSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(textAppearanceSpan, 6, 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView6.setText(builder);
     }
 

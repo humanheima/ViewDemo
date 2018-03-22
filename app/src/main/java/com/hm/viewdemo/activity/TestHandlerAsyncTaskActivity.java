@@ -25,6 +25,8 @@ import java.util.Arrays;
 
 public class TestHandlerAsyncTaskActivity extends AppCompatActivity {
 
+    private final String TAG = getClass().getName();
+
     public static final int TYPE_INNER_THREAD = 1;
     private MyHandler myHandler;
     private ActivityTestHandlerBinding binding;
@@ -39,6 +41,7 @@ public class TestHandlerAsyncTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: " + Thread.currentThread().getId());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_test_handler);
         myHandler = new MyHandler(this);
         downloadThread = new DownloadThread("下载线程");
@@ -46,6 +49,12 @@ public class TestHandlerAsyncTaskActivity extends AppCompatActivity {
         downloadThread.setUrlList(Arrays.asList("http://blog.csdn.net/u011240877/article/details/72905631",
                 "http://blog.csdn.net/u011240877/article/details/72905632",
                 "http://blog.csdn.net/u011240877/article/details/72905633"));
+        binding.tvFinishInfo.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
 
     }
 
@@ -114,6 +123,7 @@ public class TestHandlerAsyncTaskActivity extends AppCompatActivity {
     /**
      * 以下载一个文件为例
      */
+
     static class DownloadTask extends AsyncTask<String, Integer, Boolean> {
 
         private final String TAG = getClass().getName();
