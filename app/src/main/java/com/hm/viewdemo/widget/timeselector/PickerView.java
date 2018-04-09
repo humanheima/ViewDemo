@@ -87,7 +87,7 @@ public class PickerView extends View {
 
     private void init() {
         timer = new Timer();
-        mDataList = new ArrayList<String>();
+        mDataList = new ArrayList<>();
         //第一个paint  设置字体颜色
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
@@ -243,7 +243,6 @@ public class PickerView extends View {
         mMaxTextSize = mViewHeight / 7f;
         mMinTextSize = mMaxTextSize / 2.2f;
         isInit = true;
-        invalidate();
     }
 
     private void drawData(Canvas canvas) {

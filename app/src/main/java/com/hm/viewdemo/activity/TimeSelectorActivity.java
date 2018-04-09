@@ -44,7 +44,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
             public void handle(String time) {
                 tvTime.setText(time);
             }
-        }, startCalendar, endCalendar, TimeSelector.YMD_FORMAT);
+        }, startCalendar, endCalendar, TimeSelector.YMD_HS_FORMAT);
         timeSelector.setIsLoop(false);
         tvTime = binding.tvTime;
     }

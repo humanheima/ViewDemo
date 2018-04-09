@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -17,16 +17,6 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/please_choose_time"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
                 android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,7 +24,7 @@
                 android:padding="10dp"
                 android:text="@string/cancel"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_select"
@@ -45,115 +35,94 @@
                 android:padding="10dp"
                 android:text="@string/confirm"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="#11112233" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#11112233"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="15dp">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            <com.hm.viewdemo.widget.timeselector.PickerView
+                android:id="@+id/year_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="2" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/year"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:background="#11112233"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="15dp">
+            <com.hm.viewdemo.widget.timeselector.PickerView
+                android:id="@+id/month_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                app:isLoop="false" />
 
-                <com.hm.viewdemo.widget.timeselector.PickerView
-                    android:id="@+id/year_pv"
-                    android:layout_width="0dp"
-                    android:layout_height="160dp"
-                    android:layout_weight="3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/month"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/year"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
+            <com.hm.viewdemo.widget.timeselector.PickerView
+                android:id="@+id/day_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
 
-                <com.hm.viewdemo.widget.timeselector.PickerView
-                    android:id="@+id/month_pv"
-                    android:layout_width="0dp"
-                    android:layout_height="160dp"
-                    android:layout_weight="2"
-                    app:isLoop="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/day"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/month"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
+            <com.hm.viewdemo.widget.timeselector.PickerView
+                android:id="@+id/hour_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
 
-                <com.hm.viewdemo.widget.timeselector.PickerView
-                    android:id="@+id/day_pv"
-                    android:layout_width="0dp"
-                    android:layout_height="160dp"
-                    android:layout_weight="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/hour"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/day"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
+            <com.hm.viewdemo.widget.timeselector.PickerView
+                android:id="@+id/minute_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/minute"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
-                <com.hm.viewdemo.widget.timeselector.PickerView
-                    android:id="@+id/hour_pv"
-                    android:layout_width="0dp"
-                    android:layout_height="160dp"
-                    android:layout_weight="2" />
-
-                <TextView
-                    android:id="@+id/hour_text"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/hour"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
-
-                <com.hm.viewdemo.widget.timeselector.PickerView
-                    android:id="@+id/minute_pv"
-                    android:layout_width="0dp"
-                    android:layout_height="160dp"
-                    android:layout_weight="2" />
-
-                <TextView
-                    android:id="@+id/minute_text"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/minute"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>
