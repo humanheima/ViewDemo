@@ -20,8 +20,10 @@ import java.util.Calendar;
  */
 public class TimeSelectorActivity extends AppCompatActivity {
 
-    private TimeSelector timeSelector;
-    private TextView tvTime;
+    private TimeSelector ymdTimeSelector;
+    private TimeSelector ymdmsTimeSelector;
+    private TextView tvYmd;
+    private TextView tvYmdms;
     private ActivityTimeSelectorBinding binding;
     private Calendar startCalendar;
     private Calendar endCalendar;
@@ -39,22 +41,40 @@ public class TimeSelectorActivity extends AppCompatActivity {
         endCalendar = Calendar.getInstance();
         endCalendar.add(Calendar.YEAR, 20);
 
-        timeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
+        ymdTimeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
             @Override
             public void handle(String time) {
-                tvTime.setText(time);
+                tvYmd.setText(time);
             }
         }, startCalendar, endCalendar, TimeSelector.YMD_HS_FORMAT);
-        timeSelector.setIsLoop(false);
-        tvTime = binding.tvTime;
+        ymdTimeSelector.setIsLoop(false);
+
+        ymdmsTimeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvYmdms.setText(time);
+            }
+        }, startCalendar, endCalendar, TimeSelector.YMD_FORMAT);
+        ymdmsTimeSelector.setIsLoop(false);
+        tvYmd = binding.tvYmd;
+        tvYmdms = binding.tvYmdMs;
     }
 
-    public void showTimeSelector(View view) {
-        String time = tvTime.getText().toString();
+    public void showYmdTimeSelector(View view) {
+        String time = tvYmd.getText().toString();
         if (TextUtils.isEmpty(time)) {
-            timeSelector.show(null);
+            ymdTimeSelector.show(null);
         } else {
-            timeSelector.show(time);
+            ymdTimeSelector.show(time);
+        }
+    }
+
+    public void showYmdmsTimeSelector(View view) {
+        String time = tvYmdms.getText().toString();
+        if (TextUtils.isEmpty(time)) {
+            ymdmsTimeSelector.show(null);
+        } else {
+            ymdmsTimeSelector.show(time);
         }
     }
 }

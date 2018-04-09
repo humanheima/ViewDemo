@@ -9,15 +9,28 @@
         tools:context=".activity.TimeSelectorActivity">
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_ymd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btn_show_time_selector"
+            android:id="@+id/btn_show_ymd_time_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="showTimeSelector"
+            android:onClick="showYmdTimeSelector"
+            android:text="@string/show_time_selector" />
+
+        <TextView
+            android:id="@+id/tv_ymd_ms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btn_show_ymdms_time_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showYmdmsTimeSelector"
             android:text="@string/show_time_selector" />
 
     </LinearLayout>

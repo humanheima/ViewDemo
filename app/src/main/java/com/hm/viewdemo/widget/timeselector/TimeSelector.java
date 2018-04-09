@@ -64,7 +64,7 @@ public class TimeSelector {
         currentCalender = Calendar.getInstance();
         typeYmd = YMD_FORMAT.equals(dateFormat);
         this.dateFormat = dateFormat;
-        initParameter();
+        initStartEnd();
         initDialog();
         initView();
     }
@@ -72,7 +72,7 @@ public class TimeSelector {
     /**
      * 开始和结束日期指定以后，不再变化
      */
-    private void initParameter() {
+    private void initStartEnd() {
         startYear = startCalendar.get(Calendar.YEAR);
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
@@ -91,7 +91,7 @@ public class TimeSelector {
         spanHour = (!spanDay) && (startHour != endHour);
         spanMin = (!spanHour) && (startMinute != endMinute);
 
-        Log.d(TAG, "initParameter: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay
+        Log.d(TAG, "initStartEnd: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay
                 + ",spanHour=" + spanHour + ",spanMin=" + spanMin);
     }
 
@@ -131,23 +131,6 @@ public class TimeSelector {
             tvCancel = seletorDialog.findViewById(R.id.tv_cancel);
             tvSelect = seletorDialog.findViewById(R.id.tv_select);
         }
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                seletorDialog.dismiss();
-            }
-        });
-        tvSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (typeYmd) {
-                    handler.handle(format(currentCalender.getTime(), YMD_FORMAT));
-                } else {
-                    handler.handle(format(currentCalender.getTime(), YMD_HS_FORMAT));
-                }
-                seletorDialog.dismiss();
-            }
-        });
         addListener();
     }
 
@@ -163,7 +146,7 @@ public class TimeSelector {
     public void show(String currentDate) {
         Log.d(TAG, "当前时间: " + currentDate);
         if (!TextUtils.isEmpty(currentDate)) {
-            currentCalender.setTime(DateUtil.parse(currentDate, dateFormat));
+            currentCalender.setTime(parse(currentDate, dateFormat));
         } else {
             currentCalender.setTimeInMillis(System.currentTimeMillis());
         }
@@ -177,6 +160,19 @@ public class TimeSelector {
         Log.d(TAG, "show: currentHour=" + currentHour + ",currentMinute=" + currentMinute);
         initTimer();
         seletorDialog.show();
+    }
+
+    public static Date parse(String strDate, String pattern) {
+        if (TextUtils.isEmpty(strDate)) {
+            return null;
+        }
+        try {
+            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            return df.parse(strDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void initTimer() {
@@ -341,6 +337,23 @@ public class TimeSelector {
     }
 
     private void addListener() {
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seletorDialog.dismiss();
+            }
+        });
+        tvSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (typeYmd) {
+                    handler.handle(format(currentCalender.getTime(), YMD_FORMAT));
+                } else {
+                    handler.handle(format(currentCalender.getTime(), YMD_HS_FORMAT));
+                }
+                seletorDialog.dismiss();
+            }
+        });
         pvYear.setOnSelectListener(new PickerView.onSelectListener() {
             @Override
             public void onSelect(String text) {
