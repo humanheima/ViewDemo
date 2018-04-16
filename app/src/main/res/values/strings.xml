@@ -35,4 +35,5 @@
     <string name="please_choose_time">please choose time</string>
     <string name="hour">hour</string>
     <string name="minute">minute</string>
+    <string name="about_scroller">about scroller</string>
 </resources>

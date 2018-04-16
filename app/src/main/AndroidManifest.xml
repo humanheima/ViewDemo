@@ -44,7 +44,8 @@
         <activity android:name=".activity.DrawEveryThingActivity" />
         <activity android:name=".activity.ToolsNameSpaceActivity" />
         <activity android:name=".activity.TestHandlerAsyncTaskActivity" />
-        <activity android:name=".activity.TimeSelectorActivity"></activity>
+        <activity android:name=".activity.TimeSelectorActivity" />
+        <activity android:name=".activity.ScrollerActivity"></activity>
     </application>
 
 </manifest>
