@@ -243,7 +243,7 @@ public class TextViewActivity extends BaseActivity {
         MaskFilterSpan maskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2.0F, BlurMaskFilter.Blur.NORMAL));
         //builder.setSpan(sizeSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(sizeSpan, 5, 7, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView4.setText(builder);
+        textView4.setData(builder);
     }*/
 
     private void setTextView5() {

@@ -1,8 +1,8 @@
 package com.hm.viewdemo.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +13,13 @@ import com.hm.viewdemo.R;
 
 /**
  * Created by dumingwei on 2017/7/17.
- * 实现和MarqueeView是一样的
  */
 public class NewsListView extends LinearLayout {
 
     private final String TAG = getClass().getSimpleName();
 
-    private TextView textNews;
+    private TextView tvItemName;
+    private TextView tvItemStatus;
 
     public NewsListView(Context context) {
         this(context, null);
@@ -31,19 +31,29 @@ public class NewsListView extends LinearLayout {
 
     public NewsListView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setBackgroundColor(Color.parseColor("#a9222222"));
         initView(context);
     }
 
     private void initView(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_news_list, this);
-        textNews = (TextView) view.findViewById(R.id.text_news);
+        View view = LayoutInflater.from(context).inflate(R.layout.vehicle_status_list_item, this);
+        tvItemName = view.findViewById(R.id.tv_item_name);
+        tvItemStatus = view.findViewById(R.id.tv_item_status);
     }
 
-    public void setText(String text) {
-        if (textNews == null || TextUtils.isEmpty(text)) {
+    public void setData(String name, String status) {
+        if (null == tvItemName || null == tvItemStatus) {
             return;
         }
-        textNews.setText(text);
+        if ("Normal".equals(status)) {
+            tvItemStatus.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.sp_red_corners10));
+            tvItemStatus.setTextColor(getContext().getResources().getColor(R.color.white));
+        } else {
+            tvItemStatus.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.sp_white_corners10));
+            tvItemStatus.setTextColor(getContext().getResources().getColor(R.color.black));
+        }
+        tvItemName.setText(name);
+        tvItemStatus.setText(status);
     }
 
 }

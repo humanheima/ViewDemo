@@ -4,14 +4,13 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.widget.NewsListView;
+import com.hm.viewdemo.widget.NoConsumeScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +20,11 @@ import butterknife.OnClick;
 
 public class TestFuDanActivity extends BaseActivity {
 
-
     private static final String TAG = "TestFuDanActivity";
-    public static final int CHANGE_RIGHT_NEWS_DELAY = 10000;
-
     @BindView(R.id.ll_news_list)
     LinearLayout llNewsList;
     @BindView(R.id.scroll_view_news)
-    ScrollView scrollViewNews;
+    NoConsumeScrollView scrollViewNews;
     private List<String> newsList;
     private ObjectAnimator newsListAnimator;
 
@@ -46,9 +42,15 @@ public class TestFuDanActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        scrollViewNews.setFocusable(false);
+        scrollViewNews.setEnabled(false);
         newsList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            newsList.add(i + "After more than a year of development and months of testing by developers and early adopters (thank you!), we're now ready to officially launch Android 8.0 Oreo to the world. Android 8.0 brings a ton of great ");
+        for (int i = 0; i < 10; i++) {
+            if (i % 2 == 0) {
+                newsList.add("Normal");
+            } else {
+                newsList.add("Abnormal");
+            }
         }
         initRightNews();
     }
@@ -56,7 +58,7 @@ public class TestFuDanActivity extends BaseActivity {
     private void initRightNews() {
         for (String news : newsList) {
             NewsListView view = new NewsListView(this);
-            view.setText(news);
+            view.setData(news, news);
             llNewsList.addView(view);
         }
         llNewsList.post(new Runnable() {
@@ -68,25 +70,28 @@ public class TestFuDanActivity extends BaseActivity {
                 if (llNewsListHeight > scrollViewHeight) {
                     int multiple = llNewsListHeight / scrollViewHeight;
                     int diff = llNewsListHeight - scrollViewHeight;
-                   /* newsListAnimator = ObjectAnimator.ofFloat(llNewsList, "translationY", 0, -diff);
-                    newsListAnimator.setDuration(multiple * CHANGE_RIGHT_NEWS_DELAY);
-                    newsListAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                    newsListAnimator = ObjectAnimator.ofFloat(llNewsList, "translationY", 0, -diff);
+                    //newsListAnimator.setDuration(multiple * CHANGE_RIGHT_NEWS_DELAY);
+                    newsListAnimator.setDuration(3000);
+                    //newsListAnimator.setRepeatCount(ValueAnimator.INFINITE);
                     newsListAnimator.setRepeatMode(ObjectAnimator.RESTART);
-                    newsListAnimator.start();*/
-                    translateAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, -diff);
+                    newsListAnimator.start();
+                   /* translateAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, -diff);
                     translateAnimation.setDuration(multiple * CHANGE_RIGHT_NEWS_DELAY);
                     translateAnimation.setRepeatMode(Animation.INFINITE);
                     translateAnimation.setRepeatCount(-1);
-                    llNewsList.startAnimation(translateAnimation);
+                    llNewsList.startAnimation(translateAnimation);*/
 
                 }
             }
         });
     }
 
-    @OnClick(R.id.button)
+    @OnClick(R.id.btn_reset)
     void back() {
-        finish();
+        llNewsList.removeAllViews();
+        llNewsList.invalidate();
+        //initRightNews();
     }
 
 }
