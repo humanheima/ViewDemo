@@ -16,7 +16,7 @@ public class ConstraintActivity extends BaseActivity {
 
     @Override
     protected int bindLayout() {
-        return R.layout.activity_constraint;
+        return R.layout.activity_constraint_another;
     }
 
     @Override

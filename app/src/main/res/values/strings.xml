@@ -36,4 +36,6 @@
     <string name="hour">hour</string>
     <string name="minute">minute</string>
     <string name="about_scroller">about scroller</string>
+    <string name="in_normal_layout">In normal layout</string>
+    <string name="in_sw600_layout">in sw600 layout</string>
 </resources>
