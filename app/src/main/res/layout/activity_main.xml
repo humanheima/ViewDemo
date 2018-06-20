@@ -10,6 +10,30 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_test_screen_support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="screen support"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_about_scroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/about_scroller"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_time_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/test_time_selector"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btn_about_handler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircleView">
-        <attr name="circle_color" format="color"/>
-        <attr name="bg_color" format="color"/>
+        <attr name="circle_color" format="color" />
+        <attr name="bg_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="MaxHeightLayout">
-        <attr name="heightRatio" format="reference|float"/>
-        <attr name="heightDimen" format="reference|dimension"/>
+        <attr name="heightRatio" format="reference|float" />
+        <attr name="heightDimen" format="reference|dimension" />
     </declare-styleable>
 
     <!--侧滑删除-->
     <declare-styleable name="SwipeMenuLayout">
-        <attr name="swipeEnable" format="boolean"/>
-        <attr name="ios" format="boolean"/>
-        <attr name="leftSwipe" format="boolean"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
 
     <!--左右对齐的TextView-->
     <declare-styleable name="AutoWrapTextView">
-        <attr name="paddingLeft" format="dimension"/>
-        <attr name="paddingRight" format="dimension"/>
-        <attr name="paddingTop" format="dimension"/>
-        <attr name="paddingBottom" format="dimension"/>
-        <attr name="textColor" format="color"/>
-        <attr name="lineSpacingExtra" format="integer"/>
-        <attr name="textSize" format="dimension"/>
+        <attr name="paddingLeft" format="dimension" />
+        <attr name="paddingRight" format="dimension" />
+        <attr name="paddingTop" format="dimension" />
+        <attr name="paddingBottom" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="lineSpacingExtra" format="integer" />
+        <attr name="textSize" format="dimension" />
     </declare-styleable>
 
     <!--侧滑删除-->
     <declare-styleable name="SlideDeleteLayout">
         <!--是否可以通过滑动，显示删除菜单，默认true-->
-        <attr name="slideEnable" format="boolean"/>
+        <attr name="slideEnable" format="boolean" />
         <!--是否是ios方式的滑动方式,默认true-->
-        <attr name="iosStyle" format="boolean"/>
+        <attr name="iosStyle" format="boolean" />
         <!--标记是左滑还是右滑显示删除菜单，默认左滑显示删除菜单-->
-        <attr name="leftSlide" format="boolean"/>
+        <attr name="leftSlide" format="boolean" />
     </declare-styleable>
-    <attr name="SlideDeleteLayoutDefStyleAttr" format="reference"/>
-    <attr name="CustomView_Theme_Style" format="reference"/>
+    <attr name="SlideDeleteLayoutDefStyleAttr" format="reference" />
+    <attr name="CustomView_Theme_Style" format="reference" />
 
     <declare-styleable name="CustomView">
         <!--颜色-->
-        <attr name="color" format="color"/>
+        <attr name="color" format="color" />
         <!--字体大小-->
-        <attr name="cus_font" format="dimension"/>
+        <attr name="cus_font" format="dimension" />
         <!--文字-->
-        <attr name="text" format="string"/>
+        <attr name="text" format="string" />
         <attr name="type" format="enum">
-            <enum name="common" value="1"/>
-            <enum name="material" value="2"/>
+            <enum name="common" value="1" />
+            <enum name="material" value="2" />
         </attr>
         <attr name="flag">
-            <flag name="flag1" value="0x01"/>
-            <flag name="flag2" value="0x02"/>
-            <flag name="flag4" value="0x04"/>
+            <flag name="flag1" value="0x01" />
+            <flag name="flag2" value="0x02" />
+            <flag name="flag4" value="0x04" />
         </attr>
     </declare-styleable>
 
     <!--网易新闻底部文字介绍布局-->
     <declare-styleable name="DragSlopLayout">
-        <attr name="fix_height" format="dimension"/>
-        <attr name="max_height" format="dimension"/>
+        <attr name="fix_height" format="dimension" />
+        <attr name="max_height" format="dimension" />
+    </declare-styleable>
+
+    <!--时间选择器-->
+    <declare-styleable name="PickerView">
+        <attr name="isLoop" format="boolean" />
     </declare-styleable>
 
 </resources>

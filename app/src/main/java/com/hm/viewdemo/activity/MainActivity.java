@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
     }
 
-    @OnClick({R.id.btn_about_handler, R.id.btn_view_stub, R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
+    @OnClick({R.id.btn_test_screen_support, R.id.btn_about_scroller, R.id.btn_time_selector, R.id.btn_about_handler, R.id.btn_view_stub, R.id.btn_horizontal_vertical_conflict, R.id.btn_customer_view, R.id.btn_expandable_listview,
             R.id.btn_vertical_verticla_activity, R.id.btn_scrollview_recyclerview_activity,
             R.id.btn_MaxHeightLayoutActivity, R.id.btn_bottomSheet, R.id.btn_constraint_layout,
             R.id.btn_autowrap_textview, R.id.btn_drag_slop_layout, R.id.btn_view_drag_helper,
@@ -26,6 +26,15 @@ public class MainActivity extends BaseActivity {
             R.id.btn_show_loading, R.id.btn_event_dispatch})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_test_screen_support:
+                ScreenSupportActivity.launch(this);
+                break;
+            case R.id.btn_about_scroller:
+                ScrollerActivity.launch(this);
+                break;
+            case R.id.btn_time_selector:
+                TimeSelectorActivity.launch(this);
+                break;
             case R.id.btn_about_handler:
                 TestHandlerAsyncTaskActivity.launch(this);
                 break;

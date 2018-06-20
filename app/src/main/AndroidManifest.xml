@@ -25,7 +25,7 @@
         <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
         <activity android:name=".activity.MaxHeightLayoutActivity" />
         <activity android:name=".activity.BottomSheetActivity" />
-        <activity android:name=".activity.ConstraintActivity" />
+        <activity android:name=".activity.ConstraintLayoutActivity" />
         <activity android:name=".activity.PercentLayoutActivity" />
         <activity android:name=".activity.TestDragDeleteItemActivity" />
         <activity android:name=".activity.AutoWrapTextViewActivity" />
@@ -43,7 +43,11 @@
         <activity android:name=".activity.XfermodeTestActivity" />
         <activity android:name=".activity.DrawEveryThingActivity" />
         <activity android:name=".activity.ToolsNameSpaceActivity" />
-        <activity android:name=".activity.TestHandlerAsyncTaskActivity"></activity>
+        <activity android:name=".activity.TestHandlerAsyncTaskActivity" />
+        <activity android:name=".activity.TimeSelectorActivity" />
+        <activity android:name=".activity.ScrollerActivity" />
+        <activity android:name=".activity.SupportLibraryActivity" />
+        <activity android:name=".activity.ScreenSupportActivity"></activity>
     </application>
 
 </manifest>
