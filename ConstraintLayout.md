@@ -114,3 +114,32 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_f"
         app:layout_goneMarginLeft="120dp" />
 ```
+5. 控制子View的宽高比,宽度和高度1:1
+
+```xml
+    <!--宽高比为1:1-->
+   <Button
+           android:layout_width="wrap_content"
+           android:layout_height="0dp"
+           android:text="app:layout_constraintDimensionRatio=1:1"
+           android:textAllCaps="false"
+           app:layout_constraintDimensionRatio="1:1"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+```
+```xml
+<!--宽高比2:1-->
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="app:layout_constraintDimensionRatio=1:1"
+        android:textAllCaps="false"
+        app:layout_constraintDimensionRatio="1.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+```
+比率的取值有两种形式：
+
+– float 值，代表宽度/高度 的比率
+
+– “宽度:高度”这种比率值

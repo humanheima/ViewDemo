@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.constraint.Group
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="btn_f,btn_g"
-        android:visibility="visible" />
-
-    <Button
-        android:id="@+id/btn_f"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:text="F"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_g"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:text="G"
-        app:layout_constraintLeft_toRightOf="@+id/btn_f"
-        app:layout_goneMarginLeft="120dp" />
 
 </android.support.constraint.ConstraintLayout>

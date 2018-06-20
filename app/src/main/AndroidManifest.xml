@@ -25,7 +25,7 @@
         <activity android:name=".activity.ScrollViewNestRecyclerViewActivity" />
         <activity android:name=".activity.MaxHeightLayoutActivity" />
         <activity android:name=".activity.BottomSheetActivity" />
-        <activity android:name=".activity.ConstraintActivity" />
+        <activity android:name=".activity.ConstraintLayoutActivity" />
         <activity android:name=".activity.PercentLayoutActivity" />
         <activity android:name=".activity.TestDragDeleteItemActivity" />
         <activity android:name=".activity.AutoWrapTextViewActivity" />

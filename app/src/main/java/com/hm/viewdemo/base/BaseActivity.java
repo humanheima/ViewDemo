@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    protected final String TAG = getClass().getSimpleName();
     private LoadingDialog loadingDialog;
 
     @Override
