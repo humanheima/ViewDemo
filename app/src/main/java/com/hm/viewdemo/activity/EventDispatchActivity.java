@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -7,11 +8,14 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.widget.EventDispatchButton;
+import com.hm.viewdemo.widget.MyImageView;
 
 import java.lang.ref.WeakReference;
 
@@ -20,7 +24,8 @@ public class EventDispatchActivity extends BaseActivity {
     private static final String TAG = "EventDispatchActivity";
 
     private EventDispatchButton btnTestEvent;
-    private MyHandler handler;
+    private Button btnTestClickevent;
+    private MyImageView ivTestClick;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, EventDispatchActivity.class);
@@ -32,10 +37,10 @@ public class EventDispatchActivity extends BaseActivity {
         return R.layout.activity_event_dispatch;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initData() {
-        handler = new MyHandler(this);
-        btnTestEvent = (EventDispatchButton) findViewById(R.id.btn_touch_event);
+        btnTestEvent = findViewById(R.id.btn_touch_event);
         btnTestEvent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -72,8 +77,26 @@ public class EventDispatchActivity extends BaseActivity {
             }
         });
 
-        Message message = handler.obtainMessage();
-        handler.sendMessage(message);
+        ivTestClick = findViewById(R.id.iv_test_click);
+        ivTestClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(EventDispatchActivity.this,
+                        "ivTestClick 被点击",
+                        Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "ivTestClick："+ivTestClick);
+            }
+        });
+        btnTestClickevent = findViewById(R.id.btn_test_image_view_click_event);
+        btnTestClickevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: " + ivTestClick.isClickable());
+                Toast.makeText(EventDispatchActivity.this,
+                        "ivTestClick 可以点击吗？" + ivTestClick.isClickable(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -89,23 +112,5 @@ public class EventDispatchActivity extends BaseActivity {
         return super.onTouchEvent(event);
     }
 
-    public void testHandler() {
-        Log.e(TAG, "testHandler");
-    }
 
-
-    private static class MyHandler extends Handler {
-
-        private WeakReference<EventDispatchActivity> weakReference;
-
-        public MyHandler(EventDispatchActivity activity) {
-            weakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            EventDispatchActivity activity = weakReference.get();
-            activity.testHandler();
-        }
-    }
 }
