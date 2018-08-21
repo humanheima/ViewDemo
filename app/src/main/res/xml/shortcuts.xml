@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/scan_qrcode"
+        android:shortcutDisabledMessage="@string/can_not_use"
+        android:shortcutId="scanQRcode"
+        android:shortcutLongLabel="@string/long_label"
+        android:shortcutShortLabel="@string/short_label"
+        tools:ignore="UnusedAttribute">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.hm.viewdemo.activity.MainActivity"
+            android:targetPackage="com.hm.viewdemo" />
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.hm.viewdemo.activity.QrCodeScanActivity"
+            android:targetPackage="com.hm.viewdemo" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_star"
+        android:shortcutDisabledMessage="@string/can_not_use"
+        android:shortcutId="star"
+        android:shortcutLongLabel="@string/i_am_a_star"
+        android:shortcutShortLabel="@string/a_star"
+        tools:ignore="UnusedAttribute">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.hm.viewdemo.activity.QrCodeScanActivity"
+            android:targetPackage="com.hm.viewdemo" />
+    </shortcut>
+</shortcuts>
+
+

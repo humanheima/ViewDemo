@@ -38,4 +38,9 @@
     <string name="about_scroller">about scroller</string>
     <string name="in_normal_layout">In normal layout</string>
     <string name="in_sw600_layout">in sw600 layout</string>
+    <string name="can_not_use">can not use</string>
+    <string name="long_label">扫描二维码</string>
+    <string name="short_label">扫一扫</string>
+    <string name="i_am_a_star">我是一颗小星星</string>
+    <string name="a_star">小星星</string>
 </resources>
