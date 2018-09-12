@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.hm.viewdemo.widget.EventDispatchButton
-        android:id="@+id/btn_touch_event"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <com.hm.viewdemo.widget.MyImageView
+            android:id="@+id/iv_test_click"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/colorAccent" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_test_image_view_click_event"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="测试View添加OnTouchEventListener和OnclickListener"
+        android:layout_marginTop="240dp"
+        android:text="测试当ImageView的可见性为invisible的时候，是否可以执行performClick方法"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.hm.viewdemo.widget.EventDispatchButton
+        android:id="@+id/btn_touch_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试View添加OnTouchEventListener和OnclickListener"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
