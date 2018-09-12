@@ -11,7 +11,6 @@
     <!-- 查询快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -22,13 +21,13 @@
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-
         </activity>
         <activity android:name=".activity.HorizontalVerticalConflictActivity" />
         <activity android:name=".activity.CustomerViewActivity" />
@@ -54,19 +53,20 @@
         <activity android:name=".activity.XfermodeTestActivity" />
         <activity android:name=".activity.DrawEveryThingActivity" />
         <activity android:name=".activity.ToolsNameSpaceActivity" />
-        <activity android:name=".activity.TestHandlerAsyncTaskActivity" />
         <activity android:name=".activity.TimeSelectorActivity" />
         <activity android:name=".activity.ScrollerActivity" />
         <activity android:name=".activity.SupportLibraryActivity" />
         <activity android:name=".activity.ScreenSupportActivity" />
-
+        <activity android:name=".activity.ConstraintActivity" />
         <activity android:name=".activity.QrCodeScanActivity">
             <intent-filter>
                 <action android:name="com.hm.viewdemo.QrCodeScan" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activity.CardViewActivity" />
+        <activity android:name=".activity.HorizontalScrollViewActivity"></activity>
     </application>
 
 </manifest>
