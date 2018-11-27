@@ -166,6 +166,12 @@ public class TestScrollerView extends View {
     }
 
     @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        Log.d(TAG, "onScrollChanged: l=" + l + ",t=" + t + ",oldl=" + oldl + ",oldt=" + oldt);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mDrawnRect.set(getPaddingLeft(), getPaddingTop(),
