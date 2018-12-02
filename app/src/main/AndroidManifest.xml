@@ -66,7 +66,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.CardViewActivity" />
-        <activity android:name=".activity.HorizontalScrollViewActivity"></activity>
+        <activity android:name=".activity.HorizontalScrollViewActivity" />
+        <activity android:name=".activity.SimpleFlowLayoutActivity"></activity>
     </application>
 
 </manifest>

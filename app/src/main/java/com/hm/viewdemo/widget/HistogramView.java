@@ -62,4 +62,10 @@ public class HistogramView extends FrameLayout {
         });
 
     }
+
+    public void funx(View.OnClickListener clickListener){
+        View view=new ViewDragLayout(getContext());
+        view.setOnClickListener(clickListener);
+    }
+
 }

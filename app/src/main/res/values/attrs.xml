@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--标签布局-->
+    <declare-styleable name="SimpleFlowLayout">
+
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="itemSize" format="dimension" />
+        <attr name="itemColor" format="color" />
+        <attr name="backgroundResource" format="reference" />
+        <attr name="textPaddingH" format="dimension" />
+        <attr name="textPaddingV" format="dimension" />
+
+    </declare-styleable>
     <declare-styleable name="CircleView">
         <attr name="circle_color" format="color" />
         <attr name="bg_color" format="color" />

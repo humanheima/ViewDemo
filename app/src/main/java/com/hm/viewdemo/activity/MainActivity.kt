@@ -37,6 +37,7 @@ class MainActivity : BaseActivity() {
             R.id.btn_test_fudan -> TestFuDanActivity.launch(this)
             R.id.btn_show_loading -> LoadingDialogActivity.launch(this)
             R.id.btn_event_dispatch -> EventDispatchActivity.launch(this)
+            R.id.simpleFlowLayout -> SimpleFlowLayoutActivity.launch(this)
             else -> {
             }
         }
