@@ -24,6 +24,10 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<CommonViewHo
         this.data = data;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     @Override
     public int getItemCount() {
         if (footerView == null) {

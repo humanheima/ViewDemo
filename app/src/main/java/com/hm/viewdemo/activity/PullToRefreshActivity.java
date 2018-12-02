@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.brotherd.pullrefresh.PullToRefreshBase;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
-import com.hm.viewdemo.base.CommonViewHolder;
 import com.hm.viewdemo.base.CommonAdapter;
+import com.hm.viewdemo.base.CommonViewHolder;
+import com.hm.viewdemo.widget.SimpleFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,21 @@ public class PullToRefreshActivity extends BaseActivity {
             @Override
             public void bindViewHolder(CommonViewHolder holder, String s, int position) {
                 holder.setTextViewText(R.id.text1, s);
+                SimpleFlowLayout simpleFlowLayout = holder.getView(R.id.simple_flow_layout);
+                // 关键字集合
+                List<String> list = new ArrayList<>();
+                list.add("dumingwei");
+                list.add("key二");
+                list.add("杜明伟");
+                list.add("关键4");
+                list.add("关键词五");
+                simpleFlowLayout.setViews(list, new SimpleFlowLayout.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(String content) {
+                        Toast.makeText(getContext(), content, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
             @Override

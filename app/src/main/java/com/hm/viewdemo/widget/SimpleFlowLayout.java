@@ -3,7 +3,9 @@ package com.hm.viewdemo.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -19,8 +21,11 @@ import java.util.List;
 /**
  * Created by dmw on 2018/12/2.
  * Desc:简单流式布局
+ * 只显示一行，多余的不显示,有空可以拓展一下可以控制显示多少行。
  */
 public class SimpleFlowLayout extends RelativeLayout {
+
+    private final String TAG = getClass().getSimpleName();
 
     //水平间距，单位是dp
     private int horizontalSpacing;
@@ -47,6 +52,16 @@ public class SimpleFlowLayout extends RelativeLayout {
     //文字竖直方向上的padding
     private int textPaddingV;
 
+    /**
+     * 是否只显示一行
+     */
+    private boolean onlyShowOneLine;
+
+    /**
+     * 只显示一行的时候 子view的个数
+     */
+    private int onlyOneLineChildCount;
+
     public SimpleFlowLayout(Context context) {
         this(context, null);
     }
@@ -65,6 +80,7 @@ public class SimpleFlowLayout extends RelativeLayout {
         backgroundResource = ta.getResourceId(R.styleable.SimpleFlowLayout_backgroundResource, R.drawable.bg_flow_layout_item);
         textPaddingH = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingH, dp2px(12));
         textPaddingV = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingV, dp2px(8));
+        onlyShowOneLine = ta.getBoolean(R.styleable.SimpleFlowLayout_onlyOneLine, false);
         ta.recycle();
     }
 
@@ -97,7 +113,20 @@ public class SimpleFlowLayout extends RelativeLayout {
             if (lineSize <= width) {
                 line.addChild(child);
                 lineSize += horizontalSpacing;
+                onlyOneLineChildCount = i + 1;
             } else {
+                if (onlyShowOneLine) {
+                    /**
+                     * 如果只显示一行的话，就直接退出循环。并把多余的view 移除掉。
+                     */
+                    Log.d(TAG, "onMeasure: onlyShowOneLine break.");
+                    for (int j = onlyOneLineChildCount; j < getChildCount(); j++) {
+                        removeViewAt(j);
+                        removeViews(onlyOneLineChildCount, getChildCount() - onlyOneLineChildCount);
+                    }
+                    break;
+                }
+                Log.d(TAG, "onMeasure: multi lines.");
                 //换行
                 newLine();
                 line.addChild(child);
@@ -105,6 +134,8 @@ public class SimpleFlowLayout extends RelativeLayout {
                 lineSize += horizontalSpacing;
             }
         }
+
+        Log.d(TAG, "onMeasure: childCount=" + getChildCount());
 
         // 把最后一行记录到集合中
         if (line != null && !lines.contains(line)) {
@@ -205,6 +236,7 @@ public class SimpleFlowLayout extends RelativeLayout {
             tv.setGravity(Gravity.CENTER);
             tv.setPadding(textPaddingH, textPaddingV, textPaddingH, textPaddingV);
 
+            tv.setEllipsize(TextUtils.TruncateAt.END);
             tv.setClickable(true);
             tv.setBackgroundResource(backgroundResource);
             addView(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -313,7 +345,6 @@ public class SimpleFlowLayout extends RelativeLayout {
         }
 
         public void layout(int left, int top) {
-            int totalWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
             // 当前childView的左上角x轴坐标
             int currentLeft = left;
 

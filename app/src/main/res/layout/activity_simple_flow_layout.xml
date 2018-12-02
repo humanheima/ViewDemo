@@ -9,13 +9,17 @@
     <com.hm.viewdemo.widget.SimpleFlowLayout
         android:id="@+id/simple_flow_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="12dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         app:itemColor="@color/black"
         app:itemSize="12sp"
-        android:paddingLeft="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:onlyOneLine="true" />
 
 
 </android.support.constraint.ConstraintLayout>

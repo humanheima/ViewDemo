@@ -10,6 +10,7 @@
         <attr name="backgroundResource" format="reference" />
         <attr name="textPaddingH" format="dimension" />
         <attr name="textPaddingV" format="dimension" />
+        <attr name="onlyOneLine" format="boolean" />
 
     </declare-styleable>
     <declare-styleable name="CircleView">
