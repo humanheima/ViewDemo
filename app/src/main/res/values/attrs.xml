@@ -10,7 +10,10 @@
         <attr name="backgroundResource" format="reference" />
         <attr name="textPaddingH" format="dimension" />
         <attr name="textPaddingV" format="dimension" />
-        <attr name="onlyOneLine" format="boolean" />
+        <!--限制最大的标签行数-->
+        <attr name="max_lines" format="integer" />
+        <!--限制最大的标签个数-->
+        <attr name="max_count" format="integer" />
 
     </declare-styleable>
     <declare-styleable name="CircleView">
@@ -19,8 +22,8 @@
     </declare-styleable>
 
     <declare-styleable name="MaxHeightLayout">
-        <attr name="heightRatio" format="reference|float" />
-        <attr name="heightDimen" format="reference|dimension" />
+        <attr name="height_ratio" format="reference|float" />
+        <attr name="height_dimen" format="reference|dimension" />
     </declare-styleable>
 
     <!--侧滑删除-->

@@ -54,11 +54,19 @@ public class PullToRefreshActivity extends BaseActivity {
                 SimpleFlowLayout simpleFlowLayout = holder.getView(R.id.simple_flow_layout);
                 // 关键字集合
                 List<String> list = new ArrayList<>();
-                list.add("dumingwei");
-                list.add("key二");
+               /* list.add("dmw");
+                list.add("dmw");
+                list.add("dmw");
+                list.add("dmw");
+                list.add("dmw");
+                list.add("dmw");*/
                 list.add("杜明伟");
-                list.add("关键4");
-                list.add("关键词五");
+                list.add("杜明伟");
+                list.add("杜明伟");
+                list.add("杜明伟");
+                list.add("杜明伟");
+                list.add("杜明伟");
+                list.add("杜明伟");
                 simpleFlowLayout.setViews(list, new SimpleFlowLayout.OnItemClickListener() {
                     @Override
                     public void onItemClick(String content) {

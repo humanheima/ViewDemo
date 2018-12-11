@@ -33,6 +33,12 @@ public class SimpleFlowLayoutActivity extends AppCompatActivity {
         list.add("杜明伟");
         list.add("关键4");
         list.add("关键词五");
+        list.add("关键词五");
+        list.add("关键词五");
+        list.add("关键词五");
+        list.add("关键词五");
+        list.add("关键词五");
+        list.add("关键词五");
         simpleFlowLayout.setViews(list, new SimpleFlowLayout.OnItemClickListener() {
             @Override
             public void onItemClick(String content) {

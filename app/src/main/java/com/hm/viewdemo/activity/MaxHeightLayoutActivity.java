@@ -50,8 +50,8 @@ public class MaxHeightLayoutActivity extends BaseActivity {
     protected void initData() {
         lessDataList = new ArrayList<>();
         lessDataList.add("三国演义");
-        lessDataList.add("水浒传");
-        lessDataList.add("红楼梦");
+        //lessDataList.add("水浒传");
+        //lessDataList.add("红楼梦");
 
         muchDataList = new ArrayList<>();
         for (int i = 0; i < 30; i++) {

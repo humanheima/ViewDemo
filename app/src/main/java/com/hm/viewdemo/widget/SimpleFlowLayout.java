@@ -21,7 +21,12 @@ import java.util.List;
 /**
  * Created by dmw on 2018/12/2.
  * Desc:简单流式布局
- * 只显示一行，多余的不显示,有空可以拓展一下可以控制显示多少行。
+ * 1. 控制显示的最大行数
+ * 2. 控制显示标签的最大个数
+ * <p>
+ * 行数的优先级高于标签个数的优先级
+ * <p>
+ * 参考链接：https://blog.csdn.net/kong_gu_you_lan/article/details/52786219
  */
 public class SimpleFlowLayout extends RelativeLayout {
 
@@ -53,14 +58,14 @@ public class SimpleFlowLayout extends RelativeLayout {
     private int textPaddingV;
 
     /**
-     * 是否只显示一行
+     * 最大可以显示多少行
      */
-    private boolean onlyShowOneLine;
+    private int maxLines;
 
     /**
-     * 只显示一行的时候 子view的个数
+     * 限制最大的标签数量,
      */
-    private int onlyOneLineChildCount;
+    private int maxCount;
 
     public SimpleFlowLayout(Context context) {
         this(context, null);
@@ -80,13 +85,19 @@ public class SimpleFlowLayout extends RelativeLayout {
         backgroundResource = ta.getResourceId(R.styleable.SimpleFlowLayout_backgroundResource, R.drawable.bg_flow_layout_item);
         textPaddingH = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingH, dp2px(12));
         textPaddingV = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingV, dp2px(8));
-        onlyShowOneLine = ta.getBoolean(R.styleable.SimpleFlowLayout_onlyOneLine, false);
+        maxLines = ta.getInteger(R.styleable.SimpleFlowLayout_max_lines, Integer.MAX_VALUE);
+        //最少一行
+        if (maxLines < 1) {
+            maxLines = 1;
+        }
+        maxCount = ta.getInteger(R.styleable.SimpleFlowLayout_max_count, Integer.MAX_VALUE);
         ta.recycle();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int addedChildCount = 0;
         //实际可用宽高
         int width = MeasureSpec.getSize(widthMeasureSpec - getPaddingLeft() - getPaddingRight());
         int height = MeasureSpec.getSize(heightMeasureSpec - getPaddingTop() - getPaddingBottom());
@@ -105,7 +116,6 @@ public class SimpleFlowLayout extends RelativeLayout {
             if (line == null) {
                 line = new Line();
             }
-
             //计算当前行已使用的高度
             int measureWidth = child.getMeasuredWidth();
             lineSize += measureWidth;
@@ -113,25 +123,32 @@ public class SimpleFlowLayout extends RelativeLayout {
             if (lineSize <= width) {
                 line.addChild(child);
                 lineSize += horizontalSpacing;
-                onlyOneLineChildCount = i + 1;
-            } else {
-                if (onlyShowOneLine) {
-                    /**
-                     * 如果只显示一行的话，就直接退出循环。并把多余的view 移除掉。
-                     */
-                    Log.d(TAG, "onMeasure: onlyShowOneLine break.");
-                    for (int j = onlyOneLineChildCount; j < getChildCount(); j++) {
-                        removeViewAt(j);
-                        removeViews(onlyOneLineChildCount, getChildCount() - onlyOneLineChildCount);
-                    }
+                addedChildCount++;
+                if (addedChildCount >= maxCount) {
+                    //如果已经超过了最大标签数目
+                    Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
+                    removeViews(addedChildCount, getChildCount() - addedChildCount);
                     break;
                 }
-                Log.d(TAG, "onMeasure: multi lines.");
+            } else {
                 //换行
                 newLine();
-                line.addChild(child);
-                lineSize += child.getMeasuredWidth();
-                lineSize += horizontalSpacing;
+                if (lines.size() < maxLines) {
+                    line.addChild(child);
+                    lineSize += child.getMeasuredWidth();
+                    lineSize += horizontalSpacing;
+                    addedChildCount++;
+                    if (addedChildCount >= maxCount) {
+                        //如果已经超过了最大标签数目
+                        Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
+                        removeViews(addedChildCount, getChildCount() - addedChildCount);
+                        break;
+                    }
+                } else {
+                    Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
+                    removeViews(addedChildCount, getChildCount() - addedChildCount);
+                    break;
+                }
             }
         }
 
@@ -175,6 +192,7 @@ public class SimpleFlowLayout extends RelativeLayout {
             lines.add(line);
         }
         line = new Line();
+
         lineSize = 0;
     }
 
