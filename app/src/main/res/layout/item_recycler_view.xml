@@ -21,7 +21,7 @@
         android:paddingLeft="12dp"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        app:max_count="5"
-        app:max_lines="1" />
+        app:sfl_max_count="5"
+        app:sfl_max_lines="1" />
 
 </LinearLayout>

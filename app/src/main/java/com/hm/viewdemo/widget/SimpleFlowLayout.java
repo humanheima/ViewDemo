@@ -23,8 +23,22 @@ import java.util.List;
  * Desc:简单流式布局
  * 1. 控制显示的最大行数
  * 2. 控制显示标签的最大个数
+ * 3. 在addView的时候判断
  * <p>
- * 行数的优先级高于标签个数的优先级
+ * 测试数据
+ * maxLines=1 && maxCount=1
+ *
+ * maxLines=2 && maxCount=1
+ *
+ * maxLines=1 && maxCount=2
+ *
+ * maxLines=2 && maxCount=2
+ *
+ * maxLines=1 && maxCount=Integer.MAX_VALUE
+ *
+ * maxLines=2 && maxCount=Integer.MAX_VALUE
+ *
+ * maxLines=Integer.MAX_VALUE && maxCount=Integer.MAX_VALUE
  * <p>
  * 参考链接：https://blog.csdn.net/kong_gu_you_lan/article/details/52786219
  */
@@ -78,33 +92,37 @@ public class SimpleFlowLayout extends RelativeLayout {
     public SimpleFlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SimpleFlowLayout);
-        horizontalSpacing = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_horizontalSpacing, dp2px(12));
-        verticalSpacing = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_verticalSpacing, dp2px(12));
-        textSize = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_itemSize, sp2px(14));
-        textColor = ta.getColor(R.styleable.SimpleFlowLayout_itemColor, Color.BLACK);
-        backgroundResource = ta.getResourceId(R.styleable.SimpleFlowLayout_backgroundResource, R.drawable.bg_flow_layout_item);
-        textPaddingH = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingH, dp2px(12));
-        textPaddingV = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_textPaddingV, dp2px(8));
-        maxLines = ta.getInteger(R.styleable.SimpleFlowLayout_max_lines, Integer.MAX_VALUE);
+        horizontalSpacing = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_sfl_horizontal_spacing, dp2px(12));
+        verticalSpacing = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_sfl_vertical_spacing, dp2px(12));
+        textSize = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_sfl_text_size, sp2px(14));
+        textColor = ta.getColor(R.styleable.SimpleFlowLayout_sfl_text_color, Color.BLACK);
+        backgroundResource = ta.getResourceId(R.styleable.SimpleFlowLayout_sfl_background_resource, R.drawable.bg_flow_layout_item);
+        textPaddingH = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_sfl_text_horizontal_padding, dp2px(12));
+        textPaddingV = ta.getDimensionPixelSize(R.styleable.SimpleFlowLayout_sfl_text_vertical_padding, dp2px(8));
+        maxLines = ta.getInteger(R.styleable.SimpleFlowLayout_sfl_max_lines, Integer.MAX_VALUE);
         //最少一行
         if (maxLines < 1) {
             maxLines = 1;
         }
-        maxCount = ta.getInteger(R.styleable.SimpleFlowLayout_max_count, Integer.MAX_VALUE);
+        maxCount = ta.getInteger(R.styleable.SimpleFlowLayout_sfl_max_count, Integer.MAX_VALUE);
+        if (maxCount < 1) {
+            maxCount = 1;
+        }
         ta.recycle();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
         int addedChildCount = 0;
+        restoreLine();
+
         //实际可用宽高
         int width = MeasureSpec.getSize(widthMeasureSpec - getPaddingLeft() - getPaddingRight());
         int height = MeasureSpec.getSize(heightMeasureSpec - getPaddingTop() - getPaddingBottom());
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
-        restoreLine();
 
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
@@ -113,65 +131,53 @@ public class SimpleFlowLayout extends RelativeLayout {
             int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
             child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
 
-            if (line == null) {
-                line = new Line();
-            }
-            //计算当前行已使用的高度
             int measureWidth = child.getMeasuredWidth();
             lineSize += measureWidth;
-            // 如果使用的宽度小于可用的宽度，这时候childView能够添加到当前的行上
+            // 如果使用的宽度小于可用的宽度，这时候child能够添加到当前的行上
             if (lineSize <= width) {
                 line.addChild(child);
                 lineSize += horizontalSpacing;
                 addedChildCount++;
-                if (addedChildCount >= maxCount) {
-                    //如果已经超过了最大标签数目
-                    Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
-                    removeViews(addedChildCount, getChildCount() - addedChildCount);
-                    break;
-                }
             } else {
-                //换行
-                newLine();
+                addLine();
+
+                /**
+                 * 如果没有达到限制的最大行数，则换行继续添加
+                 */
                 if (lines.size() < maxLines) {
+                    newLine();
                     line.addChild(child);
                     lineSize += child.getMeasuredWidth();
                     lineSize += horizontalSpacing;
                     addedChildCount++;
-                    if (addedChildCount >= maxCount) {
-                        //如果已经超过了最大标签数目
-                        Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
-                        removeViews(addedChildCount, getChildCount() - addedChildCount);
-                        break;
-                    }
-                } else {
-                    Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
-                    removeViews(addedChildCount, getChildCount() - addedChildCount);
-                    break;
                 }
             }
         }
 
-        Log.d(TAG, "onMeasure: childCount=" + getChildCount());
+        Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
 
         // 把最后一行记录到集合中
-        if (line != null && !lines.contains(line)) {
-            lines.add(line);
-        }
+        addLine();
 
         int totalHeight = 0;
         // 把所有行的高度加上
         for (int i = 0; i < lines.size(); i++) {
             totalHeight += lines.get(i).getHeight();
         }
+        Log.e(TAG, "lines.size()=" + lines.size());
         // 加上行的竖直间距
-
         totalHeight += verticalSpacing * (lines.size() - 1);
 
         totalHeight += getPaddingTop();
         totalHeight += getPaddingBottom();
 
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), resolveSize(totalHeight, heightMeasureSpec));
+    }
+
+    private void addLine() {
+        if (line != null && !lines.contains(line) && lines.size() < maxLines) {
+            lines.add(line);
+        }
     }
 
     @Override
@@ -188,11 +194,7 @@ public class SimpleFlowLayout extends RelativeLayout {
     }
 
     private void newLine() {
-        if (line != null) {
-            lines.add(line);
-        }
         line = new Line();
-
         lineSize = 0;
     }
 
@@ -209,7 +211,7 @@ public class SimpleFlowLayout extends RelativeLayout {
      * @param onItemClickListener 点击监听
      */
     public void setView(String str, final OnItemClickListener onItemClickListener) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>(1);
         list.add(str);
         setViews(list, onItemClickListener);
     }
@@ -232,7 +234,7 @@ public class SimpleFlowLayout extends RelativeLayout {
      * @param onItemClickListener 点击监听
      */
     public void addView(String str, final OnItemClickListener onItemClickListener) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>(1);
         list.add(str);
         addViews(list, onItemClickListener);
     }
@@ -246,7 +248,6 @@ public class SimpleFlowLayout extends RelativeLayout {
     public void addViews(List<String> list, final OnItemClickListener onItemClickListener) {
         for (int i = 0; i < list.size(); i++) {
             final TextView tv = new TextView(getContext());
-
             // 设置TextView属性
             tv.setText(list.get(i));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -267,6 +268,9 @@ public class SimpleFlowLayout extends RelativeLayout {
                         onItemClickListener.onItemClick(tv.getText().toString());
                     }
                 });
+            }
+            if (getChildCount() >= maxCount) {
+                break;
             }
         }
     }
@@ -365,7 +369,7 @@ public class SimpleFlowLayout extends RelativeLayout {
         public void layout(int left, int top) {
             // 当前childView的左上角x轴坐标
             int currentLeft = left;
-
+            Log.d(TAG, "layout: children.size()=" + children.size());
             for (int i = 0; i < children.size(); i++) {
                 View view = children.get(i);
                 view.layout(currentLeft, top, currentLeft + view.getMeasuredWidth(), top + view.getMeasuredHeight());

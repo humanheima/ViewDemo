@@ -3,17 +3,17 @@
     <!--标签布局-->
     <declare-styleable name="SimpleFlowLayout">
 
-        <attr name="horizontalSpacing" format="dimension" />
-        <attr name="verticalSpacing" format="dimension" />
-        <attr name="itemSize" format="dimension" />
-        <attr name="itemColor" format="color" />
-        <attr name="backgroundResource" format="reference" />
-        <attr name="textPaddingH" format="dimension" />
-        <attr name="textPaddingV" format="dimension" />
+        <attr name="sfl_horizontal_spacing" format="dimension" />
+        <attr name="sfl_vertical_spacing" format="dimension" />
+        <attr name="sfl_text_size" format="dimension" />
+        <attr name="sfl_text_color" format="color" />
+        <attr name="sfl_background_resource" format="reference" />
+        <attr name="sfl_text_horizontal_padding" format="dimension" />
+        <attr name="sfl_text_vertical_padding" format="dimension" />
         <!--限制最大的标签行数-->
-        <attr name="max_lines" format="integer" />
+        <attr name="sfl_max_lines" format="integer" />
         <!--限制最大的标签个数-->
-        <attr name="max_count" format="integer" />
+        <attr name="sfl_max_count" format="integer" />
 
     </declare-styleable>
     <declare-styleable name="CircleView">
