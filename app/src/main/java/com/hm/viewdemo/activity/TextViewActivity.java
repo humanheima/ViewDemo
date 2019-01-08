@@ -102,6 +102,8 @@ public class TextViewActivity extends BaseActivity {
         setTextView10();
         setTextView11();
 
+        Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
+
     }
 
     private void setTextView11() {
