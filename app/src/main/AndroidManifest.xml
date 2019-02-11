@@ -2,13 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hm.viewdemo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 添加快捷方式 -->
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <!-- 移除快捷方式 -->
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
-    <!-- 查询快捷方式 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 添加快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> <!-- 移除快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" /> <!-- 查询快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <application
@@ -18,6 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.LayoutInflateActivity"></activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,7 +65,7 @@
         <activity android:name=".activity.CardViewActivity" />
         <activity android:name=".activity.HorizontalScrollViewActivity" />
         <activity android:name=".activity.SimpleFlowLayoutActivity" />
-        <activity android:name=".activity.ToastActivity"></activity>
+        <activity android:name=".activity.ToastActivity" />
     </application>
 
 </manifest>
