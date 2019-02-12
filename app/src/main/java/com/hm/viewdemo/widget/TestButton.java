@@ -66,8 +66,9 @@ public class TestButton extends TextView {
         return true;
     }
 
-    private void smoothScrollTo(int destX, int destY) {
+    public void smoothScrollTo(int destX, int destY) {
         int scrollX = getScrollX();
+
         int deltaX = destX - scrollX;
         scroller.startScroll(scrollX, 0, deltaX, 0, 1000);
         invalidate();
