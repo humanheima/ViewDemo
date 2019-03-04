@@ -14,7 +14,11 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnLayoutInflater -> LayoutInflateActivity.launch(this)
+            R.id.btnLayoutInflater -> {
+                //LayoutInflateActivity.launch(this)
+                //scroll_activity_main.isNestedScrollingEnabled=false
+                fmLayout.isShouldIntercept = true
+            }
             R.id.btnToast -> ToastActivity.launch(this)
             R.id.useHorizontalScrollView -> HorizontalScrollViewActivity.launch(this)
             R.id.btn_card_view -> CardViewActivity.launch(this)

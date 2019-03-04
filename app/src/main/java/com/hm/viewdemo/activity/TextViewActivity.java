@@ -9,10 +9,12 @@ import android.graphics.EmbossMaskFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
+import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
@@ -163,7 +165,7 @@ public class TextViewActivity extends BaseActivity {
         SpannableString spannableString = new SpannableString("暗影IV已经开始暴走了");
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
         spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableString spannableString1=new SpannableString(spannableString);
+        SpannableString spannableString1 = new SpannableString(spannableString);
         spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView1.setText(spannableString1);
     }
@@ -211,7 +213,24 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(imageSpan1, 9, 10, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         textView3.setText(builder);
-        //设置ClickableSpan后要叫上这行代码
+
+        //设置ClickableSpan后要加上这行代码
+        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+
+        String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+        SpannableString spannableString = new SpannableString(agreementStr);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(android.view.View widget) {
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ContextCompat.getColor(TextViewActivity.this, R.color.colorPrimary));
+                ds.setUnderlineText(true);
+            }
+        }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        textView3.setText(spannableString);
         textView3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
