@@ -6,11 +6,13 @@
     android:orientation="vertical"
     tools:context=".activity.TestGetDrawingCachingActivity">
 
+    <include layout="@layout/layout_drawing_cache" />
+
     <ImageView
         android:id="@+id/ivTop"
         android:layout_width="match_parent"
-        android:scaleType="fitStart"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:scaleType="fitStart" />
 
     <Button
         android:id="@+id/btnGetBitmap"

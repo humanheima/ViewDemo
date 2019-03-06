@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,8 +39,8 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_get_drawing_caching);
-        view = LayoutInflater.from(this).inflate(R.layout.layout_drawing_cache, null);
-        tvNumber = view.findViewById(R.id.tvNumber);
+        //view = LayoutInflater.from(this).inflate(R.layout.layout_drawing_cache, null);
+        tvNumber = findViewById(R.id.tvNumber);
 
         ivTop = findViewById(R.id.ivTop);
         btnGetBitmap = findViewById(R.id.btnGetBitmap);
@@ -51,10 +50,41 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
                 number++;
                 //每次生成bitmap之前改变一下tvNumber的text
                 tvNumber.setText(String.valueOf(number));
-                Bitmap bitmap = convertViewToBitmap(view);
+                Bitmap bitmap = convertViewToBitmap2(tvNumber);
                 ivTop.setBackgroundDrawable(new BitmapDrawable(bitmap));
             }
         });
+    }
+
+    /**
+     * 通过drawingCache获取bitmap
+     *
+     * @param view
+     * @return
+     */
+    private Bitmap convertViewToBitmap2(View view) {
+        view.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        //如果不调用这个方法，每次生成的bitmap相同
+        view.setDrawingCacheEnabled(false);
+        return bitmap;
+    }
+
+    /**
+     * 通过canvas复制view的bitmap
+     *
+     * @param view
+     * @return
+     */
+    private Bitmap copyByCanvas2(View view) {
+        int width = view.getMeasuredWidth();
+        int height = view.getMeasuredHeight();
+        Log.d(TAG, "copyByCanvas: width=" + width + ",height=" + height);
+        Bitmap bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bp);
+        view.draw(canvas);
+        canvas.save();
+        return bp;
     }
 
     /**
