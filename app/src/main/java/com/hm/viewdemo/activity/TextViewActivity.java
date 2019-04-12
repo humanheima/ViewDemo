@@ -227,7 +227,7 @@ public class TextViewActivity extends BaseActivity {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(ContextCompat.getColor(TextViewActivity.this, R.color.colorPrimary));
-                ds.setUnderlineText(true);
+                ds.setUnderlineText(false);
             }
         }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView3.setText(spannableString);

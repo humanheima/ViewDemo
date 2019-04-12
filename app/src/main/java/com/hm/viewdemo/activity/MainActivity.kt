@@ -16,8 +16,11 @@ class MainActivity : BaseActivity() {
         when (view.id) {
             R.id.btnDrawingCache -> {
                 TestGetDrawingCachingActivity.launch(this)
-                //scroll_activity_main.isNestedScrollingEnabled=false
-                //fmLayout.isShouldIntercept = true
+            }
+            //scroll_activity_main.isNestedScrollingEnabled=false
+            //fmLayout.isShouldIntercept = true
+            R.id.btnImageViewSrcBackground -> {
+                ImageViewSrcBackgroundActivity.launch(this)
             }
             R.id.btnLayoutInflater -> {
                 LayoutInflateActivity.launch(this)
@@ -69,9 +72,5 @@ class MainActivity : BaseActivity() {
 
     fun launchDrawEveryThingActivity(view: View) {
         DrawEveryThingActivity.launch(this)
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
     }
 }
