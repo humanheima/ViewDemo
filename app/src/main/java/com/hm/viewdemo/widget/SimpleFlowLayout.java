@@ -10,7 +10,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.viewdemo.R;
@@ -23,26 +22,23 @@ import java.util.List;
  * Desc:简单流式布局
  * 1. 控制显示的最大行数
  * 2. 控制显示标签的最大个数
- * 3. 在addView的时候判断
+ * 3. 如果只限制一行，但是没限制item的数量，那么这个时候应该只添加一行
  * <p>
  * 测试数据
  * maxLines=1 && maxCount=1
- *
+ * <p>
  * maxLines=2 && maxCount=1
- *
+ * <p>
  * maxLines=1 && maxCount=2
- *
+ * <p>
  * maxLines=2 && maxCount=2
- *
- * maxLines=1 && maxCount=Integer.MAX_VALUE
- *
- * maxLines=2 && maxCount=Integer.MAX_VALUE
- *
- * maxLines=Integer.MAX_VALUE && maxCount=Integer.MAX_VALUE
+ * <p>
+ * maxLines=20 && maxCount=20
+ * <p>
  * <p>
  * 参考链接：https://blog.csdn.net/kong_gu_you_lan/article/details/52786219
  */
-public class SimpleFlowLayout extends RelativeLayout {
+public class SimpleFlowLayout extends ViewGroup {
 
     private final String TAG = getClass().getSimpleName();
 
@@ -115,6 +111,9 @@ public class SimpleFlowLayout extends RelativeLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        if (lines.size() > maxLines) {
+            return;
+        }
         int addedChildCount = 0;
         restoreLine();
 
@@ -150,6 +149,8 @@ public class SimpleFlowLayout extends RelativeLayout {
                     lineSize += child.getMeasuredWidth();
                     lineSize += horizontalSpacing;
                     addedChildCount++;
+                } else {
+                    break;
                 }
             }
         }
@@ -171,7 +172,7 @@ public class SimpleFlowLayout extends RelativeLayout {
         totalHeight += getPaddingTop();
         totalHeight += getPaddingBottom();
 
-        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), resolveSize(totalHeight, heightMeasureSpec));
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.makeMeasureSpec(totalHeight, heightMeasureSpec));
     }
 
     private void addLine() {
@@ -182,7 +183,6 @@ public class SimpleFlowLayout extends RelativeLayout {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
         int left = getPaddingLeft();
         int top = getPaddingTop();
 
@@ -269,6 +269,7 @@ public class SimpleFlowLayout extends RelativeLayout {
                     }
                 });
             }
+            Log.d(TAG, "addViews: " + getChildCount() + "," + lines.size());
             if (getChildCount() >= maxCount) {
                 break;
             }

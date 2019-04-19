@@ -23,17 +23,40 @@
         app:layout_constraintStart_toEndOf="@id/iv_cover"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_cover"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.hm.viewdemo.widget.SimpleFlowLayout
         android:id="@+id/simple_flow_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:paddingLeft="12dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        android:paddingTop="8dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toStartOf="@id/iv_right"
+        app:layout_constraintStart_toEndOf="@id/iv_left"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:sfl_max_count="20"
+        app:sfl_max_lines="20"
         app:sfl_text_color="@color/black"
         app:sfl_text_size="12sp" />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_cover"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

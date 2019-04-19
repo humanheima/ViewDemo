@@ -28,7 +28,7 @@ public class SimpleFlowLayoutActivity extends AppCompatActivity {
         simpleFlowLayout = findViewById(R.id.simple_flow_layout);
         // 关键字集合
         List<String> list = new ArrayList<>();
-        list.add("dumingwei");
+        list.add("dumingweidumingwei");
         list.add("key二");
         list.add("杜明伟");
         list.add("关键4");
