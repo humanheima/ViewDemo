@@ -10,11 +10,28 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnTestWidget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="TestWidget"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnLoadDrawable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Android drawable加载探索"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btnImageViewSrcBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="ImageView src 和 background 的区别" />
+            android:text="ImageView src 和 background 的区别"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnDrawingCache"

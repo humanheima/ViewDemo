@@ -2,7 +2,10 @@ package com.hm.viewdemo.activity
 
 import android.view.View
 import com.hm.viewdemo.R
+import com.hm.viewdemo.activity.testbase.FirstWidgetActivity
+import com.hm.viewdemo.activity.testbase.SecondWidgetActivity
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.util.ScreenUtil
 
 class MainActivity : BaseActivity() {
 
@@ -10,17 +13,25 @@ class MainActivity : BaseActivity() {
         return R.layout.activity_main
     }
 
-    override fun initData() {}
+    override fun initData() {
+        ScreenUtil.testDensity(this)
+    }
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnDrawingCache -> {
-                TestGetDrawingCachingActivity.launch(this)
+            R.id.btnTestWidget -> {
+                //FirstWidgetActivity.launch(this)
+                SecondWidgetActivity.launch(this)
             }
-            //scroll_activity_main.isNestedScrollingEnabled=false
-            //fmLayout.isShouldIntercept = true
+            R.id.btnLoadDrawable -> {
+                FirstWidgetActivity.launch(this)
+            }
+
             R.id.btnImageViewSrcBackground -> {
                 ImageViewSrcBackgroundActivity.launch(this)
+            }
+            R.id.btnDrawingCache -> {
+                TestGetDrawingCachingActivity.launch(this)
             }
             R.id.btnLayoutInflater -> {
                 LayoutInflateActivity.launch(this)

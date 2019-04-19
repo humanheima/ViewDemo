@@ -23,6 +23,16 @@ public class ScreenUtil {
         return displayMetrics.widthPixels;
     }
 
+    public static void testDensity(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        Log.d(TAG, "density: " + displayMetrics.density);
+        Log.d(TAG, "xdpi: " + displayMetrics.xdpi);
+        Log.d(TAG, "ydpi: " + displayMetrics.ydpi);
+        Log.d(TAG, "densityDpi: " + displayMetrics.densityDpi);
+    }
+
     public static int getScreenHeight(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();

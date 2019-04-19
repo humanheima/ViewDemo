@@ -121,8 +121,29 @@ sp Scale-independent Pixels
 比例无关的像素 - 这与dp单位类似，但它也可以通过用户的字体大小首选项进行缩放。建议您在指定字体大小时使用此单位，以便根据屏幕密度和用户偏好调整它们。
 
 pt Points
-点数 - 基于屏幕的物理尺寸的1/72英寸，假设密度为72dpi的屏幕。
+点数 - 是一个标准长度单位，1pt = 1/72英寸，用于印刷业。
 
 px Pixels 
 
 像素 - 对应于屏幕上的实际像素。建议不要使用此计量单位，因为实际表示可能因设备而异; 每个设备可以具有每英寸不同数量的像素，并且可以在屏幕上具有更多或更少的总像素。
+
+参考链接
+
+1. [Android Developers>Dos>指南More resource types](https://developer.android.google.cn/guide/topics/resources/more-resources)
+2. [Android像素单位dp、sp、px、pt的区别和比较](https://blog.csdn.net/wzy_1988/article/details/43732467)
+3. [Android中分辨率，DPI，DP与PX对应关系](https://blog.csdn.net/u012741741/article/details/51075518)
+
+|   | ||||||
+|---|---|---|---|---|---|---|
+|  dpi等级 |ldpi|mdpi|hdpi|xhdpi|xxhdpi|xxxhdpi|
+|  dpi数值 |120|160|240|320|480|640|
+|  1dp=?px | 0.75 | 1 | 1.5 | 2 | 3 | 4 |
+
+上面表格的信息来自`android.utilDisplayMetrics`
+
+目前一些设备的dpi数值以及对应的dpi等级如下
+
+| 设备型号| dpi数值|dpi等级|
+|---| ---|---|
+|||
+
