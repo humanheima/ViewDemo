@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity
 
 import android.view.View
 import com.hm.viewdemo.R
+import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.testbase.FirstWidgetActivity
 import com.hm.viewdemo.activity.testbase.SecondWidgetActivity
 import com.hm.viewdemo.base.BaseActivity
@@ -19,6 +20,12 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnAnnouncementView -> {
+                AnnouncementActivity.launch(this)
+            }
+            R.id.btnCoordinateLayout -> {
+                CoordinateLayoutActivity.launch(this)
+            }
             R.id.btnTestWidget -> {
                 //FirstWidgetActivity.launch(this)
                 SecondWidgetActivity.launch(this)

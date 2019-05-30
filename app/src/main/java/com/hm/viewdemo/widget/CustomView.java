@@ -42,7 +42,13 @@ public class CustomView extends View {
     }
 
     private void initCustomAttrs(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView,R.attr.CustomView_Theme_Style,R.style.CustomView_Yellow_Style);
+        //打印出所有的属性
+        int count = attrs.getAttributeCount();
+        for (int i = 0; i < count; i++) {
+            Log.d(TAG, "attributeName: " + attrs.getAttributeName(i) +
+                    ",attributeValue: " + attrs.getAttributeValue(i));
+        }
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView, R.attr.CustomView_Theme_Style, R.style.CustomView_Yellow_Style);
         fontSize = (int) ta.getDimension(R.styleable.CustomView_cus_font, 16);
         customText = ta.getString(R.styleable.CustomView_text);
         customColor = ta.getColor(R.styleable.CustomView_color, Color.BLUE);
