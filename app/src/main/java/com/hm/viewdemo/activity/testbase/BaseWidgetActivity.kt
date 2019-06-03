@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_first_widget.*
 /**
  * Created by dumingwei on 2019/4/15.
  * Desc:
- * 测试 子类中的控件是否可以直接在父类中使用
+ * 测试 Kotlin中子类中的控件是否可以直接在父类中使用
  */
 abstract class BaseWidgetActivity : AppCompatActivity() {
 

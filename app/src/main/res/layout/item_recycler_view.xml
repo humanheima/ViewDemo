@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"

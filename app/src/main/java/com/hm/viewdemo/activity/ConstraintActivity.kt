@@ -2,8 +2,11 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
+import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.support.constraint.Guideline
 import android.support.transition.TransitionManager
+import android.widget.ImageView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_constraint_another.*
@@ -30,7 +33,7 @@ class ConstraintActivity : BaseActivity() {
     }
 
     private fun addView() {
-        /* val line: Guideline = Guideline(this)
+         val line: Guideline = Guideline(this)
          line.id = R.id.guide_line_id
          val layoutParams: ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(
                  ConstraintLayout.LayoutParams.WRAP_CONTENT,
@@ -51,7 +54,6 @@ class ConstraintActivity : BaseActivity() {
          imageLayoutParams.bottomToTop = R.id.guide_line_id
          layoutParams.orientation = ConstraintLayout.LayoutParams.HORIZONTAL
          cl_root.addView(imageView, imageLayoutParams)
- */
 
     }
 
@@ -59,8 +61,8 @@ class ConstraintActivity : BaseActivity() {
         val set = ConstraintSet()
         set.clone(cl_root)
         set.setGuidelinePercent(R.id.guideLine, 0.3F)
-        set.applyTo(cl_root)
         TransitionManager.beginDelayedTransition(cl_root)
+        set.applyTo(cl_root)
     }
 
 }
