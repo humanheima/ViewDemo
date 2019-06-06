@@ -10,12 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.hm.viewdemo.widget.CustomView
-            android:layout_width="wrap_content"
+
+        <Button
+            android:id="@+id/btnLollipopView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/confirm"
-            android:text="@string/cancel"
-            app:type="common" />
+            android:onClick="onClick"
+            android:text="棒棒糖"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnAnnouncementView"
