@@ -20,6 +20,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnLifecycleView -> {
+                ViewLifecycleActivity.launch(this)
+            }
             R.id.btnLollipopView -> {
                 LollipopActivity.launch(this)
             }

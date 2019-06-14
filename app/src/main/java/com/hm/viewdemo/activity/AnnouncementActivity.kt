@@ -34,7 +34,7 @@ class AnnouncementActivity : AppCompatActivity() {
         setContentView(R.layout.activity_announcement)
         flipper.inAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_in)
         flipper.outAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_out)
-        flipper.startFlipping()
+        //flipper.startFlipping()
 
         for (i in 0..10) {
             val textView = getTextView("hello world$i")
@@ -42,7 +42,7 @@ class AnnouncementActivity : AppCompatActivity() {
         }
         flipperDynamic.inAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_in)
         flipperDynamic.outAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_out)
-        flipperDynamic.startFlipping()
+        //flipperDynamic.startFlipping()
     }
 
     private fun getTextView(text: String): TextView {
