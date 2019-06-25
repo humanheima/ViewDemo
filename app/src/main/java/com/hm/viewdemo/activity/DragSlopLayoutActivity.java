@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,12 +34,12 @@ public class DragSlopLayoutActivity extends BaseActivity {
     DragSlopLayout dragSlopLayout;
     @BindView(R.id.text_title)
     TextView textDragTitle;
-    @BindView(R.id.text_content)
+    /*@BindView(R.id.text_content)
     TextView textDragContent;
     @BindView(R.id.text_press)
     TextView textDragPress;
     @BindView(R.id.text_date)
-    TextView textDragDate;
+    TextView textDragDate;*/
     @BindView(R.id.nested_scroll_view)
     NestedScrollView scrollViewDragContent;
     @BindView(R.id.img_back)
@@ -54,6 +56,9 @@ public class DragSlopLayoutActivity extends BaseActivity {
     TextView textNowNumber;
     @BindView(R.id.text_number_sum)
     TextView textTotalNumber;
+
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
 
     private List<String> imageList;
     private List<String> contentList;
@@ -85,7 +90,9 @@ public class DragSlopLayoutActivity extends BaseActivity {
     protected void initData() {
         imageList = new ArrayList<>();
         contentList = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 16; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_drag_slop, null);
+            llContent.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             imageList.add(Images.imageUrls[i]);
         }
         contentList.add(getString(R.string.news_content));
@@ -140,11 +147,11 @@ public class DragSlopLayoutActivity extends BaseActivity {
             }
         });
         viewPager.setAdapter(adapter);
-        textDragContent.setText(contentList.get(0));
+        //textDragContent.setText(contentList.get(0));
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                textDragContent.setText(contentList.get(position));
+                //textDragContent.setText(contentList.get(position));
                 textNowNumber.setText(String.valueOf(position + 1));
                 textHideNumberNow.setText(String.valueOf(position + 1));
             }

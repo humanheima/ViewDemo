@@ -3,7 +3,9 @@ package com.hm.viewdemo.widget;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -47,6 +49,9 @@ public class DragSlopLayout extends FrameLayout {
     private ObjectAnimator dragOutAnimator;
     private ObjectAnimator dragInAnimator;
 
+    // 判断快速滑动的速率
+    private static final float FLING_VELOCITY = 5000;
+
     public DragSlopLayout(Context context) {
         this(context, null);
     }
@@ -64,7 +69,7 @@ public class DragSlopLayout extends FrameLayout {
         mDragHelper = ViewDragHelper.create(this, 1.0f, callback);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DragSlopLayout, defStyleAttr, 0);
         mFixHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_fix_height, ScreenUtil.dpToPx(context, 180));
-        mMaxHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_max_height, ScreenUtil.dpToPx(context, 260));
+        mMaxHeight = a.getDimensionPixelOffset(R.styleable.DragSlopLayout_max_height, ScreenUtil.dpToPx(context, 400));
         a.recycle();
     }
 
@@ -202,6 +207,27 @@ public class DragSlopLayout extends FrameLayout {
         }
 
         @Override
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
+            float velocity = FLING_VELOCITY;
+            if (Math.abs(yvel) < velocity) {
+                // 在 MODE_DRAG_OUTSIDE 模式下才做自动滚动处理，其它模式做收缩滚动,快速滚动在任何模式都做
+                mDragHelper.smoothSlideViewTo(mDragView, 0, mExpandedTop);
+                ViewCompat.postInvalidateOnAnimation(DragSlopLayout.this);
+            } else if (yvel > 0) {
+                if (!_flingScrollView(yvel)) {
+                    mDragHelper.settleCapturedViewAt(0, mCollapsedTop);
+                    ViewCompat.postInvalidateOnAnimation(DragSlopLayout.this);
+                }
+            } else {
+                if (!_flingScrollView(yvel)) {
+                    mDragHelper.settleCapturedViewAt(0, mExpandedTop);
+                    ViewCompat.postInvalidateOnAnimation(DragSlopLayout.this);
+                }
+            }
+
+        }
+
+        @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
             if (mAttachScrollView != null) {
                 /**
@@ -232,7 +258,26 @@ public class DragSlopLayout extends FrameLayout {
         }
     }
 
+
     /*********************************** ScrollView ********************************************/
+
+    /**
+     * 滑动 ScrollView
+     *
+     * @param yvel 滑动速度
+     * @return
+     */
+    private boolean _flingScrollView(float yvel) {
+        if (mAttachScrollView == null || mAttachScrollView.getScrollY() == 0) {
+            return false;
+        }
+        if (mAttachScrollView instanceof ScrollView) {
+            ((ScrollView) mAttachScrollView).fling((int) -yvel);
+        } else if (mAttachScrollView instanceof NestedScrollView) {
+            ((NestedScrollView) mAttachScrollView).fling((int) -yvel);
+        }
+        return true;
+    }
 
     /**
      * 设置关联的 ScrollView 如果有的话，目前只支持 ScrollView 和 NestedScrollView 及其子视图
