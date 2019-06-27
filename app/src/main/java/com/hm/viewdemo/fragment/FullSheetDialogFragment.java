@@ -31,14 +31,14 @@ public class FullSheetDialogFragment extends BottomSheetDialogFragment {
         for (int i = 0; i < 30; i++) {
             stringList.add("string" + i);
         }
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecycleViewAdapter(stringList, getContext());
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                doclick(view);
+                doClick(view);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -54,7 +54,7 @@ public class FullSheetDialogFragment extends BottomSheetDialogFragment {
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    public void doclick(View v) {
+    public void doClick(View v) {
         //点击任意布局关闭
         mBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }

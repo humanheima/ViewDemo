@@ -56,7 +56,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (viewType == FOOT_VIEW_TYPE) {
             return new SpecialHolder(footerView);
         } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_recycler_view, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_drag_slop, parent, false);
             return new VH(view);
         }
     }
@@ -107,7 +107,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class VH extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text1)
+        @BindView(R.id.item_text_book_name)
         TextView text1;
 
         public VH(View itemView) {
