@@ -17,6 +17,7 @@
         android:stateListAnimator="@drawable/selector_elevation"
         android:visibility="visible"
         app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         tools:targetApi="lollipop">

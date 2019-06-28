@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hm.viewdemo.widget.ViewDragLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hm.viewdemo.widget.ViewDragHelperLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <TextView
-        android:id="@+id/text_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorAccent"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#44ff0000"
         android:gravity="center"
-        android:text="可拖动的View"/>
+        android:text="I can be dragged !" />
 
-</com.hm.viewdemo.widget.ViewDragLayout>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#3F51B5"
+        android:gravity="center"
+        android:text="I will beck to my position" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#44ff0000"
+        android:gravity="center"
+        android:text="Use edge tracker to operate me!" />
+
+
+</com.hm.viewdemo.widget.ViewDragHelperLayout>
