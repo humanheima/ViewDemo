@@ -39,10 +39,9 @@
         android:layout_marginTop="40dp"
         android:text="scroll" />
 
-    <com.hm.viewdemo.widget.TestButton
+    <com.hm.viewdemo.widget.TestSmoothScrollView
         android:id="@+id/btnButton"
         android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:text="test scroll" />
+        android:layout_height="80dp" />
 
 </LinearLayout>

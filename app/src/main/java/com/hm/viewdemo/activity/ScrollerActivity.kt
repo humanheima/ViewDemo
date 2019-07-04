@@ -23,7 +23,6 @@ class ScrollerActivity : AppCompatActivity() {
         btnStartScroll!!.setOnClickListener {
             //testLayout.scrollBy(-20, -20);
             //testLayout!!.scrollBy(20, 20)
-            btnButton.smoothScrollTo(100, 100)
         }
 
     }

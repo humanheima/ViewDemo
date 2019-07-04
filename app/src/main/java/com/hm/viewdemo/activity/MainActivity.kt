@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity
 
 import android.view.View
 import com.hm.viewdemo.R
+import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.testbase.FirstWidgetActivity
 import com.hm.viewdemo.activity.testbase.SecondWidgetActivity
@@ -20,6 +21,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestScreenScrollView -> {
+                TestScreenScrollViewActivity.launch(this)
+            }
             R.id.btnLifecycleView -> {
                 ViewLifecycleActivity.launch(this)
             }
