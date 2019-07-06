@@ -191,7 +191,7 @@ public class TextViewActivity extends BaseActivity {
     }
 
     private void setTextView3() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
+        /*SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append("暗影IV");
         builder.append("已经开始暴走了");
         builder.append("艰难苦恨繁霜鬓");
@@ -215,13 +215,19 @@ public class TextViewActivity extends BaseActivity {
         textView3.setText(builder);
 
         //设置ClickableSpan后要加上这行代码
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+        textView3.setMovementMethod(LinkMovementMethod.getInstance());*/
 
         String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
         SpannableString spannableString = new SpannableString(agreementStr);
         spannableString.setSpan(new ClickableSpan() {
             @Override
-            public void onClick(android.view.View widget) {
+            public void onClick(android.view.View widget) {//
+                //这里的判断是为了去掉在点击后字体出现的背景色
+                if (widget instanceof TextView){
+                    ((TextView) widget).setHighlightColor(Color.TRANSPARENT);
+                }
+
+                    Toast.makeText(TextViewActivity.this, "haha", Toast.LENGTH_SHORT).show();
             }
 
             @Override
