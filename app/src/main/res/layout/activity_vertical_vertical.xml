@@ -14,7 +14,8 @@
             android:id="@+id/sticky_header"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary"
-            android:layout_height="60dp"
+            android:layout_height="160dp"
+            android:gravity="center_vertical"
             android:text="i am head" />
 
         <ListView

@@ -50,9 +50,9 @@ public class VerticalVerticalActivity extends BaseActivity {
         stickyLayout.setOnGiveUpTouchEventListener(new StickyLayout.OnGiveUpTouchEventListener() {
             @Override
             public boolean giveUpTouchEvent(MotionEvent event) {
-                if (stickyContent.getFirstVisiblePosition()==0){
-                    View view=stickyContent.getChildAt(0);
-                    if (view!=null&&view.getTop()>=0){
+                if (stickyContent.getFirstVisiblePosition() == 0) {
+                    View view = stickyContent.getChildAt(0);
+                    if (view != null && view.getTop() >= 0) {
                         return true;
                     }
                 }

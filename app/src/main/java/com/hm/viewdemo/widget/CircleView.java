@@ -67,7 +67,7 @@ public class CircleView extends View {
         mPaint.setColor(bgColor);
         canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
         mPaint.setColor(mColor);
-        canvas.drawCircle(paddingLeft + width / 2, paddingTop + height / 2, radius, mPaint);
+        canvas.drawCircle(paddingLeft + width / 2f, paddingTop + height / 2f, radius, mPaint);
     }
 
     public void setColor(int mColor) {

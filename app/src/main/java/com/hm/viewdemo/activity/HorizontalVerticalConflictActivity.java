@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,8 @@ public class HorizontalVerticalConflictActivity extends BaseActivity {
             ViewGroup layout = (ViewGroup) LayoutInflater.from(this)
                     .inflate(R.layout.content_layout, horizontalScrollViewEx, false);
             layout.getLayoutParams().width = screenWidth;
-            TextView textView = (TextView) layout.findViewById(R.id.title);
+            layout.setBackgroundColor(Color.rgb(255 / (i + 1), 255 / (i + 1), 0));
+            TextView textView = layout.findViewById(R.id.title);
             textView.setText("page" + (i + 1));
             createList(layout);
             horizontalScrollViewEx.addView(layout);
@@ -53,12 +55,13 @@ public class HorizontalVerticalConflictActivity extends BaseActivity {
     }
 
     private void createList(ViewGroup layout) {
-        ListView listView = (ListView) layout.findViewById(R.id.list);
+        ListView listView = layout.findViewById(R.id.list);
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             data.add("name" + i);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.content_list_item, R.id.name, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                R.layout.content_list_item, R.id.name, data);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

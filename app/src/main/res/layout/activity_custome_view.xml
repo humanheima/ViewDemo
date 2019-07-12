@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_custome_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorAccent"
-        android:scaleType="centerCrop"/>
+        android:background="@drawable/bg_top_cornor_6"
+        android:scaleType="centerCrop" />
 
-    <com.hm.viewdemo.widget.RoundView
+    <com.hm.viewdemo.widget.CircleView
         android:layout_width="match_parent"
-        android:layout_height="12dp"/>
+        android:padding="10dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp" />
 
-
-</RelativeLayout>
+</LinearLayout>
