@@ -31,3 +31,23 @@
 ```
 ## View.post() 到底干了啥
 [【Andorid源码解析】View.post() 到底干了啥](https://www.jianshu.com/p/85fc4decc947)
+
+遍历View树
+```
+fun printAllChildView(view: View) {
+        Log.d(TAG, "printAllChildView: ")
+        val queue: Deque<View> = LinkedList<View>()
+        var root = view
+        queue.add(root)
+        while (queue.isNotEmpty()) {
+            root = queue.pop()
+            Log.d(TAG, "printAllChildView: $root")
+            if (root is ViewGroup) {
+                for (i in 0 until root.childCount) {
+                    queue.add(root.getChildAt(i))
+                }
+
+            }
+        }
+    }
+```
