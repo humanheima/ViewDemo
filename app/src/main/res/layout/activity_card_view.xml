@@ -11,16 +11,17 @@
         android:id="@+id/cv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@drawable/selector_elevation"
         android:visibility="visible"
         app:cardCornerRadius="8dp"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
+        app:cardElevation="4dp"
         tools:targetApi="lollipop">
 
         <ImageView
@@ -38,7 +39,6 @@
         android:id="@+id/tvText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 
 </LinearLayout>

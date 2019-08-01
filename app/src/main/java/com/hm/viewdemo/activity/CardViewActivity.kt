@@ -16,7 +16,12 @@ import android.widget.Toast
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_card_view.*
 
-
+/**
+ * Crete by dumingwei on 2019-08-01
+ * Desc:
+ *
+ * 参考链接：https://www.jianshu.com/p/b105019028b6
+ */
 class CardViewActivity : AppCompatActivity() {
 
     companion object {
