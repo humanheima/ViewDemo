@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvHour"
+        android:layout_width="17dp"
+        android:layout_height="16dp"
+        android:background="@drawable/shape_bg_count_down_view"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:text="99" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:gravity="center"
+        android:text=" : "
+        android:textColor="#F52D37"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMinute"
+        android:layout_width="17dp"
+        android:layout_height="16dp"
+        android:background="@drawable/shape_bg_count_down_view"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:text="99" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:gravity="center"
+        android:text=" : "
+        android:textColor="#F52D37"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvSecond"
+        android:layout_width="17dp"
+        android:layout_height="16dp"
+        android:background="@drawable/shape_bg_count_down_view"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:text="99" />
+
+</LinearLayout>

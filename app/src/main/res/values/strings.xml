@@ -46,4 +46,5 @@
     <string name="use_horizontal_scroll_view">useHorizontalScrollView</string>
     <string name="show_toast">show toast</string>
     <string name="show_custom_toast">展示自定义Toast</string>
+    <string name="hour_minute_second_format">%1$s %2$s %3$s</string>
 </resources>

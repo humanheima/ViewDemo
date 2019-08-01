@@ -21,6 +21,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestCountDownTimer -> {
+                CountDownTimerActivity.launch(this)
+            }
             R.id.btnTestScreenScrollView -> {
                 TestScreenScrollViewActivity.launch(this)
             }

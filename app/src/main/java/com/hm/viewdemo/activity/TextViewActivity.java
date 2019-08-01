@@ -9,12 +9,10 @@ import android.graphics.EmbossMaskFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
-import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
@@ -191,7 +189,7 @@ public class TextViewActivity extends BaseActivity {
     }
 
     private void setTextView3() {
-        /*SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append("暗影IV");
         builder.append("已经开始暴走了");
         builder.append("艰难苦恨繁霜鬓");
@@ -215,9 +213,9 @@ public class TextViewActivity extends BaseActivity {
         textView3.setText(builder);
 
         //设置ClickableSpan后要加上这行代码
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());*/
+        textView3.setMovementMethod(LinkMovementMethod.getInstance());
 
-        String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+       /* String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
         SpannableString spannableString = new SpannableString(agreementStr);
         spannableString.setSpan(new ClickableSpan() {
             @Override
@@ -237,7 +235,7 @@ public class TextViewActivity extends BaseActivity {
             }
         }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView3.setText(spannableString);
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+        textView3.setMovementMethod(LinkMovementMethod.getInstance());*/
     }
 
     private void setTextView4() {
