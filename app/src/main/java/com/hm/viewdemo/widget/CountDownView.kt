@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.hm.viewdemo.R
-import com.hm.viewdemo.activity.CountDownTimerActivity
 import kotlinx.android.synthetic.main.count_down_view.view.*
 
 /**
@@ -21,7 +20,7 @@ class CountDownView @JvmOverloads constructor(
 
     private val TAG = "CountDownView"
 
-    private var countDownTimer: CountDownTimer?=null
+    private var countDownTimer: CountDownTimer? = null
 
     private var millisInFuture = 0L
 
@@ -46,12 +45,6 @@ class CountDownView @JvmOverloads constructor(
      * @param finishTime 毫秒
      */
     fun initData(finishTime: Long) {
-        /* if (finishTime < 0 || finishTime < interval) {
-             //这里应该隐藏倒计时控件，显示一个已结束的控件
-             Log.d(TAG, "initData: ")
-             return
-         }*/
-
         this.millisInFuture = finishTime - System.currentTimeMillis()
     }
 
@@ -73,8 +66,8 @@ class CountDownView @JvmOverloads constructor(
 
                     val second = millisUntilFinished / 1000
 
-                    val hour = second / CountDownTimerActivity.HOUR
-                    val minute = second % CountDownTimerActivity.HOUR / CountDownTimerActivity.MINUTE
+                    val hour = second / HOUR
+                    val minute = second % HOUR / MINUTE
                     val s = second % 60
 
                     tvHour.text = String.format("%02d", hour)
@@ -93,5 +86,9 @@ class CountDownView @JvmOverloads constructor(
             countDownTimer?.start()
         }
 
+    }
+
+    fun cancel(){
+        countDownTimer?.cancel()
     }
 }
