@@ -4,8 +4,6 @@ import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
-import com.hm.viewdemo.activity.testbase.FirstWidgetActivity
-import com.hm.viewdemo.activity.testbase.SecondWidgetActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.util.ScreenUtil
 
@@ -38,13 +36,6 @@ class MainActivity : BaseActivity() {
             }
             R.id.btnCoordinateLayout -> {
                 CoordinateLayoutActivity.launch(this)
-            }
-            R.id.btnTestWidget -> {
-                //FirstWidgetActivity.launch(this)
-                SecondWidgetActivity.launch(this)
-            }
-            R.id.btnLoadDrawable -> {
-                FirstWidgetActivity.launch(this)
             }
 
             R.id.btnImageViewSrcBackground -> {
