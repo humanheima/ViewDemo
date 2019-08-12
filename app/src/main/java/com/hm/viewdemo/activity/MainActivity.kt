@@ -19,6 +19,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestDrawPath -> {
+                DrawPathActivity.launch(this)
+            }
             R.id.btnTestCountDownTimer -> {
                 CountDownTimerActivity.launch(this)
             }
@@ -75,6 +78,7 @@ class MainActivity : BaseActivity() {
             R.id.btn_event_dispatch -> EventDispatchActivity.launch(this)
             R.id.simpleFlowLayout -> SimpleFlowLayoutActivity.launch(this)
             else -> {
+                // do nothing
             }
         }
 

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.DrawEveryThingActivity">
 
-    <com.hm.viewdemo.widget.draw.EveryThingDrawView
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="draw everything"
+        android:textAllCaps="false" />
+
+    <com.hm.viewdemo.widget.draw.DrawEveryThingView
         android:layout_width="200dp"
-        android:layout_height="240dp"
-        android:layout_centerInParent="true" />
+        android:layout_height="240dp" />
 
-</RelativeLayout>
+</LinearLayout>
