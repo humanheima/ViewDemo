@@ -5,65 +5,56 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathEffect;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
+import android.graphics.PathMeasure;
 import android.graphics.RectF;
-import android.graphics.Xfermode;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.hm.viewdemo.R;
 
 /**
- * Created by dumingwei on 2017/11/30 0030.
- * {@link Paint.Style#FILL}
- * {@link Paint.Style#FILL_AND_STROKE}
- * 两者的区别在于 以画圆为例 如果 paint设置了setStrokeWidth ，那么FILL 模式下画出来的圆要比
- * FILL_AND_STROKE 模式下画出来的小
+ * Crete by dumingwei on 2019-08-13
+ * Desc: 学习 path 相关知识
  */
 
-public class DrawEveryThingView extends View {
+public class DrawPathView extends View {
+
+    private static final String TAG = "DrawPathView";
 
     private Paint mPaint;
-    private int radius;
     private int width;
     private int height;
-    private RectF rectF;
     private Path path = new Path();
 
-    private Bitmap bitmap;
 
-    private Rect srcRect;
-    private RectF dstRect;
-    private Bitmap dst, src;
-    private PathEffect pathEffect;
+    private float currentValue = 0;     // 用于纪录当前的位置,取值范围[0,1]映射Path的整个长度
 
-    public DrawEveryThingView(Context context) {
+    private float[] pos = new float[2];                // 当前点的实际位置
+    private float[] tan = new float[2];                // 当前点的tangent值,用于计算图片所需旋转的角度
+    private Bitmap mBitmap;             // 箭头图片
+    private Matrix mMatrix;             // 矩阵,用于对图片进行一些操作
+
+    public DrawPathView(Context context) {
         this(context, null);
     }
 
-    public DrawEveryThingView(Context context, @Nullable AttributeSet attrs) {
+    public DrawPathView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DrawEveryThingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DrawPathView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initPaint();
-        rectF = new RectF(100, 100, 300, 300);
-        srcRect = new Rect(0, 0, 100, 100);
-        dstRect = new RectF(100, 100, 200, 200);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
-        dst = BitmapFactory.decodeResource(getResources(), R.drawable.composite_dst);
-        src = BitmapFactory.decodeResource(getResources(), R.drawable.composite_src);
-        //phase 表示 起始点的偏移量
-        pathEffect = new DashPathEffect(new float[]{40, 5, 80, 20}, 30);
+
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);
+        mMatrix = new Matrix();
+
     }
 
     private void initPaint() {
@@ -76,7 +67,6 @@ public class DrawEveryThingView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        radius = Math.min(getMeasuredWidth(), getMeasuredHeight()) >> 1;
         width = getMeasuredWidth();
         height = getMeasuredHeight();
     }
@@ -85,51 +75,9 @@ public class DrawEveryThingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //绘制坐标系
-        //mPaint.setColor(Color.RED);
-        //canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
-        //canvas.drawLine(width / 2.0f, 0f, width / 2.0f, height * 1.0f, mPaint);
-        /*mPaint.setColor(Color.DKGRAY);
-        mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(width >> 1, height >> 1, radius, mPaint);*/
-        /*mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setStrokeWidth(dp2px(20));
-        mPaint.setColor(Color.parseColor("#FFFF3344"));
-        canvas.drawCircle(width >> 1, height >> 1, radius >> 1, mPaint);*/
-        //mPaint.setStyle(Paint.Style.STROKE);
-        //mPaint.setStrokeWidth(dp2px(2));
-        /*canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.parseColor("#FFFF3344"));*/
-        //mPaint.setStrokeCap(Paint.Cap.SQUARE);
-        //mPaint.setStrokeCap(Paint.Cap.BUTT);
-        //canvas.drawPoint(30, 30, mPaint);
-
-        //float[] points = {0, 0, 50, 50, 50, 100, 100, 50, 100, 100, 150, 50, 150, 100};
-        // 绘制四个点：(50, 50) (50, 100) (100, 50) (100, 100)
-        /* 跳过两个数，即前两个 0 */
-        /* 一共绘制的点数 count>>1 */
-        //canvas.drawPoints(points, 2, 12, mPaint);
-        //canvas.drawPoints(points,mPaint);
-        //画椭圆
-        //canvas.drawOval(rectF, mPaint);
-        //mPaint.setStrokeWidth(dp2px(2));
-        //canvas.drawLine(10, 10, 200, 50, mPaint);
-        //float[] points = {20, 20, 120, 20, 70, 20, 70, 120, 20, 120, 120, 120, 150, 20, 250, 20,150, 20, 150, 120, 250, 20, 250, 120, 150, 120, 250, 120};
-        //canvas.drawLines(points, mPaint);
-        //canvas.drawLines(points, 4, 24, mPaint);
-        //canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint);
-        //mPaint.setStyle(Paint.Style.FILL);
-        //canvas.drawArc(rectF,0,90,true,mPaint);
-
-        // TODO: 2017/12/1 0001   path 没有搞明白
-
-       /* mPaint.setStyle(Paint.Style.STROKE);
-        path.lineTo(100, 100);
-        // 强制移动到弧形起点（无痕迹）
-        path.addArc(rectF, -90, 0);
-        canvas.drawPath(path, mPaint);*/
-
-        //testPorterDuffMode(canvas);
+        mPaint.setColor(Color.RED);
+        canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
+        canvas.drawLine(width / 2.0f, 0f, width / 2.0f, height * 1.0f, mPaint);
 
         /*mPaint.setPathEffect(pathEffect);
         mPaint.setColor(Color.BLUE);
@@ -142,11 +90,125 @@ public class DrawEveryThingView extends View {
         //testPathAddPath(canvas);
         //testPathAddArc(canvas);
         //testPathArcTo(canvas);
-        pathFillTypeEVenOld(canvas);
+        //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
         //pathComputeBound(canvas);
+
+        //getPathSegment(canvas);
+
+        //getPathNextContour(canvas);
+        //getPathPosStan(canvas);
+        getPathPosMatrix(canvas);
     }
+
+
+    private void getPathPosMatrix(Canvas canvas) {
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(dp2px(1));
+        canvas.translate(width / 2f, height / 2f);
+
+        Path path = new Path();
+
+        path.addCircle(0, 0, 200, Path.Direction.CW);           // 添加一个圆形
+
+        PathMeasure measure = new PathMeasure(path, false);     // 创建 PathMeasure
+
+        currentValue += 0.005;                                  // 计算当前的位置在总长度上的比例[0,1]
+        if (currentValue >= 1) {
+            currentValue = 0;
+        }
+
+        // 获取当前位置的坐标以及趋势的矩阵
+        measure.getMatrix(measure.getLength() * currentValue, mMatrix,
+                PathMeasure.TANGENT_MATRIX_FLAG | PathMeasure.POSITION_MATRIX_FLAG);
+
+        mMatrix.preTranslate(-mBitmap.getWidth() / 2f, -mBitmap.getHeight() / 2f);   // <-- 将图片绘制中心调整到与当前点重合(注意:此处是前乘pre)
+
+        canvas.drawPath(path, mPaint);                                   // 绘制 Path
+        canvas.drawBitmap(mBitmap, mMatrix, mPaint);                     // 绘制箭头
+
+        invalidate();                                                           // 重绘页面
+    }
+
+    private void getPathPosStan(Canvas canvas) {
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(dp2px(1));
+        canvas.translate(width / 2f, height / 2f);
+
+        Path path = new Path();
+
+        path.addCircle(0, 0, 200, Path.Direction.CW);           // 添加一个圆形
+
+        PathMeasure measure = new PathMeasure(path, false);     // 创建 PathMeasure
+
+        currentValue += 0.005;                                  // 计算当前的位置在总长度上的比例[0,1]
+        if (currentValue >= 1) {
+            currentValue = 0;
+        }
+
+        measure.getPosTan(measure.getLength() * currentValue, pos, tan);        // 获取当前位置的坐标以及趋势
+
+        mMatrix.reset();                                                        // 重置Matrix
+        float degrees = (float) (Math.atan2(tan[1], tan[0]) * 180.0 / Math.PI); // 计算图片旋转角度
+
+        mMatrix.postRotate(degrees, mBitmap.getWidth() / 2f, mBitmap.getHeight() / 2f);   // 旋转图片
+        mMatrix.postTranslate(pos[0] - mBitmap.getWidth() / 2f, pos[1] - mBitmap.getHeight() / 2f);   // 将图片绘制中心调整到与当前点重合
+
+        canvas.drawPath(path, mPaint);                                   // 绘制 Path
+        canvas.drawBitmap(mBitmap, mMatrix, mPaint);                     // 绘制箭头
+
+        invalidate();                                                           // 重绘页面
+    }
+
+    private void getPathNextContour(Canvas canvas) {
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(dp2px(1));
+        canvas.translate(width / 2f, height / 2f);
+
+        Path path = new Path();
+
+        path.addRect(-100, -100, 100, 100, Path.Direction.CW);  // 添加小矩形
+        path.addRect(-200, -200, 200, 200, Path.Direction.CCW);  // 添加大矩形
+
+        canvas.drawPath(path, mPaint);                    // 绘制 Path
+
+        PathMeasure measure = new PathMeasure(path, false);     // 将Path与PathMeasure关联
+
+        float len1 = measure.getLength();                       // 获得第一条路径的长度
+
+        measure.nextContour();                                  // 跳转到下一条路径
+
+        float len2 = measure.getLength();                       // 获得第二条路径的长度
+
+        Log.i(TAG, "len1=" + len1);                              // 输出两条路径的长度
+        Log.i(TAG, "len2=" + len2);
+
+    }
+
+    private void getPathSegment(Canvas canvas) {
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(dp2px(1));
+        canvas.translate(width / 2f, height / 2f);
+        Path path = new Path();
+        path.addRect(-200, -200, 200, 200, Path.Direction.CW);
+
+        Path dst = new Path();
+
+        dst.lineTo(-300, -300);
+
+        PathMeasure measure = new PathMeasure(path, false);
+
+        // 截取一部分存入dst中，并使用 moveTo 保持截取得到的 Path 第一个点的位置不变
+        measure.getSegment(200, 600, dst, true);
+        canvas.drawPath(dst, mPaint);
+
+    }
+
 
     private void pathComputeBound(Canvas canvas) {
         canvas.translate(width / 2f, height / 2f);
@@ -357,17 +419,6 @@ public class DrawEveryThingView extends View {
         path.addPath(src, 0, 200);
 
         canvas.drawPath(path, mPaint);
-    }
-
-    private Xfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
-
-    public void testPorterDuffMode(Canvas canvas) {
-        int count = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG);
-        canvas.drawBitmap(dst, 0, 0, mPaint);
-        mPaint.setXfermode(xfermode);
-        canvas.drawBitmap(src, 0, 0, mPaint);
-        mPaint.setXfermode(null);
-        canvas.restoreToCount(count);
     }
 
     public int dp2px(int dpVal) {

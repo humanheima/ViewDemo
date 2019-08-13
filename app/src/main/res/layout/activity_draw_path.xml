@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.DrawPathActivity">
 
-    <com.hm.viewdemo.widget.draw.DrawEveryThingView
+    <com.hm.viewdemo.widget.draw.DrawPathView
         android:id="@+id/drawEverythingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
