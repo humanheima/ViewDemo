@@ -129,7 +129,7 @@ public class DrawEveryThingView extends View {
         path.addArc(rectF, -90, 0);
         canvas.drawPath(path, mPaint);*/
 
-        //testPorterDuffMode(canvas);
+        testPorterDuffMode(canvas);
 
         /*mPaint.setPathEffect(pathEffect);
         mPaint.setColor(Color.BLUE);
@@ -142,7 +142,7 @@ public class DrawEveryThingView extends View {
         //testPathAddPath(canvas);
         //testPathAddArc(canvas);
         //testPathArcTo(canvas);
-        pathFillTypeEVenOld(canvas);
+        //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
         //pathComputeBound(canvas);
