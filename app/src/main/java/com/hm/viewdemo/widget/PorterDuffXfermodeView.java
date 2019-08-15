@@ -17,6 +17,12 @@ import com.hm.viewdemo.util.ScreenUtil;
 
 /**
  * Created by dumingwei on 2017/11/30 0030.
+ * Desc:
+ * saveLayer可以为canvas创建一个新的透明图层，在新的图层上绘制，并不会直接绘制到屏幕上，
+ * 而会在restore之后，绘制到上一个图层或者屏幕上（如果没有上一个图层）。
+ * 为什么会需要一个新的图层，例如在处理xfermode的时候，原canvas上的图（包括背景）会影响src和dst的合成，
+ * 这个时候，使用一个新的透明图层是一个很好的选择。又例如需要当前绘制的图形都带有一定的透明度，
+ * 那么创建一个带有透明度的图层，也是一个方便的选择。
  */
 
 public class PorterDuffXfermodeView extends AppCompatImageView {
@@ -112,7 +118,7 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         canvas.drawRect(r, r, r * 2.7f, r * 2.7f, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
-        //将新图层和旧的图层混合
+        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
         canvas.restore();
 
     }
@@ -135,7 +141,7 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         canvas.drawBitmap(mSrcB, 0, 0, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
-        //将新图层和旧的图层混合
+        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
         canvas.restore();
     }
 
