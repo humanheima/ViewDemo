@@ -13,8 +13,12 @@
         android:text="draw everything"
         android:textAllCaps="false" />
 
-    <com.hm.viewdemo.widget.draw.DrawEveryThingView
+    <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
         android:layout_width="200dp"
-        android:layout_height="240dp" />
+        android:layout_height="240dp" />-->
+
+    <com.hm.viewdemo.widget.SpiderView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

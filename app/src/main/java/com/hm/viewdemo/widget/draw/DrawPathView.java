@@ -87,8 +87,9 @@ public class DrawPathView extends View {
 
         //testPathLineTo(canvas);
         //testPathAddRect(canvas);
+       //pathAddRoundRect(canvas);
         //testPathAddPath(canvas);
-        //testPathAddArc(canvas);
+        pathAddArc(canvas);
         //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
@@ -99,7 +100,8 @@ public class DrawPathView extends View {
 
         //getPathNextContour(canvas);
         //getPathPosStan(canvas);
-        getPathPosMatrix(canvas);
+        //getPathPosMatrix(canvas);
+
     }
 
 
@@ -363,6 +365,27 @@ public class DrawPathView extends View {
         canvas.drawPath(path, mPaint);
     }
 
+    /**
+     * 测试 path 添加圆角矩形
+     *
+     * @param canvas
+     */
+    private void pathAddRoundRect(Canvas canvas) {
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        //移动到屏幕中间
+        canvas.translate(width / 2.0f, height / 2.0f);
+        Path path = new Path();
+        RectF rectF1 = new RectF(50, 50, 240, 200);
+        path.addRoundRect(rectF1, 10, 15, Path.Direction.CW);
+
+        RectF rectF2 = new RectF(290, 50, 480, 200);
+        float[] raddi = {10, 15, 20, 25, 30, 35, 40, 45};
+        path.addRoundRect(rectF2, raddi, Path.Direction.CW);
+
+        canvas.drawPath(path, mPaint);
+    }
+
 
     /**
      * 测试 path.arcTo
@@ -370,15 +393,18 @@ public class DrawPathView extends View {
      * @param canvas
      */
     private void testPathArcTo(Canvas canvas) {
-        //移动到屏幕中间
         mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        //移动到屏幕中间
         canvas.translate(width / 2.0f, height / 2.0f);
 
         Path path = new Path();
-        path.lineTo(100, 100);
+        path.moveTo(10, 10);
 
-        RectF oval = new RectF(0, 0, 300, 300);
-        path.arcTo(oval, 0, 270);
+        RectF oval = new RectF(100, 10, 200, 100);
+        //对比一下下面两行代码的区别
+        //path.arcTo(oval, 0, 90);
+        path.arcTo(oval, 0, 90, true);
 
         canvas.drawPath(path, mPaint);
     }
@@ -388,9 +414,10 @@ public class DrawPathView extends View {
      *
      * @param canvas
      */
-    private void testPathAddArc(Canvas canvas) {
-        //移动到屏幕中间
+    private void pathAddArc(Canvas canvas) {
         mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        //移动到屏幕中间
         canvas.translate(width / 2.0f, height / 2.0f);
 
         Path path = new Path();
