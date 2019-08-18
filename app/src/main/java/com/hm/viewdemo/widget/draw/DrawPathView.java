@@ -30,8 +30,6 @@ public class DrawPathView extends View {
     private Paint mPaint;
     private int width;
     private int height;
-    private Path path = new Path();
-
 
     private float currentValue = 0;     // 用于纪录当前的位置,取值范围[0,1]映射Path的整个长度
 

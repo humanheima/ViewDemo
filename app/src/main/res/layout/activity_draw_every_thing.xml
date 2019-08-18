@@ -14,11 +14,24 @@
         android:textAllCaps="false" />
 
     <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
-        android:layout_width="200dp"
-        android:layout_height="240dp" />-->
-
-    <com.hm.viewdemo.widget.SpiderView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="10dp" />-->
+
+    <!--<com.hm.viewdemo.widget.ClipRegionView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+    <!--<com.hm.viewdemo.widget.CircleAvatarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+    <!--<com.hm.viewdemo.widget.SpiderView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+    <!--<com.hm.viewdemo.widget.draw.DrawRegionView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
 
 </LinearLayout>
