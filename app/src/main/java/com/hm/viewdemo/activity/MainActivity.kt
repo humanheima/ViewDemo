@@ -19,6 +19,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnSoftKeyboard -> {
+                SoftKeyboardActivity.launch(this)
+            }
             R.id.btnTestDrawPath -> {
                 DrawPathActivity.launch(this)
             }

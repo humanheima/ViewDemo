@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="showYmdTimeSelector"
-            android:text="@string/show_time_selector" />
+            android:text="年月日时间选择器"
+            android:textAllCaps="false" />
 
         <TextView
             android:id="@+id/tv_ymd_ms"
@@ -31,7 +32,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="showYmdmsTimeSelector"
-            android:text="@string/show_time_selector" />
+            android:text="年月日时分秒时间选择器"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnWeekTimeSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showWeekTimeSelector"
+            android:text="一周之内的时间选择器"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

@@ -13,6 +13,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SoftKeyboardActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name=".activity.DrawPathActivity" />
         <activity android:name=".activity.CountDownTimerActivity" />
         <activity android:name=".TestScreenScrollViewActivity" />
