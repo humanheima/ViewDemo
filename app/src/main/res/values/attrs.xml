@@ -85,4 +85,11 @@
         <attr name="isLoop" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="BlurMaskFilterView">
+        <attr name="blur_style" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="BitmapShaderView">
+        <attr name="tile_mode" format="integer" />
+    </declare-styleable>
+
 </resources>

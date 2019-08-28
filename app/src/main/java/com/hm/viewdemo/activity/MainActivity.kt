@@ -5,6 +5,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.util.ScreenUtil
 
 class MainActivity : BaseActivity() {
@@ -19,6 +20,12 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnPopWindow -> {
+                PopWindowActivity.launch(this)
+            }
+            R.id.btnCustomViewGetStart -> {
+                GetStartAndPracticeActivity.launch(this)
+            }
             R.id.btnSoftKeyboard -> {
                 SoftKeyboardActivity.launch(this)
             }

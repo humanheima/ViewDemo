@@ -85,16 +85,16 @@ public class DrawPathView extends View {
 
         //testPathLineTo(canvas);
         //testPathAddRect(canvas);
-       //pathAddRoundRect(canvas);
+        //pathAddRoundRect(canvas);
         //testPathAddPath(canvas);
-        pathAddArc(canvas);
+        //pathAddArc(canvas);
         //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
         //pathComputeBound(canvas);
 
-        //getPathSegment(canvas);
+        getPathSegment(canvas);
 
         //getPathNextContour(canvas);
         //getPathPosStan(canvas);
@@ -197,14 +197,19 @@ public class DrawPathView extends View {
         Path path = new Path();
         path.addRect(-200, -200, 200, 200, Path.Direction.CW);
 
+        //先画出矩形
+        canvas.drawPath(path, mPaint);
+
+        mPaint.setColor(Color.BLUE);
+
         Path dst = new Path();
 
         dst.lineTo(-300, -300);
 
-        PathMeasure measure = new PathMeasure(path, false);
+        PathMeasure measure = new PathMeasure(path, true);
 
         // 截取一部分存入dst中，并使用 moveTo 保持截取得到的 Path 第一个点的位置不变
-        measure.getSegment(200, 600, dst, true);
+        measure.getSegment(200, 600, dst, false);
         canvas.drawPath(dst, mPaint);
 
     }

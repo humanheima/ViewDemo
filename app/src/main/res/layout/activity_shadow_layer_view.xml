@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnAddX"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dx++"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnSubtractX"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dx--"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnAddY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dy++"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnSubtractY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dy--"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnAddRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="radius++"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnSubtractRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="radius--"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnClearShadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="clearShadow"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnShowShadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="showShadow"
+        android:textAllCaps="false" />
+
+    <com.hm.viewdemo.custom_view.chapter7.widget.ShadowLayerView
+        android:id="@+id/shadowLayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+

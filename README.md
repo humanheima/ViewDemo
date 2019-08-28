@@ -51,3 +51,5 @@ fun printAllChildView(view: View) {
         }
     }
 ```
+
+#### custom_view 包下面 是《Android自定义控件开发入门与实战》的部分示例

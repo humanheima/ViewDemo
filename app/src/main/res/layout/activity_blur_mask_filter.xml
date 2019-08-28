@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".custom_view.chapter7.BlurMaskFilterActivity">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.BlurMaskFilterView
+            android:id="@+id/blurview1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:blur_style="0"
+            app:layout_constraintEnd_toStartOf="@+id/blurview2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.BlurMaskFilterView
+            android:id="@+id/blurview2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:blur_style="1"
+            app:layout_constraintEnd_toStartOf="@+id/blurview3"
+            app:layout_constraintStart_toEndOf="@id/blurview1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.BlurMaskFilterView
+            android:id="@+id/blurview3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:blur_style="2"
+            app:layout_constraintEnd_toStartOf="@id/blurview4"
+            app:layout_constraintStart_toEndOf="@+id/blurview2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.BlurMaskFilterView
+            android:id="@+id/blurview4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:blur_style="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/blurview3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <com.hm.viewdemo.custom_view.chapter7.widget.BitmapShadowView
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clTop" />
+
+
+</android.support.constraint.ConstraintLayout>
