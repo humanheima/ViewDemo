@@ -53,3 +53,18 @@ fun printAllChildView(view: View) {
 ```
 
 #### custom_view 包下面 是《Android自定义控件开发入门与实战》的部分示例
+
+
+###
+
+1. 无论是显示软键盘时指定的flag，还是隐藏软键盘时指定的flag都只对隐藏软键盘有影响，对显示软键盘无影响
+
+2. 分别在调用showSoftInput()时使用三个不同的标记，以及在调用hideSoftInputFromWindow()是使用三个不同的标记，对是否能够隐藏软键盘进行测试，测试结果如下。true表示可以隐藏，false表示不能隐藏。
+
+横向表示显示软键盘传入的flag，竖向表示隐藏键盘传入的flag
+
+| 参数 | 0 | SHOW_IMPLICIT | SHOW_FORCED |
+| :-: |:-:|:-:|:-:|
+| 0 | true | true | true |
+| HIDE_IMPLICIT_ONLY | false | true | false |
+| HIDE_NOT_ALWAYS | true | true | false|

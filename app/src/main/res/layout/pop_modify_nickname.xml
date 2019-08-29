@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee">
+
+    <TextView
+        android:id="@+id/text_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/input_user_nickname"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etNickname"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_input"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/bg_me_bg"
+        android:hint="@string/input_nickname"
+        android:imeOptions="actionDone"
+        android:maxLength="10"
+        android:paddingLeft="2dp"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="#dcdcdc"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNickname"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
+        android:layout_toLeftOf="@+id/tvConfirm"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvConfirm"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNickname"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="@string/commit"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@+id/tvConfirm" />
+</RelativeLayout>

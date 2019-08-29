@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/tvOpenKeyBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="打开软键盘"
@@ -22,6 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
+        android:id="@+id/tvCloseKeyBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="关闭软键盘"
