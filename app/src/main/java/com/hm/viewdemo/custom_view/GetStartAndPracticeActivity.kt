@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.custom_view.chapter7.Chapter7Activity
+import com.hm.viewdemo.custom_view.chapter8.Chapter8Activity
 
 class GetStartAndPracticeActivity : AppCompatActivity() {
 
@@ -28,6 +29,9 @@ class GetStartAndPracticeActivity : AppCompatActivity() {
         when (view.id) {
             R.id.btnChapter7 -> {
                 Chapter7Activity.launch(this)
+            }
+            R.id.btnChapter8 -> {
+                Chapter8Activity.launch(this)
             }
         }
     }
