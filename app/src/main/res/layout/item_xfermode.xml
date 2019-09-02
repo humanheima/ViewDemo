@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
+    <!--为了方便，固定大小为200dp-->
     <com.hm.viewdemo.custom_view.chapter8.PorterDuffXfermodeView
         android:id="@+id/xfermodeView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="h,1:1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
