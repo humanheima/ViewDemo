@@ -1,4 +1,4 @@
-package com.hm.viewdemo.custom_view.chapter8
+package com.hm.viewdemo.custom_view.chapter9
 
 import android.content.Context
 import android.graphics.*
@@ -10,7 +10,7 @@ import com.hm.viewdemo.util.ScreenUtil
  * Created by dumingwei on 2019-08-27.
  * Desc: 为了方便固定大小为200dp
  */
-class PorterDuffXfermodeView @JvmOverloads constructor(
+class XfermodeView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
@@ -22,8 +22,10 @@ class PorterDuffXfermodeView @JvmOverloads constructor(
 
     private var bitmapWidth = 0
     private var bitmapHeight = 0
+
     private var dstBmp: Bitmap
     private var srcBmp: Bitmap
+
     private var xfermode: PorterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
 
     private var paint: Paint = Paint()
@@ -79,10 +81,26 @@ class PorterDuffXfermodeView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.save()
+        drawSaveLayer(canvas)
+        //drawNeverSaveLayer(canvas)
+    }
+
+    private fun drawNeverSaveLayer(canvas: Canvas) {
+        canvas.drawColor(Color.GREEN)
         canvas.drawBitmap(dstBmp, 0f, 0f, paint)
         paint.xfermode = xfermode
         canvas.drawBitmap(srcBmp, bitmapWidth / 2f, bitmapHeight / 2f, paint)
-        canvas.restore()
+        paint.xfermode = null
+    }
+
+    private fun drawSaveLayer(canvas: Canvas) {
+        canvas.drawColor(Color.GREEN)
+        val layerId = canvas.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), paint, Canvas.ALL_SAVE_FLAG)
+
+        canvas.drawBitmap(dstBmp, 0f, 0f, paint)
+        paint.xfermode = xfermode
+        canvas.drawBitmap(srcBmp, bitmapWidth / 2f, bitmapHeight / 2f, paint)
+        paint.xfermode = null
+        canvas.restoreToCount(layerId)
     }
 }

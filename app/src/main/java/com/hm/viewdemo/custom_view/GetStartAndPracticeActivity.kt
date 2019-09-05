@@ -8,6 +8,7 @@ import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.custom_view.chapter7.Chapter7Activity
 import com.hm.viewdemo.custom_view.chapter8.Chapter8Activity
+import com.hm.viewdemo.custom_view.chapter9.Chapter9Activity
 
 class GetStartAndPracticeActivity : AppCompatActivity() {
 
@@ -32,6 +33,9 @@ class GetStartAndPracticeActivity : AppCompatActivity() {
             }
             R.id.btnChapter8 -> {
                 Chapter8Activity.launch(this)
+            }
+            R.id.btnChapter9 -> {
+                Chapter9Activity.launch(this)
             }
         }
     }
