@@ -10,6 +10,8 @@ import com.hm.viewdemo.custom_view.chapter7.Chapter7Activity
 import com.hm.viewdemo.custom_view.chapter8.Chapter8Activity
 import com.hm.viewdemo.custom_view.chapter9.Chapter9Activity
 import com.hm.viewdemo.custom_view.chapter_10.Chapter10Activity
+import com.hm.viewdemo.custom_view.chapter_11.Chapter11Activity
+import com.hm.viewdemo.custom_view.chapter_12.Chapter12Activity
 
 class GetStartAndPracticeActivity : AppCompatActivity() {
 
@@ -40,6 +42,12 @@ class GetStartAndPracticeActivity : AppCompatActivity() {
             }
             R.id.btnChapter10 -> {
                 Chapter10Activity.launch(this)
+            }
+            R.id.btnChapter11 -> {
+                Chapter11Activity.launch(this)
+            }
+            R.id.btnChapter12 -> {
+                Chapter12Activity.launch(this)
             }
         }
     }
