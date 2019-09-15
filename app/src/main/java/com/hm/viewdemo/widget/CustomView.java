@@ -50,6 +50,12 @@ public class CustomView extends View {
         }
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView, R.attr.CustomView_Theme_Style, R.style.CustomView_Yellow_Style);
         fontSize = (int) ta.getDimension(R.styleable.CustomView_cus_font, 16);
+        Log.d(TAG, "getDimension: fontSize=" + fontSize);
+        fontSize = ta.getDimensionPixelSize(R.styleable.CustomView_cus_font, 16);
+        Log.d(TAG, "getDimensionPixelSize: fontSize=" + fontSize);
+        fontSize = ta.getDimensionPixelOffset(R.styleable.CustomView_cus_font, 16);
+        Log.d(TAG, "getDimensionPixelOffset: fontSize=" + fontSize);
+
         customText = ta.getString(R.styleable.CustomView_text);
         customColor = ta.getColor(R.styleable.CustomView_color, Color.BLUE);
         ta.recycle();

@@ -9,6 +9,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.custom_view.chapter7.Chapter7Activity
 import com.hm.viewdemo.custom_view.chapter8.Chapter8Activity
 import com.hm.viewdemo.custom_view.chapter9.Chapter9Activity
+import com.hm.viewdemo.custom_view.chapter_10.Chapter10Activity
 
 class GetStartAndPracticeActivity : AppCompatActivity() {
 
@@ -36,6 +37,9 @@ class GetStartAndPracticeActivity : AppCompatActivity() {
             }
             R.id.btnChapter9 -> {
                 Chapter9Activity.launch(this)
+            }
+            R.id.btnChapter10 -> {
+                Chapter10Activity.launch(this)
             }
         }
     }

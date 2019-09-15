@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -63,6 +64,25 @@ public class ImageUtil {
             }
         }
         return inSampleSize;
+    }
+
+    public static Bitmap createBitmap(Bitmap src, Bitmap watermark) {
+        if (src == null) {
+            return null;
+        }
+        int w = src.getWidth();
+        int h = src.getHeight();
+
+        int ww = watermark.getWidth();
+        int wh = watermark.getHeight();
+
+        Bitmap newb = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newb);
+
+        canvas.drawBitmap(src, 0, 0, null);
+        canvas.drawBitmap(watermark, w - ww, h - wh, null);
+
+        return newb;
     }
 
 }
