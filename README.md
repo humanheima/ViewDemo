@@ -68,3 +68,13 @@ fun printAllChildView(view: View) {
 | 0 | true | true | true |
 | HIDE_IMPLICIT_ONLY | false | true | false |
 | HIDE_NOT_ALWAYS | true | true | false|
+
+
+#### getDimension()、getDimensionPixelSize()和getDimenPixelOffset()
+1. 如果在xml文件中指定的单位是 dp，或者 sp的话 getDimension()、getDimensionPixelSize()和getDimenPixelOffset()的结果值都是将资源文件中定义的dip值乘以屏幕密度。
+
+2.  如果在xml文件中指定的单位是px的话,那么getDimension()、getDimensionPixelSize()和getDimenPixelOffset()的结果值都是将资源文件中定义的px值。
+
+3. getDimension()返回值类型是的是float，其余两个返回的是int。 其中getDimensionPixelSize()返回的是实际数值的四舍五入,而getDimensionPixelOffset返回的是实际数值去掉后面的小数点;
+
+[getDimension()、getDimensionPixelSize()和getDimensionPixelOffset()的区别](https://www.jianshu.com/p/282032797637)

@@ -92,4 +92,20 @@
         <attr name="tile_mode" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="RequiredTextView">
+
+        <attr name="required_text" format="string|reference" />
+        <!--后缀-->
+        <attr name="postfix" format="string|reference" />
+        <!--前缀-->
+        <attr name="prefix" format="string|reference" />
+
+        <attr name="prefix_color" format="color|reference" />
+        <attr name="postfix_color" format="color|reference" />
+
+        <!--后缀的字体-->
+        <attr name="postfix_text_size" format="dimension|reference" />
+
+    </declare-styleable>
+
 </resources>
