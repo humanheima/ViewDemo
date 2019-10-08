@@ -32,6 +32,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
 
     private TextView tvYmd;
     private TextView tvYmdms;
+    private TextView tvWeek;
     private ActivityTimeSelectorBinding binding;
     private Calendar startCalendar;
     private Calendar endCalendar;
@@ -67,6 +68,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
         ymdmsTimeSelector.setIsLoop(false);
         tvYmd = binding.tvYmd;
         tvYmdms = binding.tvYmdMs;
+        tvWeek = binding.tvWeek;
 
         //pattern = "M月d日EEEE";
         pattern = "M月d日E";
@@ -75,6 +77,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
             @Override
             public void handle(String time) {
                 Log.d(TAG, "handle: " + time);
+                tvWeek.setText(time);
             }
         }, 9, 21, startCalendar, pattern);
 

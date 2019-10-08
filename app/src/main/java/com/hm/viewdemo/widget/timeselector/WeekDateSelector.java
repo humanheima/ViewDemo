@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Crete by dumingwei on 2019-08-22
- * Desc:
+ * Desc: 第一天也应该选择日期，而不是动态计算
  */
 public class WeekDateSelector {
 
@@ -120,14 +120,24 @@ public class WeekDateSelector {
 
     private void initTimer() {
         initArrayList();
-        date.add(today);
+        //如果当前时间已经 >= (endHour - 2)说明今天就不可预约了，就不添加今天
+        boolean addToday = false;
+
+        int currentHour = startCalendar.get(Calendar.HOUR_OF_DAY);
+        if (currentHour <= (endHour - 2)) {
+            date.add(today);
+            addToday = true;
+        }
 
         for (int i = 0; i < 7; i++) {
             startCalendar.add(Calendar.DAY_OF_MONTH, 1);
             date.add(dateFormat.format(startCalendar.getTime()));
         }
 
-        getTimePeriods(true);
+        //初始化的时候默认选择第一个
+        selectedDate = date.get(0);
+
+        getTimePeriods(addToday);
 
         startCalendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -153,6 +163,9 @@ public class WeekDateSelector {
             Log.d(TAG, "initTimer: " + period);
             timePeriod.add(period);
         }
+
+        //初始化的时候默认选择第一个
+        selectedTimePeriod = timePeriod.get(0);
     }
 
     private void initArrayList() {
@@ -188,6 +201,7 @@ public class WeekDateSelector {
         }
         pvTimePeriod.setData(timePeriod);
         pvTimePeriod.setSelected(0);
+        executeScroll();
         executeAnimator(ANIMATOR_DELAY, pvTimePeriod);
     }
 
