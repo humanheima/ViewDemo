@@ -20,6 +20,12 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnWebPTest -> {
+                WebpTestActivity.launch(this)
+            }
+            R.id.btnStateBar -> {
+                StatusBarActivity.launch(this)
+            }
             R.id.btnPopWindow -> {
                 PopWindowActivity.launch(this)
             }

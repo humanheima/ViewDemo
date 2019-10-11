@@ -31,7 +31,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@mipmap/qiqiu" />
+            android:src="@mipmap/ballon" />
 
     </android.support.v7.widget.CardView>
 
