@@ -13,7 +13,6 @@
             android:layout_height="100dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:onClick="doclick"
             android:text="啦啦啦啦啦啦啦啦啦"
             android:textColor="@color/white"
             android:textSize="18sp" />

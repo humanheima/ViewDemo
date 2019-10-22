@@ -1,0 +1,29 @@
+package com.hm.viewdemo.widget.dialog
+
+import android.app.Dialog
+import android.os.Bundle
+import android.support.v4.app.DialogFragment
+import android.support.v7.app.AlertDialog
+import android.widget.Toast
+
+/**
+ * Created by dumingwei on 2019-10-22.
+ * Desc:
+ */
+class FireMissilesDialogFragment : DialogFragment() {
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle("hello world")
+                    .setMessage("Fire missiles?")
+                    .setPositiveButton("fire") { dialog, which ->
+                        Toast.makeText(activity, "fire", Toast.LENGTH_SHORT).show()
+                    }.setNegativeButton("cancel") { dialog, which ->
+                        Toast.makeText(activity, "cancel", Toast.LENGTH_SHORT).show()
+                    }
+                    .create()
+
+        } ?: throw  throw IllegalStateException("Activity cannot be null")
+    }
+}

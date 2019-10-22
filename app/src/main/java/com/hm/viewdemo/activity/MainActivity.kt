@@ -20,6 +20,9 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnDialogTest -> {
+                DialogTestActivity.launch(this)
+            }
             R.id.btnWebPTest -> {
                 WebpTestActivity.launch(this)
             }
