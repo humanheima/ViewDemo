@@ -1,10 +1,13 @@
 package com.hm.viewdemo.activity
 
+import android.content.Intent
 import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.bean.Info
+import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.util.ScreenUtil
 
@@ -20,8 +23,8 @@ class MainActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnDialogTest -> {
-                DialogTestActivity.launch(this)
+            R.id.btnParcelableTest -> {
+                testParcelable()
             }
             R.id.btnWebPTest -> {
                 WebpTestActivity.launch(this)
@@ -101,6 +104,29 @@ class MainActivity : BaseActivity() {
             }
         }
 
+    }
+
+    private fun testParcelable() {
+
+        val intent = Intent(this, ParcelableTestActivity::class.java)
+
+        val arrayList = arrayListOf<Info>()
+        for (i in 0..3) {
+            val personList = arrayListOf<Person>()
+            for (j in 0..3) {
+                personList.add(Person(1.63, "dumingwei"))
+            }
+            val element = Info(
+                    personList,
+                    "id =$i",
+                    "price =$i * 100"
+            )
+            arrayList.add(element)
+
+        }
+        intent.putParcelableArrayListExtra(ParcelableTestActivity.LIST_EXTRA, arrayList)
+        intent.putExtra(ParcelableTestActivity.LIST_EXTRA_TWO, arrayList)
+        startActivity(intent)
     }
 
     fun launchRoundImageViewActivity(view: View) {

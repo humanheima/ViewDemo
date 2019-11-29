@@ -5,4 +5,12 @@
     <item name="btn_ok" type="id" />
     <item name="guide_line_id" type="id" />
 
+    <item name="id_text_view" type="id" />
+
+    <item name="id_magicIndicator" type="id" />
+
+    <item name="id_bannerView" type="id" />
+
+    <item name="cl_root" type="id" />
+
 </resources>
