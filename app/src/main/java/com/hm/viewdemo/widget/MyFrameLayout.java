@@ -2,6 +2,8 @@ package com.hm.viewdemo.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -12,6 +14,7 @@ import android.widget.FrameLayout;
 public class MyFrameLayout extends FrameLayout {
 
 
+    private static final String TAG = "MyFrameLayout";
     private boolean shouldIntercept = false;
 
     public MyFrameLayout(Context context) {
@@ -20,6 +23,7 @@ public class MyFrameLayout extends FrameLayout {
 
     public MyFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Log.e(TAG, "MyFrameLayout: ");
     }
 
     public MyFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -27,11 +31,24 @@ public class MyFrameLayout extends FrameLayout {
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e(TAG, "dispatchTouchEvent: ");
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (shouldIntercept) {
+        /*if (shouldIntercept) {
+            return true;
+        }*/
+        if (ev.isFromSource(InputDevice.SOURCE_MOUSE)
+                && ev.getAction() == MotionEvent.ACTION_DOWN
+                && ev.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
+            Log.e(TAG, "onInterceptTouchEvent: return true");
             return true;
         }
-        return super.onInterceptTouchEvent(ev);
+        Log.e(TAG, "onInterceptTouchEvent: return false");
+        return false;
     }
 
     public void setShouldIntercept(boolean shouldIntercept) {

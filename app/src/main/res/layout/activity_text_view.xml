@@ -24,24 +24,9 @@
             android:layout_height="48dp"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
+            app:postfix="*"
             app:postfix_color="@color/colorAccent"
-            app:required_text="你懂的，哈哈" />
-
-        <com.hm.viewdemo.widget.RequiredTextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            app:postfix_color="@color/colorAccent"
-            app:required_text="你懂的，哈哈" />
-
-        <com.hm.viewdemo.widget.RequiredTextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            app:prefix="*"
-            app:prefix_color="@color/colorAccent"
+            app:postfix_text_size="16.5dp"
             app:required_text="你懂的，哈哈" />
 
         <TextView

@@ -20,14 +20,14 @@
 如果一个View的可见性不是visible，并且view也没有与之关联的动画，那么他是收不到事件的
 下面的代码摘自ViewGroup
 ```
- /**
-     * Returns true if a child view can receive pointer events.
-     * @hide
-     */
-    private static boolean canViewReceivePointerEvents(@NonNull View child) {
-        return (child.mViewFlags & VISIBILITY_MASK) == VISIBLE
-                || child.getAnimation() != null;
-    }
+/**
+ * Returns true if a child view can receive pointer events.
+ * @hide
+ */
+private static boolean canViewReceivePointerEvents(@NonNull View child) {
+    return (child.mViewFlags & VISIBILITY_MASK) == VISIBLE
+            || child.getAnimation() != null;
+}
 ```
 ## View.post() 到底干了啥
 [【Andorid源码解析】View.post() 到底干了啥](https://www.jianshu.com/p/85fc4decc947)
