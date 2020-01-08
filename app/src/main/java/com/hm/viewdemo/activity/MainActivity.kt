@@ -1,7 +1,9 @@
 package com.hm.viewdemo.activity
 
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
@@ -9,20 +11,36 @@ import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
+import com.hm.viewdemo.util.BlockDetectByPrinter
 import com.hm.viewdemo.util.ScreenUtil
+import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : BaseActivity() {
+
+class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
+
+    var perms = arrayOf<String>(WRITE_EXTERNAL_STORAGE)
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
     }
 
     override fun initData() {
+        Toast.makeText(this, "show toast in onCreate()", Toast.LENGTH_SHORT).show()
+        if (!EasyPermissions.hasPermissions(this, perms[0])) {
+            EasyPermissions.requestPermissions(this, "I need permission!", 100, perms[0])
+        }
         ScreenUtil.testDensity(this)
+        BlockDetectByPrinter.start()
     }
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnHandlerTest -> {
+                HandlerActivity.launch(this)
+            }
+            R.id.btnNonMainThreadUpdateUITest -> {
+                NonMainThreadUpdateUIActivity.launch(this)
+            }
             R.id.btnParcelableTest -> {
                 testParcelable()
             }
@@ -144,4 +162,13 @@ class MainActivity : BaseActivity() {
     fun launchDrawEveryThingActivity(view: View) {
         DrawEveryThingActivity.launch(this)
     }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show()
+    }
+
 }

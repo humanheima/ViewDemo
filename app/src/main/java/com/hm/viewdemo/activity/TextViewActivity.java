@@ -97,7 +97,8 @@ public class TextViewActivity extends BaseActivity {
         setTextView5();
         setTextView6();
         setTextView7();
-        setTextView8();
+        //setTextView8();
+        setTextView8_2();
         setTextView9();
         setTextView10();
         setTextView11();
@@ -143,6 +144,17 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         parcel.recycle();
+        textView8.setText(builder);
+    }
+
+    private void setTextView8_2() {
+        SpannableStringBuilder builder = new SpannableStringBuilder("save8 you6 from anything");
+        int pos = builder.toString().indexOf("8");
+        int pos1 = builder.toString().indexOf("6");
+        SuperscriptSpan superscriptSpan = new SuperscriptSpan();
+        SubscriptSpan subscriptSpan = new SubscriptSpan();
+        builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         textView8.setText(builder);
     }
 
