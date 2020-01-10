@@ -3,7 +3,6 @@ package com.hm.viewdemo.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -32,23 +31,13 @@ public class MyFrameLayout extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.e(TAG, "dispatchTouchEvent: ");
+        Log.e(TAG, "dispatchTouchEvent: " + ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        /*if (shouldIntercept) {
-            return true;
-        }*/
-        if (ev.isFromSource(InputDevice.SOURCE_MOUSE)
-                && ev.getAction() == MotionEvent.ACTION_DOWN
-                && ev.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
-            Log.e(TAG, "onInterceptTouchEvent: return true");
-            return true;
-        }
-        Log.e(TAG, "onInterceptTouchEvent: return false");
-        return false;
+        return super.onInterceptTouchEvent(ev);
     }
 
     public void setShouldIntercept(boolean shouldIntercept) {

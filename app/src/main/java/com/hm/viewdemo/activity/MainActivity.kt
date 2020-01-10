@@ -54,6 +54,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
                 PopWindowActivity.launch(this)
             }
             R.id.btnCustomViewGetStart -> {
+                //打开注释查看anr
+                //Thread.sleep(10000)
                 GetStartAndPracticeActivity.launch(this)
             }
             R.id.btnSoftKeyboard -> {

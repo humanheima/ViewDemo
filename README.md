@@ -78,3 +78,13 @@ fun printAllChildView(view: View) {
 3. getDimension()返回值类型是的是float，其余两个返回的是int。 其中getDimensionPixelSize()返回的是实际数值的四舍五入,而getDimensionPixelOffset返回的是实际数值去掉后面的小数点;
 
 [getDimension()、getDimensionPixelSize()和getDimensionPixelOffset()的区别](https://www.jianshu.com/p/282032797637)
+
+#### 关于在事件分发过程中的ACTION_CANCEL的官方描述
+```
+/**
+ * Constant for {@link #getActionMasked}: The current gesture has been aborted.
+ * You will not receive any more points in it.  You should treat this as
+ * an up event, but not perform any action that you normally would.
+ */
+ public static final int ACTION_CANCEL           = 3;
+```

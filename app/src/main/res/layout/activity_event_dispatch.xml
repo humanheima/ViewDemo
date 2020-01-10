@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <com.hm.viewdemo.widget.MyFrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/colorPrimary"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <com.hm.viewdemo.widget.MyImageView
             android:id="@+id/iv_test_click"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="160dp"
             android:background="@color/colorAccent" />
 
-    </FrameLayout>
+    </com.hm.viewdemo.widget.MyFrameLayout>
 
     <Button
         android:id="@+id/btn_test_image_view_click_event"

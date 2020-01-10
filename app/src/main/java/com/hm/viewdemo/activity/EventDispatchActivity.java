@@ -3,21 +3,16 @@ package com.hm.viewdemo.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.widget.EventDispatchButton;
 import com.hm.viewdemo.widget.MyImageView;
-
-import java.lang.ref.WeakReference;
 
 public class EventDispatchActivity extends BaseActivity {
 
@@ -84,7 +79,7 @@ public class EventDispatchActivity extends BaseActivity {
                 Toast.makeText(EventDispatchActivity.this,
                         "ivTestClick 被点击",
                         Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "ivTestClick："+ivTestClick);
+                Log.d(TAG, "ivTestClick：" + ivTestClick);
             }
         });
         btnTestClickevent = findViewById(R.id.btn_test_image_view_click_event);

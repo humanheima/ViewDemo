@@ -21,7 +21,7 @@ public class MyImageView extends ImageView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.d(TAG, "dispatchTouchEvent: ");
+        Log.d(TAG, "dispatchTouchEvent: " + event.getAction());
         return super.dispatchTouchEvent(event);
     }
 
