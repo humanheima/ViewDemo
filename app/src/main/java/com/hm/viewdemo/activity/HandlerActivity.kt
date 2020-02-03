@@ -23,6 +23,7 @@ class HandlerActivity : AppCompatActivity() {
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
+            Log.d(TAG, "handleMessage: ")
         }
     }
 
@@ -38,12 +39,56 @@ class HandlerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_handler)
 
+        /*Looper.myQueue().addIdleHandler {
+            Log.d(TAG, "onCreate: " + Thread.currentThread().name)
+            true
+        }*/
+
+        //添加Printer
+        /*Looper.getMainLooper().setMessageLogging { str ->
+            Log.d(TAG, "onCreate: Printer $str")
+        }*/
+
         btnSendMessage.setOnClickListener {
             handler.post {
-                Thread.sleep(2000)
-                Log.d(TAG, "onCreate: send msg")
+                prepare()
             }
 
         }
+    }
+
+    private fun prepare() {
+        for (i in 0..10000) {
+            Log.d(TAG, "prepare: $i")
+        }
+        Thread.sleep(1000)
+        prepareFirst()
+        prepareSecond()
+        prepareFirst()
+        prepareThird()
+    }
+
+
+    private fun prepareFirst() {
+        Log.d(TAG, "prepareFirst: ")
+        Thread.sleep(1500)
+    }
+
+    private fun prepareSecond() {
+        Thread.sleep(2000)
+    }
+
+    private fun prepareThird() {
+        Thread.sleep(4000)
+    }
+
+    private fun longDurationMethod() {
+        Thread.sleep(2000)
+        Log.d(TAG, "onCreate: send msg")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacksAndMessages(null)
     }
 }

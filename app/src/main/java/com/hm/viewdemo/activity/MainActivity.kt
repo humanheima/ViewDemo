@@ -2,6 +2,8 @@ package com.hm.viewdemo.activity
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
+import android.os.Debug
+import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import com.hm.viewdemo.R
@@ -25,12 +27,20 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun initData() {
+        val filesDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        if (filesDir != null) {
+            val filePath = "$filesDir/mytrace.trace"
+            Debug.startMethodTracing(filePath)
+        }
+
         Toast.makeText(this, "show toast in onCreate()", Toast.LENGTH_SHORT).show()
         if (!EasyPermissions.hasPermissions(this, perms[0])) {
             EasyPermissions.requestPermissions(this, "I need permission!", 100, perms[0])
         }
         ScreenUtil.testDensity(this)
-        BlockDetectByPrinter.start()
+        //BlockDetectByPrinter.start()
+
+        Debug.stopMethodTracing()
     }
 
     fun onClick(view: View) {

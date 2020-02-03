@@ -27,3 +27,6 @@ public static <T> T[] insert(T[] array, int currentSize, int index, T element) {
 }
     
 ```
+
+Displayed com.jingyao.easybike/com.hellobike.atlas.business.splash.SplashActivity: +6s512ms
+
