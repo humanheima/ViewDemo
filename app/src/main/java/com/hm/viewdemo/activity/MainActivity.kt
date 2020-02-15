@@ -13,6 +13,8 @@ import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
+import com.hm.viewdemo.nested_scroll.NestedScrollActivity
+import com.hm.viewdemo.nested_scroll.NestedScrollAnotherActivity
 import com.hm.viewdemo.util.BlockDetectByPrinter
 import com.hm.viewdemo.util.ScreenUtil
 import pub.devrel.easypermissions.EasyPermissions
@@ -20,7 +22,7 @@ import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
-    var perms = arrayOf<String>(WRITE_EXTERNAL_STORAGE)
+    var perms = arrayOf(WRITE_EXTERNAL_STORAGE)
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
@@ -45,6 +47,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnNestedScroll -> {
+                NestedScrollActivity.launch(this)
+                //NestedScrollAnotherActivity.launch(this)
+            }
             R.id.btnHandlerTest -> {
                 HandlerActivity.launch(this)
             }
