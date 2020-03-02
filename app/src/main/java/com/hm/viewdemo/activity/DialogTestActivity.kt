@@ -3,8 +3,11 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
@@ -28,6 +31,9 @@ class DialogTestActivity : AppCompatActivity() {
 
     private var alertDialog: AlertDialog? = null
 
+    private lateinit var handler: Handler
+
+
     companion object {
 
         @JvmStatic
@@ -49,6 +55,14 @@ class DialogTestActivity : AppCompatActivity() {
         btnShowDialog2.setOnClickListener {
             showDialog2()
         }
+
+        handler = object : Handler() {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                Log.d(TAG, "handleMessage: ${msg.what}")
+                handler.sendEmptyMessageDelayed(1, 200)
+            }
+        }
     }
 
     private fun showDialog() {
@@ -59,6 +73,7 @@ class DialogTestActivity : AppCompatActivity() {
     }
 
     private fun showCustomDialog() {
+        handler.sendEmptyMessageDelayed(1, 200)
         if (alertDialog == null) {
             val builder = AlertDialog.Builder(this)
             builder.setView(layoutInflater.inflate(R.layout.dialog_signin, null))
@@ -85,5 +100,10 @@ class DialogTestActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         customDialogFragment?.dismiss()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler?.removeCallbacksAndMessages(null)
     }
 }

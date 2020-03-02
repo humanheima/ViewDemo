@@ -2,6 +2,7 @@ package com.hm.viewdemo.nested_scroll
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Canvas
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
@@ -46,6 +47,7 @@ class StickyNavLayout @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        Log.d(TAG, "onMeasure: ")
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         //将mViewPager高度设置为mViewPager原本的高度加上要滑出去的mTop的高度，不然的话，StickyNavLayout底部会有空白
         val params = mViewPager.layoutParams
@@ -194,6 +196,17 @@ class StickyNavLayout @JvmOverloads constructor(
                 mOffsetAnimator?.start()
             }
         }
+    }
+
+
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        Log.d(TAG, "onLayout: ")
+        super.onLayout(changed, l, t, r, b)
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        Log.d(TAG, "onDraw: ")
+        super.onDraw(canvas)
     }
 
     private fun fling(velocityY: Int) {

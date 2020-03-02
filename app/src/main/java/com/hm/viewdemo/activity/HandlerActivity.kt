@@ -20,12 +20,8 @@ class HandlerActivity : AppCompatActivity() {
 
     private val TAG = "HandlerActivity"
 
-    private val handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            Log.d(TAG, "handleMessage: ")
-        }
-    }
+    private lateinit var handler: Handler
+
 
     companion object {
 
@@ -38,6 +34,7 @@ class HandlerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_handler)
+
 
         /*Looper.myQueue().addIdleHandler {
             Log.d(TAG, "onCreate: " + Thread.currentThread().name)
@@ -54,6 +51,14 @@ class HandlerActivity : AppCompatActivity() {
                 prepare()
             }
 
+        }
+
+        handler = object : Handler() {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                Log.d(TAG, "handleMessage: ")
+                handler.sendEmptyMessageDelayed(1, 200)
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.hm.viewdemo.R;
@@ -15,10 +16,14 @@ import com.hm.viewdemo.R;
  */
 public class CircleView extends View {
 
+
+    private static final String TAG = "CircleView";
+
     private int mColor;
     private int bgColor;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private static final int DEFAULT_SIZE = 200;
+
     public CircleView(Context context) {
         this(context, null);
     }
@@ -35,9 +40,11 @@ public class CircleView extends View {
         array.recycle();
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        Log.d(TAG, "onMeasure: ");
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthSpecModel = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
 
@@ -53,10 +60,28 @@ public class CircleView extends View {
         }
     }
 
+    @Override
+    public void layout(int l, int t, int r, int b) {
+        Log.d(TAG, "layout: ");
+        super.layout(l, t, r, b);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        Log.d(TAG, "onLayout: ");
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+
+    @Override
+    public void draw(Canvas canvas) {
+        Log.d(TAG, "draw: ");
+        super.draw(canvas);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
+        Log.d(TAG, "onDraw: ");
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
         int paddingTop = getPaddingTop();
@@ -73,6 +98,9 @@ public class CircleView extends View {
     public void setColor(int mColor) {
         this.mColor = mColor;
         mPaint.setColor(mColor);
-        postInvalidate();
+        requestLayout();
+        //postInvalidate();
     }
+
 }
+

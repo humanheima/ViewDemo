@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
@@ -13,6 +15,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_pop_window.*
+
 
 class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -46,9 +49,20 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     private var im: InputMethodManager? = null
 
+    private lateinit var handler: Handler
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pop_window)
+
+        handler = object : Handler() {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                Log.d(TAG, "handleMessage: ${msg.what}")
+                handler.sendEmptyMessageDelayed(1, 200)
+            }
+        }
 
         //获取软键盘
         im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -70,13 +84,11 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
             R.id.btnStyle1 -> {
                 showPopWindow1()
             }
-            R.id.btnStyle2 -> {
-                //do nothing
-            }
         }
     }
 
     private fun showPopWindow1() {
+        handler.sendEmptyMessageDelayed(1, 200)
         if (popupStyle1 == null) {
             val contentView = LayoutInflater.from(this).inflate(R.layout.pop_modify_nickname, null)
             tvConfirm = contentView.findViewById(R.id.tvConfirm)
@@ -110,7 +122,7 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
             popupStyle1 = PopupWindow(
                     contentView,
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
                     true
             )
             popupStyle1?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -147,6 +159,11 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     private fun hideKeyBoard() {
         im?.hideSoftInputFromWindow(btnStyle1.windowToken, 0)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacksAndMessages(null)
     }
 
 }

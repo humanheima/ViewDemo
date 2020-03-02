@@ -43,7 +43,7 @@
     <string name="short_label">扫一扫</string>
     <string name="i_am_a_star">我是一颗小星星</string>
     <string name="a_star">小星星</string>
-    <string name="use_horizontal_scroll_view">useHorizontalScrollView</string>
+    <string name="use_horizontal_scroll_view">Use HorizontalScrollView</string>
     <string name="show_toast">show toast</string>
     <string name="show_custom_toast">展示自定义Toast</string>
     <string name="hour_minute_second_format">%1$s %2$s %3$s</string>

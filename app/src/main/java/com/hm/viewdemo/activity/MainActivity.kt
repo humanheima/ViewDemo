@@ -12,12 +12,13 @@ import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
+import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollActivity
-import com.hm.viewdemo.nested_scroll.NestedScrollAnotherActivity
-import com.hm.viewdemo.util.BlockDetectByPrinter
 import com.hm.viewdemo.util.ScreenUtil
+import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
+import kotlin.random.Random
 
 
 class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
@@ -47,6 +48,18 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestCancelEVent -> {
+                TestCancelEventActivity.launch(this)
+            }
+
+            R.id.btnChangeCircleViewColor -> {
+                if (Random.nextBoolean()) {
+                    circleView.setColor(R.color.colorPrimary)
+                } else {
+                    circleView.setColor(R.color.colorAccent)
+                }
+            }
+
             R.id.btnNestedScroll -> {
                 NestedScrollActivity.launch(this)
                 //NestedScrollAnotherActivity.launch(this)
@@ -56,6 +69,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             }
             R.id.btnNonMainThreadUpdateUITest -> {
                 NonMainThreadUpdateUIActivity.launch(this)
+            }
+            R.id.btnDialogTest -> {
+                DialogTestActivity.launch(this)
             }
             R.id.btnParcelableTest -> {
                 testParcelable()
