@@ -7,6 +7,7 @@ import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import com.hm.viewdemo.R
+import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.base.BaseActivity
@@ -48,6 +49,15 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnRoundView -> {
+                RoundViewActivity.launch(this)
+            }
+            R.id.btnTextSwitcher -> {
+                TextSwitcherActivity.launch(this)
+            }
+            R.id.btnListView -> {
+                ListViewActivity.launch(this)
+            }
             R.id.btnTestCancelEVent -> {
                 TestCancelEventActivity.launch(this)
             }

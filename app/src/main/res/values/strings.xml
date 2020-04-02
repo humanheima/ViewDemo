@@ -53,4 +53,14 @@
     <string name="input_nickname">请输入昵称,不能为空且不能超过10个字</string>
     <string name="commit">确定</string>
 
+    <string-array name="citys">
+        <item>北京</item>
+        <item>上海</item>
+        <item>广州</item>
+        <item>深圳</item>
+        <item>郑州</item>
+        <item>成都</item>
+    </string-array>
+
+
 </resources>

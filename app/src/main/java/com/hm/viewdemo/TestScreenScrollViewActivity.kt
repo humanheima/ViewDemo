@@ -7,13 +7,13 @@ import android.support.v7.app.AppCompatActivity
 
 class TestScreenScrollViewActivity : AppCompatActivity() {
 
-    companion object {
+        companion object {
 
-        fun launch(context: Context) {
-            val intent = Intent(context, TestScreenScrollViewActivity::class.java)
-            context.startActivity(intent)
+            fun launch(context: Context) {
+                val intent = Intent(context, TestScreenScrollViewActivity::class.java)
+                context.startActivity(intent)
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
