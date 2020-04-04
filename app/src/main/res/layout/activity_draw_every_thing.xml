@@ -13,10 +13,10 @@
         android:text="draw everything"
         android:textAllCaps="false" />
 
-    <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
+    <com.hm.viewdemo.widget.draw.DrawEveryThingView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp" />-->
+        android:layout_margin="10dp" />
 
     <!--<com.hm.viewdemo.widget.ClipRegionView
         android:layout_width="match_parent"

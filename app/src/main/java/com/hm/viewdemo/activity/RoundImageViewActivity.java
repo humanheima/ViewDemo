@@ -2,10 +2,9 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hm.viewdemo.R;
@@ -28,7 +27,9 @@ public class RoundImageViewActivity extends AppCompatActivity {
         binding.idQiqiu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.idQiqiu.setType(RoundImageView.TYPE_ROUND);
+                //binding.idQiqiu.setType(RoundImageView.TYPE_ROUND);
+                binding.roundIv.setImageResource(R.drawable.avatar);
+                binding.roundIv.requestLayout();
             }
         });
         binding.idMeinv.setOnClickListener(new View.OnClickListener() {

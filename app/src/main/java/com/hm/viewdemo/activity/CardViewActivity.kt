@@ -34,28 +34,7 @@ class CardViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_view)
-        tvText.text = getTextSpan()
-        tvText.movementMethod = LinkMovementMethod.getInstance()
     }
 
 
-    private fun getTextSpan(): SpannableString {
-        val text = "如定位不准，请尝试刷新定位"
-        val spanText = SpannableString(text)
-        spanText.setSpan(object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                if (widget is TextView) {
-                    widget.highlightColor = Color.TRANSPARENT
-                }
-                Toast.makeText(this@CardViewActivity, "haha", Toast.LENGTH_SHORT).show()
-                //manuallyRefresh()
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                ds.color = resources.getColor(R.color.colorPrimary)
-                ds.isUnderlineText = false
-            }
-        }, 9, text.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-        return spanText
-    }
 }

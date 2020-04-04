@@ -114,7 +114,9 @@ class DrawEveryThingView @JvmOverloads constructor(
 
         //testCanvasSaveRestore1(canvas)
 
-        testCanvasSaveRestore2(canvas)
+        //testCanvasSaveRestore2(canvas)
+
+        testPathArcTo(canvas);
 
     }
 
@@ -347,18 +349,35 @@ class DrawEveryThingView @JvmOverloads constructor(
      * @param canvas
      */
     private fun testPathArcTo(canvas: Canvas) {
+        canvas.drawColor(Color.GRAY)
         //移动到屏幕中间
-        mPaint!!.color = Color.BLACK
-        canvas.translate(width / 2.0f, height / 2.0f)
-
+        mPaint.color = Color.BLACK
         val path = Path()
-        path.lineTo(100f, 100f)
 
-        val oval = RectF(0f, 0f, 300f, 300f)
-        path.arcTo(oval, 0f, 270f)
+        var oval = RectF(0f, 0f, 80f, 80f)
+        path.arcTo(oval, -180f, 90f)
 
-        canvas.drawPath(path, mPaint!!)
+        path.lineTo(measuredWidth - 80f, 0f)
+        oval = RectF(measuredWidth - 80f, 0f, measuredWidth * 1.0f, 80f)
+        path.arcTo(oval, -90f, 90f)
+
+        path.lineTo(measuredWidth * 1.0f, measuredHeight - 80f)
+        oval = RectF(measuredWidth - 80f, measuredHeight - 80f, measuredWidth * 1.0f, measuredHeight * 1.0f)
+        path.arcTo(oval, 0f, 90f)
+
+        path.lineTo(80f, measuredHeight * 1.0f)
+        oval = RectF(0f, measuredHeight - 80f, 80f, measuredHeight * 1.0f)
+        path.arcTo(oval, 90f, 90f)
+
+        path.close()
+        //canvas.drawPath(path, mPaint)
+        canvas.clipPath(path)
+
+        mPaint.color = Color.GREEN
+        canvas.drawRect(RectF(0f, 0f, measuredWidth * 1.0f, measuredHeight * 1.0f), mPaint)
+
     }
+
 
     /**
      * 测试 path 添加弧形
