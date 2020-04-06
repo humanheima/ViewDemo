@@ -89,17 +89,80 @@ public class DrawPathView extends View {
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
         //testPathArcTo(canvas);
-        //pathFillTypeEVenOld(canvas);
+        pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
         //pathComputeBound(canvas);
 
-        getPathSegment(canvas);
+        //getPathSegment(canvas);
 
         //getPathNextContour(canvas);
         //getPathPosStan(canvas);
         //getPathPosMatrix(canvas);
 
+        //testArcTo(canvas);
+        //testArcTo1(canvas);
+        //testPathAddRect(canvas);
+        //testArcTo2(canvas);
+
+    }
+
+    private void testArcTo(Canvas canvas) {
+        Path path = new Path();
+        path.moveTo(10, 10);
+        RectF rectF = new RectF(100, 10, 200, 100);
+        path.arcTo(rectF, 0, 90, true);
+
+        canvas.drawPath(path, mPaint);
+    }
+
+    /**
+     * path 调用addXXX系列函数
+     *
+     * @param canvas
+     */
+    private void testArcTo1(Canvas canvas) {
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(5);
+        Path path = new Path();
+        path.moveTo(10, 10);
+        path.lineTo(100, 50);
+        RectF rectF = new RectF(100, 100, 150, 150);
+        path.addArc(rectF, 0, 90);
+
+        canvas.drawPath(path, mPaint);
+    }
+
+    /**
+     * 根据路径方向布局文字
+     *
+     * @param canvas
+     */
+    private void testArcTo2(Canvas canvas) {
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(5);
+
+        //第一条路径逆向生成
+        Path cCWRectPth = new Path();
+        RectF rectF1 = new RectF(50, 50, 240, 200);
+        cCWRectPth.addRect(rectF1, Path.Direction.CCW);
+
+        //第2条顺时针生成
+        Path cWRectPth = new Path();
+        RectF rectF2 = new RectF(290, 50, 480, 200);
+        cWRectPth.addRect(rectF2, Path.Direction.CW);
+
+        canvas.drawPath(cCWRectPth, mPaint);
+
+        canvas.drawPath(cWRectPth, mPaint);
+
+        String text = "苦心人天不负，有志者事竟成";
+
+        mPaint.setColor(Color.GREEN);
+        mPaint.setTextSize(35);
+
+        canvas.drawTextOnPath(text, cCWRectPth, 0, 18, mPaint);
+        canvas.drawTextOnPath(text, cWRectPth, 0, 18, mPaint);
     }
 
 
@@ -293,15 +356,17 @@ public class DrawPathView extends View {
 
         mPaint.setStyle(Paint.Style.FILL);
         canvas.translate(width / 2.0f, height / 2.0f);
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.RED);
 
         Path path = new Path();
 
+        path.addRect(100, 100, 300, 300, Path.Direction.CW);
 
-        path.addRect(-200, -200, 200, 200, Path.Direction.CW);
+        path.addCircle(300,300,100,Path.Direction.CW);
+
         path.close();
 
-        path.setFillType(Path.FillType.EVEN_ODD);                   // 设置Path填充模式为 奇偶规则
+        //path.setFillType(Path.FillType.EVEN_ODD);                   // 设置Path填充模式为 奇偶规则
         //path.setFillType(Path.FillType.INVERSE_EVEN_ODD);           // 反奇偶规则
 
 

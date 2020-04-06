@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.databinding.ActivityRoundImageViewBinding;
-import com.hm.viewdemo.widget.hongyang.RoundImageView;
 
 public class RoundImageViewActivity extends AppCompatActivity {
 
@@ -24,18 +23,10 @@ public class RoundImageViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_round_image_view);
-        binding.idQiqiu.setOnClickListener(new View.OnClickListener() {
+        binding.btnSetSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //binding.idQiqiu.setType(RoundImageView.TYPE_ROUND);
-                binding.roundIv.setImageResource(R.drawable.avatar);
-                binding.roundIv.requestLayout();
-            }
-        });
-        binding.idMeinv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.idMeinv.setType(RoundImageView.TYPE_CIRCLE);
+                binding.roundIvFirst.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
             }
         });
     }

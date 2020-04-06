@@ -8,7 +8,7 @@ import com.hm.viewdemo.R
 
 /**
  * Crete by dumingwei on 2019-08-17
- * Desc:
+ * Desc: 好像不行
  */
 
 class ClipRegionView @JvmOverloads constructor(

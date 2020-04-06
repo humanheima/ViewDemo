@@ -56,6 +56,12 @@
         <attr name="borderRadius" />
         <attr name="imageType" />
     </declare-styleable>
+    <declare-styleable name="RoundCountDownView">
+        <attr name="cornerRadius" format="dimension|reference" />
+        <attr name="startAngle" format="integer" />
+        <attr name="finishAngle" format="integer" />
+        <attr name="maskColor" format="color|reference" />
+    </declare-styleable>
 
     <declare-styleable name="RoundImageViewByXfermode">
         <attr name="borderRadius" />

@@ -52,6 +52,8 @@
     <string name="input_user_nickname">请输入昵称</string>
     <string name="input_nickname">请输入昵称,不能为空且不能超过10个字</string>
     <string name="commit">确定</string>
+    <string name="dynamic_set_drawable">动态设置Drawable</string>
+    <string name="start_count_down">开始倒计时</string>
 
     <string-array name="citys">
         <item>北京</item>

@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context=".RoundViewActivity">
 
-    <com.hm.viewdemo.widget.RoundCountDownView
-        android:id="@+id/roundView"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp" />
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_red_pack" />
+
+        <com.hm.viewdemo.widget.RoundCountDownView
+            android:id="@+id/roundView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cornerRadius="10dp"
+            app:finishAngle="270"
+            app:maskColor="@color/colorAccent"
+            app:startAngle="-90" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnStartCountdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/start_count_down" />
 
 </LinearLayout>

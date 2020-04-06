@@ -10,17 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="draw everything"
-        android:textAllCaps="false" />
+        android:text="Draw everything"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
-    <com.hm.viewdemo.widget.draw.DrawEveryThingView
+    <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp" />-->
 
-    <!--<com.hm.viewdemo.widget.ClipRegionView
+    <com.hm.viewdemo.widget.ClipRegionView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
+        android:layout_height="match_parent" />
 
     <!--<com.hm.viewdemo.widget.CircleAvatarView
         android:layout_width="match_parent"

@@ -21,10 +21,6 @@ class DrawRegionView @JvmOverloads constructor(
 
     private var paint = Paint()
 
-    init {
-
-    }
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -47,9 +43,9 @@ class DrawRegionView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         //drawRegionOne(canvas)
-        //drawRegionTwo(canvas)
+        drawRegionTwo(canvas)
         //testUnion(canvas)
-        testRegionOperation(canvas)
+        //testRegionOperation(canvas)
     }
 
     private fun drawRegionOne(canvas: Canvas) {

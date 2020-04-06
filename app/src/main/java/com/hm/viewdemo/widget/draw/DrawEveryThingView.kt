@@ -114,9 +114,10 @@ class DrawEveryThingView @JvmOverloads constructor(
 
         //testCanvasSaveRestore1(canvas)
 
-        //testCanvasSaveRestore2(canvas)
+        testCanvasSaveRestore2(canvas)
 
-        testPathArcTo(canvas);
+        //testPathArcTo(canvas);
+        //pathFillTypeEVenOld(canvas)
 
     }
 
@@ -132,7 +133,7 @@ class DrawEveryThingView @JvmOverloads constructor(
         //恢复整屏画布
         canvas.restore()
 
-        //canvas.drawColor(Color.BLUE)
+        canvas.drawColor(Color.BLUE)
 
 
     }
@@ -161,9 +162,9 @@ class DrawEveryThingView @JvmOverloads constructor(
         canvas.drawColor(Color.WHITE)
 
         //将栈顶的画布状态取出来，作为当前画布，并填充为黄色
-        canvas.restoreToCount(c2)
+        //canvas.restoreToCount(c2)
 
-        canvas.drawColor(Color.YELLOW)
+        //canvas.drawColor(Color.YELLOW)
     }
 
 

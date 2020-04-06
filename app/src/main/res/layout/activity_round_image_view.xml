@@ -11,6 +11,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btnSetSrc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dynamic_set_drawable"
+                android:textAllCaps="false" />
+
+            <com.hm.viewdemo.widget.hongyang.RoundImageView
+                android:id="@+id/roundIvFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
             <com.hm.viewdemo.widget.hongyang.RoundImageView
                 android:id="@+id/id_qiqiu"
                 android:layout_width="wrap_content"
@@ -24,20 +37,16 @@
                 android:layout_height="200dp"
                 android:layout_margin="10dp" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="使用XFermode实现圆角图片" />
+
+            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermode
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:src="@drawable/icon" />
-
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:id="@+id/id_meinv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/avatar"
-                app:borderRadius="20dp"
-                app:imageType="round" />
 
             <com.hm.viewdemo.widget.hongyang.RoundImageView
                 android:layout_width="wrap_content"

@@ -36,8 +36,6 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             val filePath = "$filesDir/mytrace.trace"
             Debug.startMethodTracing(filePath)
         }
-
-        Toast.makeText(this, "show toast in onCreate()", Toast.LENGTH_SHORT).show()
         if (!EasyPermissions.hasPermissions(this, perms[0])) {
             EasyPermissions.requestPermissions(this, "I need permission!", 100, perms[0])
         }

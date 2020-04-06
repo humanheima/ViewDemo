@@ -1,37 +1,61 @@
 package com.hm.viewdemo.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.hm.viewdemo.R;
 
 /**
- * Created by xmly on 2020/4/2.
+ * Created by dumingwei on 2020/4/2.
  * <p>
  * Desc:
  */
 public class RoundCountDownView extends View {
 
+    private static final String TAG = "RoundCountDownView";
 
     private static final int DEFAULT_SIZE = 200;
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private RectF rectF;
+    private RectF clipPathRectF;
+    private Path path;
 
-    private int swipeAngle = 360;
-    private int startAngle = -90;
-    private Runnable action;
-    private int backgroundColor;
+    private int sweepAngle;
+    private int startAngle;
+    /**
+     * 当startAngle大于等于finishAngle的时候要结束，最多转一圈
+     */
+    private int finishAngle;
+    private int maskColor;
 
-    private int arcColor;
+    /**
+     * 圆角大小的默认值，单位是px
+     */
+    private static final int BORDER_RADIUS_DEFAULT = 30;
+    private int cornerRadius;
+
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
 
     public RoundCountDownView(Context context) {
         this(context, null);
@@ -43,21 +67,27 @@ public class RoundCountDownView extends View {
 
     public RoundCountDownView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
-        backgroundColor = context.getResources().getColor(R.color.colorAccent);
-        arcColor = context.getResources().getColor(R.color.white);
-        mPaint.setColor(backgroundColor);
+    private void init(Context context, AttributeSet attrs) {
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundCountDownView);
+        cornerRadius = a.getDimensionPixelSize(R.styleable.RoundCountDownView_cornerRadius, BORDER_RADIUS_DEFAULT);
+
+        startAngle = a.getInt(R.styleable.RoundCountDownView_startAngle, 0);
+        finishAngle = a.getInt(R.styleable.RoundCountDownView_finishAngle, 0);
+
+        sweepAngle = finishAngle - startAngle;
+
+        maskColor = a.getColor(R.styleable.RoundCountDownView_maskColor, Color.TRANSPARENT);
+
+        Log.d(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
+        a.recycle();
 
         rectF = new RectF();
-        action = new Runnable() {
-            @Override
-            public void run() {
-                invalidate();
-            }
-        };
+        clipPathRectF = new RectF();
+        path = new Path();
     }
 
 
@@ -82,74 +112,61 @@ public class RoundCountDownView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (finished()) {
+            return;
+        }
         int measuredWidth = getMeasuredWidth();
         int measuredHeight = getMeasuredHeight();
 
-        rectF.set(0, 0, measuredWidth, measuredHeight);
-        mPaint.setColor(backgroundColor);
-        canvas.drawRoundRect(rectF, 40, 40, mPaint);
 
-        testPathArcTo(canvas);
+        clipPath(canvas);
 
-        mPaint.setColor(arcColor);
-
+        mPaint.setColor(maskColor);
         rectF.set(-50, -50, measuredWidth + 50, measuredHeight + 50);
-        canvas.drawArc(rectF, startAngle, swipeAngle, true, mPaint);
+        canvas.drawArc(rectF, startAngle, sweepAngle, true, mPaint);
+    }
 
+    public void setStartAndFinishAngle(int startAngle, int finishAngle) {
+        this.startAngle = startAngle;
+        this.finishAngle = finishAngle;
+        sweepAngle = finishAngle - startAngle;
+    }
 
-        if (swipeAngle > 0) {
-            startAngle++;
-            swipeAngle--;
-            postDelayed(action, 20);
+    public void countDown() {
+        if (finished()) {
+            Log.d(TAG, "countDown: finished");
+            return;
         }
+        startAngle += 1;
+        sweepAngle -= 1;
+        invalidate();
     }
 
 
-    private RectF clipPathRectF = new RectF();
+    /**
+     * 是否已经走过一圈了
+     *
+     * @return
+     */
+    public boolean finished() {
+        return startAngle >= finishAngle;
+    }
 
     /**
-     * 测试 path.arcTo
+     * 将画布剪裁成圆角矩形
      *
      * @param canvas
      */
-    private void testPathArcTo(Canvas canvas) {
+    private void clipPath(Canvas canvas) {
         //移动到屏幕中间
-        mPaint.setColor(Color.BLACK);
         int measuredWidth = getMeasuredWidth();
         int measuredHeight = getMeasuredHeight();
 
+        path.reset();
 
-        //canvas.translate(width / 2.0f, height / 2.0f)
-
-        Path path = new Path();
-
-        //左上角弧形
-        clipPathRectF.set(0f, 0f, 80f, 80f);
-        path.arcTo(clipPathRectF, -180f, 90f);
-
-        path.lineTo(measuredWidth - 80f, 0f);
-
-        //右上角弧形
-        clipPathRectF.set(measuredWidth - 80f, 0f, measuredWidth * 1.0f, 80f);
-        path.arcTo(clipPathRectF, -90f, 90f);
-
-        path.lineTo(measuredWidth * 1.0f, measuredHeight - 80f);
-
-        //右下角弧形
-        clipPathRectF.set(measuredWidth - 80f, measuredHeight - 80f, measuredWidth * 1.0f, measuredHeight * 1.0f);
-        path.arcTo(clipPathRectF, 0f, 90f);
-
-        path.lineTo(80f, measuredHeight * 1.0f);
-
-        //左下角弧形
-        clipPathRectF.set(0f, measuredHeight - 80f, 80f, measuredHeight * 1.0f);
-        path.arcTo(clipPathRectF, 90f, 90f);
-
+        clipPathRectF.set(0, 0, measuredWidth, measuredHeight);
+        path.addRoundRect(clipPathRectF, cornerRadius, cornerRadius, Path.Direction.CW);
         canvas.clipPath(path);
-        //canvas.drawPath(path,mPaint);
-        //val oval = RectF(0f, 0f, 300f, 300f)
-        //path.arcTo(oval, 0f, 270f)
-        // canvas.drawPath(path, mPaint)
     }
 
 }
