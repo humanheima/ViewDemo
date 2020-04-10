@@ -98,7 +98,7 @@ class DrawEveryThingView @JvmOverloads constructor(
         //canvas.drawPoints(points, 2, 12, mPaint);
         //canvas.drawPoints(points,mPaint);
         //画椭圆
-        //canvas.drawOval(rectF, mPaint);
+        canvas.drawOval(rectF, mPaint);
         //mPaint.setStrokeWidth(dp2px(2));
         //canvas.drawLine(10, 10, 200, 50, mPaint);
         //float[] points = {20, 20, 120, 20, 70, 20, 70, 120, 20, 120, 120, 120, 150, 20, 250, 20,150, 20, 150, 120, 250, 20, 250, 120, 150, 120, 250, 120};
@@ -119,7 +119,7 @@ class DrawEveryThingView @JvmOverloads constructor(
         //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas)
 
-        testDrawLine(canvas)
+        //testDrawLine(canvas)
 
     }
 

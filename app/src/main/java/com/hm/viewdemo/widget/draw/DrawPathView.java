@@ -69,13 +69,20 @@ public class DrawPathView extends View {
         height = getMeasuredHeight();
     }
 
+    private RectF rectF = new RectF();
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //绘制坐标系
         mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(10);
         canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
         canvas.drawLine(width / 2.0f, 0f, width / 2.0f, height * 1.0f, mPaint);
+        rectF.set(width / 2.0f, height / 2.0f, width * 2 / 3f, height * 2 / 3f);
+
+        canvas.drawArc(rectF, 0f, 30f, false, mPaint);
 
         /*mPaint.setPathEffect(pathEffect);
         mPaint.setColor(Color.BLUE);
@@ -89,7 +96,7 @@ public class DrawPathView extends View {
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
         //testPathArcTo(canvas);
-        pathFillTypeEVenOld(canvas);
+        //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
         //pathComputeBound(canvas);
@@ -362,7 +369,7 @@ public class DrawPathView extends View {
 
         path.addRect(100, 100, 300, 300, Path.Direction.CW);
 
-        path.addCircle(300,300,100,Path.Direction.CW);
+        path.addCircle(300, 300, 100, Path.Direction.CW);
 
         path.close();
 

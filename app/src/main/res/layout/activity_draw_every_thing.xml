@@ -29,43 +29,11 @@
             android:layout_height="match_parent" />-->
 
 
-        <com.hm.viewdemo.widget.StageAwardViewCopy
+        <com.hm.viewdemo.widget.RoundStageAwardView
             android:id="@+id/stageAwardView0"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal" />
-
-        <com.hm.viewdemo.widget.StageAwardViewCopy
-            android:id="@+id/stageAwardView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-
-        <com.hm.viewdemo.widget.StageAwardViewCopy
-            android:id="@+id/stageAwardView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-
-
-        <com.hm.viewdemo.widget.StageAwardViewCopy
-            android:id="@+id/stageAwardView3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-
-        <com.hm.viewdemo.widget.StageAwardViewCopy
-            android:id="@+id/stageAwardView4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-
-        <com.hm.viewdemo.widget.StageAwardViewCopy
-            android:id="@+id/stageAwardView5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-
 
         <!--<com.hm.viewdemo.widget.SpiderView
             android:layout_width="match_parent"
@@ -75,10 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />-->
 
-        <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
+        <com.hm.viewdemo.widget.draw.DrawEveryThingView
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:layout_margin="10dp" />-->
+           android:layout_margin="10dp" />
 
 
     </LinearLayout>

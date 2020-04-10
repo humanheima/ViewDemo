@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.bean.SendOptionsBean;
+import com.hm.viewdemo.widget.RoundStageAwardView;
 import com.hm.viewdemo.widget.StageAwardView;
 import com.hm.viewdemo.widget.StageAwardViewCopy;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class DrawEveryThingActivity extends AppCompatActivity {
 
 
-    private StageAwardViewCopy stageAwardView0;
+    private RoundStageAwardView stageAwardView0;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, DrawEveryThingActivity.class);
@@ -45,6 +46,7 @@ public class DrawEveryThingActivity extends AppCompatActivity {
 
             list.add(optionsBean);
         }
-        stageAwardView0.setData(list, 8, 0.5f);
+        stageAwardView0.setStageList(list);
+        //stageAwardView0.setData(list, 8, 0.5f);
     }
 }
