@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_red_pack" />
+            android:src="@drawable/ic_red_pack_can_get" />
 
         <com.hm.viewdemo.widget.MaskCountDownView
             android:id="@+id/roundView"

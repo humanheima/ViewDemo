@@ -31,7 +31,7 @@ public class DrawEveryThingActivity extends AppCompatActivity {
         for (int i = 0; i < 9; i++) {
             SendOptionsBean optionsBean = new SendOptionsBean();
             optionsBean.segValue = 100 * i;
-            optionsBean.setSegKey(i * 2);
+            optionsBean.setSegKey(i * 2 + 0.5);
             if (i == 0) {
                 optionsBean.status = 1;
             } else {

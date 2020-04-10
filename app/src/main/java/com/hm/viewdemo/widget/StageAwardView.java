@@ -12,7 +12,9 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.bean.SendOptionsBean;
@@ -181,9 +183,9 @@ public class StageAwardView extends View {
 
         haveGotBitmap = getNewBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_red_packet_have_got),
                 newWidth, newHeight);
-        canGetBitmap = getNewBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_red_pack),
+        canGetBitmap = getNewBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_red_pack_can_get),
                 newWidth, newHeight);
-        cannotGetBitmap = getNewBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.red_packet_cannot_get),
+        cannotGetBitmap = getNewBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_red_packet_cannot_get),
                 newWidth, newHeight);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -222,10 +224,10 @@ public class StageAwardView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //canvas.drawColor(Color.GRAY);
+        canvas.drawColor(Color.GRAY);
         Log.d(TAG, "onDraw: row =" + row);
 
-        drawBitmaps(canvas);
+        drawBitmapCoinNumberTimes(canvas);
 
         /**
          * Canvas回到顶部
@@ -361,7 +363,7 @@ public class StageAwardView extends View {
      *
      * @param canvas
      */
-    private void drawBitmaps(Canvas canvas) {
+    private void drawBitmapCoinNumberTimes(Canvas canvas) {
         for (int i = 0; i < row; i++) {
             if (i % 2 == 0) {//奇数行
                 canvas.translate(leftSpace, 0);
@@ -370,7 +372,7 @@ public class StageAwardView extends View {
                         canvas.translate(horizontalTranslateSpace, 0);
                     }
                     int index = i * column + j;
-                    drawBitmap(canvas, index);
+                    drawSingleItem(canvas, index);
                 }
 
             } else {
@@ -379,7 +381,7 @@ public class StageAwardView extends View {
                         canvas.translate(-horizontalTranslateSpace, 0);
                     }
                     int index = i * column + j;
-                    drawBitmap(canvas, index);
+                    drawSingleItem(canvas, index);
                 }
                 canvas.translate(-leftSpace, 0);
 
@@ -388,7 +390,7 @@ public class StageAwardView extends View {
         }
     }
 
-    private void drawBitmap(Canvas canvas, int index) {
+    private void drawSingleItem(Canvas canvas, int index) {
         Log.d(TAG, "drawBitmap: index = " + index);
         if (index < stageList.size()) {
             SendOptionsBean optionsBean = stageList.get(index);
@@ -418,8 +420,14 @@ public class StageAwardView extends View {
             canvas.translate(0, timeCenterHeight - coinNumberCenterHeight);
 
             mPaint.setColor(timeColor);
-            String time = ((int) optionsBean.getSegKey()) + "分钟";
+            double segKey = optionsBean.getSegKey();
 
+            String time;
+            if (segKey < 1) {
+                time = (int) (segKey * 30) + "秒";
+            } else {
+                time = segKey + "分钟";
+            }
             textWidth = mPaint.measureText(time);
             baseLineY = Math.abs(mPaint.ascent() + mPaint.descent()) / 2;
 
@@ -501,4 +509,81 @@ public class StageAwardView extends View {
         }
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d(TAG, "onTouchEvent:  width = " + getWidth() + " , height = " + getHeight());
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                Log.d(TAG, "onTouchEvent:  ACTION_DOWN x = " + event.getX() + " , y =" + event.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d(TAG, "onTouchEvent:  ACTION_UP x = " + event.getX() + " , y =" + event.getY());
+                getClickIndex(event.getX(), event.getY());
+                break;
+            default:
+                break;
+
+        }
+        return true;
+
+    }
+
+    /**
+     * 根据点击的坐标获取点击区域
+     *
+     * @param x up事件时候的x坐标
+     * @param y up事件时候的y坐标
+     */
+    public int getClickIndex(float x, float y) {
+        int index;
+        int width = getWidth();
+        int height = getHeight();
+        if (width <= 0 || height <= 0) {
+            return -1;
+        }
+        if (x <= 0 || x >= width || y <= 0 || y >= height) {
+            return -1;
+        }
+
+        int oneOfThreeWidth = width / 3;
+        int twoOfThreeWidth = oneOfThreeWidth * 2;
+
+        int oneOfThreeHeight = height / 3;
+        int twoOfThreeHeight = oneOfThreeHeight * 2;
+
+        if (y < oneOfThreeHeight) {
+            if (x < oneOfThreeWidth) {
+                index = 0;
+
+            } else if (x < twoOfThreeWidth) {
+                index = 1;
+
+            } else {
+                index = 2;
+            }
+        } else if (y < twoOfThreeHeight) {
+            //注意这行的index是反着来的
+            if (x > twoOfThreeHeight) {
+                index = 3;
+
+            } else if (x > oneOfThreeHeight) {
+                index = 4;
+            } else {
+                index = 5;
+            }
+        } else {
+            if (x < oneOfThreeWidth) {
+                index = 6;
+            } else if (x < twoOfThreeWidth) {
+                index = 7;
+            } else {
+                index = 8;
+            }
+        }
+
+        Toast.makeText(getContext(), "点击区域是" + index, Toast.LENGTH_SHORT).show();
+
+        return index;
+    }
 }
