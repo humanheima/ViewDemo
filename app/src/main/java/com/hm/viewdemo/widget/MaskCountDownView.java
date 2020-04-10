@@ -7,8 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,11 +19,13 @@ import com.hm.viewdemo.R;
  * <p>
  * Desc:
  */
-public class RoundCountDownView extends View {
+public class MaskCountDownView extends View {
 
-    private static final String TAG = "RoundCountDownView";
+    private static final String TAG = "MaskCountDownView";
 
     private static final int DEFAULT_SIZE = 200;
+
+    private final float THRESHOLD = 0.001f;
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -33,13 +33,17 @@ public class RoundCountDownView extends View {
     private RectF clipPathRectF;
     private Path path;
 
-    private int sweepAngle;
-    private int startAngle;
+    private float sweepAngle;
+    private float startAngle;
     /**
      * 当startAngle大于等于finishAngle的时候要结束，最多转一圈
      */
-    private int finishAngle;
+    private float finishAngle;
+
     private int maskColor;
+
+    //单位是秒
+    private int stageTime;
 
     /**
      * 圆角大小的默认值，单位是px
@@ -48,39 +52,30 @@ public class RoundCountDownView extends View {
     private int cornerRadius;
 
 
-    private Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
-
-    public RoundCountDownView(Context context) {
+    public MaskCountDownView(Context context) {
         this(context, null);
     }
 
-    public RoundCountDownView(Context context, @Nullable AttributeSet attrs) {
+    public MaskCountDownView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundCountDownView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MaskCountDownView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundCountDownView);
-        cornerRadius = a.getDimensionPixelSize(R.styleable.RoundCountDownView_cornerRadius, BORDER_RADIUS_DEFAULT);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MaskCountDownView);
+        cornerRadius = a.getDimensionPixelSize(R.styleable.MaskCountDownView_cornerRadius, BORDER_RADIUS_DEFAULT);
 
-        startAngle = a.getInt(R.styleable.RoundCountDownView_startAngle, 0);
-        finishAngle = a.getInt(R.styleable.RoundCountDownView_finishAngle, 0);
+        startAngle = a.getInt(R.styleable.MaskCountDownView_startAngle, 0);
+        finishAngle = a.getInt(R.styleable.MaskCountDownView_finishAngle, 0);
 
         sweepAngle = finishAngle - startAngle;
 
-        maskColor = a.getColor(R.styleable.RoundCountDownView_maskColor, Color.TRANSPARENT);
+        maskColor = a.getColor(R.styleable.MaskCountDownView_maskColor, Color.TRANSPARENT);
 
         Log.d(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
         a.recycle();
@@ -126,30 +121,46 @@ public class RoundCountDownView extends View {
         canvas.drawArc(rectF, startAngle, sweepAngle, true, mPaint);
     }
 
-    public void setStartAndFinishAngle(int startAngle, int finishAngle) {
-        this.startAngle = startAngle;
-        this.finishAngle = finishAngle;
-        sweepAngle = finishAngle - startAngle;
+    /**
+     * 结束角度固定是270度，起始角度要根据计算结束时间和开始时间的来计算
+     *
+     * @param stageTime             整个阶段时间，单位是毫秒
+     * @param toArriveThisStageTime 到达当前阶段还需要听多长时间 ，单位是毫秒
+     */
+    public void setInitialTimes(int stageTime, int toArriveThisStageTime) {
+        this.stageTime = stageTime;
+        //270度是
+        finishAngle = 270f;
+        //还需要走这么多角度
+        sweepAngle = (toArriveThisStageTime * 1.0f / stageTime) * 360;
+        startAngle = finishAngle - sweepAngle;
+        Log.d(TAG, "setStageAndFinishTime: startAngle = " + startAngle);
+        invalidate();
     }
 
-    public void countDown() {
+    public void countDown(int currentTime) {
         if (finished()) {
             Log.d(TAG, "countDown: finished");
             return;
         }
-        startAngle += 1;
-        sweepAngle -= 1;
+        //当前转过的角度
+        sweepAngle = (currentTime * 1.0f / stageTime) * 360;
+
+        startAngle = finishAngle - sweepAngle;
+
+        Log.d(TAG, "countDown: startAngle = " + startAngle);
+
         invalidate();
     }
 
 
     /**
-     * 是否已经走过一圈了
+     * 倒计时是否结束
      *
      * @return
      */
     public boolean finished() {
-        return startAngle >= finishAngle;
+        return (finishAngle - startAngle) <= THRESHOLD;
     }
 
     /**

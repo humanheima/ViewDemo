@@ -114,11 +114,23 @@ class DrawEveryThingView @JvmOverloads constructor(
 
         //testCanvasSaveRestore1(canvas)
 
-        testCanvasSaveRestore2(canvas)
+        //testCanvasSaveRestore2(canvas)
 
         //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas)
 
+        testDrawLine(canvas)
+
+    }
+
+
+    private fun testDrawLine(canvas: Canvas) {
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 40f
+        mPaint.strokeCap = Paint.Cap.ROUND
+        canvas.drawLine(100f, 100f, 800f, 100f, mPaint)
+        canvas.drawLine(800f, 100f, 800f, 800f, mPaint)
+        canvas.drawLine(800f, 800f, 100f, 800f, mPaint)
     }
 
     private fun testCanvasSaveRestore1(canvas: Canvas) {

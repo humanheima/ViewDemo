@@ -35,18 +35,26 @@
                 android:id="@+id/roundIv"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="使用XFermode实现圆角图片" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermode
+            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:src="@drawable/icon" />
+
+            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon"
+                app:imageType="round" />
 
             <com.hm.viewdemo.widget.hongyang.RoundImageView
                 android:layout_width="wrap_content"

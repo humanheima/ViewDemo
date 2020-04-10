@@ -30,6 +30,10 @@ class RoundViewActivity : AppCompatActivity() {
         }
     }
 
+    private var stageTime = 1000 * 1000
+
+    private var timeToArriveThisStage = 1000 * 1000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_view)
@@ -37,16 +41,18 @@ class RoundViewActivity : AppCompatActivity() {
         handler = MyHandler(this)
 
         btnStartCountdown.setOnClickListener {
-            roundView.setStartAndFinishAngle(-90, 270)
+            roundView.setInitialTimes(stageTime, timeToArriveThisStage)
             startCountdown()
         }
     }
 
     private fun startCountdown() {
         if (!roundView.finished()) {
-            roundView.countDown()
+            timeToArriveThisStage -= 1000
+            //roundView.countDown(timeToArriveThisStage)
+            roundView.setInitialTimes(stageTime, timeToArriveThisStage)
             Log.d(TAG, "sendEmptyMessageDelayed")
-            handler.sendEmptyMessageDelayed(1, 20)
+            handler.sendEmptyMessageDelayed(1, 100)
         }
     }
 

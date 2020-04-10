@@ -11,6 +11,8 @@ import android.view.View
 /**
  * Created by dumingwei on 2019-09-04.
  * Desc:
+ *
+ * 参考链接：https://blog.csdn.net/cquwentao/article/details/51423371
  */
 class RestoreToCountView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,31 +27,26 @@ class RestoreToCountView @JvmOverloads constructor(
 
     private val mPaint: Paint = Paint()
 
-
-    init {
-    }
-
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val widthSpecModel = View.MeasureSpec.getMode(widthMeasureSpec)
-        val widthSpecSize = View.MeasureSpec.getSize(widthMeasureSpec)
+        val widthSpecModel = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSpecSize = MeasureSpec.getSize(widthMeasureSpec)
 
-        val heightSpecModel = View.MeasureSpec.getMode(heightMeasureSpec)
-        val heightSpecSize = View.MeasureSpec.getSize(heightMeasureSpec)
+        val heightSpecModel = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSpecSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        if (widthSpecModel == View.MeasureSpec.AT_MOST && heightSpecModel == View.MeasureSpec.AT_MOST) {
+        if (widthSpecModel == MeasureSpec.AT_MOST && heightSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(DEFAULT_SIZE, DEFAULT_SIZE)
-        } else if (widthSpecModel == View.MeasureSpec.AT_MOST) {
+        } else if (widthSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(DEFAULT_SIZE, heightSpecSize)
-        } else if (heightSpecModel == View.MeasureSpec.AT_MOST) {
+        } else if (heightSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(widthSpecSize, DEFAULT_SIZE)
         }
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        Log.d(TAG, "onDraw: count${canvas.saveCount}")
+        /*Log.d(TAG, "onDraw: count${canvas.saveCount}")
         val id1 = canvas.save()
         canvas.clipRect(0, 0, 800, 800)
         canvas.drawColor(Color.RED)
@@ -72,7 +69,22 @@ class RestoreToCountView @JvmOverloads constructor(
 
         canvas.restoreToCount(id3)
         canvas.drawColor(Color.GRAY)
-        Log.d(TAG, "onDraw: count${canvas.saveCount}")
+        Log.d(TAG, "onDraw: count${canvas.saveCount}")*/
+
+        testSaveLayerAlpha(canvas)
 
     }
+
+    private fun testSaveLayerAlpha(canvas: Canvas) {
+        mPaint.color = Color.BLUE
+        canvas.drawCircle(100f, 100f, 100f, mPaint)
+
+        mPaint.color = Color.RED
+        canvas.saveLayerAlpha(100f, 100f, 300f, 300f, 120, Canvas.ALL_SAVE_FLAG)
+        canvas.drawCircle(200f, 200f, 100f, mPaint)
+        canvas.restore()
+
+
+    }
+
 }

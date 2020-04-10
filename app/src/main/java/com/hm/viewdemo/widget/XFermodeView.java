@@ -51,13 +51,15 @@ public class XFermodeView extends View {
             new PorterDuffXfermode(PorterDuff.Mode.DARKEN),
             new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN),
             new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY),
-            new PorterDuffXfermode(PorterDuff.Mode.SCREEN)
+            new PorterDuffXfermode(PorterDuff.Mode.SCREEN),
+            new PorterDuffXfermode(PorterDuff.Mode.ADD),
+            new PorterDuffXfermode(PorterDuff.Mode.OVERLAY)
     };
     private static final String[] sLabels = {
             "Clear", "Src", "Dst", "SrcOver",
             "DstOver", "SrcIn", "DstIn", "SrcOut",
             "DstOut", "SrcATop", "DstATop", "Xor",
-            "Darken", "Lighten", "Multiply", "Screen"
+            "Darken", "Lighten", "Multiply", "Screen", "Add", "Overlay"
     };
 
     private int itemWidth = 0;
@@ -150,13 +152,13 @@ public class XFermodeView extends View {
             canvas.drawRect(x, y, x + itemWidth, y + itemWidth, paint);
 
             // draw the src/dst example into our offscreen bitmap
-            int sc = canvas.saveLayer(x, y, x + itemWidth, y + itemWidth, null, Canvas.ALL_SAVE_FLAG);
+            int layerId = canvas.saveLayer(x, y, x + itemWidth, y + itemWidth, null, Canvas.ALL_SAVE_FLAG);
             canvas.translate(x, y);
             canvas.drawBitmap(mDstB, 0, 0, paint);
             paint.setXfermode(sModes[i]);
             canvas.drawBitmap(mSrcB, 0, 0, paint);
             paint.setXfermode(null);
-            canvas.restoreToCount(sc);
+            canvas.restoreToCount(layerId);
 
             // draw the label
             canvas.drawText(sLabels[i], x + itemWidth / 2f, y - labelP.getTextSize() / 2, labelP);

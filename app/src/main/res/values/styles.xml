@@ -56,7 +56,7 @@
         <attr name="borderRadius" />
         <attr name="imageType" />
     </declare-styleable>
-    <declare-styleable name="RoundCountDownView">
+    <declare-styleable name="MaskCountDownView">
         <attr name="cornerRadius" format="dimension|reference" />
         <attr name="startAngle" format="integer" />
         <attr name="finishAngle" format="integer" />

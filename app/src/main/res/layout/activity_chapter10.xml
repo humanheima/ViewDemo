@@ -24,7 +24,7 @@
         app:text="hello owrld" />-->
 
 
-    <!--<com.hm.viewdemo.custom_view.chapter_10.StrokeImageView
+    <com.hm.viewdemo.custom_view.chapter_10.StrokeImageView
         android:id="@+id/ivStroke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,11 +33,11 @@
         android:clickable="true"
         android:padding="4dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/cat_dog" />-->
+        android:src="@drawable/cat_dog" />
 
-    <com.hm.viewdemo.custom_view.chapter_10.RectRefreshSurfaceView
+ <!--   <com.hm.viewdemo.custom_view.chapter_10.RectRefreshSurfaceView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
 
 
 </LinearLayout>

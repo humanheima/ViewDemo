@@ -3,6 +3,7 @@ package com.hm.viewdemo.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -63,8 +64,9 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
     public PorterDuffXfermodeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
         //加上这行代码
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         itemWidth = ScreenUtil.dpToPx(context, 200);
         mSrcB = makeSrc(itemWidth, itemWidth);
@@ -75,7 +77,7 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //设置背景色
-        canvas.drawARGB(255, 139, 197, 186);
+        //canvas.drawARGB(255, 139, 197, 186);
         int r = getWidth() / 3;
 
         //drawNormal(canvas, r);
@@ -83,7 +85,12 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         //clearModel(canvas, r);
 
         //clearModelInNewLayer(canvas, r);
-        clearModelInNewLayerInBitmap(canvas);
+        //clearModelInNewLayerInBitmap(canvas);
+        paint.setStrokeWidth(4);
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+        canvas.drawBitmap(mDstB, 0, 0, null);
     }
 
     private void clearModel(Canvas canvas, int r) {
@@ -108,13 +115,13 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
      */
     private void clearModelInNewLayer(Canvas canvas, int r) {
         //创建一个新的图层
-        canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        canvas.saveLayer(new RectF(), null, Canvas.ALL_SAVE_FLAG);
         //正常绘制黄色的圆形
         paint.setColor(0xFFFFCC44);
         canvas.drawCircle(r, r, r, paint);
         //使用CLEAR作为PorterDuffXfermode绘制蓝色的矩形
         paint.setXfermode(sModes[0]);
-        paint.setColor(0xFF66AAFF);
+        paint.setColor(0x66AAFF);
         canvas.drawRect(r, r, r * 2.7f, r * 2.7f, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
@@ -134,10 +141,10 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         //创建一个新的图层
         canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
         //正常绘制黄色的圆形
-        paint.setColor(0xFFFFCC44);
+        //paint.setColor(0xFFFFCC44);
         canvas.drawBitmap(mDstB, 0, 0, paint);
         //使用CLEAR作为PorterDuffXfermode绘制蓝色的矩形
-        paint.setXfermode(sModes[4]);
+        paint.setXfermode(sModes[11]);
         canvas.drawBitmap(mSrcB, 0, 0, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
@@ -158,8 +165,8 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(0xFFFFCC44);
-        c.drawOval(new RectF(0, 0, w * 3 / 4f, h * 3 / 4f), p);
+        p.setColor(0x00FFCC44);
+        c.drawOval(new RectF(4, 4, w * 3 / 4f, h * 3 / 4f), p);
         return bm;
     }
 
