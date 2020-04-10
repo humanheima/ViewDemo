@@ -34,10 +34,12 @@ public class DrawEveryThingActivity extends AppCompatActivity {
             optionsBean.setSegKey(i * 2);
             if (i == 0) {
                 optionsBean.status = 1;
+            } else {
+                if (i < 7) {
+                    optionsBean.status = 2;
+                }
             }
-            if (i == 1) {
-                optionsBean.status = 2;
-            }
+
             list.add(optionsBean);
         }
         stageAwardView.setStageList(list);

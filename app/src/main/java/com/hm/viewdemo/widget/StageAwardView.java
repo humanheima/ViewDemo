@@ -105,7 +105,7 @@ public class StageAwardView extends View {
     private int timeColor;
     private int redLineColor;
     private int pinkLineColor;
-    private Path pinkLinePath = new Path();
+    private Path pinkLinePaths = new Path();
     private Path redLinePath = new Path();
 
     private int cornerRadius;
@@ -116,6 +116,17 @@ public class StageAwardView extends View {
     //小圆点半径
     private float smallPointRadius;
 
+    private Path path0 = new Path();
+    private Path path1 = new Path();
+    private Path path2 = new Path();
+    private Path path3 = new Path();
+    private Path path4 = new Path();
+    private Path path5 = new Path();
+    private Path path6 = new Path();
+    private Path path7 = new Path();
+    private Path path8 = new Path();
+
+    private List<Path> pathList = new ArrayList<>();
 
     public StageAwardView(Context context) {
         this(context, null);
@@ -190,7 +201,12 @@ public class StageAwardView extends View {
         } else {
             row = size / 3 + 1;
         }
+
+        pathList.clear();
+
         viewHeight = rowHeight * row + timeBottomToNextLineTop * (row - 1);
+        initPaths();
+
         //需要重新布局
         requestLayout();
         invalidate();
@@ -203,12 +219,149 @@ public class StageAwardView extends View {
         setMeasuredDimension(viewWidth, viewHeight);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //canvas.drawColor(Color.GRAY);
         Log.d(TAG, "onDraw: row =" + row);
+
+        drawBitmaps(canvas);
+
+        /**
+         * Canvas回到顶部
+         */
+        canvas.translate(0, -row * verticalTranslateSpace);
+
+        if (row % 2 != 0) {//这种情况下，要向左移动
+            canvas.translate(-2 * horizontalTranslateSpace, 0);
+            canvas.translate(-leftSpace, 0);
+        }
+        canvas.translate(0, lineTopToIvTopHeight);
+
+        drawPaths(canvas);
+
+        drawPoints(canvas);
+    }
+
+    private void initPaths() {
+        //宽度减去圆角半径，再减去曲线宽度的一半
+        float rightEdge = viewWidth - cornerRadius - (strokeWidth / 2f);
+
+        if (stageList.size() > 0) {
+            path0.reset();
+            path0.lineTo(leftSpace + halfIvWidth, 0);
+            pathList.add(path0);
+        }
+        if (stageList.size() > 1) {
+            path1.reset();
+            path1.moveTo(leftSpace + halfIvWidth, 0);
+            path1.lineTo(leftSpace + ivWidth + horizontalSpace + halfIvWidth, 0);
+            pathList.add(path1);
+        }
+        if (stageList.size() > 2) {
+            path2.reset();
+            path2.moveTo(leftSpace + ivWidth + horizontalSpace + halfIvWidth, 0);
+            path2.lineTo(leftSpace + 3 * ivWidth + 2 * horizontalSpace + cornerRadius - (strokeWidth / 2f), 0);
+            pathList.add(path2);
+        }
+        /**
+         * 这个要添加4段线
+         */
+        if (stageList.size() > 3) {
+            path3.reset();
+            path3.moveTo(rightEdge, 0);
+
+            rectF.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
+            path3.arcTo(rectF, -90f, 90f);
+
+            path3.lineTo(viewWidth - (strokeWidth / 2f), verticalTranslateSpace - cornerRadius);
+
+            rectF.set(rightEdge - cornerRadius, verticalTranslateSpace - 2 * cornerRadius,
+                    rightEdge + cornerRadius, verticalTranslateSpace);
+            path3.arcTo(rectF, 0f, 90f);
+
+            path3.lineTo(viewWidth - rightSpace - halfIvWidth, verticalTranslateSpace);
+            pathList.add(path3);
+
+        }
+
+        if (stageList.size() > 4) {
+            path4.reset();
+            path4.moveTo(viewWidth - rightSpace - halfIvWidth, verticalTranslateSpace);
+            path4.lineTo(leftSpace + horizontalSpace + ivWidth + halfIvWidth, verticalTranslateSpace);
+            pathList.add(path4);
+        }
+        if (stageList.size() > 5) {
+            path5.reset();
+            path5.moveTo(leftSpace + horizontalSpace + ivWidth + halfIvWidth, verticalTranslateSpace);
+            path5.lineTo(cornerRadius + (strokeWidth / 2f), verticalTranslateSpace);
+            pathList.add(path5);
+        }
+        /**
+         * 要添加4段线
+         */
+        if (stageList.size() > 6) {
+            path6.reset();
+
+            path6.moveTo(cornerRadius + (strokeWidth / 2f), verticalTranslateSpace);
+
+            rectF.set((strokeWidth / 2f), verticalTranslateSpace,
+                    2 * cornerRadius + (strokeWidth / 2f),
+                    verticalTranslateSpace + 2 * cornerRadius);
+            path6.arcTo(rectF, -90f, -90f);
+
+            path6.lineTo((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius);
+
+            rectF.set((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius,
+                    2 * cornerRadius + (strokeWidth / 2f),
+                    2 * verticalTranslateSpace);
+
+            path6.arcTo(rectF, -180f, -90f);
+
+            path6.lineTo(leftSpace + halfIvWidth, 2 * verticalTranslateSpace);
+            pathList.add(path6);
+        }
+
+        if (stageList.size() > 7) {
+            path7.reset();
+            path7.moveTo(leftSpace + halfIvWidth, 2 * verticalTranslateSpace);
+            path7.lineTo(leftSpace + ivWidth + horizontalSpace + halfIvWidth, 2 * verticalTranslateSpace);
+            pathList.add(path7);
+        }
+        if (stageList.size() > 8) {
+            path8.reset();
+            path8.moveTo(leftSpace + ivWidth + horizontalSpace + halfIvWidth, 2 * verticalTranslateSpace);
+            path8.lineTo(viewWidth, 2 * verticalTranslateSpace);
+            pathList.add(path8);
+        }
+    }
+
+    private void drawPaths(Canvas canvas) {
+        pinkLinePaths.reset();
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(strokeWidth);
+        for (int i = 0; i < pathList.size(); i++) {
+            Path path = pathList.get(i);
+            if (i < stageList.size()) {
+                SendOptionsBean optionsBean = stageList.get(i);
+                if (optionsBean.haveGot() || optionsBean.canGet()) {
+                    mPaint.setColor(redLineColor);
+                } else {
+                    mPaint.setColor(pinkLineColor);
+                }
+            }
+            canvas.drawPath(path, mPaint);
+        }
+        // canvas.drawPath(pinkLinePaths, mPaint);
+    }
+
+
+    /**
+     * 线绘制图片，金币数量，时间文字
+     *
+     * @param canvas
+     */
+    private void drawBitmaps(Canvas canvas) {
         for (int i = 0; i < row; i++) {
             if (i % 2 == 0) {//奇数行
                 canvas.translate(leftSpace, 0);
@@ -233,75 +386,6 @@ public class StageAwardView extends View {
             }
             canvas.translate(0, verticalTranslateSpace);
         }
-
-        /**
-         * 开始画线
-         */
-        canvas.translate(0, -row * verticalTranslateSpace);
-
-        if (row % 2 != 0) {//这种情况下，要向左移动
-            canvas.translate(-2 * horizontalTranslateSpace, 0);
-            canvas.translate(-leftSpace, 0);
-        }
-        canvas.translate(0, lineTopToIvTopHeight);
-
-        pinkLinePath.reset();
-        mPaint.setColor(pinkLineColor);
-        mPaint.setStrokeWidth(strokeWidth);
-        mPaint.setStyle(Paint.Style.STROKE);
-
-        /**
-         * 添加第一条水平的线
-         */
-
-        float leftArcEdge = cornerRadius + (strokeWidth / 2f);
-
-        //每行最右边第三张张图片的右边再减去曲线宽度的一半
-        float rightEdge = viewWidth - cornerRadius - (strokeWidth / 2f);
-        pinkLinePath.lineTo(rightEdge, 0);
-
-        /**
-         *右侧弧线加第二条横线
-         */
-        if (row > 1) {
-            rectF.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
-            pinkLinePath.arcTo(rectF, -90f, 90f);
-
-            pinkLinePath.lineTo(viewWidth - (strokeWidth / 2f), verticalTranslateSpace - cornerRadius);
-
-            rectF.set(rightEdge - cornerRadius, verticalTranslateSpace - 2 * cornerRadius,
-                    rightEdge + cornerRadius, verticalTranslateSpace);
-            pinkLinePath.arcTo(rectF, 0f, 90f);
-
-            if (row <= 2) {
-                pinkLinePath.lineTo(0, verticalTranslateSpace);
-            } else {
-                pinkLinePath.lineTo(leftArcEdge, verticalTranslateSpace);
-            }
-        }
-        if (row > 2) {
-            rectF.set((strokeWidth / 2f), verticalTranslateSpace,
-                    2 * cornerRadius + (strokeWidth / 2f),
-                    verticalTranslateSpace + 2 * cornerRadius);
-            pinkLinePath.arcTo(rectF, -90f, -90f);
-
-            pinkLinePath.lineTo((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius);
-
-            rectF.set((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius,
-                    2 * cornerRadius + (strokeWidth / 2f),
-                    2 * verticalTranslateSpace);
-
-            pinkLinePath.arcTo(rectF, -180f, -90f);
-
-            pinkLinePath.lineTo(viewWidth, 2 * verticalTranslateSpace);
-        }
-        canvas.drawPath(pinkLinePath, mPaint);
-
-        /**
-         * 画点
-         */
-        drawPoints(canvas);
-
     }
 
     private void drawBitmap(Canvas canvas, int index) {
@@ -356,7 +440,13 @@ public class StageAwardView extends View {
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
         // 得到新的图片.
-        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        Bitmap newBitmap;
+        try {
+            newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            newBitmap = bitmap;
+        }
         return newBitmap;
     }
 
@@ -393,37 +483,21 @@ public class StageAwardView extends View {
     }
 
     private void drawPoint(Canvas canvas, int index) {
-        Log.d(TAG, "drawBitmap: index = " + index);
+        Log.d(TAG, "drawPoint: index = " + index);
         if (index < stageList.size()) {
-
-            //canvas.translate(halfIvWidth - pointRadius / 2f, -pointRadius / 2f);
-            //canvas.translate(-dp5, 0);
             canvas.translate(halfIvWidth, 0);
             SendOptionsBean optionsBean = stageList.get(index);
-           /* if (optionsBean.canGet()) {
-                canvas.drawBitmap(canGetBitmap, 0, 0, mPaint);
-                mPaint.setColor(coinColor);
-            } else if (optionsBean.haveGot()) {
-                canvas.drawBitmap(haveGotBitmap, 0, 0, mPaint);
-                mPaint.setColor(Color.WHITE);
+            if (optionsBean.canGet() || optionsBean.haveGot()) {
+                mPaint.setColor(redLineColor);
             } else {
-                canvas.drawBitmap(cannotGetBitmap, 0, 0, mPaint);
-                mPaint.setColor(coinColor);
-            }*/
-
+                mPaint.setColor(pinkLineColor);
+            }
             mPaint.setStyle(Paint.Style.FILL);
-            mPaint.setColor(pinkLineColor);
             canvas.drawCircle(0, 0, bigPointRadius, mPaint);
 
             mPaint.setColor(Color.WHITE);
             canvas.drawCircle(0, 0, smallPointRadius, mPaint);
-
             canvas.translate(-halfIvWidth, 0);
-
-            //canvas.translate(-(halfIvWidth - pointRadius / 2f), pointRadius / 2f);
-            //canvas.translate(dp5, 0);
-
-
         }
     }
 
