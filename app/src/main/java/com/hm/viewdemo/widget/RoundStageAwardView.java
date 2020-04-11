@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -26,25 +25,14 @@ import java.util.List;
 /**
  * Created by dumingwei on 2020/4/10.
  * <p>
- * Desc: 整个控件的宽度 = 最左边的间距 + 三张图片的宽度 + 中间两个间距的宽度 + 最右边的间距
+ * Desc: 转角需要5段线
+ * 第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
+ * 第二段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+ * 第三段直线的长度 verticalTranslateSpace - 2* cornerRadius = 90 -20 =70f 占 0.48
+ * 第四段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+ * 第五段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14。但是计算的时候要认为是占0.18，这样这五条线加起来的的百分比才能达到1。
  * <p>
- * 整个控件的高度：每一行的高度（图片顶部到分钟底部的高度是56dp）* 行数 + 行数* 每行之间的空白距离（分钟底部到图片下一行图片顶部的高度）
- * <p>
- * 最左边的间距 =20dp
- * 三张图片的宽度 = 3* ivWidth
- * 中间两个间距的宽度 = 2 * horizontalSpace
- * <p>
- * <p>
- * 转角需要5段线
- * //第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
- * //第二段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
- * //第三段直线的长度 verticalTranslateSpace - 2* cornerRadius = 90 -20 =70f 占 0.48
- * //第四段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
- * //第五段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
- * ,但是计算的时候要认为是占0.18，这样这五条线加起来的的百分比才能达到1。
- * //同理，左边的也一样
- * <p>
- * 图片宽高
+ * 同理，左边的也一样
  */
 public class RoundStageAwardView extends View {
 
@@ -117,16 +105,8 @@ public class RoundStageAwardView extends View {
     private int timeColor;
     private int redLineColor;
     private int pinkLineColor;
-    private Path pinkLinePaths = new Path();
-    private Path redLinePath = new Path();
 
     private int cornerRadius;
-    private RectF rectF = new RectF();
-    private RectF rectF0 = new RectF();
-    private RectF rectF1 = new RectF();
-    private RectF rectF2 = new RectF();
-    private RectF rectF3 = new RectF();
-
 
     //大圆点半径
     private float bigPointRadius;
@@ -138,16 +118,6 @@ public class RoundStageAwardView extends View {
 
     //第一个未完成区间的完成度
     private float finishDegree = 0;
-
-    private Path path0 = new Path();
-    private Path path1 = new Path();
-    private Path path2 = new Path();
-    private Path path3 = new Path();
-    private Path path4 = new Path();
-    private Path path5 = new Path();
-    private Path path6 = new Path();
-    private Path path7 = new Path();
-    private Path path8 = new Path();
 
 
     private PosInfo posInfo0 = new PosInfo();
@@ -170,9 +140,7 @@ public class RoundStageAwardView extends View {
     private ArcInfo arcInfo3 = new ArcInfo();
 
 
-    private List<Path> pathList = new ArrayList<>();
     private List<PosInfo> posInfoList = new ArrayList<>();
-
     private List<ArcInfo> arcInfoList = new ArrayList<>();
 
     public RoundStageAwardView(Context context) {
@@ -255,35 +223,14 @@ public class RoundStageAwardView extends View {
             row = size / 3 + 1;
         }
 
-        pathList.clear();
-
         viewHeight = rowHeight * row + timeBottomToNextLineTop * (row - 1);
-        initPaths();
+        initLines();
 
         this.firstNotArriveStage = firstNotArriveStage;
         if (finishDegree - 1f >= THRESHOLD) {
             finishDegree = 1f;
         }
         this.finishDegree = finishDegree;
-
-        //需要重新布局
-        requestLayout();
-        invalidate();
-    }
-
-    public void setStageList(List<SendOptionsBean> stageList) {
-        this.stageList = stageList;
-        int size = stageList.size();
-        if (size % 3 == 0) {
-            row = size / 3;
-        } else {
-            row = size / 3 + 1;
-        }
-
-        pathList.clear();
-
-        viewHeight = rowHeight * row + timeBottomToNextLineTop * (row - 1);
-        initPaths();
 
         //需要重新布局
         requestLayout();
@@ -710,8 +657,7 @@ public class RoundStageAwardView extends View {
 
     }
 
-    private void initPaths() {
-
+    private void initLines() {
         posInfoList.clear();
 
         arcInfoList.clear();
@@ -730,10 +676,6 @@ public class RoundStageAwardView extends View {
         //float rightEdge = viewWidth - cornerRadius - (strokeWidth / 2f);
 
         if (stageList.size() > 0) {
-            path0.reset();
-            path0.lineTo(firstIvCenterX, 0);
-            pathList.add(path0);
-
             //第一段线
             posInfo0.startX = 0;
             posInfo0.startY = 0;
@@ -745,10 +687,6 @@ public class RoundStageAwardView extends View {
 
         }
         if (stageList.size() > 1) {
-            path1.reset();
-            path1.moveTo(firstIvCenterX, 0);
-            path1.lineTo(secondIvCenterX, 0);
-            pathList.add(path1);
 
             posInfo1.startX = firstIvCenterX;
             posInfo1.startY = 0;
@@ -760,10 +698,6 @@ public class RoundStageAwardView extends View {
 
         }
         if (stageList.size() > 2) {
-            path2.reset();
-            path2.moveTo(secondIvCenterX, 0);
-            path2.lineTo(thirdIvCenterX, 0);
-            pathList.add(path2);
 
             posInfo2.startX = secondIvCenterX;
             posInfo2.startY = 0;
@@ -778,23 +712,6 @@ public class RoundStageAwardView extends View {
          * 直角的话只需要添加3条线
          */
         if (stageList.size() > 3) {
-
-            /*path3.reset();
-            path3.moveTo(rightEdge, 0);
-
-            rectF.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
-            path3.arcTo(rectF, -90f, 90f);
-
-            path3.lineTo(viewWidth - (strokeWidth / 2f), verticalTranslateSpace - cornerRadius);
-
-            rectF.set(rightEdge - cornerRadius, verticalTranslateSpace - 2 * cornerRadius,
-                    rightEdge + cornerRadius, verticalTranslateSpace);
-            path3.arcTo(rectF, 0f, 90f);
-
-            path3.lineTo(viewWidth - rightSpace - halfIvWidth, verticalTranslateSpace);
-            pathList.add(path3);*/
-
-
             //第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
             //第二段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
             //第三段直线的长度 verticalTranslateSpace - 2* cornerRadius = 90 -20 =70f 占 0.48
@@ -842,10 +759,6 @@ public class RoundStageAwardView extends View {
         }
 
         if (stageList.size() > 4) {
-            path4.reset();
-            path4.moveTo(viewWidth - rightSpace - halfIvWidth, verticalTranslateSpace);
-            path4.lineTo(leftSpace + horizontalSpace + ivWidth + halfIvWidth, verticalTranslateSpace);
-            pathList.add(path4);
 
             posInfo6.startX = thirdIvCenterX;
             posInfo6.startY = verticalTranslateSpace;
@@ -859,10 +772,6 @@ public class RoundStageAwardView extends View {
         float leftEdge = cornerRadius + (strokeWidth / 2f);
 
         if (stageList.size() > 5) {
-            path5.reset();
-            path5.moveTo(leftSpace + horizontalSpace + ivWidth + halfIvWidth, verticalTranslateSpace);
-            path5.lineTo(leftEdge, verticalTranslateSpace);
-            pathList.add(path5);
 
             posInfo7.startX = secondIvCenterX;
             posInfo7.startY = verticalTranslateSpace;
@@ -878,26 +787,6 @@ public class RoundStageAwardView extends View {
          * 直角的话只需要添加3条线
          */
         if (stageList.size() > 6) {
-
-            /*path6.reset();
-            path6.moveTo(leftEdge, verticalTranslateSpace);
-            rectF.set((strokeWidth / 2f), verticalTranslateSpace,
-                    2 * cornerRadius + (strokeWidth / 2f),
-                    verticalTranslateSpace + 2 * cornerRadius);
-
-            path6.arcTo(rectF, -90f, -90f);
-
-            path6.lineTo((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius);
-
-            rectF.set((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius,
-                    2 * cornerRadius + (strokeWidth / 2f),
-                    2 * verticalTranslateSpace);
-
-            path6.arcTo(rectF, -180f, -90f);
-
-            path6.lineTo(firstIvCenterX, 2 * verticalTranslateSpace);
-            pathList.add(path6);*/
-
 
             posInfo8.startX = firstIvCenterX;
             posInfo8.startY = verticalTranslateSpace;
@@ -945,11 +834,6 @@ public class RoundStageAwardView extends View {
         }
 
         if (stageList.size() > 7) {
-            path7.reset();
-            path7.moveTo(firstIvCenterX, 2 * verticalTranslateSpace);
-            path7.lineTo(secondIvCenterX, 2 * verticalTranslateSpace);
-            pathList.add(path7);
-
             posInfo11.startX = firstIvCenterX;
             posInfo11.startY = 2 * verticalTranslateSpace;
 
@@ -960,11 +844,6 @@ public class RoundStageAwardView extends View {
 
         }
         if (stageList.size() > 8) {
-            path8.reset();
-            path8.moveTo(secondIvCenterX, 2 * verticalTranslateSpace);
-            path8.lineTo(viewWidth, 2 * verticalTranslateSpace);
-            pathList.add(path8);
-
             posInfo12.startX = secondIvCenterX;
             posInfo12.startY = 2 * verticalTranslateSpace;
 
@@ -974,26 +853,6 @@ public class RoundStageAwardView extends View {
             posInfoList.add(posInfo12);
         }
     }
-
-    private void drawPaths(Canvas canvas) {
-        pinkLinePaths.reset();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(strokeWidth);
-        for (int i = 0; i < pathList.size(); i++) {
-            Path path = pathList.get(i);
-            if (i < stageList.size()) {
-                SendOptionsBean optionsBean = stageList.get(i);
-                if (optionsBean.haveGot() || optionsBean.canGet()) {
-                    //mPaint.setColor(redLineColor);
-                } else {
-                    mPaint.setColor(pinkLineColor);
-                }
-            }
-            canvas.drawPath(path, mPaint);
-        }
-        // canvas.drawPath(pinkLinePaths, mPaint);
-    }
-
 
     /**
      * 线绘制图片，金币数量，时间文字
@@ -1223,7 +1082,6 @@ public class RoundStageAwardView extends View {
 
         return index;
     }
-
 
     /**
      * 保存每一条线的起点和终点信息
