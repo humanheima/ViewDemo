@@ -34,13 +34,23 @@ import java.util.List;
  * 三张图片的宽度 = 3* ivWidth
  * 中间两个间距的宽度 = 2 * horizontalSpace
  * <p>
- * 先按照直角来做
+ * <p>
+ * 转角需要5段线
+ * //第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
+ * //第二段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+ * //第三段直线的长度 verticalTranslateSpace - 2* cornerRadius = 90 -20 =70f 占 0.48
+ * //第四段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+ * //第五段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
+ * ,但是计算的时候要认为是占0.18，这样这五条线加起来的的百分比才能达到1。
+ * //同理，左边的也一样
  * <p>
  * 图片宽高
  */
 public class RoundStageAwardView extends View {
 
     private static final String TAG = "StageAwardView";
+
+    private final float THRESHOLD = 0.001f;
 
     private int viewWidth;
     private int viewHeight;
@@ -117,6 +127,7 @@ public class RoundStageAwardView extends View {
     private RectF rectF2 = new RectF();
     private RectF rectF3 = new RectF();
 
+
     //大圆点半径
     private float bigPointRadius;
     //小圆点半径
@@ -153,8 +164,16 @@ public class RoundStageAwardView extends View {
     private PosInfo posInfo11 = new PosInfo();
     private PosInfo posInfo12 = new PosInfo();
 
+    private ArcInfo arcInfo0 = new ArcInfo();
+    private ArcInfo arcInfo1 = new ArcInfo();
+    private ArcInfo arcInfo2 = new ArcInfo();
+    private ArcInfo arcInfo3 = new ArcInfo();
+
+
     private List<Path> pathList = new ArrayList<>();
     private List<PosInfo> posInfoList = new ArrayList<>();
+
+    private List<ArcInfo> arcInfoList = new ArrayList<>();
 
     public RoundStageAwardView(Context context) {
         this(context, null);
@@ -242,6 +261,9 @@ public class RoundStageAwardView extends View {
         initPaths();
 
         this.firstNotArriveStage = firstNotArriveStage;
+        if (finishDegree - 1f >= THRESHOLD) {
+            finishDegree = 1f;
+        }
         this.finishDegree = finishDegree;
 
         //需要重新布局
@@ -296,7 +318,7 @@ public class RoundStageAwardView extends View {
 
         //drawPaths(canvas);
         drawPinkLines(canvas);
-        //Lines(canvas);
+        drawRedLines(canvas);
 
         drawPoints(canvas);
     }
@@ -308,6 +330,10 @@ public class RoundStageAwardView extends View {
         mPaint.setColor(pinkLineColor);
         for (PosInfo posInfo : posInfoList) {
             canvas.drawLine(posInfo.startX, posInfo.startY, posInfo.endX, posInfo.endY, mPaint);
+        }
+
+        for (ArcInfo arcInfo : arcInfoList) {
+            canvas.drawArc(arcInfo.rectF, arcInfo.startAngle, arcInfo.sweepAngle, false, mPaint);
         }
     }
 
@@ -323,18 +349,21 @@ public class RoundStageAwardView extends View {
             for (PosInfo posInfo : posInfoList) {
                 canvas.drawLine(posInfo.startX, posInfo.startY, posInfo.endX, posInfo.endY, mPaint);
             }
-        } else {
+            for (ArcInfo arcInfo : arcInfoList) {
+                canvas.drawArc(arcInfo.rectF, arcInfo.startAngle, arcInfo.sweepAngle, false, mPaint);
+            }
 
+        } else {
             if (firstNotArriveStage == 0) {
                 canvas.drawLine(posInfo0.startX, posInfo0.startY,
                         posInfo0.endX * finishDegree, posInfo0.endY, mPaint);
-            } else if (firstNotArriveStage == 1) {
 
+            } else if (firstNotArriveStage == 1) {
                 canvas.drawLine(posInfo0.startX, posInfo0.startY,
                         posInfo0.endX, posInfo0.endY, mPaint);
 
                 canvas.drawLine(posInfo1.startX, posInfo1.startY,
-                        posInfo1.endX * finishDegree, posInfo1.endY, mPaint);
+                        posInfo1.startX + (posInfo1.endX - posInfo1.startX) * finishDegree, posInfo1.endY, mPaint);
 
             } else if (firstNotArriveStage == 2) {
 
@@ -345,7 +374,7 @@ public class RoundStageAwardView extends View {
                         posInfo1.endX, posInfo1.endY, mPaint);
 
                 canvas.drawLine(posInfo2.startX, posInfo2.startY,
-                        posInfo2.endX, posInfo2.endY * finishDegree, mPaint);
+                        posInfo2.startX + (posInfo2.endX - posInfo2.startX) * finishDegree, posInfo2.endY, mPaint);
 
             } else if (firstNotArriveStage == 3) {
                 canvas.drawLine(posInfo0.startX, posInfo0.startY,
@@ -357,28 +386,66 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo2.startX, posInfo2.startY,
                         posInfo2.endX, posInfo2.endY, mPaint);
 
-                if (finishDegree < 0.2) {
-                    //posInfo3 占 posInfo3 posInfo4 posInfo5 总长的20%
+                //第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
+                //第二段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+                //第三段直线的长度 verticalTranslateSpace - 2* cornerRadius = 90 -20 =70f 占 0.48
+                //第四段弧线的长度  2 * pi * cornerRadius * 1/4 = 5pi = 15.6f 占 0.1
+                //第五段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
+                if (finishDegree < 0.14) {
+                    //posInfo3 占 posInfo3 posInfo4 posInfo5 总长的 0.14
                     canvas.drawLine(posInfo3.startX, posInfo3.startY,
-                            posInfo3.startX + (posInfo3.endX - posInfo3.startX) * finishDegree * 5,
+                            posInfo3.startX + (posInfo3.endX - posInfo3.startX) * finishDegree / 0.14f,
                             posInfo3.endY, mPaint);
-                } else if (finishDegree < 0.8) {
+                } else if (finishDegree < 0.24) {
                     canvas.drawLine(posInfo3.startX, posInfo3.startY,
                             posInfo3.endX,
                             posInfo3.endY, mPaint);
-                    //posInfo4 占 posInfo3 posInfo4 posInfo5 总长的60%
+
+                    canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                            arcInfo0.sweepAngle * ((finishDegree - 0.14f) / 0.1f), false, mPaint);
+
+                } else if (finishDegree < 0.72) {
+                    canvas.drawLine(posInfo3.startX, posInfo3.startY,
+                            posInfo3.endX,
+                            posInfo3.endY, mPaint);
+
+                    canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                            arcInfo0.sweepAngle, false, mPaint);
+
                     canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
-                            posInfo4.startY + (posInfo4.endY - posInfo4.startY) * (finishDegree - 0.2f) * 5 / 3, mPaint);
+                            posInfo4.startY + (posInfo4.endY - posInfo4.startY) * ((finishDegree - 0.24f) / 0.48f), mPaint);
+
+
+                } else if (finishDegree < 0.82) {
+                    canvas.drawLine(posInfo3.startX, posInfo3.startY,
+                            posInfo3.endX,
+                            posInfo3.endY, mPaint);
+
+                    canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                            arcInfo0.sweepAngle, false, mPaint);
+
+                    canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
+                            posInfo4.endY, mPaint);
+
+                    canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle,
+                            arcInfo1.sweepAngle * ((finishDegree - 0.72f) / 0.1f), false, mPaint);
+
                 } else {
                     canvas.drawLine(posInfo3.startX, posInfo3.startY,
                             posInfo3.endX,
                             posInfo3.endY, mPaint);
+
+                    canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                            arcInfo0.sweepAngle, false, mPaint);
+
                     canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                             posInfo4.endY, mPaint);
 
-                    //posInfo5 占 posInfo3 posInfo4 posInfo5 总长的20%
+                    canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
+
+                    //todo 计算的时候认为这段线占比为0.18
                     canvas.drawLine(posInfo5.startX, posInfo5.startY,
-                            posInfo5.startX - (posInfo5.startX - posInfo5.endX) * (finishDegree - 0.8f) * 5,
+                            posInfo5.startX - (posInfo5.startX - posInfo5.endX) * ((finishDegree - 0.82f) / 0.18f),
                             posInfo5.endY, mPaint);
                 }
 
@@ -395,12 +462,18 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo3.startX, posInfo3.startY,
                         posInfo3.endX,
                         posInfo3.endY, mPaint);
+
+                canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                        arcInfo0.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                         posInfo4.endY, mPaint);
 
-                canvas.drawLine(posInfo5.startX, posInfo5.startY, posInfo5.endX,
-                        posInfo5.endY, mPaint);
+                canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
 
+                canvas.drawLine(posInfo5.startX, posInfo5.startY,
+                        posInfo5.endX,
+                        posInfo5.endY, mPaint);
 
                 canvas.drawLine(posInfo6.startX, posInfo6.startY,
                         posInfo6.startX - (posInfo6.startX - posInfo6.endX) * finishDegree,
@@ -420,22 +493,28 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo3.startX, posInfo3.startY,
                         posInfo3.endX,
                         posInfo3.endY, mPaint);
+
+                canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                        arcInfo0.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                         posInfo4.endY, mPaint);
 
-                canvas.drawLine(posInfo5.startX, posInfo5.startY, posInfo5.endX,
+                canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo5.startX, posInfo5.startY,
+                        posInfo5.endX,
                         posInfo5.endY, mPaint);
 
-
-                canvas.drawLine(posInfo6.startX, posInfo6.startY, posInfo6.endX, posInfo6.endY, mPaint);
+                canvas.drawLine(posInfo6.startX, posInfo6.startY,
+                        posInfo6.endX,
+                        posInfo6.endY, mPaint);
 
                 canvas.drawLine(posInfo7.startX, posInfo7.startY,
                         posInfo7.startX - (posInfo7.startX - posInfo7.endX) * finishDegree,
                         posInfo7.endY, mPaint);
 
             } else if (firstNotArriveStage == 6) {
-                //处理三段线段
-
                 canvas.drawLine(posInfo0.startX, posInfo0.startY,
                         posInfo0.endX, posInfo0.endY, mPaint);
 
@@ -448,41 +527,77 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo3.startX, posInfo3.startY,
                         posInfo3.endX,
                         posInfo3.endY, mPaint);
+
+                canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                        arcInfo0.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                         posInfo4.endY, mPaint);
 
-                canvas.drawLine(posInfo5.startX, posInfo5.startY, posInfo5.endX,
+                canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo5.startX, posInfo5.startY,
+                        posInfo5.endX,
                         posInfo5.endY, mPaint);
 
-
-                canvas.drawLine(posInfo6.startX, posInfo6.startY, posInfo6.endX, posInfo6.endY, mPaint);
+                canvas.drawLine(posInfo6.startX, posInfo6.startY,
+                        posInfo6.endX,
+                        posInfo6.endY, mPaint);
 
                 canvas.drawLine(posInfo7.startX, posInfo7.startY, posInfo7.endX, posInfo7.endY, mPaint);
 
 
-                if (finishDegree < 0.2) {
-                    //posInfo8 占 posInfo8 posInfo9 posInfo10 总长的20%
+                if (finishDegree < 0.14) {
+                    //posInfo8 占 posInfo8 posInfo4 posInfo5 总长的 0.14
                     canvas.drawLine(posInfo8.startX, posInfo8.startY,
-                            posInfo8.startX - (posInfo8.startX - posInfo8.endX) * finishDegree * 5,
+                            posInfo8.startX - (posInfo8.startX - posInfo8.endX) * finishDegree / 0.14f,
                             posInfo8.endY, mPaint);
+                } else if (finishDegree < 0.24) {
+                    canvas.drawLine(posInfo8.startX, posInfo8.startY, posInfo8.endX, posInfo8.endY, mPaint);
 
-                } else if (finishDegree < 0.8) {
+                    canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                            arcInfo2.sweepAngle * ((finishDegree - 0.14f) / 0.1f), false, mPaint);
+                } else if (finishDegree < 0.72) {
                     canvas.drawLine(posInfo8.startX, posInfo8.startY,
                             posInfo8.endX,
                             posInfo8.endY, mPaint);
+                    //弧线画满
+                    canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                            arcInfo2.sweepAngle, false, mPaint);
+
                     //posInfo9 占 posInfo8 posInfo9 posInfo10 总长的60%
                     canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX,
-                            posInfo9.startY + (posInfo9.endY - posInfo9.startY) * (finishDegree - 0.2f) * 5 / 3, mPaint);
-                } else {
+                            posInfo9.startY + (posInfo9.endY - posInfo9.startY) * ((finishDegree - 0.24f) / 0.48f), mPaint);
+
+                } else if (finishDegree < 0.82) {
                     canvas.drawLine(posInfo8.startX, posInfo8.startY,
                             posInfo8.endX,
                             posInfo8.endY, mPaint);
-                    canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX,
-                            posInfo9.endY, mPaint);
+                    //弧线画满
+                    canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                            arcInfo2.sweepAngle, false, mPaint);
 
-                    //posInfo10 占 posInfo8 posInfo9 posInfo10 总长的20%
+                    canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX, posInfo9.endY, mPaint);
+
+                    canvas.drawArc(arcInfo3.rectF, arcInfo3.startAngle,
+                            arcInfo3.sweepAngle * ((finishDegree - 0.72f) / 0.1f), false, mPaint);
+                } else {
+
+                    canvas.drawLine(posInfo8.startX, posInfo8.startY,
+                            posInfo8.endX,
+                            posInfo8.endY, mPaint);
+                    //弧线画满
+                    canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                            arcInfo2.sweepAngle, false, mPaint);
+
+                    canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX, posInfo9.endY, mPaint);
+
+                    canvas.drawArc(arcInfo3.rectF, arcInfo3.startAngle,
+                            arcInfo3.sweepAngle, false, mPaint);
+
+                    //认为这段线占0.18
                     canvas.drawLine(posInfo10.startX, posInfo10.startY,
-                            posInfo10.startX + (posInfo10.endX - posInfo10.startX) * (finishDegree - 0.8f) * 5,
+                            posInfo10.startX + (posInfo10.endX - posInfo10.startX) * ((finishDegree - 0.82f) / 0.18f),
                             posInfo10.endY, mPaint);
                 }
 
@@ -501,24 +616,41 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo3.startX, posInfo3.startY,
                         posInfo3.endX,
                         posInfo3.endY, mPaint);
+
+                canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                        arcInfo0.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                         posInfo4.endY, mPaint);
 
-                canvas.drawLine(posInfo5.startX, posInfo5.startY, posInfo5.endX,
+                canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo5.startX, posInfo5.startY,
+                        posInfo5.endX,
                         posInfo5.endY, mPaint);
 
-
-                canvas.drawLine(posInfo6.startX, posInfo6.startY, posInfo6.endX, posInfo6.endY, mPaint);
+                canvas.drawLine(posInfo6.startX, posInfo6.startY,
+                        posInfo6.endX,
+                        posInfo6.endY, mPaint);
 
                 canvas.drawLine(posInfo7.startX, posInfo7.startY, posInfo7.endX, posInfo7.endY, mPaint);
 
-                canvas.drawLine(posInfo8.startX, posInfo8.startY, posInfo8.endX, posInfo8.endY, mPaint);
-                canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.endX, posInfo9.endY, mPaint);
+                canvas.drawLine(posInfo8.startX, posInfo8.startY,
+                        posInfo8.endX,
+                        posInfo8.endY, mPaint);
+                //弧线画满
+                canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                        arcInfo2.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX, posInfo9.endY, mPaint);
+
+                canvas.drawArc(arcInfo3.rectF, arcInfo3.startAngle,
+                        arcInfo3.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo10.startX, posInfo10.startY, posInfo10.endX, posInfo10.endY, mPaint);
 
                 canvas.drawLine(posInfo11.startX, posInfo11.startY,
                         posInfo11.startX + (posInfo11.endX - posInfo11.startX) * finishDegree, posInfo11.endY, mPaint);
-
 
             } else if (firstNotArriveStage == 8) {
 
@@ -534,19 +666,37 @@ public class RoundStageAwardView extends View {
                 canvas.drawLine(posInfo3.startX, posInfo3.startY,
                         posInfo3.endX,
                         posInfo3.endY, mPaint);
+
+                canvas.drawArc(arcInfo0.rectF, arcInfo0.startAngle,
+                        arcInfo0.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo4.startX, posInfo4.startY, posInfo4.startX,
                         posInfo4.endY, mPaint);
 
-                canvas.drawLine(posInfo5.startX, posInfo5.startY, posInfo5.endX,
+                canvas.drawArc(arcInfo1.rectF, arcInfo1.startAngle, arcInfo1.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo5.startX, posInfo5.startY,
+                        posInfo5.endX,
                         posInfo5.endY, mPaint);
 
-
-                canvas.drawLine(posInfo6.startX, posInfo6.startY, posInfo6.endX, posInfo6.endY, mPaint);
+                canvas.drawLine(posInfo6.startX, posInfo6.startY,
+                        posInfo6.endX,
+                        posInfo6.endY, mPaint);
 
                 canvas.drawLine(posInfo7.startX, posInfo7.startY, posInfo7.endX, posInfo7.endY, mPaint);
 
-                canvas.drawLine(posInfo8.startX, posInfo8.startY, posInfo8.endX, posInfo8.endY, mPaint);
-                canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.endX, posInfo9.endY, mPaint);
+                canvas.drawLine(posInfo8.startX, posInfo8.startY,
+                        posInfo8.endX,
+                        posInfo8.endY, mPaint);
+                //弧线画满
+                canvas.drawArc(arcInfo2.rectF, arcInfo2.startAngle,
+                        arcInfo2.sweepAngle, false, mPaint);
+
+                canvas.drawLine(posInfo9.startX, posInfo9.startY, posInfo9.startX, posInfo9.endY, mPaint);
+
+                canvas.drawArc(arcInfo3.rectF, arcInfo3.startAngle,
+                        arcInfo3.sweepAngle, false, mPaint);
+
                 canvas.drawLine(posInfo10.startX, posInfo10.startY, posInfo10.endX, posInfo10.endY, mPaint);
 
                 canvas.drawLine(posInfo11.startX, posInfo11.startY, posInfo11.endX, posInfo11.endY, mPaint);
@@ -561,6 +711,10 @@ public class RoundStageAwardView extends View {
     }
 
     private void initPaths() {
+
+        posInfoList.clear();
+
+        arcInfoList.clear();
 
         //第一张图片中心X
         int firstIvCenterX = leftSpace + halfIvWidth;
@@ -625,7 +779,7 @@ public class RoundStageAwardView extends View {
          */
         if (stageList.size() > 3) {
 
-            path3.reset();
+            /*path3.reset();
             path3.moveTo(rightEdge, 0);
 
             rectF.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
@@ -638,7 +792,7 @@ public class RoundStageAwardView extends View {
             path3.arcTo(rectF, 0f, 90f);
 
             path3.lineTo(viewWidth - rightSpace - halfIvWidth, verticalTranslateSpace);
-            pathList.add(path3);
+            pathList.add(path3);*/
 
 
             //第一段线的距离 halfIvWidth + cornerRadius - (strokeWidth / 2f) = 12 + 10 -1.5 =20.5f 占0.14
@@ -656,7 +810,11 @@ public class RoundStageAwardView extends View {
             posInfo3.endY = 0;
             posInfoList.add(posInfo3);
 
-            rectF0.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
+            arcInfo0.rectF.set(rightEdge - cornerRadius, 0, rightEdge + cornerRadius, 2 * cornerRadius);
+            arcInfo0.startAngle = -90f;
+            arcInfo0.sweepAngle = 90f;
+
+            arcInfoList.add(arcInfo0);
 
             posInfo4.startX = viewWidth - strokeWidth / 2f;
             posInfo4.startY = cornerRadius;
@@ -665,8 +823,13 @@ public class RoundStageAwardView extends View {
             posInfo4.endY = verticalTranslateSpace - cornerRadius;
             posInfoList.add(posInfo4);
 
-            rectF1.set(rightEdge - cornerRadius, verticalTranslateSpace - 2 * cornerRadius,
+            arcInfo1.rectF.set(rightEdge - cornerRadius, verticalTranslateSpace - 2 * cornerRadius,
                     rightEdge + cornerRadius, verticalTranslateSpace);
+
+            arcInfo1.startAngle = 0f;
+            arcInfo1.sweepAngle = 90f;
+
+            arcInfoList.add(arcInfo1);
 
             posInfo5.startX = rightEdge;
             posInfo5.startY = verticalTranslateSpace;
@@ -715,13 +878,13 @@ public class RoundStageAwardView extends View {
          * 直角的话只需要添加3条线
          */
         if (stageList.size() > 6) {
-            path6.reset();
 
+            /*path6.reset();
             path6.moveTo(leftEdge, verticalTranslateSpace);
-
             rectF.set((strokeWidth / 2f), verticalTranslateSpace,
                     2 * cornerRadius + (strokeWidth / 2f),
                     verticalTranslateSpace + 2 * cornerRadius);
+
             path6.arcTo(rectF, -90f, -90f);
 
             path6.lineTo((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius);
@@ -733,7 +896,7 @@ public class RoundStageAwardView extends View {
             path6.arcTo(rectF, -180f, -90f);
 
             path6.lineTo(firstIvCenterX, 2 * verticalTranslateSpace);
-            pathList.add(path6);
+            pathList.add(path6);*/
 
 
             posInfo8.startX = firstIvCenterX;
@@ -744,9 +907,15 @@ public class RoundStageAwardView extends View {
 
             posInfoList.add(posInfo8);
 
-            rectF2.set((strokeWidth / 2f), verticalTranslateSpace,
+            arcInfo2.rectF.set((strokeWidth / 2f), verticalTranslateSpace,
                     2 * cornerRadius + (strokeWidth / 2f),
                     verticalTranslateSpace + 2 * cornerRadius);
+
+            arcInfo2.startAngle = -90f;
+            arcInfo2.sweepAngle = -90f;
+
+            arcInfoList.add(arcInfo2);
+
 
             posInfo9.startX = strokeWidth / 2f;
             posInfo9.startY = verticalTranslateSpace + cornerRadius;
@@ -757,10 +926,14 @@ public class RoundStageAwardView extends View {
             posInfoList.add(posInfo9);
 
 
-            rectF3.set((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius,
+            arcInfo3.rectF.set((strokeWidth / 2f), 2 * verticalTranslateSpace - 2 * cornerRadius,
                     2 * cornerRadius + (strokeWidth / 2f),
                     2 * verticalTranslateSpace);
 
+            arcInfo3.startAngle = -180f;
+            arcInfo3.sweepAngle = -90f;
+
+            arcInfoList.add(arcInfo3);
 
             posInfo10.startX = leftEdge;
             posInfo10.startY = 2 * verticalTranslateSpace;
@@ -888,7 +1061,7 @@ public class RoundStageAwardView extends View {
 
             String time;
             if (segKey < 1) {
-                time = (int) (segKey * 30) + "秒";
+                time = (int) (segKey * 60) + "秒";
             } else {
                 time = segKey + "分钟";
             }
@@ -1061,7 +1234,14 @@ public class RoundStageAwardView extends View {
 
         float endX;
         float endY;
+    }
 
-        float percent = 1f;
+    static class ArcInfo {
+
+        RectF rectF = new RectF();
+
+        float startAngle;
+        float sweepAngle;
+
     }
 }
