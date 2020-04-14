@@ -7,20 +7,47 @@
     tools:context=".activity.TextSwitcherActivity">
 
 
-    <TextSwitcher
-        android:id="@+id/tvSwitcher"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llTextSwitcher"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextSwitcher
+            android:id="@+id/textSwitcher3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            tools:text="0" />
+
+        <TextSwitcher
+            android:id="@+id/textSwitcher2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            tools:text="0" />
+
+        <TextSwitcher
+            android:id="@+id/textSwitcher1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            tools:text="0" />
+
+        <TextSwitcher
+            android:id="@+id/textSwitcher0"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            tools:text="0" />
+
+    </LinearLayout>
 
     <Button
+        android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="next"
         android:text="改变文字"
-        app:layout_constraintTop_toBottomOf="@+id/tvSwitcher" />
+        app:layout_constraintTop_toBottomOf="@+id/llTextSwitcher" />
 
 </android.support.constraint.ConstraintLayout>

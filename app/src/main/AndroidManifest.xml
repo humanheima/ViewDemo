@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RoundViewActivity"></activity>
+        <activity android:name=".activity.TestTickerActivity"></activity>
+        <activity android:name=".RoundViewActivity" />
         <activity android:name=".activity.TextSwitcherActivity" />
         <activity android:name=".activity.ListViewActivity" />
         <activity android:name=".cancel_event.TestCancelEventActivity" />

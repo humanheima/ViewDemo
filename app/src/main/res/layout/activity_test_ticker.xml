@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TestTickerActivity">
+
+    <LinearLayout
+        android:id="@+id/llTickerViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/tickerView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:ticker_animationDuration="50" />
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/tickerView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:ticker_animationDuration="50" />
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/tickerView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:ticker_animationDuration="50" />
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/tickerView0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:ticker_animationDuration="50" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTickerViews" />
+
+</RelativeLayout>

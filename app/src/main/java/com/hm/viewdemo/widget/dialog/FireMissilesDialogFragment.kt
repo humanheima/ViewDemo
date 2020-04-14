@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
+import com.hm.viewdemo.R
 
 /**
  * Created by dumingwei on 2019-10-22.
@@ -13,9 +14,10 @@ import android.widget.Toast
 class FireMissilesDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setTitle("hello world")
+            val dialog = builder.setTitle("hello world")
                     .setMessage("Fire missiles?")
                     .setPositiveButton("fire") { dialog, which ->
                         Toast.makeText(activity, "fire", Toast.LENGTH_SHORT).show()
@@ -23,6 +25,8 @@ class FireMissilesDialogFragment : DialogFragment() {
                         Toast.makeText(activity, "cancel", Toast.LENGTH_SHORT).show()
                     }
                     .create()
+            dialog.window.setWindowAnimations(R.style.scale_animate_dialog)
+            return dialog
 
         } ?: throw  throw IllegalStateException("Activity cannot be null")
     }

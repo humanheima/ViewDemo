@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.hm.viewdemo.R
+import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_announcement.*
 
 /**
@@ -40,15 +41,21 @@ class AnnouncementActivity : AppCompatActivity() {
             val textView = getTextView("hello world$i")
             flipperDynamic.addView(textView)
         }
-        flipperDynamic.inAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_in)
-        flipperDynamic.outAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_out)
+        flipperDynamic.inAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_bottom)
+        flipperDynamic.outAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_top)
         //flipperDynamic.startFlipping()
+
+        btnDynamicAddView.setOnClickListener {
+            flipper.startFlipping()
+        }
     }
 
     private fun getTextView(text: String): TextView {
         val textView = TextView(this)
+
         textView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
+                ScreenUtil.dpToPx(this, 48))
+
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
         textView.text = text
         textView.ellipsize = TextUtils.TruncateAt.END

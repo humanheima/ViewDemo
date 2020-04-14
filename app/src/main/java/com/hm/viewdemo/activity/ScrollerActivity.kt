@@ -7,17 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_scroller.*
 
+/**
+ * Created by dumingwei on 2020/4/13
+ *
+ * Desc:
+ */
 class ScrollerActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scroller)
-        btnStartScroll.setOnClickListener {
-            //向右下方向滚动100像素
-            smoothScrollView.smoothScrollTo(-100, -100)
-        }
-
-    }
 
     companion object {
 
@@ -26,4 +22,15 @@ class ScrollerActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_scroller)
+        btnStartScroll.setOnClickListener {
+            //向右下方向滚动100像素
+            smoothScrollView.smoothScrollTo(-100, -100)
+        }
+    }
+
+
 }

@@ -78,13 +78,13 @@
 
     <declare-styleable name="RoundLayout">
 
-        <attr name="round_corner" />
+        <attr name="round_corner" format="dimension|reference" />
 
     </declare-styleable>
 
     <declare-styleable name="RoundLayoutTwo">
 
-        <attr name="two_round_corner" />
+        <attr name="two_round_corner" format="dimension|reference" />
 
     </declare-styleable>
 
@@ -95,6 +95,13 @@
         <item name="android:background">@drawable/flag_01</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+    
+    
+    <style name="scale_animate_dialog">
+        <item name="android:windowEnterAnimation">@anim/scale_enter</item>
+        <item name="android:windowExitAnimation">@anim/scale_exit</item>
+    </style>
+    
 
 
 </resources>

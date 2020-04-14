@@ -25,11 +25,11 @@
                 android:layout_margin="10dp" />
 
             <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:id="@+id/id_qiqiu"
+                android:id="@+id/roundIvBalloon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:src="@drawable/balloon" />
+                android:src="@drawable/bg_circle_light" />
 
             <com.hm.viewdemo.widget.hongyang.RoundImageView
                 android:id="@+id/roundIv"
