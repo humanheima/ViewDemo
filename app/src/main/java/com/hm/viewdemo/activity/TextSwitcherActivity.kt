@@ -19,7 +19,6 @@ import android.widget.TextView
 import android.widget.ViewSwitcher
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_text_switcher.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by dumingwei on 2020/4/2
@@ -39,7 +38,7 @@ class TextSwitcherActivity : AppCompatActivity() {
         }
     }
 
-    val strs = arrayListOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+    val numberList = arrayListOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 
     var strs0 = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
     var strs1 = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
@@ -49,35 +48,21 @@ class TextSwitcherActivity : AppCompatActivity() {
     private val textSwitcherList: ArrayList<TextSwitcher> = ArrayList()
 
     var index0Start = 0
-    var index0End = 0
 
     var index1Start = 0
-    var index1End = 0
 
     var index2Start = 0
-    var index2End = 0
 
 
     var index3Start = 0
-    var index3End = 0
 
-    var amount = 5000
-
-    /**
-     * 总共的位数，个位十位百位千位
-     */
-    var size = 0
+    var amount = 1000
 
     lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_switcher)
-
-        textSwitcherList.add(textSwitcher0)
-        textSwitcherList.add(textSwitcher1)
-        textSwitcherList.add(textSwitcher2)
-        textSwitcherList.add(textSwitcher3)
 
         initTextSwitcher()
 
@@ -108,19 +93,25 @@ class TextSwitcherActivity : AppCompatActivity() {
         }
 
         btnStart.setOnClickListener {
+            textSwitcher3.setCurrentText("0")
+            textSwitcher2.setCurrentText("0")
+            textSwitcher1.setCurrentText("0")
+            textSwitcher0.setCurrentText("0")
             startAnimation(3)
-            //amount *= 10
         }
     }
 
     private fun initTextSwitcher() {
+
+        textSwitcherList.add(textSwitcher0)
+        textSwitcherList.add(textSwitcher1)
+        textSwitcherList.add(textSwitcher2)
+        textSwitcherList.add(textSwitcher3)
+
         val inAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_in_from_bottom)
         val outAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_out_to_top)
-
         inAnim.duration = 50
         outAnim.duration = 50
-        textSwitcher1.inAnimation = inAnim
-        textSwitcher1.outAnimation = outAnim
 
         val factory = object : ViewSwitcher.ViewFactory {
             override fun makeView(): View {
@@ -134,15 +125,13 @@ class TextSwitcherActivity : AppCompatActivity() {
                 return textView
             }
         }
-        textSwitcher0.setFactory(factory)
-        textSwitcher1.setFactory(factory)
-        textSwitcher2.setFactory(factory)
-        textSwitcher3.setFactory(factory)
 
-        textSwitcher3.setCurrentText("0")
-        textSwitcher2.setCurrentText("0")
-        textSwitcher1.setCurrentText("0")
-        textSwitcher0.setCurrentText("0")
+        textSwitcherList.forEach {
+            it.inAnimation = inAnim
+            it.outAnimation = outAnim
+            it.setFactory(factory)
+            it.setCurrentText("0")
+        }
 
         val amountStr = amount.toString().reversed()
         val size = amountStr.length
@@ -156,23 +145,10 @@ class TextSwitcherActivity : AppCompatActivity() {
     }
 
     private fun startAnimation(rate: Int) {
-        textSwitcher3.setCurrentText("0")
-        textSwitcher2.setCurrentText("0")
-        textSwitcher1.setCurrentText("0")
-        textSwitcher0.setCurrentText("0")
-
         index0Start = 0
-        index0End = 0
-
         index1Start = 0
-        index1End = 0
-
         index2Start = 0
-        index2End = 0
-
-
         index3Start = 0
-        index3End = 0
 
         //翻倍后的金币数，最大要小于10000
         val rateAmount = (amount * rate)
@@ -186,37 +162,37 @@ class TextSwitcherActivity : AppCompatActivity() {
         //千位数
         val thousandDigit = (rateAmount % 10000) / 1000
 
-        val rateAmountStr = (amount * rate).toString()
+        val rateAmountStr = rateAmount.toString()
         //最多到几位数
         val size = rateAmountStr.length
 
         if (size == 4) {
             if (singleDigit > 0) {
-                strs0 = strs.subList(0, singleDigit + 1)
+                strs0 = numberList.subList(0, singleDigit + 1)
             } else {
-                strs0 = strs
+                strs0 = numberList
             }
             next0()
             if (tenDigit > 0) {
-                strs1 = strs.subList(0, tenDigit + 1)
+                strs1 = numberList.subList(0, tenDigit + 1)
             } else {
-                strs1 = strs
+                strs1 = numberList
             }
             handler.postDelayed({
                 next1()
             }, 200)
 
             if (hundredDigit > 0) {
-                strs2 = strs.subList(0, hundredDigit + 1)
+                strs2 = numberList.subList(0, hundredDigit + 1)
             } else {
-                strs2 = strs
+                strs2 = numberList
             }
             handler.postDelayed({
                 next2()
             }, 400)
 
             if (thousandDigit > 0) {
-                strs3 = strs.subList(0, thousandDigit + 1)
+                strs3 = numberList.subList(0, thousandDigit + 1)
             }
             handler.postDelayed({
                 next3()
@@ -224,39 +200,39 @@ class TextSwitcherActivity : AppCompatActivity() {
 
         } else if (size == 3) {
             if (singleDigit > 0) {
-                strs0 = strs.subList(0, singleDigit + 1)
+                strs0 = numberList.subList(0, singleDigit + 1)
             } else {
-                strs0 = strs
+                strs0 = numberList
             }
             next0()
             if (tenDigit > 0) {
-                strs1 = strs.subList(0, tenDigit + 1)
+                strs1 = numberList.subList(0, tenDigit + 1)
             } else {
-                strs1 = strs
+                strs1 = numberList
             }
             handler.postDelayed({
                 next1()
             }, 200)
 
-            strs2 = strs.subList(0, hundredDigit + 1)
+            strs2 = numberList.subList(0, hundredDigit + 1)
             handler.postDelayed({
                 next2()
             }, 400)
 
         } else if (size == 2) {
             if (singleDigit > 0) {
-                strs0 = strs.subList(0, singleDigit + 1)
+                strs0 = numberList.subList(0, singleDigit + 1)
             } else {
-                strs0 = strs
+                strs0 = numberList
             }
             next0()
-            strs1 = strs.subList(0, tenDigit + 1)
+            strs1 = numberList.subList(0, tenDigit + 1)
             handler.postDelayed({
                 next1()
             }, 200)
 
         } else if (size == 1) {//只有个位数，只转动个位就行
-            strs0 = strs.subList(0, singleDigit + 1)
+            strs0 = numberList.subList(0, singleDigit + 1)
             next0()
         }
     }
@@ -284,6 +260,7 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     private fun next3() {
         if (index3Start < strs3.size) {
+            Log.d(TAG, "next3: ")
             textSwitcher3.setText(strs3[index3Start++])
             handler.sendEmptyMessageDelayed(3, 50)
         }

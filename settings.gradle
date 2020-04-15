@@ -1,1 +1,1 @@
-include ':app', ':pullrefresh', ':countdowntimer'
+include ':app', ':pullrefresh', ':countdowntimer', ':dot-progress-bar'

@@ -14,6 +14,11 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 
+/**
+ * Created by dumingwei on 2020/4/15
+ * <p>
+ * Desc: 测试loading dialog progress等
+ */
 public class LoadingDialogActivity extends BaseActivity {
 
     @BindView(R.id.progressBar)
