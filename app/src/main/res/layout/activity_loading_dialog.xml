@@ -14,23 +14,43 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FA9C6A">
+                android:background="#FA9C6A"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <com.github.silvestrpredko.dotprogressbar.DotProgressBar
-                    android:id="@+id/dot_progress_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="48dp"
+                    android:background="@color/colorPrimary" />
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBarCopy
+                    android:id="@+id/dot_progress_bar_copy"
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
                     app:amount="3"
                     app:animationDirection="right"
                     app:duration="@android:integer/config_mediumAnimTime"
                     app:endColor="#4cffffff"
                     app:startColor="#ffffff" />
 
-            </FrameLayout>
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBar
+                    android:id="@+id/dot_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="48dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="@android:integer/config_mediumAnimTime"
+                    app:endColor="#4cffffff"
+                    app:startColor="#ffffff" />
+
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"

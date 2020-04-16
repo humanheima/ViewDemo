@@ -47,6 +47,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_lottie -> {
+                LottieActivity.launch(this)
+            }
             R.id.btnTextTicker -> {
                 TestTickerActivity.launch(this)
             }

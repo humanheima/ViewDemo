@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FA9B6C"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".activity.LottieActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="从url加载lottie动画"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoadFromUrl"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="动态加载1"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoadDynamic1"
+            android:layout_width="16dp"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="使用LottieDrawable"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieUseDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="旋转动画"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieRotate"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/rotate" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="loading 动画"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewLoading"
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="48dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie/loading_1/loading.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="闪光动画"
+            android:textAllCaps="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie/light_1/light.json"
+            app:lottie_loop="true" />
+
+        <Button
+            android:id="@+id/btnStartLightAnim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="开始闪光动画" />
+
+    </LinearLayout>
+
+</ScrollView>
