@@ -51,7 +51,6 @@ public class MaskCountDownView extends View {
     private static final int BORDER_RADIUS_DEFAULT = 30;
     private int cornerRadius;
 
-
     public MaskCountDownView(Context context) {
         this(context, null);
     }
@@ -102,6 +101,22 @@ public class MaskCountDownView extends View {
         } else if (heightSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(widthSpecSize, DEFAULT_SIZE);
         }
+
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+        //宽高最大值
+        int sideLength = Math.max(width, height);
+        //正方形外接圆形的半径
+        /**
+         * 外接圆的半径
+         */
+        float outCircleR = (float) (sideLength * Math.sqrt(2) / 2);
+        //绘制扇形时候需要增加的偏移量
+        //绘制扇形时候需要增加的偏移量
+        float offset = outCircleR - sideLength / 2f;
+        Log.d(TAG, "onMeasure: width = " + width + " , height = " + height +
+                " ,outCircleR = " + outCircleR + ", offset = " + offset);
+        rectF.set(-offset, -offset, width + offset, height + offset);
     }
 
     @Override
@@ -110,14 +125,8 @@ public class MaskCountDownView extends View {
         if (finished()) {
             return;
         }
-        int measuredWidth = getMeasuredWidth();
-        int measuredHeight = getMeasuredHeight();
-
-
         clipPath(canvas);
-
         mPaint.setColor(maskColor);
-        rectF.set(-50, -50, measuredWidth + 50, measuredHeight + 50);
         canvas.drawArc(rectF, startAngle, sweepAngle, true, mPaint);
     }
 
