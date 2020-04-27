@@ -19,6 +19,11 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
+        <com.hm.viewdemo.widget.draw.DrawEveryThingView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="10dp" />
+
 
         <!--<com.hm.viewdemo.widget.ClipRegionView
             android:layout_width="match_parent"
@@ -73,11 +78,6 @@
         <!--<com.hm.viewdemo.widget.draw.DrawRegionView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />-->
-
-        <!--<com.hm.viewdemo.widget.draw.DrawEveryThingView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_margin="10dp" />-->
 
 
     </LinearLayout>

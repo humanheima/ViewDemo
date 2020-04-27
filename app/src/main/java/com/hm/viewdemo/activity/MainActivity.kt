@@ -47,6 +47,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnListViewFloat -> {
+                ListViewFloatActivity.launch(this)
+            }
             R.id.btn_test_lottie -> {
                 LottieActivity.launch(this)
             }

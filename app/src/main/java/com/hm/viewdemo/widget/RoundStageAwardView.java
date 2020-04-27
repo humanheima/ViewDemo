@@ -158,7 +158,8 @@ public class RoundStageAwardView extends View {
 
     private void init(Context context) {
         coinColor = Color.parseColor("#FDFF00");
-        alphaCoinColor = Color.parseColor("#7FFDFF00");
+        //alphaCoinColor = Color.parseColor("#7FFDFF00");
+        alphaCoinColor = coinColor;
         timeColor = Color.parseColor("#999999");
 
         leftSpace = ScreenUtil.dpToPx(context, 20);
@@ -247,7 +248,7 @@ public class RoundStageAwardView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.GRAY);
+        //canvas.drawColor(Color.GRAY);
         Log.d(TAG, "onDraw: row =" + row);
 
         drawBitmapCoinNumberTimes(canvas);

@@ -4,49 +4,82 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.ImageView
-import android.widget.SimpleAdapter
-import android.widget.TextView
+import android.widget.*
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
 import com.hm.viewdemo.bean.MyBean
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_list_view.*
+import kotlinx.android.synthetic.main.activity_list_view_float.*
+import kotlinx.android.synthetic.main.view_float_layout.*
 
 /**
  * Created by dumingwei on 2020/4/1
  *
- * Desc: ListView的使用
+ * Desc: ListView的item的悬浮效果
  */
-class ListViewActivity : AppCompatActivity() {
+class ListViewFloatActivity : AppCompatActivity() {
 
 
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
 
+    private val TAG: String? = "ListViewFloatActivity"
 
     companion object {
 
         fun launch(context: Context) {
-            val intent = Intent(context, ListViewActivity::class.java)
+            val intent = Intent(context, ListViewFloatActivity::class.java)
             context.startActivity(intent)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view)
+        setContentView(R.layout.activity_list_view_float)
         listView.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(this, "ListView中item点击", Toast.LENGTH_SHORT).show()
         }
 
         addHeadAndFoot()
-        addHeadAndFoot()
+        //addHeadAndFoot()
+
+        ivFloatImage.setOnClickListener {
+            Toast.makeText(this, "我是include布局文件中的控件", Toast.LENGTH_SHORT).show()
+        }
+        addFloatView()
 
         useArrayAdapter()
+
+
+
+        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+                Log.d(TAG, "onScroll: firstVisibleItem = $firstVisibleItem")
+                if (firstVisibleItem >= 1) {
+                    includeViewFloatLayout.visibility = View.VISIBLE
+                } else {
+                    includeViewFloatLayout.visibility = View.GONE
+                }
+            }
+
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
+                //do nothing
+            }
+        })
         //useSimpleAdapter()
+    }
+
+    private fun addFloatView() {
+        val floatView = View.inflate(this, R.layout.view_float_layout, null)
+        floatView.findViewById<ImageView>(R.id.ivFloatImage).setOnClickListener {
+            Toast.makeText(this, "做为ListView的item中的控件", Toast.LENGTH_SHORT).show()
+        }
+
+        listView.addHeaderView(floatView)
     }
 
     private fun useSimpleAdapter() {

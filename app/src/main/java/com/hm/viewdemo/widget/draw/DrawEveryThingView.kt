@@ -70,7 +70,7 @@ class DrawEveryThingView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //canvas.drawColor(Color.parseColor("#FF009688"))
+        canvas.drawColor(Color.parseColor("#FF009688"))
         //绘制坐标系
         //mPaint.setColor(Color.RED);
         //canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
@@ -98,13 +98,21 @@ class DrawEveryThingView @JvmOverloads constructor(
         //canvas.drawPoints(points, 2, 12, mPaint);
         //canvas.drawPoints(points,mPaint);
         //画椭圆
-        canvas.drawOval(rectF, mPaint);
+        //canvas.drawOval(rectF, mPaint)
         //mPaint.setStrokeWidth(dp2px(2));
         //canvas.drawLine(10, 10, 200, 50, mPaint);
         //float[] points = {20, 20, 120, 20, 70, 20, 70, 120, 20, 120, 120, 120, 150, 20, 250, 20,150, 20, 150, 120, 250, 20, 250, 120, 150, 120, 250, 120};
         //canvas.drawLines(points, mPaint);
         //canvas.drawLines(points, 4, 24, mPaint);
-        //canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint);
+
+        mPaint.style = Paint.Style.FILL
+        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
+
+        mPaint.style = Paint.Style.STROKE
+        mPaint.color = Color.RED
+        mPaint.strokeWidth = sp2px(2)
+        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
+
         //mPaint.setStyle(Paint.Style.FILL);
         //canvas.drawArc(rectF,0,90,true,mPaint);
 
@@ -439,13 +447,13 @@ class DrawEveryThingView @JvmOverloads constructor(
         canvas.restoreToCount(count)
     }
 
-    fun dp2px(dpVal: Int): Int {
+    fun dp2px(dpVal: Int): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal.toFloat(), resources.displayMetrics).toInt()
+                dpVal.toFloat(), resources.displayMetrics)
     }
 
-    fun sp2px(dpVal: Int): Int {
+    fun sp2px(dpVal: Int): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                dpVal.toFloat(), resources.displayMetrics).toInt()
+                dpVal.toFloat(), resources.displayMetrics)
     }
 }

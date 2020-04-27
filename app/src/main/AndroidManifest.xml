@@ -108,6 +108,8 @@
         <activity android:name=".activity.HorizontalScrollViewActivity" />
         <activity android:name=".activity.SimpleFlowLayoutActivity" />
         <activity android:name=".activity.ToastActivity" />
+
+        <activity android:name=".activity.ListViewFloatActivity" />
     </application>
 
 </manifest>
