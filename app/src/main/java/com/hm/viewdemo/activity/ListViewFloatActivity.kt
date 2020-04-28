@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.view_float_layout.*
  */
 class ListViewFloatActivity : AppCompatActivity() {
 
-
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
 
@@ -41,7 +40,7 @@ class ListViewFloatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view_float)
         listView.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(this, "ListView中item点击", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "ListView中item点击$position", Toast.LENGTH_SHORT).show()
         }
 
         addHeadAndFoot()
@@ -49,6 +48,7 @@ class ListViewFloatActivity : AppCompatActivity() {
 
         ivFloatImage.setOnClickListener {
             Toast.makeText(this, "我是include布局文件中的控件", Toast.LENGTH_SHORT).show()
+            listView.smoothScrollToPosition(1)
         }
         addFloatView()
 
