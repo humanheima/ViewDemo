@@ -95,13 +95,32 @@
         <item name="android:background">@drawable/flag_01</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-    
-    
+
+
     <style name="scale_animate_dialog">
         <item name="android:windowEnterAnimation">@anim/scale_enter</item>
         <item name="android:windowExitAnimation">@anim/scale_exit</item>
     </style>
-    
+
+    <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="CustomTabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabMaxWidth">264dp</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/CustomTabTextAppearanceStyle</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="CustomTabTextAppearanceStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
 
 
 </resources>

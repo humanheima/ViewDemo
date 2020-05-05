@@ -10,6 +10,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
+import com.hm.viewdemo.activity.design.TabLayoutActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
@@ -43,10 +44,14 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         //BlockDetectByPrinter.start()
 
         Debug.stopMethodTracing()
+
     }
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestTabLayout -> {
+                TabLayoutActivity.launch(this)
+            }
             R.id.btnListViewFloat -> {
                 ListViewFloatActivity.launch(this)
             }

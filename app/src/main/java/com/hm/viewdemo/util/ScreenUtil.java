@@ -27,9 +27,14 @@ public class ScreenUtil {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        Log.d(TAG, "density: " + displayMetrics.density);
-        Log.d(TAG, "xdpi: " + displayMetrics.xdpi);
-        Log.d(TAG, "ydpi: " + displayMetrics.ydpi);
+        int widthPixels = displayMetrics.widthPixels;
+        int heightPixels = displayMetrics.heightPixels;
+        float density = displayMetrics.density;
+        Log.d(TAG, "density: " + density);
+        Log.d(TAG, "width: " + widthPixels);
+        Log.d(TAG, "height: " + heightPixels);
+        Log.d(TAG, "xdpi: " + widthPixels / density);
+        Log.d(TAG, "ydpi: " + heightPixels / density);
         Log.d(TAG, "densityDpi: " + displayMetrics.densityDpi);
     }
 

@@ -104,6 +104,29 @@
             android:layout_height="wrap_content"
             android:text="开始闪光动画" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieMarquee"
+            android:layout_width="342dp"
+            android:layout_height="202dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/colorPrimary" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieMarquee1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true" />
+
     </LinearLayout>
 
 </ScrollView>

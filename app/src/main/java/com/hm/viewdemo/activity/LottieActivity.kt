@@ -62,6 +62,17 @@ class LottieActivity : AppCompatActivity() {
 
         useLottieDrawable()
 
+        testLottieSize()
+
+    }
+
+    private fun testLottieSize() {
+        lottieMarquee.setAnimation("lottie/marquee.json")
+        lottieMarquee.playAnimation()
+
+        lottieMarquee1.setAnimation("lottie/marquee1.json")
+        lottieMarquee1.playAnimation()
+
 
     }
 
@@ -96,6 +107,12 @@ class LottieActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        lottieMarquee.pauseAnimation()
+        lottieMarquee1.pauseAnimation()
     }
 
 }
