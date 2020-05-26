@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.design.TabLayoutActivity"></activity>
+        <activity android:name=".activity.AutoSizingTextViewActivity"></activity>
+        <activity android:name=".custom_view.chapter7.GradientDrawableActivity" />
+        <activity android:name=".activity.design.TabLayoutActivity" />
         <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.TestTickerActivity" />
         <activity android:name=".RoundViewActivity" />
@@ -58,7 +60,9 @@
         <activity android:name=".activity.TestGetDrawingCachingActivity" />
         <activity android:name=".activity.ImageViewSrcBackgroundActivity" />
         <activity android:name=".activity.LayoutInflateActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="fontScale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

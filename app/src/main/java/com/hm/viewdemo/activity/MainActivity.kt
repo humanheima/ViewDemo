@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
+import android.graphics.Color
 import android.os.Debug
 import android.os.Environment
 import android.view.View
@@ -49,6 +50,14 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnChangeGradientViewColor -> {
+                //linear_gradient_view.setColors(Color.parseColor("#ff3344"), Color.parseColor("#FF4081"))
+                //linear_gradient_view.setColors(Color.parseColor("#ff3344"), R.color.colorPrimary)
+                linearGradientView.setColors(Color.parseColor("#ff3344"), Color.parseColor("#FF4081"))
+            }
+            R.id.btnAutosizingTextView -> {
+                AutoSizingTextViewActivity.launch(this)
+            }
             R.id.btnTestTabLayout -> {
                 TabLayoutActivity.launch(this)
             }
