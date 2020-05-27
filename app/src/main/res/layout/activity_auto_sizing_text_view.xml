@@ -16,7 +16,7 @@
         android:src="@drawable/main_ic_back_white" />
 
     <TextView
-        android:id="@+id/acTvDynamicSet"
+        android:id="@+id/tvDynamicSet"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:ellipsize="end"

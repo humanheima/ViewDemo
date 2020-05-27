@@ -1,49 +1,42 @@
-# TextView自动调整字体大小
+1. 系统SDK版本大于等于26，直接使用TextView就可以。
 
-1. `minSdkVersion>=26`，直接使用TextView就可以。
-2. `minSdkVersion<26`，需要使用support包，support包的版本要大于等于`26.0`。support包支持Android 4.0 (API level 14)及以上版本。
- *  如果Activity继承自AppCompatActivity，直接使用TextView就可以。
- *  否则需要使用AppCompatTextView。
+2. 系统SDK版本小于26，需要使用support包，support包的版本要大于等于`26.0`。support包支持Android 4.0 (API level 14)及以上版本。
+ 2.1 如果Activity继承自AppCompatActivity，直接使用TextView就可以。
+ 2.2 否则需要使用AppCompatTextView。
 
 ## 设置TextView自动调整字体大小
 
 有三种方式可以设置TextView支持自动调整字体大小。
 
 * 默认设置
-* 控制缩放范围
+* 控制调整范围
 * 预设大小
 
 注意：如果在XML文件中设置自动调整字体大小，不建议将TextView的宽高设置为`wrap_content`，不然可能会有意想不到的问题。
 
 ## 默认设置
 
-默认设置允许TextView在水平和垂直轴上均匀缩放字体大小。
+默认设置允许TextView在水平和垂直轴上均匀调整字体大小。
 
-### minSdkVersion>=26
+### 在代码中使用
 
-#### 在代码中定义默认设置
-
-需要调用TextView类的setAutoSizeTextTypeWithDefaults方法。
-
-```
-public void setAutoSizeTextTypeWithDefaults(@AutoSizeTextType int autoSizeTextType) {
-    //...
+根据SDK版本调用不同的方法
+```java
+//SDK版本大于等于26
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    tvDynamicSet.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM)
+} else {
+    TextViewCompat.setAutoSizeTextTypeWithDefaults(tvDynamicSet,
+            TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+    )
 }
-```
-autoSizeTextType取值有两个：
-
-```
-//关闭自动缩放个功能
-public static final int AUTO_SIZE_TEXT_TYPE_NONE = 0;
-//开启，允许在水平和垂直轴上均匀缩放字体大小
-public static final int AUTO_SIZE_TEXT_TYPE_UNIFORM = 1;
 ```
 
 注意：默认情况下缩放的最小字体是12sp，最大的字体是112sp，每次增加或减少的粒度是1px。
 
-#### 在xml文件中定义默认设置
+#### 在xml文件中使用
 
-使用`android`命名空间并设置autoSizeTextType属性。该属性取值也有两个`none`和`uniform`，对应代码中的两个值。
+如果系统SDK版本大于等于26，使用`android`命名空间并设置autoSizeTextType属性。该属性取值也有两个`none`和`uniform`，对应代码中的两个值。
 
 ```
 <TextView
@@ -52,26 +45,7 @@ public static final int AUTO_SIZE_TEXT_TYPE_UNIFORM = 1;
     android:autoSizeTextType="uniform" />
 
 ```
-
-### minSdkVersion<26，使用support library
-
-#### 在代码中定义默认设置
-
-需要调用TextViewCompat类的setAutoSizeTextTypeWithDefaults方法。
-
-```
-public static void setAutoSizeTextTypeWithDefaults(@NonNull TextView textView, int autoSizeTextType) {
-    if (VERSION.SDK_INT >= 27) {
-        textView.setAutoSizeTextTypeWithDefaults(autoSizeTextType);
-    } else if (textView instanceof AutoSizeableTextView) {
-        ((AutoSizeableTextView)textView).setAutoSizeTextTypeWithDefaults(autoSizeTextType);
-    }
-}
-```
-
-#### 在xml文件中定义
-
-因为我们的Activity是继承自AppCompatActivity的，所以我们可以直接使用TextView，但是注意要使用`app`命名空间。
+如果系统SDK版本小于26，因为我们的Activity是继承自AppCompatActivity的，所以我们可以直接使用TextView，但是注意要使用`app`命名空间。
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -89,15 +63,25 @@ public static void setAutoSizeTextTypeWithDefaults(@NonNull TextView textView, i
 </LinearLayout>
 ```
 
-## 控制缩放范围
+## 控制调整范围
 
-你可以定义字体大小缩放的一个范围并指定一个渐变值表示每次增加或减少的值。
+你可以定义字体大小调整的一个范围并指定一个渐变值表示每次增加或减少的值。
 
-### minSdkVersion>=26
+### 在代码中使用
 
-#### 在代码中使用
+```
+//sdk版本大于等于26
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    tvDynamicSet.setAutoSizeTextTypeUniformWithConfiguration(16, 40, 1, TypedValue.COMPLEX_UNIT_SP
+    )
+} else {
+    TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    tvDynamicSet, 16, 40, 1, TypedValue.COMPLEX_UNIT_SP
+   )
+}
+```
 
-需要调用TextView的setAutoSizeTextTypeUniformWithConfiguration方法
+以TextView的setAutoSizeTextTypeUniformWithConfiguration方法为例，3个参数的含义如下：
 
 ```
 /**
@@ -107,15 +91,11 @@ public static void setAutoSizeTextTypeWithDefaults(@NonNull TextView textView, i
  * @param autoSizeStepGranularity 渐变值
  * @param unit the 尺寸单位 px，sp，dp
  */
-public void setAutoSizeTextTypeUniformWithConfiguration(int autoSizeMinTextSize,
-            int autoSizeMaxTextSize, int autoSizeStepGranularity, int unit) {
-        //...
-}
 ```
 
-#### 在xml中使用
+### 在xml中使用
 
-使用`android`命名空间并设置autoSizeTextType属性为`uniform`。然后设置autoSizeMinTextSize，autoSizeMaxTextSize和autoSizeStepGranularity这个三个属性。
+如果系统SDK版本大于等于26，使用`android`命名空间并设置autoSizeTextType属性为`uniform`。然后设置autoSizeMinTextSize，autoSizeMaxTextSize和autoSizeStepGranularity这个三个属性。
 
 ```
 <TextView
@@ -127,21 +107,7 @@ public void setAutoSizeTextTypeUniformWithConfiguration(int autoSizeMinTextSize,
     android:autoSizeStepGranularity="2sp" />
 ```
 
-
-### minSdkVersion<26，使用support library
-
-#### 在代码中使用
-
-调用TextViewCompat的setAutoSizeTextTypeUniformWithConfiguration方法。
-
-```
-public static void setAutoSizeTextTypeUniformWithConfiguration(@NonNull TextView textView, int autoSizeMinTextSize, int autoSizeMaxTextSize, int autoSizeStepGranularity, int unit) throws IllegalArgumentException {
-    //...
-}
-```
-
-#### 在xml中使用
-并设置autoSizeTextType属性为`uniform`。然后设置autoSizeMinTextSize，autoSizeMaxTextSize和autoSizeStepGranularity这个三个属性。
+如果系统SDK版本小于26，使用`app`命名空间并设置autoSizeTextType属性为`uniform`。然后设置autoSizeMinTextSize，autoSizeMaxTextSize和autoSizeStepGranularity这个三个属性。
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -167,24 +133,26 @@ public static void setAutoSizeTextTypeUniformWithConfiguration(@NonNull TextView
 
 你可以指定TextView在自动调整字体大小的时候所有可取的值。
 
-### minSdkVersion>=26
-
-#### 在代码中
-
-需要调用TextView的setAutoSizeTextTypeUniformWithPresetSizes方法
+#### 在代码中使用
 
 ```
-public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit) {
-    //...
+//获取预设的字体大小数字
+val intArray = resources.getIntArray(R.array.autosize_text_sizes)
+//sdk版本大于等于26
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    tvDynamicSet.setAutoSizeTextTypeUniformWithPresetSizes(intArray, TypedValue.COMPLEX_UNIT_SP
+    )
+} else {
+    TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(
+            tvDynamicSet, intArray, TypedValue.COMPLEX_UNIT_SP
+    )
 }
-
 ```
 ### 在xml中使用
 
-使用`android`命名空间。设置autoSizeTextType属性和autoSizePresetSizes属性。
+如果系统SDK版本大于等于26，使用`android`命名空间。设置autoSizeTextType属性和autoSizePresetSizes属性。
 
 ```
-<?xml version="1.0" encoding="utf-8"?>
 <TextView
     android:layout_width="match_parent"
     android:layout_height="200dp"
@@ -193,7 +161,7 @@ public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes
 
 ```
 
-在res/values/arrays.xml文件中定义需要的数组。
+在`res/values/arrays.xml`文件中定义需要的数组。
 
 ```
 <resources>
@@ -208,21 +176,7 @@ public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes
 
 ```
 
-### minSdkVersion<26，使用support library
-
-#### 在代码中使用
-
-需要调用TextViewCompat的setAutoSizeTextTypeUniformWithPresetSizes方法。
-
-```
-public static void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull TextView textView, @NonNull int[] presetSizes, int unit) throws IllegalArgumentException {
-    //...
-}
-```
-
-### 在xml文件中使用
-
-使用`app`命名空间并设置autoSizeTextType属性和autoSizePresetSizes属性。
+如果系统SDK版本小于26，使用`app`命名空间并设置autoSizeTextType属性和autoSizePresetSizes属性。
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -248,7 +202,7 @@ public static void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull TextView t
 @Override
 public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
-    Logger.d(TAG, "onConfigurationChanged fontScale = " + newConfig.fontScale);
+    Logger.d(TAG, "fontScale = " + newConfig.fontScale);
 }
 ```
 

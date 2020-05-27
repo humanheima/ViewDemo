@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AppCompatActivity
@@ -31,22 +32,46 @@ class AutoSizingTextViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_sizing_text_view)
 
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(
-                acTvDynamicSet, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-        )
+        //sdk版本大于等于26
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tvDynamicSet.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM)
+        } else {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(tvDynamicSet,
+                    TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+            )
+        }*/
 
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-                acTvDynamicSet, 16, 40, 1, TypedValue.COMPLEX_UNIT_SP
-        )
+
+        //sdk版本大于等于26
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tvDynamicSet.setAutoSizeTextTypeUniformWithConfiguration(16, 40, 1, TypedValue.COMPLEX_UNIT_SP
+            )
+        } else {
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    tvDynamicSet, 16, 40, 1, TypedValue.COMPLEX_UNIT_SP
+            )
+        }*/
+
+        //获取预设的字体大小数字
+        val intArray = resources.getIntArray(R.array.autosize_text_sizes)
+        //sdk版本大于等于26
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tvDynamicSet.setAutoSizeTextTypeUniformWithPresetSizes(intArray, TypedValue.COMPLEX_UNIT_SP
+            )
+        } else {
+            TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(
+                    tvDynamicSet, intArray, TypedValue.COMPLEX_UNIT_SP
+            )
+        }
 
         btnAdd.setOnClickListener {
-            addText(acTvDynamicSet)
+            addText(tvDynamicSet)
             addText(acTvXml)
             addText(tvPreSet)
         }
 
         btnMinus.setOnClickListener {
-            minusText(acTvDynamicSet)
+            minusText(tvDynamicSet)
             minusText(acTvXml)
             minusText(tvPreSet)
         }
