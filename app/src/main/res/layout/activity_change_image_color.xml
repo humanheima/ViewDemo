@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ChangeImageColorActivity">
+
+    <ImageView
+        android:id="@+id/ivSvg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:tint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_android_black_24dp" />
+
+    <Button
+        android:id="@+id/btnChangeSvgColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="改变svg的颜色" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivPng"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/main_ic_back_white"
+            android:tint="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChangePngColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="改变png的颜色" />
+
+    <Button
+        android:id="@+id/btnLaunchActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动一个Activity" />
+
+
+</LinearLayout>

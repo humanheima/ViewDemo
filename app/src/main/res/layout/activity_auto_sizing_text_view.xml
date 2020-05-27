@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".activity.AutoSizingTextViewActivity">
 
+    <ImageView
+        android:id="@+id/ivPng"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/main_ic_back_white" />
+
     <TextView
         android:id="@+id/acTvDynamicSet"
         android:layout_width="100dp"

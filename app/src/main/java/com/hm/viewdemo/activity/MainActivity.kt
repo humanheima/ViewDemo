@@ -50,6 +50,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnChangeImageColor -> {
+                ChangeImageColorActivity.launch(this)
+            }
             R.id.btnChangeGradientViewColor -> {
                 //linear_gradient_view.setColors(Color.parseColor("#ff3344"), Color.parseColor("#FF4081"))
                 //linear_gradient_view.setColors(Color.parseColor("#ff3344"), R.color.colorPrimary)
