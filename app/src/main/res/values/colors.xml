@@ -10,4 +10,25 @@
     <color name="vip_start_color">#4B4854</color>
     <color name="vip_end_color">#282533</color>
 
+
+    <color name="color_dd2211">#dd2211</color>
+    <color name="color_2211dd">#2211dd</color>
+
+
+    <color name="color_dd2233">#dd2233</color>
+    <color name="color_00f1f1">#00f1f1</color>
+
+    <color name="color_fff000">#fff000</color>
+    <color name="color_000fff">#000fff</color>
+
+
+
+    <color name="color_90EE90">#90EE90</color>
+    <color name="color_FFE4B5">#FFE4B5</color>
+
+
+
+
+
+
 </resources>

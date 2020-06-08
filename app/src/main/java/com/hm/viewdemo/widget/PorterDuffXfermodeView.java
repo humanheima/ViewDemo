@@ -139,6 +139,7 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
      */
     private void clearModelInNewLayerInBitmap(Canvas canvas) {
         //创建一个新的图层
+        //canvas.save();
         canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
         //正常绘制黄色的圆形
         //paint.setColor(0xFFFFCC44);

@@ -50,6 +50,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnCanvasSaveRestore -> {
+
+                CanvasSaveRestoreActivity.launch(this)
+            }
             R.id.btnChangeImageColor -> {
                 ChangeImageColorActivity.launch(this)
             }
