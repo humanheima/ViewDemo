@@ -3,7 +3,6 @@ package com.hm.viewdemo.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -51,7 +50,6 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
             new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY),
             new PorterDuffXfermode(PorterDuff.Mode.SCREEN)
     };
-    private int itemWidth;
 
     public PorterDuffXfermodeView(Context context) {
         this(context, null);
@@ -66,9 +64,9 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         //加上这行代码
-        //setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        itemWidth = ScreenUtil.dpToPx(context, 200);
+        int itemWidth = ScreenUtil.dpToPx(context, 200);
         mSrcB = makeSrc(itemWidth, itemWidth);
         mDstB = makeDst(itemWidth, itemWidth);
     }
@@ -76,21 +74,18 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //设置背景色
-        //canvas.drawARGB(255, 139, 197, 186);
-        int r = getWidth() / 3;
+        //创建一个新的图层
+        int layerId = canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
 
-        //drawNormal(canvas, r);
+        //目标图像（DST）和图像（SRC）混合的操作
+        canvas.drawBitmap(mDstB, 0, 0, paint);
+        paint.setXfermode(sModes[1]);
+        canvas.drawBitmap(mSrcB, 0, 0, paint);
+        paint.setXfermode(null);
 
-        //clearModel(canvas, r);
+        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
+        canvas.restoreToCount(layerId);
 
-        //clearModelInNewLayer(canvas, r);
-        //clearModelInNewLayerInBitmap(canvas);
-        paint.setStrokeWidth(4);
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-        canvas.drawBitmap(mDstB, 0, 0, null);
     }
 
     private void clearModel(Canvas canvas, int r) {
@@ -162,20 +157,21 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         canvas.drawRect(r, r, r * 2.7f, r * 2.7f, paint);
     }
 
-    Bitmap makeDst(int w, int h) {
+    public Bitmap makeDst(int w, int h) {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(0x00FFCC44);
-        c.drawOval(new RectF(4, 4, w * 3 / 4f, h * 3 / 4f), p);
+        //设置的透明度是FF
+        p.setColor(0xFFFFCC44);
+        c.drawOval(new RectF(0, 0, w * 3 / 4f, h * 3 / 4f), p);
         return bm;
     }
 
-    // create a bitmap with a rect, used for the "src" image
     Bitmap makeSrc(int w, int h) {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        //设置的透明度是FF
         p.setColor(0xFF66AAFF);
         c.drawRect(w / 3f, h / 3f, w * 19 / 20f, h * 19 / 20f, p);
         return bm;

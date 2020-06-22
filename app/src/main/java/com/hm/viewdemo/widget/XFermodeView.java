@@ -24,13 +24,12 @@ import com.hm.viewdemo.util.ScreenUtil;
  */
 public class XFermodeView extends View {
 
-
     private static final String TAG = "XFermodeView";
 
     private static final int HORIZONTAL_SPACE = 36;
     private static final int VERTICAL_SPACE = 72;
     private static final int ROW_MAX = 4;   // number of samples per row
-    private static final int DEFAULT_SIZE = 2000;
+    private static final int DEFAULT_SIZE = 200;
 
     private Bitmap mSrcB;
     private Bitmap mDstB;
@@ -146,7 +145,7 @@ public class XFermodeView extends View {
             paint.setShader(null);
             canvas.drawRect(x - 0.5f, y - 0.5f, x + itemWidth + 0.5f, y + itemWidth + 0.5f, paint);
 
-            // draw the checker-board pattern，这三行代码可以去掉，不影响
+            // draw the checker-board pattern，绘制底色小方块，这三行代码可以去掉，不影响
             paint.setStyle(Paint.Style.FILL);
             paint.setShader(mBG);
             canvas.drawRect(x, y, x + itemWidth, y + itemWidth, paint);
