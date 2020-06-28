@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.util.SparseArray
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.AbsListView
@@ -20,13 +22,16 @@ import kotlinx.android.synthetic.main.activity_list_view.*
  * Created by dumingwei on 2020/4/1
  *
  * Desc: ListView的使用
+ *
+ * 参考链接：https://www.jianshu.com/p/08e6c83ff2b7
  */
 class ListViewActivity : AppCompatActivity() {
 
 
+    private val TAG: String = "ListViewActivity"
+
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
-
 
     companion object {
 
@@ -41,6 +46,61 @@ class ListViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list_view)
         listView.setOnItemClickListener { parent, view, position, id ->
         }
+
+        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+
+            // 创建一个稀疏数组，用于存储Item的高度和mTop
+            private val recordSp: SparseArray<ItemRecord> = SparseArray()
+            private var mCurrentFirstVisibleItem = 0
+
+            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+                //do nothing
+                mCurrentFirstVisibleItem = firstVisibleItem
+                val firstView = view.getChildAt(0)
+
+                if (null != firstView) {
+                    var itemRecord = recordSp.get(firstVisibleItem)
+                    if (null == itemRecord) {
+                        itemRecord = ItemRecord()
+                    }
+                    itemRecord.height = firstView.height
+                    //top值总是小于或等于0的
+                    itemRecord.top = firstView.top
+
+                    /**
+                     * 将当前第一个可见Item的高度和top存入SparseArray中，
+                     * SparseArray的key是Item的position
+                     */
+                    recordSp.append(firstVisibleItem, itemRecord)
+                    val scrollY = getScrollY()
+
+                    Log.d(TAG, "onScroll: scrollY = $scrollY")
+                }
+            }
+
+            private fun getScrollY(): Int {
+                var height = 0
+                /**
+                 * for循环累加所有划出屏幕的View的高度
+                 */
+                for (i in 0 until mCurrentFirstVisibleItem) {
+                    val itemRecord = recordSp.get(i)
+                    height += itemRecord.height
+                }
+                //取出当前第一个可见Item的ItemRecord对象
+                var itemRecord = recordSp.get(mCurrentFirstVisibleItem)
+                if (null == itemRecord) {
+                    itemRecord = ItemRecord()
+                }
+                //在加上当前第一个可见的item划出屏幕的高度
+                //由于存入的top值是小于或等于0的，这里是减去top值而不是加
+                return height - itemRecord.top
+            }
+
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
+                //do nothing
+            }
+        })
 
         addHeadAndFoot()
         addHeadAndFoot()
@@ -119,6 +179,9 @@ class ListViewActivity : AppCompatActivity() {
         foot.text = "Foot View"
         listView.addFooterView(foot)
     }
+}
 
-
+class ItemRecord {
+    var height = 0
+    var top = 0
 }
