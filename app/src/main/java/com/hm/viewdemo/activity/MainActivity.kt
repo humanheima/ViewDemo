@@ -50,6 +50,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnColor -> {
+                ColorTestActivity.launch(this)
+            }
             R.id.btnPalette -> {
                 PaletteActivity.launch(this)
             }

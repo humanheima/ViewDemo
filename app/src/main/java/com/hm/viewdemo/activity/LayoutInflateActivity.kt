@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_layout_inflate.*
 
@@ -29,12 +26,11 @@ class LayoutInflateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_inflate)
-
         val inflater = LayoutInflater.from(this)
         //val bottom=inflater.inflate(R.layout.activity_bottom_sheet,null)
-       val button = inflater.inflate(R.layout.button_layout, null)
+        //val button = inflater.inflate(R.layout.button_layout, null)
         //LayoutInflater.from()
-        clRoot.addView(button)
+        //clRoot.addView(button)
     }
 
     /*override fun onCreateView(name: String?, context: Context?, attrs: AttributeSet?): View? {

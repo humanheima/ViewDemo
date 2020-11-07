@@ -45,7 +45,7 @@ public class ViewStubActivity extends AppCompatActivity {
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inflatedView == null) {
+                /*if (inflatedView == null) {
                     viewStub = (ViewStub) findViewById(R.id.view_stub);
                     if (viewStub != null) {
                         inflatedView = viewStub.inflate();
@@ -55,6 +55,15 @@ public class ViewStubActivity extends AppCompatActivity {
                     }
                 } else {
                     inflatedView.setVisibility(View.VISIBLE);
+                }*/
+                if (viewStub == null) {
+                    viewStub = (ViewStub) findViewById(R.id.view_stub);
+                }
+                if (viewStub != null) {
+                    inflatedView = viewStub.inflate();
+                    editExtra1 = inflatedView.findViewById(R.id.edit_extra1);
+                    editExtra2 = inflatedView.findViewById(R.id.edit_extra2);
+                    editExtra3 = inflatedView.findViewById(R.id.edit_extra3);
                 }
             }
         });

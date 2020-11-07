@@ -33,6 +33,8 @@ class ListViewActivity : AppCompatActivity() {
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
 
+    var sparseArray: SparseArray<String> = SparseArray()
+
     companion object {
 
         fun launch(context: Context) {
@@ -44,6 +46,16 @@ class ListViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view)
+
+        sparseArray.put(4, "4")
+        sparseArray.put(0, "0")
+        sparseArray.put(2, "2")
+        sparseArray.put(3, "3")
+
+        for (i in 0 until sparseArray.size()) {
+            Log.d(TAG, "onCreate: ${sparseArray[i]}")
+        }
+
         listView.setOnItemClickListener { parent, view, position, id ->
         }
 

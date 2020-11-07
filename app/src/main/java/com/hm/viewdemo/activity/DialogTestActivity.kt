@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Window
 import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
@@ -87,6 +89,7 @@ class DialogTestActivity : AppCompatActivity() {
             alertDialog = builder.create()
         }
 
+        alertDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         alertDialog?.show()
     }
 

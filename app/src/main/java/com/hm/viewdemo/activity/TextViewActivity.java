@@ -13,9 +13,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
@@ -43,6 +43,8 @@ import com.hm.viewdemo.util.ScreenUtil;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 
@@ -83,6 +85,9 @@ public class TextViewActivity extends BaseActivity {
     @BindView(R.id.text_view_7)
     TextView textView7;
 
+    @BindView(R.id.tvRegex)
+    TextView tvRegex;
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_text_view;
@@ -102,6 +107,8 @@ public class TextViewActivity extends BaseActivity {
         setTextView9();
         setTextView10();
         setTextView11();
+
+        setTextViewRegex();
 
         Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
 
@@ -188,15 +195,19 @@ public class TextViewActivity extends BaseActivity {
         //设置字体颜色
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
         //背景色
-        BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.parseColor("#ff3344"));
+        // BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.parseColor("#ff3344"));
         //字体大小
         AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 20));
         //设置粗体。斜体
         StyleSpan styleSpan = new StyleSpan(Typeface.BOLD_ITALIC);
+        StyleSpan styleSpan1 = new StyleSpan(Typeface.BOLD);
+
         builder.setSpan(colorSpan, 0, 8, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        builder.setSpan(backgroundColorSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        //builder.setSpan(backgroundColorSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         builder.setSpan(sizeSpan, 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView2.setText(builder);
     }
 
@@ -311,6 +322,74 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(textAppearanceSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(textAppearanceSpan, 6, 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView6.setText(builder);
+    }
+
+    private void setTextViewRegex() {
+        String s = "再听1000秒，至少可领30金币，";
+
+        Pattern patternSecond = Pattern.compile("[0-9]+秒");
+        Pattern patternCoin = Pattern.compile("[0-9]+金币");
+
+        Matcher matcherSecond = patternSecond.matcher(s);
+        Matcher matcherCoin = patternCoin.matcher(s);
+
+        String secondText = null;
+        String coinText = null;
+
+        if (matcherSecond.find()) {
+            secondText = matcherSecond.group();
+            Log.d(TAG, "setTextViewRegex: " + secondText);
+        }
+
+        if (matcherCoin.find()) {
+            coinText = matcherCoin.group();
+            Log.d(TAG, "setTextViewRegex: " + coinText);
+        }
+
+        int secondTextStartIndex = -1;
+        int coinTextStartIndex = -1;
+
+        if (!TextUtils.isEmpty(secondText)) {
+            secondTextStartIndex = s.indexOf(secondText);
+        }
+        if (!TextUtils.isEmpty(coinText)) {
+            coinTextStartIndex = s.indexOf(coinText);
+        }
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(s);
+
+        //设置字体颜色
+        ForegroundColorSpan secondColorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        //字体大小
+        AbsoluteSizeSpan secondSizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16));
+
+        //设置字体颜色
+        ForegroundColorSpan coinColorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        //字体大小
+        AbsoluteSizeSpan coinSizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16));
+
+        if (secondTextStartIndex != -1) {
+            builder.setSpan(secondColorSpan, secondTextStartIndex, secondTextStartIndex + secondText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //去掉秒字
+            builder.setSpan(secondSizeSpan, secondTextStartIndex, secondTextStartIndex + secondText.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        if (coinTextStartIndex != -1) {
+            builder.setSpan(coinColorSpan, coinTextStartIndex, coinTextStartIndex + coinText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //去掉金币两个字
+            builder.setSpan(coinSizeSpan, coinTextStartIndex, coinTextStartIndex + coinText.length() - 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        //设置粗体。斜体
+        //StyleSpan styleSpan = new StyleSpan(Typeface.BOLD_ITALIC);
+        //StyleSpan styleSpan1 = new StyleSpan(Typeface.BOLD);
+
+        //builder.setSpan(coinColorSpan, 0, 8, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        //builder.setSpan(backgroundColorSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        //builder.setSpan(coinSizeSpan, 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        //builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvRegex.setText(builder);
     }
 
 }

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_custome_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.hm.viewdemo.widget.RoundLayoutTwo
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivHeight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary" />
+
+    </LinearLayout>
+
+
+    <!--<com.hm.viewdemo.widget.RoundLayoutTwo
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
@@ -18,6 +31,6 @@
             android:layout_height="200dp"
             android:background="@color/colorAccent" />
 
-    </com.hm.viewdemo.widget.RoundLayoutTwo>
+    </com.hm.viewdemo.widget.RoundLayoutTwo>-->
 
 </LinearLayout>
