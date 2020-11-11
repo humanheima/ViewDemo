@@ -53,7 +53,8 @@ class AutoSizingTextViewActivity : AppCompatActivity() {
         }*/
 
         //获取预设的字体大小数字
-        val intArray = resources.getIntArray(R.array.autosize_text_sizes)
+        //val intArray = resources.getIntArray(R.array.autosize_text_sizes)
+        val intArray = intArrayOf(10, 12, 13, 15, 16, 20, 22, 24)
         //sdk版本大于等于26
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             tvDynamicSet.setAutoSizeTextTypeUniformWithPresetSizes(intArray, TypedValue.COMPLEX_UNIT_SP

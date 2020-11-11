@@ -33,11 +33,10 @@ class NestedScrollActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nested_scroll)
-        Thread.sleep(10 * 1000)
 
         initDatas()
 
-        val intent=Intent("")
+        val intent = Intent("")
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         initEvents()
     }

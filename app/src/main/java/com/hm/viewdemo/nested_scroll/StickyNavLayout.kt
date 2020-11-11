@@ -121,7 +121,7 @@ class StickyNavLayout @JvmOverloads constructor(
             val childAdapterPosition = target.getChildAdapterPosition(firstChild)
 
             /*
-             * 向下滑动的时候，如果RecyclerView中第一个item的位置在adapter中的位置大于3，
+             * 向下滑动的时候，如果RecyclerView中第一个可见item的位置在adapter中的位置大于3，
              * 则认为RecyclerView自己消费了fling事件，否则认为RecyclerView没有消费
              */
             childConsumed = childAdapterPosition > TOP_CHILD_FLING_THRESHOLD
