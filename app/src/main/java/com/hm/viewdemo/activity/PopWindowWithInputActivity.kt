@@ -2,7 +2,6 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -14,21 +13,19 @@ import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_pop_window.*
+import kotlinx.android.synthetic.main.activity_pop_window_with_input.*
 
-
-class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutListener {
-
+/**
+ * Created by dumingwei on 2020/11/13
+ *
+ * Desc: PopWindow中有输入框的情景
+ */
+class PopWindowWithInputActivity : AppCompatActivity() {
 
     companion object {
 
-        //打开关闭弹出框
-        private const val OPEN_POP = 0
-        private const val HIDE_POP = 1
-
-
         fun launch(context: Context) {
-            val intent = Intent(context, PopWindowActivity::class.java)
+            val intent = Intent(context, PopWindowWithInputActivity::class.java)
             context.startActivity(intent)
         }
     }
@@ -43,6 +40,7 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
     private var popupStyle2: PopupWindow? = null
 
     private var activityRootView: View? = null
+
     //设定一个认为是软键盘弹起的阈值
     private var softKeyboardHeight: Int = 0
     private var heightPixels: Int = 0
@@ -54,7 +52,7 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pop_window)
+        setContentView(R.layout.activity_pop_window_with_input)
 
         handler = object : Handler() {
             override fun handleMessage(msg: Message) {
@@ -74,8 +72,6 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
         //屏幕高度
         heightPixels = dm.heightPixels
         activityRootView = window.decorView.findViewById(android.R.id.content)
-        activityRootView?.viewTreeObserver?.addOnGlobalLayoutListener(this)
-
     }
 
     fun onClick(view: View) {
@@ -129,26 +125,6 @@ class PopWindowActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutLi
         }
         popupStyle1?.showAtLocation(btnStyle1, Gravity.BOTTOM, 0, 0)
         showKeyBoard()
-    }
-
-    override fun onGlobalLayout() {
-        //todo 可能会死循环，
-        /*activityRootView?.let {
-            if (isKeyboardShown(it)) {
-                Log.e(TAG, "软键盘弹起")
-            } else {
-                Log.e(TAG, "软键盘关闭")
-                popupStyle1?.dismiss()
-            }
-        }*/
-    }
-
-    private fun isKeyboardShown(rootView: View): Boolean {
-        //得到屏幕可见区域的大小
-        val r = Rect()
-        rootView.getWindowVisibleDisplayFrame(r)
-        val heightDiff = heightPixels - r.bottom
-        return heightDiff > softKeyboardHeight
     }
 
     private fun showKeyBoard() {

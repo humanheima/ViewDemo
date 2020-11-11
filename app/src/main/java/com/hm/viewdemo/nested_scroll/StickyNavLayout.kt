@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.OverScroller
 import com.hm.viewdemo.R
+import com.hm.viewdemo.util.ScreenUtil
 
 /**
  * Created by dumingwei on 2020-02-15.
@@ -47,16 +48,17 @@ class StickyNavLayout @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        Log.d(TAG, "onMeasure: ")
+        val height = MeasureSpec.getSize(heightMeasureSpec)
+        val screenHeight = ScreenUtil.getScreenHeight(context)
+        Log.d(TAG, "onMeasure: height = $height , screenHeight = $screenHeight")
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        //将mViewPager高度设置为mViewPager原本的高度加上要滑出去的mTop的高度，不然的话，StickyNavLayout底部会有空白
+        /**
+         * 这里为什么要将 mViewPager高度设置为mViewPager原本的高度加上mNav的高度呢？因为mTop滑出去以后，mNav和mViewpager应该占据
+         * StickyNavLayout的整个高度，不然StickyNavLayout底部会有空白。
+         */
         val params = mViewPager.layoutParams
-        params?.height = mTop.measuredHeight + (mViewPager.measuredHeight)
-        setMeasuredDimension(measuredWidth,
-                (mTop.measuredHeight)
-                        + (mNav.measuredHeight)
-                        + (mViewPager.measuredHeight)
-        )
+        params?.height = height - mNav.measuredHeight
+        Log.d(TAG, "onMeasure: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -144,17 +146,17 @@ class StickyNavLayout @JvmOverloads constructor(
      * @return
      */
     private fun computeDuration(velocityY: Float): Int {
-        var velocityY = velocityY
+        var tempVelocityY = velocityY
         val distance: Int
-        distance = if (velocityY > 0) {
+        distance = if (tempVelocityY > 0) {
             Math.abs(mTop.height - scrollY)
         } else {
             Math.abs(mTop.height - (mTop.height - scrollY))
         }
         val duration: Int
-        velocityY = Math.abs(velocityY)
-        if (velocityY > 0) {
-            duration = 3 * Math.round(1000 * (distance / velocityY))
+        tempVelocityY = Math.abs(tempVelocityY)
+        if (tempVelocityY > 0) {
+            duration = 3 * Math.round(1000 * (distance / tempVelocityY))
         } else {
             val distanceRatio = distance.toFloat() / height
             duration = ((distanceRatio + 1) * 150).toInt()

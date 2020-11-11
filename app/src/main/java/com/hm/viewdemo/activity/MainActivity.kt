@@ -50,6 +50,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnCommonPopWindow -> {
+                CommonPopWindowActivity.launch(this)
+            }
             R.id.btnColor -> {
                 ColorTestActivity.launch(this)
             }
@@ -128,7 +131,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
                 StatusBarActivity.launch(this)
             }
             R.id.btnPopWindow -> {
-                PopWindowActivity.launch(this)
+                PopWindowWithInputActivity.launch(this)
             }
             R.id.btnCustomViewGetStart -> {
                 //打开注释查看anr

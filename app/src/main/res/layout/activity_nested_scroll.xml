@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".nested_scroll.NestedScrollActivity">
 
@@ -29,6 +30,7 @@
         android:background="#ffffff" />
 
     <android.support.v4.view.ViewPager
+        android:background="@color/colorAccent"
         android:id="@+id/stickyNavLayoutViewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

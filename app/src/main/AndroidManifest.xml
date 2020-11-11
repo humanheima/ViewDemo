@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ColorTestActivity"></activity>
+        <activity android:name=".activity.CommonPopWindowActivity"></activity>
+        <activity android:name=".activity.ColorTestActivity" />
         <activity android:name=".activity.PaletteActivity" />
         <activity android:name=".activity.CanvasSaveRestoreActivity" />
         <activity android:name=".activity.ChangeImageColorActivity" />
@@ -45,7 +46,7 @@
         <activity android:name=".custom_view.chapter7.RadialGradientActivity" />
         <activity android:name=".custom_view.chapter7.LinearGradientActivity" />
         <activity android:name=".custom_view.chapter7.BitmapShaderActivity" />
-        <activity android:name=".activity.PopWindowActivity" />
+        <activity android:name=".activity.PopWindowWithInputActivity" />
         <activity android:name=".custom_view.chapter7.BlurMaskFilterActivity" />
         <activity android:name=".custom_view.chapter7.TextShadowActivity" />
         <activity android:name=".custom_view.chapter7.Chapter7Activity" />

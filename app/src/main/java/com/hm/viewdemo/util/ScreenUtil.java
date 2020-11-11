@@ -3,10 +3,12 @@ package com.hm.viewdemo.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.WindowManager;
 
 /**
@@ -42,6 +44,25 @@ public class ScreenUtil {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
+    }
+
+    /**
+     * 获取真实屏幕高度，不包含虚拟导航栏
+     *
+     * @param context
+     * @return
+     */
+    public static int getRealScreenHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        Display defaultDisplay = windowManager.getDefaultDisplay();
+
+        if (Build.VERSION.SDK_INT>=19){
+            defaultDisplay.getRealMetrics(displayMetrics);
+        }else {
+            defaultDisplay.getMetrics(displayMetrics);
+        }
         return displayMetrics.heightPixels;
     }
 
