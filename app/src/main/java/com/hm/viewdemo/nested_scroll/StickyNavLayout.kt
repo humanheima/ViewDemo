@@ -25,6 +25,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
     private val TAG = "StickyNavLayout"
 
+    private val TOP_CHILD_FLING_THRESHOLD = 0
 
     private lateinit var mTop: View
     private lateinit var mNav: View
@@ -105,39 +106,45 @@ class StickyNavLayout @JvmOverloads constructor(
         }
     }
 
-    private val TOP_CHILD_FLING_THRESHOLD = 3
 
-    /**
-     * @param consumed true if the child consumed the fling, false otherwise
-     */
-    override fun onNestedFling(target: View?, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
+    override fun onNestedPreFling(target: View?, velocityX: Float, velocityY: Float): Boolean {
+        val onNestedPreFling = super.onNestedPreFling(target, velocityX, velocityY)
+        if (velocityY > 0 && scrollY < mTop.height) {
+            animateScroll(velocityY, computeDuration(0f), false)
+            return true
+        }
+        Log.d(TAG, "onNestedPreFling = $onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
 
-        var childConsumed = consumed
+        var shouldScroll = false//该控件是否应该滑动，而不是滑动内部的RecyclerView
 
-        // 向上滑动（手指从下向上滑）, dy>0
-        // 向下滑动（手指从上向下滑）, dy<0
-        Log.d(TAG, "onNestedFling: velocityY = $velocityY")
+        // 向上滑动（手指从下向上滑）, velocityY>0
+        // 向下滑动（手指从上向下滑）, velocityY<0
         if (target is RecyclerView && velocityY < 0) {
 
             val firstChild = target.getChildAt(0)
             val childAdapterPosition = target.getChildAdapterPosition(firstChild)
+            Log.d(TAG, "onNestedPreFling: childAdapterPosition = $childAdapterPosition")
+
+            val layoutPosition = target.getChildLayoutPosition(firstChild)
+            Log.d(TAG, "onNestedPreFling: layoutPosition = $layoutPosition")
 
             /*
              * 向下滑动的时候，如果RecyclerView中第一个可见item的位置在adapter中的位置大于3，
              * 则认为RecyclerView自己消费了fling事件，否则认为RecyclerView没有消费
              */
-            childConsumed = childAdapterPosition > TOP_CHILD_FLING_THRESHOLD
+            shouldScroll = (childAdapterPosition == TOP_CHILD_FLING_THRESHOLD)
         }
 
         //fling(velocityY.toInt())
 
-        if (!childConsumed) {
-            animateScroll(velocityY, computeDuration(0f), childConsumed)
-        } else {
-            animateScroll(velocityY, computeDuration(velocityY), childConsumed)
+        Log.d(TAG, "onNestedPreFling: velocityY = $velocityY  shouldScroll =$shouldScroll")
+
+        if (shouldScroll) {
+            animateScroll(velocityY, computeDuration(velocityY), false)
+            return true
         }
 
-        return true
+        return false
     }
 
     /**
@@ -168,7 +175,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
     /**
      *
-     * @param velocityY
+     * @param velocityY  velocityY > 0  手指从下向上滑动；velocityY < 0  手指从上向下滑动。
      * @param duration
      * @param childConsumed
      */
@@ -188,11 +195,11 @@ class StickyNavLayout @JvmOverloads constructor(
         mOffsetAnimator?.duration = Math.min(duration, 600).toLong()
 
         if (velocityY >= 0) {
-            //向上滑动到topView不可见
+            //向上滑动到topView不可见，mNav吸顶
             mOffsetAnimator?.setIntValues(currentOffset, topHeight)
             mOffsetAnimator?.start()
         } else {
-            //如果子View没有消耗flying事件 那么就让自身滑倒0位置
+            //如果子View没有消耗flying事件 那么就让自身滑到0位置
             if (!childConsumed) {
                 mOffsetAnimator?.setIntValues(currentOffset, 0)
                 mOffsetAnimator?.start()
@@ -238,6 +245,5 @@ class StickyNavLayout @JvmOverloads constructor(
             invalidate()
         }
     }
-
 
 }
