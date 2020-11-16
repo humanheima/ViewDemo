@@ -50,8 +50,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        val screenHeight = ScreenUtil.getScreenHeight(context)
-        Log.d(TAG, "onMeasure: height = $height , screenHeight = $screenHeight")
+        Log.d(TAG, "onMeasure1: height = $height")
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         /**
          * 这里为什么要将 mViewPager高度设置为mViewPager原本的高度加上mNav的高度呢？因为mTop滑出去以后，mNav和mViewpager应该占据
@@ -59,7 +58,10 @@ class StickyNavLayout @JvmOverloads constructor(
          */
         val params = mViewPager.layoutParams
         params?.height = height - mNav.measuredHeight
-        Log.d(TAG, "onMeasure: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
+        Log.d(TAG, "onMeasure2: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        Log.d(TAG, "onMeasure3: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
+
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
