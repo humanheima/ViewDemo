@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.OverScroller
 import com.hm.viewdemo.R
-import com.hm.viewdemo.util.ScreenUtil
 
 /**
  * Created by dumingwei on 2020-02-15.
@@ -49,19 +48,25 @@ class StickyNavLayout @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val height = MeasureSpec.getSize(heightMeasureSpec)
-        Log.d(TAG, "onMeasure1: height = $height")
+        /**
+         * 先测量一遍，获取自身的高度和子控件的高度
+         */
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        Log.d(TAG, "onMeasure1: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
+
         /**
          * 这里为什么要将 mViewPager高度设置为mViewPager原本的高度加上mNav的高度呢？因为mTop滑出去以后，mNav和mViewpager应该占据
          * StickyNavLayout的整个高度，不然StickyNavLayout底部会有空白。
          */
         val params = mViewPager.layoutParams
-        params?.height = height - mNav.measuredHeight
-        Log.d(TAG, "onMeasure2: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.d(TAG, "onMeasure3: height = $height , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.height = ${params?.height}")
+        params?.height = measuredHeight - mNav.measuredHeight
 
+        /**
+         * 子控件mViewPager的高度发生了变化，重新测量一遍
+         */
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        Log.d(TAG, "onMeasure2: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
