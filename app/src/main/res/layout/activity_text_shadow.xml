@@ -17,11 +17,12 @@
         android:text="使用XML添加阴影效果"
         android:textSize="18dp" />
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:shadowColor="@android:color/darker_gray"
+        android:textColor="@color/white"
+        android:shadowColor="#7f000000"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="3"

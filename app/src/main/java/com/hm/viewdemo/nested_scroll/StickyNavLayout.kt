@@ -63,7 +63,7 @@ class StickyNavLayout @JvmOverloads constructor(
         params?.height = measuredHeight - mNav.measuredHeight
 
         /**
-         * 子控件mViewPager的高度发生了变化，重新测量一遍
+         * 子控件mViewPager的高度发生了变化，重新测量一遍，最终的结果是该控件本身高度没有发生变化，但是子控件mViewPager的变高了
          */
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         Log.d(TAG, "onMeasure2: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
