@@ -1,6 +1,5 @@
 package com.hm.viewdemo.nested_scroll
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.support.v4.view.ViewCompat
@@ -32,8 +31,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
     private var mTopViewHeight: Int = 0
 
-    private var mOffsetAnimator: ValueAnimator? = null
-    var mScroller: OverScroller = OverScroller(context)
+    private var mScroller: OverScroller = OverScroller(context)
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -113,107 +111,42 @@ class StickyNavLayout @JvmOverloads constructor(
         }
     }
 
-
     override fun onNestedPreFling(target: View?, velocityX: Float, velocityY: Float): Boolean {
-        val onNestedPreFling = super.onNestedPreFling(target, velocityX, velocityY)
-        if (velocityY > 0 && scrollY < mTop.height) {
-            animateScroll(velocityY, computeDuration(0f), false)
-            return true
-        }
-        Log.d(TAG, "onNestedPreFling = $onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
 
-        var shouldScroll = false//该控件是否应该滑动，而不是滑动内部的RecyclerView
+        Log.d(TAG, "onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
 
-        // 向上滑动（手指从下向上滑）, velocityY>0
-        // 向下滑动（手指从上向下滑）, velocityY<0
-        if (target is RecyclerView && velocityY < 0) {
+        /**
+         * 向上滑动（手指从下向上滑）, velocityY>0
+         * 向下滑动（手指从上向下滑）, velocityY<0
+         */
+        if (velocityY > 0) {
+            if (scrollY < mTop.height) {
+                fling(velocityY.toInt())
+                return true
+            }
+        } else {
+            var shouldFling = false//该控件是否应该惯性滑动
 
-            val firstChild = target.getChildAt(0)
-            val childAdapterPosition = target.getChildAdapterPosition(firstChild)
-            Log.d(TAG, "onNestedPreFling: childAdapterPosition = $childAdapterPosition")
+            if (target is RecyclerView && velocityY < 0) {
 
-            val layoutPosition = target.getChildLayoutPosition(firstChild)
-            Log.d(TAG, "onNestedPreFling: layoutPosition = $layoutPosition")
+                val firstChild = target.getChildAt(0)
+                val childAdapterPosition = target.getChildAdapterPosition(firstChild)
+                Log.d(TAG, "onNestedPreFling: childAdapterPosition = $childAdapterPosition")
+                /**
+                 * 向下滑动的时候，如果RecyclerView中第一个可见item的位置在adapter中的位置等于0，
+                 * 则认为RecyclerView自己消费了fling事件，否则认为RecyclerView没有消费
+                 */
+                shouldFling = (childAdapterPosition == TOP_CHILD_FLING_THRESHOLD)
 
-            /*
-             * 向下滑动的时候，如果RecyclerView中第一个可见item的位置在adapter中的位置大于3，
-             * 则认为RecyclerView自己消费了fling事件，否则认为RecyclerView没有消费
-             */
-            shouldScroll = (childAdapterPosition == TOP_CHILD_FLING_THRESHOLD)
-        }
-
-        //fling(velocityY.toInt())
-
-        Log.d(TAG, "onNestedPreFling: velocityY = $velocityY  shouldScroll =$shouldScroll")
-
-        if (shouldScroll) {
-            animateScroll(velocityY, computeDuration(velocityY), false)
-            return true
+            }
+            if (shouldFling) {
+                fling(velocityY.toInt())
+                return true
+            }
         }
 
         return false
     }
-
-    /**
-     * 根据速度计算滚动动画持续时间
-     * @param velocityY
-     * @return
-     */
-    private fun computeDuration(velocityY: Float): Int {
-        var tempVelocityY = velocityY
-        val distance: Int
-        distance = if (tempVelocityY > 0) {
-            Math.abs(mTop.height - scrollY)
-        } else {
-            Math.abs(mTop.height - (mTop.height - scrollY))
-        }
-        val duration: Int
-        tempVelocityY = Math.abs(tempVelocityY)
-        if (tempVelocityY > 0) {
-            duration = 3 * Math.round(1000 * (distance / tempVelocityY))
-        } else {
-            val distanceRatio = distance.toFloat() / height
-            duration = ((distanceRatio + 1) * 150).toInt()
-        }
-
-        return duration
-
-    }
-
-    /**
-     *
-     * @param velocityY  velocityY > 0  手指从下向上滑动；velocityY < 0  手指从上向下滑动。
-     * @param duration
-     * @param childConsumed
-     */
-    private fun animateScroll(velocityY: Float, duration: Int, childConsumed: Boolean) {
-        val currentOffset = scrollY
-        val topHeight = mTop.height
-        if (mOffsetAnimator == null) {
-            mOffsetAnimator = ValueAnimator()
-            mOffsetAnimator?.addUpdateListener { animation ->
-                if (animation.animatedValue is Int) {
-                    scrollTo(0, animation.animatedValue as Int)
-                }
-            }
-        } else {
-            mOffsetAnimator?.cancel()
-        }
-        mOffsetAnimator?.duration = Math.min(duration, 600).toLong()
-
-        if (velocityY >= 0) {
-            //向上滑动到topView不可见，mNav吸顶
-            mOffsetAnimator?.setIntValues(currentOffset, topHeight)
-            mOffsetAnimator?.start()
-        } else {
-            //如果子View没有消耗flying事件 那么就让自身滑到0位置
-            if (!childConsumed) {
-                mOffsetAnimator?.setIntValues(currentOffset, 0)
-                mOffsetAnimator?.start()
-            }
-        }
-    }
-
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         Log.d(TAG, "onLayout: ")
@@ -248,7 +181,9 @@ class StickyNavLayout @JvmOverloads constructor(
 
     override fun computeScroll() {
         if (mScroller.computeScrollOffset()) {
-            scrollTo(0, mScroller.currY)
+            val y = mScroller.currY
+            Log.d(TAG, "computeScroll: mScroller.currY = $y")
+            scrollTo(0, y)
             invalidate()
         }
     }
