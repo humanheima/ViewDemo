@@ -17,7 +17,7 @@ import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
-import com.hm.viewdemo.nested_scroll.NestedScrollActivity
+import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -109,8 +109,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             }
 
             R.id.btnNestedScroll -> {
-                NestedScrollActivity.launch(this)
-                //NestedScrollAnotherActivity.launch(this)
+                NestedScrollMainActivity.launch(this)
             }
             R.id.btnHandlerTest -> {
                 HandlerActivity.launch(this)

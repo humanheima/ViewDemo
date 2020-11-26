@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".nested_scroll.NestedScrollAnotherActivity">
+    tools:context=".nested_scroll.NestedScrollVersion2Activity">
 
     <RelativeLayout
         android:id="@+id/rlTopView"

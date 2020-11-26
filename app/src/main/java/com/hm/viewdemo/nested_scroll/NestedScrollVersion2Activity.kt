@@ -8,31 +8,28 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_nested_scroll.*
+import kotlinx.android.synthetic.main.activity_nested_scroll_version_two.*
+import java.util.*
 
-/**
- * Crete by dumingwei on 2020-02-15
- * Desc: 学习嵌套滑动
- *
- */
-class NestedScrollActivity : AppCompatActivity() {
+class NestedScrollVersion2Activity : AppCompatActivity() {
 
     private val mTitles = arrayOf("简介", "评价", "相关")
     private var mAdapter: FragmentPagerAdapter? = null
     private val mFragments = arrayListOf<TabFragment>()
 
+    private val mDatas = ArrayList<String>()
 
     companion object {
 
         fun launch(context: Context) {
-            val intent = Intent(context, NestedScrollActivity::class.java)
+            val intent = Intent(context, NestedScrollVersion2Activity::class.java)
             context.startActivity(intent)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nested_scroll)
+        setContentView(R.layout.activity_nested_scroll_version_two)
 
         initDatas()
 
@@ -76,6 +73,6 @@ class NestedScrollActivity : AppCompatActivity() {
 
             }
         })
-
     }
+
 }
