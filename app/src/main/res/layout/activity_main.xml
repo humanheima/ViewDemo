@@ -96,13 +96,6 @@
                 android:text="TextView和AppCompatTextView自动调整字体大小"
                 android:textAllCaps="false" />
 
-            <com.hm.viewdemo.widget.LinearGradientView
-                android:id="@+id/linearGradientView"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:end_color="@color/colorPrimary"
-                app:start_color="@color/colorAccent" />
-
             <Button
                 android:id="@+id/btnChangeGradientViewColor"
                 android:layout_width="match_parent"

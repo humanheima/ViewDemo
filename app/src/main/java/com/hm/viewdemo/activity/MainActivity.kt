@@ -66,11 +66,6 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnChangeImageColor -> {
                 ChangeImageColorActivity.launch(this)
             }
-            R.id.btnChangeGradientViewColor -> {
-                //linear_gradient_view.setColors(Color.parseColor("#ff3344"), Color.parseColor("#FF4081"))
-                //linear_gradient_view.setColors(Color.parseColor("#ff3344"), R.color.colorPrimary)
-                linearGradientView.setColors(Color.parseColor("#ff3344"), Color.parseColor("#FF4081"))
-            }
             R.id.btnAutosizingTextView -> {
                 AutoSizingTextViewActivity.launch(this)
             }

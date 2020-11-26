@@ -2,6 +2,7 @@ package com.hm.viewdemo.nested_scroll
 
 import android.content.Context
 import android.graphics.Canvas
+import android.support.v4.view.NestedScrollingParent
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.hm.viewdemo.R
  */
 class StickyNavLayout @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr), NestedScrollingParent {
 
 
     private val TAG = "StickyNavLayout"
@@ -73,23 +74,20 @@ class StickyNavLayout @JvmOverloads constructor(
         Log.d(TAG, "onSizeChanged: mTopViewHeight =$mTopViewHeight")
     }
 
-    override fun onStartNestedScroll(child: View?, target: View?, nestedScrollAxes: Int): Boolean {
+    override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         Log.d(TAG, "onStartNestedScroll: nestedScrollAxes = $nestedScrollAxes")
         return (nestedScrollAxes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0
     }
 
-    override fun onNestedScrollAccepted(child: View?, target: View?, axes: Int) {
-        super.onNestedScrollAccepted(child, target, axes)
+    override fun onNestedScrollAccepted(child: View, target: View, axes: Int) {
         Log.d(TAG, "onNestedScrollAccepted: ")
     }
 
-    override fun onStopNestedScroll(child: View?) {
-        super.onStopNestedScroll(child)
+    override fun onStopNestedScroll(child: View) {
         Log.d(TAG, "onStopNestedScroll: ")
     }
 
-    override fun onNestedScroll(target: View?, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
-        super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
+    override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
         Log.d(TAG, "onNestedScroll: ")
     }
 
@@ -111,7 +109,7 @@ class StickyNavLayout @JvmOverloads constructor(
         }
     }
 
-    override fun onNestedPreFling(target: View?, velocityX: Float, velocityY: Float): Boolean {
+    override fun onNestedPreFling(target: View, velocityX: Float, velocityY: Float): Boolean {
 
         Log.d(TAG, "onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
 
@@ -145,6 +143,10 @@ class StickyNavLayout @JvmOverloads constructor(
             }
         }
 
+        return false
+    }
+
+    override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
         return false
     }
 

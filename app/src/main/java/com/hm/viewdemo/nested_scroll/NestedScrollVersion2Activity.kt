@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_nested_scroll_version_two.*
@@ -35,12 +34,9 @@ class NestedScrollVersion2Activity : AppCompatActivity() {
 
         val intent = Intent("")
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-        initEvents()
     }
 
     private fun initDatas() {
-        stickyNavLayoutIndicator.setTitles(mTitles)
-
         for (i in mTitles.indices) {
             mFragments.add(TabFragment.newInstance(mTitles[i]) as TabFragment)
         }
@@ -54,25 +50,13 @@ class NestedScrollVersion2Activity : AppCompatActivity() {
                 return mFragments[position]
             }
 
+            override fun getPageTitle(position: Int): CharSequence? {
+                return mTitles[position]
+            }
+
         }
-
         stickyNavLayoutViewpager.adapter = mAdapter
-        stickyNavLayoutViewpager.currentItem = 0
-    }
-
-    private fun initEvents() {
-        stickyNavLayoutViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageSelected(position: Int) {}
-
-            override fun onPageScrolled(position: Int, positionOffset: Float,
-                                        positionOffsetPixels: Int) {
-                stickyNavLayoutIndicator.scroll(position, positionOffset)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-        })
+        stickyNavLayoutIndicator.setupWithViewPager(stickyNavLayoutViewpager)
     }
 
 }
