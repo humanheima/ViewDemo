@@ -2,9 +2,9 @@ package com.hm.viewdemo.activity
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
-import android.graphics.Color
 import android.os.Debug
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.hm.viewdemo.R
@@ -46,10 +46,17 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
         Debug.stopMethodTracing()
 
+        scroll_view_root.post {
+            Log.e(TAG, "initData: scroll_view_root.measuredHeight = ${scroll_view_root.measuredHeight}")
+            Log.e(TAG, "initData: fl_content.measuredHeight = ${fl_content.measuredHeight}")
+        }
     }
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestScrollFling -> {
+                ScrollFlingTestActivity.launch(this)
+            }
             R.id.btnCommonPopWindow -> {
                 CommonPopWindowActivity.launch(this)
             }

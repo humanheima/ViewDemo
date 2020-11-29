@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RoundProgressBarTestMainActivity"></activity>
+        <activity android:name=".activity.ScrollFlingTestActivity"></activity>
+        <activity android:name=".activity.RoundProgressBarTestMainActivity" />
         <activity android:name=".nested_scroll.NestedScrollMainActivity" />
         <activity android:name=".activity.ScrollerFlingActivity" />
         <activity android:name=".activity.CommonPopWindowActivity" />
