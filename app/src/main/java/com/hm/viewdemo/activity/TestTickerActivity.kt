@@ -52,7 +52,7 @@ class TestTickerActivity : AppCompatActivity() {
         handler = object : Handler() {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                Log.d(TAG, "handleMessage: ")
+                Log.i(TAG, "handleMessage: ")
                 //handler.sendEmptyMessageDelayed(1, 200)
                 when (msg.what) {
                     0 -> next0()

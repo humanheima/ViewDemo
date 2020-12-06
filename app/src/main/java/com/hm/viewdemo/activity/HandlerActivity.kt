@@ -37,13 +37,13 @@ class HandlerActivity : AppCompatActivity() {
 
 
         /*Looper.myQueue().addIdleHandler {
-            Log.d(TAG, "onCreate: " + Thread.currentThread().name)
+            Log.i(TAG, "onCreate: " + Thread.currentThread().name)
             true
         }*/
 
         //添加Printer
         /*Looper.getMainLooper().setMessageLogging { str ->
-            Log.d(TAG, "onCreate: Printer $str")
+            Log.i(TAG, "onCreate: Printer $str")
         }*/
 
         btnSendMessage.setOnClickListener {
@@ -56,7 +56,7 @@ class HandlerActivity : AppCompatActivity() {
         handler = object : Handler() {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                Log.d(TAG, "handleMessage: ")
+                Log.i(TAG, "handleMessage: ")
                 handler.sendEmptyMessageDelayed(1, 200)
             }
         }
@@ -64,7 +64,7 @@ class HandlerActivity : AppCompatActivity() {
 
     private fun prepare() {
         for (i in 0..10000) {
-            Log.d(TAG, "prepare: $i")
+            Log.i(TAG, "prepare: $i")
         }
         Thread.sleep(1000)
         prepareFirst()
@@ -75,7 +75,7 @@ class HandlerActivity : AppCompatActivity() {
 
 
     private fun prepareFirst() {
-        Log.d(TAG, "prepareFirst: ")
+        Log.i(TAG, "prepareFirst: ")
         Thread.sleep(1500)
     }
 
@@ -89,7 +89,7 @@ class HandlerActivity : AppCompatActivity() {
 
     private fun longDurationMethod() {
         Thread.sleep(2000)
-        Log.d(TAG, "onCreate: send msg")
+        Log.i(TAG, "onCreate: send msg")
     }
 
     override fun onStop() {

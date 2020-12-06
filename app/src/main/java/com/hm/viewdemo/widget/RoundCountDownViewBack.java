@@ -83,7 +83,7 @@ public class RoundCountDownViewBack extends View {
 
         maskColor = a.getColor(R.styleable.MaskCountDownView_maskColor, Color.TRANSPARENT);
 
-        Log.d(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
+        Log.i(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
         a.recycle();
 
         rectF = new RectF();
@@ -135,7 +135,7 @@ public class RoundCountDownViewBack extends View {
 
     public void countDown() {
         if (finished()) {
-            Log.d(TAG, "countDown: finished");
+            Log.i(TAG, "countDown: finished");
             return;
         }
         startAngle += 1;

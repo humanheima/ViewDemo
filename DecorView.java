@@ -659,7 +659,7 @@ public class DecorView extends FrameLayout implements RootViewSurfaceTaker, Wind
                 } else {
                     w = 0;
                 }
-                if (DEBUG_MEASURE) Log.d(mLogTag, "Fixed width: " + w);
+                if (DEBUG_MEASURE) Log.i(mLogTag, "Fixed width: " + w);
                 final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
                 if (w > 0) {
                     widthMeasureSpec = MeasureSpec.makeMeasureSpec(
@@ -687,7 +687,7 @@ public class DecorView extends FrameLayout implements RootViewSurfaceTaker, Wind
                 } else {
                     h = 0;
                 }
-                if (DEBUG_MEASURE) Log.d(mLogTag, "Fixed height: " + h);
+                if (DEBUG_MEASURE) Log.i(mLogTag, "Fixed height: " + h);
                 final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
                 if (h > 0) {
                     heightMeasureSpec = MeasureSpec.makeMeasureSpec(
@@ -736,7 +736,7 @@ public class DecorView extends FrameLayout implements RootViewSurfaceTaker, Wind
                 } else {
                     min = 0;
                 }
-                if (DEBUG_MEASURE) Log.d(mLogTag, "Adjust for min width: " + min + ", value::"
+                if (DEBUG_MEASURE) Log.i(mLogTag, "Adjust for min width: " + min + ", value::"
                         + tv.coerceToString() + ", mAvailableWidth=" + mAvailableWidth);
 
                 if (width < min) {

@@ -49,9 +49,9 @@ class RequiredTextView @JvmOverloads constructor(
         val dimensionPixelSize = ta.getDimensionPixelSize(R.styleable.RequiredTextView_postfix_text_size, 0)
         val dimensionPixelOffset = ta.getDimensionPixelOffset(R.styleable.RequiredTextView_postfix_text_size, 0)
 
-        Log.d(TAG, "dimension = $dimension ")
-        Log.d(TAG, "dimensionPixelSize = $dimensionPixelSize ")
-        Log.d(TAG, "dimensionPixelOffset = $dimensionPixelOffset ")
+        Log.i(TAG, "dimension = $dimension ")
+        Log.i(TAG, "dimensionPixelSize = $dimensionPixelSize ")
+        Log.i(TAG, "dimensionPixelOffset = $dimensionPixelOffset ")
 
         ta.recycle()
 

@@ -49,7 +49,7 @@ public class ImageUtil {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        Log.d(TAG, "options.outWidth=" + options.outWidth + ",options.outHeight=" + options.outHeight);
+        Log.i(TAG, "options.outWidth=" + options.outWidth + ",options.outHeight=" + options.outHeight);
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {

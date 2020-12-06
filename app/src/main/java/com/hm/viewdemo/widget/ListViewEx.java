@@ -44,7 +44,7 @@ public class ListViewEx extends ListView {
             case MotionEvent.ACTION_MOVE:
                 int deltaX = x - mLastX;
                 int deltaY = y - mLastY;
-                Log.d(TAG, "deltaX:" + deltaX + " deltaY:" + deltaY);
+                Log.i(TAG, "deltaX:" + deltaX + " deltaY:" + deltaY);
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 }

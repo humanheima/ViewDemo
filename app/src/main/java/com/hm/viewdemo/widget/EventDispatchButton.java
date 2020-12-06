@@ -28,13 +28,13 @@ public class EventDispatchButton extends AppCompatButton {
     public boolean onTouchEvent(MotionEvent event) {
        /* switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onTouchEvent ACTION_DOWN");
+                Log.i(TAG, "onTouchEvent ACTION_DOWN");
                 return false;
             case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "onTouchEvent ACTION_MOVE");
+                Log.i(TAG, "onTouchEvent ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent ACTION_UP");
+                Log.i(TAG, "onTouchEvent ACTION_UP");
                 break;
         }*/
         return super.onTouchEvent(event);

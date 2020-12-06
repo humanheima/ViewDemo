@@ -32,12 +32,12 @@ class ImageViewSrcBackgroundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_image_view_src_background)
 
         ivBackgroundPadding.post {
-            Log.d(TAG, "onCreate: ivBackgroundPadding  ${ivBackgroundPadding.left},${ivBackgroundPadding.right}")
+            Log.i(TAG, "onCreate: ivBackgroundPadding  ${ivBackgroundPadding.left},${ivBackgroundPadding.right}")
 
         }
-        Log.d(TAG, "onCreate: ${ivSrcPadding.drawable.javaClass}")
+        Log.i(TAG, "onCreate: ${ivSrcPadding.drawable.javaClass}")
         ivSrcPadding.post {
-            Log.d(TAG, "onCreate: ivSrcPadding ${ivSrcPadding.left},${ivSrcPadding.right}")
+            Log.i(TAG, "onCreate: ivSrcPadding ${ivSrcPadding.left},${ivSrcPadding.right}")
         }
 
         btnChangeBackground.setOnClickListener {

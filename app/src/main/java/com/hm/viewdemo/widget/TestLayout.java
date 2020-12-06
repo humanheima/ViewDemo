@@ -32,6 +32,6 @@ public class TestLayout extends LinearLayout {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        Log.d(TAG, "onScrollChanged: l=" + l + ",t=" + t + ",oldl=" + oldl + ",oldt=" + oldt);
+        Log.i(TAG, "onScrollChanged: l=" + l + ",t=" + t + ",oldl=" + oldl + ",oldt=" + oldt);
     }
 }

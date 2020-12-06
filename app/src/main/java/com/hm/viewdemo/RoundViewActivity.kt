@@ -51,7 +51,7 @@ class RoundViewActivity : AppCompatActivity() {
             timeToArriveThisStage -= 1000
             //roundView.countDown(timeToArriveThisStage)
             roundView.setInitialTimes(stageTime, timeToArriveThisStage)
-            Log.d(TAG, "sendEmptyMessageDelayed")
+            Log.i(TAG, "sendEmptyMessageDelayed")
             handler.sendEmptyMessageDelayed(1, 100)
         }
     }

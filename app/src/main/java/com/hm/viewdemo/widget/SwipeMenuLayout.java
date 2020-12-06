@@ -203,7 +203,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //Log.d(TAG, "onMeasure() called with: " + "widthMeasureSpec = [" + widthMeasureSpec + "], heightMeasureSpec = [" + heightMeasureSpec + "]");
+        //Log.i(TAG, "onMeasure() called with: " + "widthMeasureSpec = [" + widthMeasureSpec + "], heightMeasureSpec = [" + heightMeasureSpec + "]");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         setClickable(true);//令自己可点击，从而获取触摸事件
@@ -241,7 +241,7 @@ public class SwipeMenuLayout extends ViewGroup {
         setMeasuredDimension(getPaddingLeft() + getPaddingRight() + contentWidth,
                 mHeight + getPaddingTop() + getPaddingBottom());//宽度取第一个Item(Content)的宽度
         mLimit = mRightMenuWidths * 4 / 10;//滑动判断的临界值
-        //Log.d(TAG, "onMeasure() called with: " + "mRightMenuWidths = [" + mRightMenuWidths);
+        //Log.i(TAG, "onMeasure() called with: " + "mRightMenuWidths = [" + mRightMenuWidths);
         if (isNeedMeasureChildHeight) {//如果子View的height有MatchParent属性的，设置子View高度
             forceUniformHeight(childCount, widthMeasureSpec);
         }
@@ -306,7 +306,7 @@ public class SwipeMenuLayout extends ViewGroup {
                 }
             }
         }
-        //Log.d(TAG, "onLayout() called with: " + "maxScrollGap = [" + maxScrollGap + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
+        //Log.i(TAG, "onLayout() called with: " + "maxScrollGap = [" + maxScrollGap + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
     }
 
     @Override
@@ -501,7 +501,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     public void smoothExpand() {
         Log.e(TAG, "smoothExpand: " + this.toString());
-        //Log.d(TAG, "smoothExpand() called" + this);
+        //Log.i(TAG, "smoothExpand() called" + this);
         /*mScroller.startScroll(getScrollX(), 0, mRightMenuWidths - getScrollX(), 0);
         invalidate();*/
         //展开就加入ViewCache：
@@ -546,7 +546,7 @@ public class SwipeMenuLayout extends ViewGroup {
      * 平滑关闭
      */
     public void smoothClose() {
-        //Log.d(TAG, "smoothClose() called" + this);
+        //Log.i(TAG, "smoothClose() called" + this);
 /*        mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0);
         invalidate();*/
         Log.e(TAG, "smoothClose: " + this.toString());

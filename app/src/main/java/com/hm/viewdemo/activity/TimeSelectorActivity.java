@@ -76,7 +76,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
         weekDateSelector = new WeekDateSelector(this, new WeekDateSelector.ResultHandler() {
             @Override
             public void handle(String time) {
-                Log.d(TAG, "handle: " + time);
+                Log.i(TAG, "handle: " + time);
                 tvWeek.setText(time);
             }
         }, 9, 21, startCalendar, pattern);

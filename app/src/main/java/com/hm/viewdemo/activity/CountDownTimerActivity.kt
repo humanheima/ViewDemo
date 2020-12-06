@@ -41,11 +41,11 @@ class CountDownTimerActivity : AppCompatActivity() {
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
-        Log.d(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
+        Log.i(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
         calendar.add(Calendar.DAY_OF_YEAR, 1)
-        Log.d(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
+        Log.i(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
         calendar.add(Calendar.DAY_OF_YEAR, 1)
-        Log.d(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
+        Log.i(TAG, "onCreate: ${dataFormat.format(Date(calendar.timeInMillis))}")
     }
 
     private fun startCountDown() {

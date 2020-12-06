@@ -121,7 +121,7 @@ public class XFermodeView extends View {
         int heightSpecModel = MeasureSpec.getMode(heightMeasureSpec);
         int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        Log.d(TAG, "onMeasure: " + widthSpecSize + "," + heightSpecSize);
+        Log.i(TAG, "onMeasure: " + widthSpecSize + "," + heightSpecSize);
         if (widthSpecModel == MeasureSpec.AT_MOST && heightSpecModel == MeasureSpec.AT_MOST) {
             setMeasuredDimension(DEFAULT_SIZE, DEFAULT_SIZE);
         } else if (widthSpecModel == MeasureSpec.AT_MOST) {
@@ -134,7 +134,7 @@ public class XFermodeView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw: " + getMeasuredHeight() + "," + getMeasuredWidth());
+        Log.i(TAG, "onDraw: " + getMeasuredHeight() + "," + getMeasuredWidth());
         canvas.drawColor(Color.WHITE);
         canvas.translate(HORIZONTAL_SPACE, VERTICAL_SPACE);
         int x = 0;

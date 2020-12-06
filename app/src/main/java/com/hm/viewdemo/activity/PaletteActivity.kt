@@ -81,7 +81,7 @@ class PaletteActivity : AppCompatActivity() {
     private fun changeImage(@DrawableRes resId: Int) {
         Glide.with(this).asBitmap().load(resId).into(object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                Log.d(TAG, "onResourceReady: ")
+                Log.i(TAG, "onResourceReady: ")
                 ivBitmap.setImageBitmap(resource)
                 list.clear()
                 Palette.from(resource).generate {

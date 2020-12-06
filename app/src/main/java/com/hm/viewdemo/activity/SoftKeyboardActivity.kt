@@ -34,7 +34,7 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
         //屏幕高度
         heightPixels = dm.heightPixels
 
-        Log.d(TAG, "onCreate: softKeyboardHeight= $softKeyboardHeight,heightPixels= $heightPixels")
+        Log.i(TAG, "onCreate: softKeyboardHeight= $softKeyboardHeight,heightPixels= $heightPixels")
 
         im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 

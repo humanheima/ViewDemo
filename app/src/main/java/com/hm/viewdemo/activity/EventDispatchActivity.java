@@ -47,13 +47,13 @@ public class EventDispatchActivity extends BaseActivity {
                          * 如果 View是 CLICKABLE 或者 LONG_CLICKABLE 那么 CONTEXT_CLICKABLE 的话，
                          * onTouchEvent返回true
                          */
-                        Log.d(TAG, "onTouch MotionEvent.ACTION_DOWN 方法返回false");
+                        Log.i(TAG, "onTouch MotionEvent.ACTION_DOWN 方法返回false");
                         return false;
                     case MotionEvent.ACTION_MOVE:
-                        Log.d(TAG, "onTouch MotionEvent.ACTION_MOVE 方法返回false");
+                        Log.i(TAG, "onTouch MotionEvent.ACTION_MOVE 方法返回false");
                         return true;
                     case MotionEvent.ACTION_UP:
-                        Log.d(TAG, "onTouch MotionEvent.ACTION_UP 方法返回false");
+                        Log.i(TAG, "onTouch MotionEvent.ACTION_UP 方法返回false");
                         return true;
                     default:
                         return true;
@@ -79,14 +79,14 @@ public class EventDispatchActivity extends BaseActivity {
                 Toast.makeText(EventDispatchActivity.this,
                         "ivTestClick 被点击",
                         Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "ivTestClick：" + ivTestClick);
+                Log.i(TAG, "ivTestClick：" + ivTestClick);
             }
         });
         btnTestClickevent = findViewById(R.id.btn_test_image_view_click_event);
         btnTestClickevent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: " + ivTestClick.isClickable());
+                Log.i(TAG, "onClick: " + ivTestClick.isClickable());
                 Toast.makeText(EventDispatchActivity.this,
                         "ivTestClick 可以点击吗？" + ivTestClick.isClickable(),
                         Toast.LENGTH_SHORT).show();

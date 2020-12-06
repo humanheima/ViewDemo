@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/color_90EE90"
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <ImageView
         android:layout_width="match_parent"
@@ -34,4 +35,10 @@
         android:fontFamily="sans-serif"
         android:hint="密码"
         android:inputType="textPassword" />
+
+    <FrameLayout
+        android:id="@+id/fl_webview_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
 </LinearLayout>

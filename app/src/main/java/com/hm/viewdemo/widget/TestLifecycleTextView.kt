@@ -20,57 +20,57 @@ class TestLifecycleTextView @JvmOverloads constructor(
     private val TAG = "TestLifecycleTextView"
 
     init {
-        Log.d(TAG, "TestLifecycleTextView: ")
+        Log.i(TAG, "TestLifecycleTextView: ")
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        Log.d(TAG, "onDetachedFromWindow: ")
+        Log.i(TAG, "onDetachedFromWindow: ")
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        Log.d(TAG, "onFinishInflate: ")
+        Log.i(TAG, "onFinishInflate: ")
     }
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        Log.d(TAG, "onVisibilityChanged: $visibility")
+        Log.i(TAG, "onVisibilityChanged: $visibility")
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        Log.d(TAG, "onAttachedToWindow: ")
+        Log.i(TAG, "onAttachedToWindow: ")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.d(TAG, "onSizeChanged: ")
+        Log.i(TAG, "onSizeChanged: ")
     }
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)
-        Log.d(TAG, "onWindowFocusChanged: $hasWindowFocus")
+        Log.i(TAG, "onWindowFocusChanged: $hasWindowFocus")
     }
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
-        Log.d(TAG, "onWindowVisibilityChanged: $visibility")
+        Log.i(TAG, "onWindowVisibilityChanged: $visibility")
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.d(TAG, "onMeasure: ")
+        Log.i(TAG, "onMeasure: ")
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        Log.d(TAG, "onLayout: ")
+        Log.i(TAG, "onLayout: ")
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        Log.d(TAG, "onDraw: ")
+        Log.i(TAG, "onDraw: ")
     }
 
 }

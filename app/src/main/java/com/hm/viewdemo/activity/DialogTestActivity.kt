@@ -1,15 +1,15 @@
 package com.hm.viewdemo.activity
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.http.SslError
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Window
+import android.webkit.*
 import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
@@ -33,9 +33,6 @@ class DialogTestActivity : AppCompatActivity() {
 
     private var alertDialog: AlertDialog? = null
 
-    private lateinit var handler: Handler
-
-
     companion object {
 
         @JvmStatic
@@ -55,15 +52,47 @@ class DialogTestActivity : AppCompatActivity() {
             showCustomDialog()
         }
         btnShowDialog2.setOnClickListener {
-            showDialog2()
-        }
 
-        handler = object : Handler() {
-            override fun handleMessage(msg: Message) {
-                super.handleMessage(msg)
-                Log.d(TAG, "handleMessage: ${msg.what}")
-                handler.sendEmptyMessageDelayed(1, 200)
+            var webView = WebView(this)
+
+            Log.i(TAG, "onCreate: webView = ${webView.toString()}")
+
+            webView.webViewClient = object : WebViewClient() {
+
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    Log.i(TAG, "onPageStarted: ")
+                }
+
+                override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
+                    super.onReceivedHttpError(view, request, errorResponse)
+                    Log.i(TAG, "onReceivedHttpError: ")
+                }
+
+
+                override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+                    super.onReceivedSslError(view, handler, error)
+                    Log.i(TAG, "onReceivedSslError: ")
+                }
+
+                override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                    super.onReceivedError(view, request, error)
+                    Log.i(TAG, "onReceivedError: ${error.toString()}")
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    Log.i(TAG, "onPageFinished: ")
+                    showDialog2(webView)
+                }
             }
+
+            val webSettings: WebSettings = webView.settings
+            webSettings.javaScriptEnabled = true //启用JavaScript
+            //下面两句话允许网页弹框
+            webSettings.javaScriptCanOpenWindowsAutomatically = true
+            webView.webChromeClient = WebChromeClient()
+            webView.loadUrl("https://www.baidu.com/")
         }
     }
 
@@ -75,7 +104,6 @@ class DialogTestActivity : AppCompatActivity() {
     }
 
     private fun showCustomDialog() {
-        handler.sendEmptyMessageDelayed(1, 200)
         if (alertDialog == null) {
             val builder = AlertDialog.Builder(this)
             builder.setView(layoutInflater.inflate(R.layout.dialog_signin, null))
@@ -93,20 +121,16 @@ class DialogTestActivity : AppCompatActivity() {
         alertDialog?.show()
     }
 
-    private fun showDialog2() {
+    private fun showDialog2(webView: WebView) {
         if (customDialogFragment == null) {
             customDialogFragment = CustomDialogFragment()
         }
+        customDialogFragment?.webView = webView
         customDialogFragment?.show(supportFragmentManager, null)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         customDialogFragment?.dismiss()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        handler?.removeCallbacksAndMessages(null)
     }
 }

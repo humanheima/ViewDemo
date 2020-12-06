@@ -39,7 +39,7 @@ public class RoundLayoutTwo extends RelativeLayout {
         mRoundCorner = ta.getDimensionPixelSize(R.styleable.RoundLayoutTwo_two_round_corner, 0);
         ta.recycle();
 
-        Log.d(TAG, "RoundLayoutTwo: mRoundCorner=" + mRoundCorner);
+        Log.i(TAG, "RoundLayoutTwo: mRoundCorner=" + mRoundCorner);
         radii[0] = mRoundCorner;
         radii[1] = mRoundCorner;
         radii[2] = mRoundCorner;

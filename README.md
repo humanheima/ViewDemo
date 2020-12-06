@@ -35,13 +35,13 @@ private static boolean canViewReceivePointerEvents(@NonNull View child) {
 遍历View树
 ```
 fun printAllChildView(view: View) {
-        Log.d(TAG, "printAllChildView: ")
+        Log.i(TAG, "printAllChildView: ")
         val queue: Deque<View> = LinkedList<View>()
         var root = view
         queue.add(root)
         while (queue.isNotEmpty()) {
             root = queue.pop()
-            Log.d(TAG, "printAllChildView: $root")
+            Log.i(TAG, "printAllChildView: $root")
             if (root is ViewGroup) {
                 for (i in 0 until root.childCount) {
                     queue.add(root.getChildAt(i))

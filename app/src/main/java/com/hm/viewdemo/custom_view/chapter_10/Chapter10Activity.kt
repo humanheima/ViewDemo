@@ -63,7 +63,7 @@ class Chapter10Activity : AppCompatActivity() {
         val offsetXY = IntArray(2)
 
         val alphaBitmap = srcBmp.extractAlpha(alphaPaint, offsetXY)
-        Log.d(TAG, "advanceExtractAlpha: ${offsetXY[0]},${offsetXY[1]}")
+        Log.i(TAG, "advanceExtractAlpha: ${offsetXY[0]},${offsetXY[1]}")
 
         val bitmap = Bitmap.createBitmap(alphaBitmap.width, alphaBitmap.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)

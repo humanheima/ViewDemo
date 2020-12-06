@@ -2000,7 +2000,7 @@ public class PhoneWindow extends Window implements MenuBuilder.Callback {
                 outState.putInt(FOCUSED_ID_TAG, focusedView.getId());
             } else {
                 if (false) {
-                    Log.d(TAG, "couldn't save which view has focus because the focused view "
+                    Log.i(TAG, "couldn't save which view has focus because the focused view "
                             + focusedView + " has no id.");
                 }
             }

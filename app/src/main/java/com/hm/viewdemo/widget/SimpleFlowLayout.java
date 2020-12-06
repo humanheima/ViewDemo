@@ -155,7 +155,7 @@ public class SimpleFlowLayout extends ViewGroup {
             }
         }
 
-        Log.d(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
+        Log.i(TAG, "onMeasure: addedChildCount=" + addedChildCount + ",getChildCount()=" + getChildCount());
 
         // 把最后一行记录到集合中
         addLine();
@@ -269,7 +269,7 @@ public class SimpleFlowLayout extends ViewGroup {
                     }
                 });
             }
-            Log.d(TAG, "addViews: " + getChildCount() + "," + lines.size());
+            Log.i(TAG, "addViews: " + getChildCount() + "," + lines.size());
             if (getChildCount() >= maxCount) {
                 break;
             }
@@ -370,7 +370,7 @@ public class SimpleFlowLayout extends ViewGroup {
         public void layout(int left, int top) {
             // 当前childView的左上角x轴坐标
             int currentLeft = left;
-            Log.d(TAG, "layout: children.size()=" + children.size());
+            Log.i(TAG, "layout: children.size()=" + children.size());
             for (int i = 0; i < children.size(); i++) {
                 View view = children.get(i);
                 view.layout(currentLeft, top, currentLeft + view.getMeasuredWidth(), top + view.getMeasuredHeight());

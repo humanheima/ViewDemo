@@ -98,7 +98,7 @@ public class YmdDateSelector {
         spanMon = (!spanYear) && (startMonth != endMonth);//起始日期和结束日期是同一年，但是月份不一样
         spanDay = (!spanMon) && (startDay != endDay);
 
-        Log.d(TAG, "initStartEnd: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay);
+        Log.i(TAG, "initStartEnd: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay);
     }
 
     private void initDialog() {
@@ -172,7 +172,7 @@ public class YmdDateSelector {
     }
 
     public void show(String currentDate) {
-        Log.d(TAG, "当前时间: " + currentDate);
+        Log.i(TAG, "当前时间: " + currentDate);
         if (!TextUtils.isEmpty(currentDate)) {
             currentCalender.setTime(parse(currentDate, dateFormat));
         } else {

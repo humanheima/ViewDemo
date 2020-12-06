@@ -38,12 +38,12 @@ class ParcelableTestActivity : AppCompatActivity() {
         val arrayList = intent.getParcelableArrayListExtra<Info>(LIST_EXTRA)
 
         arrayList.forEach {
-            Log.d(TAG, "onCreate: $it")
+            Log.i(TAG, "onCreate: $it")
         }
         val arrayListTwo = intent.getSerializableExtra(LIST_EXTRA_TWO) as ArrayList<Info>
 
         arrayListTwo.forEach {
-            Log.d(TAG, "arrayListTwo onCreate: $it")
+            Log.i(TAG, "arrayListTwo onCreate: $it")
         }
     }
 }

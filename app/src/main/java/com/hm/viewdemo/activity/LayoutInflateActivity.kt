@@ -35,13 +35,13 @@ class LayoutInflateActivity : AppCompatActivity() {
 
     /*override fun onCreateView(name: String?, context: Context?, attrs: AttributeSet?): View? {
         val view = super.onCreateView(name, context, attrs)
-        Log.d(TAG, "onCreateView: $view")//是null
+        Log.i(TAG, "onCreateView: $view")//是null
         return view
     }
 
     override fun onCreateView(parent: View?, name: String?, context: Context?, attrs: AttributeSet?): View {
         val view = super.onCreateView(parent, name, context, attrs)
-        Log.d(TAG, "onCreateView2: $view")//是null
+        Log.i(TAG, "onCreateView2: $view")//是null
         return view
     }*/
 }

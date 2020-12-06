@@ -117,7 +117,7 @@ class XFermodeViewAnother @JvmOverloads constructor(context: Context, attrs: Att
         val heightSpecModel = View.MeasureSpec.getMode(heightMeasureSpec)
         val heightSpecSize = View.MeasureSpec.getSize(heightMeasureSpec)
 
-        Log.d(TAG, "onMeasure: $widthSpecSize,$heightSpecSize")
+        Log.i(TAG, "onMeasure: $widthSpecSize,$heightSpecSize")
         if (widthSpecModel == View.MeasureSpec.AT_MOST && heightSpecModel == View.MeasureSpec.AT_MOST) {
             setMeasuredDimension(DEFAULT_SIZE, DEFAULT_SIZE)
         } else if (widthSpecModel == View.MeasureSpec.AT_MOST) {
@@ -129,7 +129,7 @@ class XFermodeViewAnother @JvmOverloads constructor(context: Context, attrs: Att
     }
 
     override fun onDraw(canvas: Canvas) {
-        Log.d(TAG, "onDraw: $measuredHeight,$measuredWidth")
+        Log.i(TAG, "onDraw: $measuredHeight,$measuredWidth")
         canvas.drawColor(Color.WHITE)
         canvas.translate(HORIZONTAL_SPACE.toFloat(), VERTICAL_SPACE.toFloat())
         var x = 0

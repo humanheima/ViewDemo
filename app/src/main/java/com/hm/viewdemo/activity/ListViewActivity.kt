@@ -33,6 +33,8 @@ class ListViewActivity : AppCompatActivity() {
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
 
+    private var currentScrollY = 0
+
     var sparseArray: SparseArray<String> = SparseArray()
 
     companion object {
@@ -53,7 +55,7 @@ class ListViewActivity : AppCompatActivity() {
         sparseArray.put(3, "3")
 
         for (i in 0 until sparseArray.size()) {
-            Log.d(TAG, "onCreate: ${sparseArray[i]}")
+            Log.i(TAG, "onCreate: ${sparseArray[i]}")
         }
 
         listView.setOnItemClickListener { parent, view, position, id ->
@@ -66,6 +68,7 @@ class ListViewActivity : AppCompatActivity() {
             private var mCurrentFirstVisibleItem = 0
 
             override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+                Log.i(TAG, "onScroll: ${view.scrollY}")
                 //do nothing
                 mCurrentFirstVisibleItem = firstVisibleItem
                 val firstView = view.getChildAt(0)
@@ -84,9 +87,14 @@ class ListViewActivity : AppCompatActivity() {
                      * SparseArray的key是Item的position
                      */
                     recordSp.append(firstVisibleItem, itemRecord)
-                    val scrollY = getScrollY()
+                    currentScrollY = getScrollY()
 
-                    Log.d(TAG, "onScroll: scrollY = $scrollY")
+                    Log.i(TAG, "onScroll: scrollY =  $currentScrollY")
+
+                    if (currentScrollY > 0) {
+
+                    }
+                    adsorbView.setSuction(true)
                 }
             }
 
@@ -110,7 +118,15 @@ class ListViewActivity : AppCompatActivity() {
             }
 
             override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
-                //do nothing
+                when (scrollState) {
+                    AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> {
+                        Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_TOUCH_SCROLL ${getScrollY()}")
+                    }
+                    AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
+                        Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_IDLE")
+                        adsorbView.setSuction(false)
+                    }
+                }
             }
         })
 

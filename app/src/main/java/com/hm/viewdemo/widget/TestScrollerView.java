@@ -127,7 +127,7 @@ public class TestScrollerView extends View {
                 float move = event.getY() - mLastDownY;
                 mScrollOffsetY += move;
                 mLastDownY = (int) event.getY();
-                Log.d(TAG, "onTouchEvent: mScrollOffsetY=" + mScrollOffsetY);
+                Log.i(TAG, "onTouchEvent: mScrollOffsetY=" + mScrollOffsetY);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -139,10 +139,10 @@ public class TestScrollerView extends View {
                 }
                 if (mScroller.getFinalY() > mMaxFlingY) {
                     mScroller.setFinalY(mMaxFlingY);
-                    Log.d(TAG, "onTouchEvent: mScroller.getFinalY() > mMaxFlingY:" + mScroller.getFinalY() + "," + mMaxFlingY);
+                    Log.i(TAG, "onTouchEvent: mScroller.getFinalY() > mMaxFlingY:" + mScroller.getFinalY() + "," + mMaxFlingY);
                 } else if (mScroller.getFinalY() < mMinFlingY) {
                     mScroller.setFinalY(mMinFlingY);
-                    Log.d(TAG, "onTouchEvent: mmScroller.getFinalY() < mMinFlingY:" + mScroller.getFinalY() + "," + mMinFlingY);
+                    Log.i(TAG, "onTouchEvent: mmScroller.getFinalY() < mMinFlingY:" + mScroller.getFinalY() + "," + mMinFlingY);
                 }
                 //mHandler.post(mScrollerRunnable);
                 invalidate();
@@ -168,7 +168,7 @@ public class TestScrollerView extends View {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        Log.d(TAG, "onScrollChanged: l=" + l + ",t=" + t + ",oldl=" + oldl + ",oldt=" + oldt);
+        Log.i(TAG, "onScrollChanged: l=" + l + ",t=" + t + ",oldl=" + oldl + ",oldt=" + oldt);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class TestScrollerView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw: mScroller.getFinalY()=" + mScroller.getFinalY());
+        Log.i(TAG, "onDraw: mScroller.getFinalY()=" + mScroller.getFinalY());
 
         mPaint.setTextAlign(Paint.Align.CENTER);
 

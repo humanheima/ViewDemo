@@ -34,9 +34,9 @@ class ToastActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Thread(Runnable { runOnUiThread { Log.d(TAG, "runOnUiThread: btnShowToast.height=${btnShowToast.height}") } }).start()
+        Thread(Runnable { runOnUiThread { Log.i(TAG, "runOnUiThread: btnShowToast.height=${btnShowToast.height}") } }).start()
         btnShowToast.post {
-            Log.d(TAG, "view post: btnShowToast.height=${btnShowToast.height}")
+            Log.i(TAG, "view post: btnShowToast.height=${btnShowToast.height}")
         }
     }
 

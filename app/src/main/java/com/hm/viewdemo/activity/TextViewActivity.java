@@ -268,7 +268,7 @@ public class TextViewActivity extends BaseActivity {
         SpannableStringBuilder builder = new SpannableStringBuilder(result);
         int dayStart = result.indexOf(days);
         int mileageStart = result.indexOf(mileage);
-        Log.d(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
+        Log.i(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
 
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
         RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
@@ -338,12 +338,12 @@ public class TextViewActivity extends BaseActivity {
 
         if (matcherSecond.find()) {
             secondText = matcherSecond.group();
-            Log.d(TAG, "setTextViewRegex: " + secondText);
+            Log.i(TAG, "setTextViewRegex: " + secondText);
         }
 
         if (matcherCoin.find()) {
             coinText = matcherCoin.group();
-            Log.d(TAG, "setTextViewRegex: " + coinText);
+            Log.i(TAG, "setTextViewRegex: " + coinText);
         }
 
         int secondTextStartIndex = -1;

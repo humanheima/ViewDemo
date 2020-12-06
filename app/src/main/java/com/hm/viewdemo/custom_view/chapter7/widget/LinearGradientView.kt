@@ -106,7 +106,7 @@ class LinearGradientView @JvmOverloads constructor(
 
         val textWidth = rect.width()
 
-        Log.d(TAG, "drawGradientText: $textWidth")
+        Log.i(TAG, "drawGradientText: $textWidth")
         val linearGradient = LinearGradient(0f, 0f, -textWidth * 1.0f, 0f,
                 colors, null, Shader.TileMode.CLAMP)
 

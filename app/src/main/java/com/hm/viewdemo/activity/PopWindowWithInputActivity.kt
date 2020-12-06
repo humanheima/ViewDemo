@@ -57,7 +57,7 @@ class PopWindowWithInputActivity : AppCompatActivity() {
         handler = object : Handler() {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                Log.d(TAG, "handleMessage: ${msg.what}")
+                Log.i(TAG, "handleMessage: ${msg.what}")
                 handler.sendEmptyMessageDelayed(1, 200)
             }
         }
@@ -108,7 +108,7 @@ class PopWindowWithInputActivity : AppCompatActivity() {
 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     //手机的返回键
-                    Log.d(TAG, "showPopWindow1: KEYCODE_BACK")
+                    Log.i(TAG, "showPopWindow1: KEYCODE_BACK")
                     popupStyle1?.dismiss()
                     true
                 }

@@ -49,7 +49,7 @@ class CommonPopWindowActivity : AppCompatActivity() {
                 val screenWidth = ScreenUtil.getScreenWidth(this)
 
                 btn_anchor.getLocationInWindow(anchorPosition)
-                Log.d(TAG, "onCreate: height = ${anchorPosition[1]}")
+                Log.i(TAG, "onCreate: height = ${anchorPosition[1]}")
                 btn_anchor.getLocationOnScreen(anchorPosition)
 
                 val widthAxis: Int = anchorPosition[0] + btn_anchor.measuredWidth / 2 - popWindowWidth / 2
@@ -70,7 +70,7 @@ class CommonPopWindowActivity : AppCompatActivity() {
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         popWindowWidth = view.measuredWidth
         popWindowHeight = view.measuredHeight
-        Log.d(TAG, "initPopWindow: popWindowWidth = $popWindowWidth popWindowHeight = $popWindowHeight")
+        Log.i(TAG, "initPopWindow: popWindowWidth = $popWindowWidth popWindowHeight = $popWindowHeight")
         popWindow = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         popWindow.isFocusable = true
         popWindow.isOutsideTouchable = true

@@ -104,7 +104,7 @@ class RectRefreshSurfaceView @JvmOverloads constructor(
     private fun dumpCanvasRect(canvas: Canvas?) {
         if (canvas != null) {
             val rect = canvas.clipBounds
-            Log.d(TAG, "left:" + rect.left + "  top:" + rect.top + "  right:" + rect.right + "  bottom:" + rect.bottom)
+            Log.i(TAG, "left:" + rect.left + "  top:" + rect.top + "  right:" + rect.right + "  bottom:" + rect.bottom)
         }
     }
 

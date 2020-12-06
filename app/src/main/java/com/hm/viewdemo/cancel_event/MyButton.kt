@@ -29,12 +29,12 @@ class MyButton : Button {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
-        Log.d(TAG, "dispatchTouchEvent: " + event.action)
+        Log.i(TAG, "dispatchTouchEvent: " + event.action)
         return super.dispatchTouchEvent(event)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        Log.d(TAG, "onTouchEvent: ${event.action}")
+        Log.i(TAG, "onTouchEvent: ${event.action}")
         return super.onTouchEvent(event)
     }
 

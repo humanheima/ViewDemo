@@ -68,7 +68,7 @@ public class HorizontalScrollViewEx2 extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d(TAG, "onTouchEvent action:" + event.getAction());
+        Log.i(TAG, "onTouchEvent action:" + event.getAction());
         mVelocityTracker.addMovement(event);
         int x = (int) event.getX();
         int y = (int) event.getY();
@@ -82,14 +82,14 @@ public class HorizontalScrollViewEx2 extends ViewGroup {
             case MotionEvent.ACTION_MOVE: {
                 int deltaX = x - mLastX;
                 int deltaY = y - mLastY;
-                Log.d(TAG, "move, deltaX:" + deltaX + " deltaY:" + deltaY);
+                Log.i(TAG, "move, deltaX:" + deltaX + " deltaY:" + deltaY);
                 scrollBy(-deltaX, 0);
                 break;
             }
             case MotionEvent.ACTION_UP: {
                 int scrollX = getScrollX();
                 int scrollToChildIndex = scrollX / mChildWidth;
-                Log.d(TAG, "current index:" + scrollToChildIndex);
+                Log.i(TAG, "current index:" + scrollToChildIndex);
                 mVelocityTracker.computeCurrentVelocity(1000);
                 float xVelocity = mVelocityTracker.getXVelocity();
                 if (Math.abs(xVelocity) >= 50) {
@@ -101,7 +101,7 @@ public class HorizontalScrollViewEx2 extends ViewGroup {
                 int dx = mChildIndex * mChildWidth - scrollX;
                 smoothScrollBy(dx, 0);
                 mVelocityTracker.clear();
-                Log.d(TAG, "index:" + scrollToChildIndex + " dx:" + dx);
+                Log.i(TAG, "index:" + scrollToChildIndex + " dx:" + dx);
                 break;
             }
             default:
@@ -145,7 +145,7 @@ public class HorizontalScrollViewEx2 extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.d(TAG, "width:" + getWidth());
+        Log.i(TAG, "width:" + getWidth());
         int childLeft = 0;
         final int childCount = getChildCount();
         mChildrenSize = childCount;

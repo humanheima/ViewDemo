@@ -71,7 +71,7 @@ public class MaxHeightLayout extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        Log.d(TAG, "onMeasure: heightSize=" + heightSize + "mMaxHeight=" + mMaxHeight);
+        Log.i(TAG, "onMeasure: heightSize=" + heightSize + "mMaxHeight=" + mMaxHeight);
         heightSize = heightSize <= mMaxHeight ? heightSize : (int) mMaxHeight;
         int maxHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, heightMode);
         super.onMeasure(widthMeasureSpec, maxHeightMeasureSpec);

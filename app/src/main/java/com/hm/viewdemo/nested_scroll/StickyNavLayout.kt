@@ -52,7 +52,7 @@ class StickyNavLayout @JvmOverloads constructor(
          */
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        Log.d(TAG, "onMeasure1: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
+        Log.i(TAG, "onMeasure1: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
 
         /**
          * 这里为什么要将 mViewPager高度设置为mViewPager原本的高度加上mNav的高度呢？因为mTop滑出去以后，mNav和mViewpager应该占据
@@ -65,34 +65,34 @@ class StickyNavLayout @JvmOverloads constructor(
          * 子控件mViewPager的高度发生了变化，重新测量一遍，最终的结果是该控件本身高度没有发生变化，但是子控件mViewPager的变高了
          */
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.d(TAG, "onMeasure2: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
+        Log.i(TAG, "onMeasure2: measuredHeight = $measuredHeight , mNav.measuredHeight = ${mNav.measuredHeight} , mViewPager.measuredHeight = ${mViewPager?.measuredHeight}")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mTopViewHeight = mTop.measuredHeight
-        Log.d(TAG, "onSizeChanged: mTopViewHeight =$mTopViewHeight")
+        Log.i(TAG, "onSizeChanged: mTopViewHeight =$mTopViewHeight")
     }
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
-        Log.d(TAG, "onStartNestedScroll: nestedScrollAxes = $nestedScrollAxes")
+        Log.i(TAG, "onStartNestedScroll: nestedScrollAxes = $nestedScrollAxes")
         return (nestedScrollAxes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0
     }
 
     override fun onNestedScrollAccepted(child: View, target: View, axes: Int) {
-        Log.d(TAG, "onNestedScrollAccepted: ")
+        Log.i(TAG, "onNestedScrollAccepted: ")
     }
 
     override fun onStopNestedScroll(child: View) {
-        Log.d(TAG, "onStopNestedScroll: ")
+        Log.i(TAG, "onStopNestedScroll: ")
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
-        Log.d(TAG, "onNestedScroll: ")
+        Log.i(TAG, "onNestedScroll: ")
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
-        Log.d(TAG, "onNestedPreScroll:  dx=$dx , dy=$dy")
+        Log.i(TAG, "onNestedPreScroll:  dx=$dx , dy=$dy")
 
         /**
          * scrollY>=0，向上滑动的时候，scrollY增加。
@@ -111,7 +111,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
     override fun onNestedPreFling(target: View, velocityX: Float, velocityY: Float): Boolean {
 
-        Log.d(TAG, "onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
+        Log.i(TAG, "onNestedPreFling velocityY = $velocityY  scrollY = $scrollY  mTop.height = ${mTop.height}")
 
         /**
          * 向上滑动（手指从下向上滑）, velocityY>0
@@ -129,7 +129,7 @@ class StickyNavLayout @JvmOverloads constructor(
 
                 val firstChild = target.getChildAt(0)
                 val childAdapterPosition = target.getChildAdapterPosition(firstChild)
-                Log.d(TAG, "onNestedPreFling: childAdapterPosition = $childAdapterPosition")
+                Log.i(TAG, "onNestedPreFling: childAdapterPosition = $childAdapterPosition")
                 /**
                  * 向下滑动的时候，如果RecyclerView中第一个可见item的位置在adapter中的位置等于0，
                  * 则认为RecyclerView自己消费了fling事件，否则认为RecyclerView没有消费
@@ -151,12 +151,12 @@ class StickyNavLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        Log.d(TAG, "onLayout: ")
+        Log.i(TAG, "onLayout: ")
         super.onLayout(changed, l, t, r, b)
     }
 
     override fun onDraw(canvas: Canvas?) {
-        Log.d(TAG, "onDraw: ")
+        Log.i(TAG, "onDraw: ")
         super.onDraw(canvas)
     }
 
@@ -184,7 +184,7 @@ class StickyNavLayout @JvmOverloads constructor(
     override fun computeScroll() {
         if (mScroller.computeScrollOffset()) {
             val y = mScroller.currY
-            Log.d(TAG, "computeScroll: mScroller.currY = $y")
+            Log.i(TAG, "computeScroll: mScroller.currY = $y")
             scrollTo(0, y)
             invalidate()
         }

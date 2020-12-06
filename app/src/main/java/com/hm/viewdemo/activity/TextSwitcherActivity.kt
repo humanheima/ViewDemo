@@ -87,7 +87,7 @@ class TextSwitcherActivity : AppCompatActivity() {
                         next3()
                     }
                 }
-                Log.d(TAG, "handleMessage: ")
+                Log.i(TAG, "handleMessage: ")
 
             }
         }
@@ -137,7 +137,7 @@ class TextSwitcherActivity : AppCompatActivity() {
         val size = amountStr.length
 
         for (i in 0 until size) {
-            Log.d(TAG, "initTextSwitcher: ${amountStr[i]}")
+            Log.i(TAG, "initTextSwitcher: ${amountStr[i]}")
             if (i < textSwitcherList.size) {
                 textSwitcherList[i].setCurrentText(amountStr[i].toString())
             }
@@ -260,7 +260,7 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     private fun next3() {
         if (index3Start < strs3.size) {
-            Log.d(TAG, "next3: ")
+            Log.i(TAG, "next3: ")
             textSwitcher3.setText(strs3[index3Start++])
             handler.sendEmptyMessageDelayed(3, 50)
         }

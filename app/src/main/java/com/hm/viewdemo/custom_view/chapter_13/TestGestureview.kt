@@ -32,16 +32,16 @@ class TestGestureview @JvmOverloads constructor(
 
     private var gestureDetector: GestureDetector = GestureDetector(object : GestureDetector.OnGestureListener {
         override fun onShowPress(e: MotionEvent) {
-            Log.d(TAG, "onShowPress: ${getActionName(e.action)}")
+            Log.i(TAG, "onShowPress: ${getActionName(e.action)}")
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean {
-            Log.d(TAG, "onSingleTapUp: ${getActionName(e.action)}")
+            Log.i(TAG, "onSingleTapUp: ${getActionName(e.action)}")
             return true
         }
 
         override fun onDown(e: MotionEvent): Boolean {
-            Log.d(TAG, "onDown: ${getActionName(e.action)}")
+            Log.i(TAG, "onDown: ${getActionName(e.action)}")
             return true
         }
 
@@ -50,7 +50,7 @@ class TestGestureview @JvmOverloads constructor(
          * 向左滑动velocityX是为负值
          */
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            Log.d(TAG, "onFling: ${getActionName(e1.action)},${getActionName(e2.action)}")
+            Log.i(TAG, "onFling: ${getActionName(e1.action)},${getActionName(e2.action)}")
             Log.e(TAG, "onFling: e1.x=${e1.x}, e2.x=${e2.x}, velocityX=$velocityX, velocityY=$velocityY")
             if (e1.x - e2.x > FLING_MIN_DISTANCE && Math.abs(velocityX) >= FLING_MIN_VELOCITY) {
                 //向左滑
@@ -62,29 +62,29 @@ class TestGestureview @JvmOverloads constructor(
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            Log.d(TAG, "onScroll: ${getActionName(e1.action)},${getActionName(e2.action)}")
+            Log.i(TAG, "onScroll: ${getActionName(e1.action)},${getActionName(e2.action)}")
             return true
         }
 
         override fun onLongPress(e: MotionEvent) {
-            Log.d(TAG, "onLongPress: ${getActionName(e.action)}")
+            Log.i(TAG, "onLongPress: ${getActionName(e.action)}")
         }
     })
 
     init {
         gestureDetector.setOnDoubleTapListener(object : GestureDetector.OnDoubleTapListener {
             override fun onDoubleTap(e: MotionEvent): Boolean {
-                Log.d(TAG, "onDoubleTap: ${getActionName(e.action)}")
+                Log.i(TAG, "onDoubleTap: ${getActionName(e.action)}")
                 return true
             }
 
             override fun onDoubleTapEvent(e: MotionEvent): Boolean {
-                Log.d(TAG, "onDoubleTapEvent: ${getActionName(e.action)}")
+                Log.i(TAG, "onDoubleTapEvent: ${getActionName(e.action)}")
                 return true
             }
 
             override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                Log.d(TAG, "onSingleTapConfirmed: ${getActionName(e.action)}")
+                Log.i(TAG, "onSingleTapConfirmed: ${getActionName(e.action)}")
                 return true
             }
         })

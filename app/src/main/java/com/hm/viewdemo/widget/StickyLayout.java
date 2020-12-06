@@ -81,7 +81,7 @@ public class StickyLayout extends LinearLayout {
                 mInitDataSucceed = true;
             }
             if (DEBUG) {
-                Log.d(TAG, "mTouchSlop = " + mTouchSlop + "mHeaderHeight = " + mHeaderHeight);
+                Log.i(TAG, "mTouchSlop = " + mTouchSlop + "mHeaderHeight = " + mHeaderHeight);
             }
         } else {
             throw new NoSuchElementException("Did your view with id \"sticky_header\" or \"sticky_content\" exists?");
@@ -133,7 +133,7 @@ public class StickyLayout extends LinearLayout {
         }
 
         if (DEBUG) {
-            Log.d(TAG, "intercepted=" + intercepted);
+            Log.i(TAG, "intercepted=" + intercepted);
         }
         return intercepted != 0 && mIsSticky;
     }
@@ -153,7 +153,7 @@ public class StickyLayout extends LinearLayout {
                 int deltaX = x - mLastX;
                 int deltaY = y - mLastY;
                 if (DEBUG) {
-                    Log.d(TAG, "mHeaderHeight=" + mHeaderHeight + "  deltaY=" + deltaY + "  mlastY=" + mLastY);
+                    Log.i(TAG, "mHeaderHeight=" + mHeaderHeight + "  deltaY=" + deltaY + "  mlastY=" + mLastY);
                 }
                 mHeaderHeight += deltaY;
                 setHeaderHeight(mHeaderHeight);
@@ -236,7 +236,7 @@ public class StickyLayout extends LinearLayout {
         }
 
         if (DEBUG) {
-            Log.d(TAG, "setHeaderHeight height=" + height);
+            Log.i(TAG, "setHeaderHeight height=" + height);
         }
         if (height <= 0) {
             height = 0;

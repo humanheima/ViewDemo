@@ -18,7 +18,7 @@ class InterceptTouchEventFrameLayout @JvmOverloads constructor(
 
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        Log.d(TAG, "onInterceptTouchEvent: ${ev.action}")
+        Log.i(TAG, "onInterceptTouchEvent: ${ev.action}")
         when (ev.action) {
             //MotionEvent.ACTION_MOVE -> return true
             MotionEvent.ACTION_UP -> return true

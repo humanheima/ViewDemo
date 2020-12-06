@@ -126,7 +126,7 @@ public final class OverscrollHelper {
                 final int newScrollValue = (deltaValue + scrollValue);
 
                 if (PullToRefreshBase.DEBUG) {
-                    Log.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
+                    Log.i(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
                             + ", ScrollY: " + scrollY + ", NewY: " + newScrollValue + ", ScrollRange: " + scrollRange
                             + ", CurrentScroll: " + currentScrollValue);
                 }

@@ -76,7 +76,7 @@ public class MaskCountDownView extends View {
 
         maskColor = a.getColor(R.styleable.MaskCountDownView_maskColor, Color.TRANSPARENT);
 
-        Log.d(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
+        Log.i(TAG, "init: cornerRadius = " + cornerRadius + "，startAngle " + startAngle + "，swipeAngle = " + sweepAngle);
         a.recycle();
 
         rectF = new RectF();
@@ -114,7 +114,7 @@ public class MaskCountDownView extends View {
         //绘制扇形时候需要增加的偏移量
         //绘制扇形时候需要增加的偏移量
         float offset = outCircleR - sideLength / 2f;
-        Log.d(TAG, "onMeasure: width = " + width + " , height = " + height +
+        Log.i(TAG, "onMeasure: width = " + width + " , height = " + height +
                 " ,outCircleR = " + outCircleR + ", offset = " + offset);
         rectF.set(-offset, -offset, width + offset, height + offset);
     }
@@ -143,13 +143,13 @@ public class MaskCountDownView extends View {
         //还需要走这么多角度
         sweepAngle = (toArriveThisStageTime * 1.0f / stageTime) * 360;
         startAngle = finishAngle - sweepAngle;
-        Log.d(TAG, "setStageAndFinishTime: startAngle = " + startAngle);
+        Log.i(TAG, "setStageAndFinishTime: startAngle = " + startAngle);
         invalidate();
     }
 
     public void countDown(int currentTime) {
         if (finished()) {
-            Log.d(TAG, "countDown: finished");
+            Log.i(TAG, "countDown: finished");
             return;
         }
         //当前转过的角度
@@ -157,7 +157,7 @@ public class MaskCountDownView extends View {
 
         startAngle = finishAngle - sweepAngle;
 
-        Log.d(TAG, "countDown: startAngle = " + startAngle);
+        Log.i(TAG, "countDown: startAngle = " + startAngle);
 
         invalidate();
     }

@@ -58,7 +58,7 @@ class ListViewFloatActivity : AppCompatActivity() {
 
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-                Log.d(TAG, "onScroll: firstVisibleItem = $firstVisibleItem")
+                Log.i(TAG, "onScroll: firstVisibleItem = $firstVisibleItem")
                 if (firstVisibleItem >= 1) {
                     includeViewFloatLayout.visibility = View.VISIBLE
                 } else {

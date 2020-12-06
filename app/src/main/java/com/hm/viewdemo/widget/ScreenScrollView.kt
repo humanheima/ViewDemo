@@ -41,17 +41,17 @@ class ScreenScrollView @JvmOverloads constructor(
         val y = event.rawY
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                Log.d(TAG, "onTouchEvent: ACTION_DOWN")
+                Log.i(TAG, "onTouchEvent: ACTION_DOWN")
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = x - mLastX
                 val deltaY = y - mLastY
-                Log.d(TAG, "onTouchEvent: ACTION_MOVE deltaX:$deltaX, deltaY:$deltaY")
+                Log.i(TAG, "onTouchEvent: ACTION_MOVE deltaX:$deltaX, deltaY:$deltaY")
                 translationX += deltaX
                 translationY += deltaY
             }
             MotionEvent.ACTION_UP -> {
-                Log.d(TAG, "onTouchEvent: ACTION_UP")
+                Log.i(TAG, "onTouchEvent: ACTION_UP")
             }
             else -> {
                 //do nothing

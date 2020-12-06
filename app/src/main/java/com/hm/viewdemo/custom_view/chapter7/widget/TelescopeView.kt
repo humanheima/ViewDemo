@@ -94,7 +94,7 @@ class TelescopeView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.d(TAG, "onSizeChanged: $w,$h")
+        Log.i(TAG, "onSizeChanged: $w,$h")
         if (bitmapBG == null && w > 0 && h > 0) {
             bitmapBG = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             val canvasBg = Canvas(bitmapBG)

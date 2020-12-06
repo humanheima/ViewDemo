@@ -358,7 +358,7 @@ public class MyScrollView extends FrameLayout {
                 mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange());
             }
         } else {
-            Log.d(TAG, "onOverScrolled: ");
+            Log.i(TAG, "onOverScrolled: ");
             super.scrollTo(scrollX, scrollY);
         }
     }

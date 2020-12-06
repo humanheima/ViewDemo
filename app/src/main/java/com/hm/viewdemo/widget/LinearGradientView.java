@@ -98,7 +98,7 @@ public class LinearGradientView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        Log.d(TAG, "onSizeChanged: ");
+        Log.i(TAG, "onSizeChanged: ");
         super.onSizeChanged(w, h, oldw, oldh);
         //从左到右水平变化
         backGradient = new LinearGradient(0, 0, getWidth(), 0,

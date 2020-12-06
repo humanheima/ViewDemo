@@ -5,11 +5,13 @@ import android.os.Bundle
 import com.hm.viewdemo.R
 
 /**
- * Scroller惯性滑动
+ * Created by dumingwei on 2020/12/4
+ *
+ * Desc: 测试WebView
  */
-class ScrollerFlingActivity : AppCompatActivity() {
+class WebViewTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scroller_fling)
+        setContentView(R.layout.activity_web_view_test)
     }
 }

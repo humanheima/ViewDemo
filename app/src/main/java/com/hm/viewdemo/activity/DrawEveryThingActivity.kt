@@ -42,7 +42,7 @@ class DrawEveryThingActivity : AppCompatActivity() {
         handler = object : Handler() {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                Log.d(TAG, "handleMessage: ")
+                Log.i(TAG, "handleMessage: ")
                 when (msg.what) {
                     3 -> {
                         updateStage3()
@@ -85,7 +85,7 @@ class DrawEveryThingActivity : AppCompatActivity() {
      */
     private fun updateStage3() {
         stage3FinishProgress += 0.01f
-        Log.d(TAG, "updateStage3: fl = $stage3FinishProgress")
+        Log.i(TAG, "updateStage3: fl = $stage3FinishProgress")
         if (stage3FinishProgress - 1f > 0.001) {
             return
         }
@@ -98,7 +98,7 @@ class DrawEveryThingActivity : AppCompatActivity() {
      */
     private fun updateStage6() {
         stage6FinishProgress += 0.01f
-        Log.d(TAG, "updateStage6: fl = $stage6FinishProgress")
+        Log.i(TAG, "updateStage6: fl = $stage6FinishProgress")
         if (stage6FinishProgress - 1f > 0.001) {
             return
         }

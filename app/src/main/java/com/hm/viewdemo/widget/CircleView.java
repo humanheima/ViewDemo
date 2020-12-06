@@ -43,7 +43,7 @@ public class CircleView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.d(TAG, "onMeasure: ");
+        Log.i(TAG, "onMeasure: ");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthSpecModel = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -62,26 +62,26 @@ public class CircleView extends View {
 
     @Override
     public void layout(int l, int t, int r, int b) {
-        Log.d(TAG, "layout: ");
+        Log.i(TAG, "layout: ");
         super.layout(l, t, r, b);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        Log.d(TAG, "onLayout: ");
+        Log.i(TAG, "onLayout: ");
         super.onLayout(changed, left, top, right, bottom);
     }
 
 
     @Override
     public void draw(Canvas canvas) {
-        Log.d(TAG, "draw: ");
+        Log.i(TAG, "draw: ");
         super.draw(canvas);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw: ");
+        Log.i(TAG, "onDraw: ");
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
         int paddingTop = getPaddingTop();

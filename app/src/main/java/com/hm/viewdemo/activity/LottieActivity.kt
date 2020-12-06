@@ -35,19 +35,19 @@ class LottieActivity : AppCompatActivity() {
 
         lottieViewLoading.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
-                //Log.d(TAG, "onAnimationRepeat: ")
+                //Log.i(TAG, "onAnimationRepeat: ")
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                Log.d(TAG, "onAnimationEnd: ")
+                Log.i(TAG, "onAnimationEnd: ")
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                Log.d(TAG, "onAnimationCancel: ")
+                Log.i(TAG, "onAnimationCancel: ")
             }
 
             override fun onAnimationStart(animation: Animator?) {
-                Log.d(TAG, "onAnimationStart: ")
+                Log.i(TAG, "onAnimationStart: ")
             }
 
         })
@@ -96,7 +96,7 @@ class LottieActivity : AppCompatActivity() {
         LottieCompositionFactory.fromAsset(this,
                 "lottie/loading_1/loading.json").addListener(object : LottieListener<LottieComposition> {
             override fun onResult(result: LottieComposition?) {
-                Log.d(TAG, "onResult: $result")
+                Log.i(TAG, "onResult: $result")
                 result?.let {
 
                     drawable.composition = it

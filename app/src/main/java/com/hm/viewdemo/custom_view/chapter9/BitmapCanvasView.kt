@@ -59,7 +59,7 @@ class BitmapCanvasView @JvmOverloads constructor(
         canvas.translate(width / 2f, height / 2f)
         //canvas.drawText("欢迎光临", 0f, 0f, mPaint)
         val id = canvas.save()
-        Log.d(TAG, "onDraw: id=$id")
+        Log.i(TAG, "onDraw: id=$id")
         for (i in 0..5) {
             canvas.drawLine(0f, 0f, 100f, 0f, mPaint)
             canvas.rotate(60f)

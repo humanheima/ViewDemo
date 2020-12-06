@@ -32,12 +32,12 @@ public class ScreenUtil {
         int widthPixels = displayMetrics.widthPixels;
         int heightPixels = displayMetrics.heightPixels;
         float density = displayMetrics.density;
-        Log.d(TAG, "density: " + density);
-        Log.d(TAG, "width: " + widthPixels);
-        Log.d(TAG, "height: " + heightPixels);
-        Log.d(TAG, "xdpi: " + widthPixels / density);
-        Log.d(TAG, "ydpi: " + heightPixels / density);
-        Log.d(TAG, "densityDpi: " + displayMetrics.densityDpi);
+        Log.i(TAG, "density: " + density);
+        Log.i(TAG, "width: " + widthPixels);
+        Log.i(TAG, "height: " + heightPixels);
+        Log.i(TAG, "xdpi: " + widthPixels / density);
+        Log.i(TAG, "ydpi: " + heightPixels / density);
+        Log.i(TAG, "densityDpi: " + displayMetrics.densityDpi);
     }
 
     public static int getScreenHeight(Context context) {

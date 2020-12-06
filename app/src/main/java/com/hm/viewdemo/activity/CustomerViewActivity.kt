@@ -25,8 +25,8 @@ class CustomerViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_custome_view)
 
         ivHeight.post {
-            Log.d(TAG, "onCreate: ${ivHeight.measuredHeight}")
-            Log.d(TAG, "onCreate: ${ivHeight.measuredWidth}")
+            Log.i(TAG, "onCreate: ${ivHeight.measuredHeight}")
+            Log.i(TAG, "onCreate: ${ivHeight.measuredWidth}")
         }
     }
 

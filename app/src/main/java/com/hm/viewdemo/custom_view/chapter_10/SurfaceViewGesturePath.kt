@@ -32,7 +32,7 @@ class SurfaceViewGesturePath @JvmOverloads constructor(
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        Log.d(TAG, "onTouchEvent: ")
+        Log.i(TAG, "onTouchEvent: ")
         val x = event.x
         val y = event.y
 

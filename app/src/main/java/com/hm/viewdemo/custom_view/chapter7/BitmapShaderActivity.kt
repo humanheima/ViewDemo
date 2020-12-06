@@ -25,7 +25,7 @@ class BitmapShaderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bitmap_shader)
         view5.post {
-            Log.d(TAG, "onCreate:${view5.width}, ${view5.height}")
+            Log.i(TAG, "onCreate:${view5.width}, ${view5.height}")
         }
     }
 }

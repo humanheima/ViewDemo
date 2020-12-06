@@ -154,13 +154,13 @@ public class WeekDateSelector {
         }
         for (; currentHour + 2 < endHour; currentHour += 2) {
             String period = String.format("%1$d:00-%2$d:00", currentHour, currentHour + 2);
-            Log.d(TAG, "initTimer: " + period);
+            Log.i(TAG, "initTimer: " + period);
             timePeriod.add(period);
         }
 
         if (currentHour < endHour) {
             String period = String.format("%1$d:00-%2$d:00", currentHour, endHour);
-            Log.d(TAG, "initTimer: " + period);
+            Log.i(TAG, "initTimer: " + period);
             timePeriod.add(period);
         }
 

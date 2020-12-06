@@ -275,7 +275,7 @@ public class StageAwardViewCopy extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.GRAY);
-        Log.d(TAG, "onDraw: row =" + row);
+        Log.i(TAG, "onDraw: row =" + row);
 
         drawBitmapCoinNumberTimes(canvas);
 
@@ -827,7 +827,7 @@ public class StageAwardViewCopy extends View {
     }
 
     private void drawSingleItem(Canvas canvas, int index) {
-        Log.d(TAG, "drawBitmap: index = " + index);
+        Log.i(TAG, "drawBitmap: index = " + index);
         if (index < stageList.size()) {
             SendOptionsBean optionsBean = stageList.get(index);
             if (optionsBean.canGet()) {
@@ -927,7 +927,7 @@ public class StageAwardViewCopy extends View {
     }
 
     private void drawPoint(Canvas canvas, int index) {
-        Log.d(TAG, "drawPoint: index = " + index);
+        Log.i(TAG, "drawPoint: index = " + index);
         if (index < stageList.size()) {
             canvas.translate(halfIvWidth, 0);
             SendOptionsBean optionsBean = stageList.get(index);
@@ -947,14 +947,14 @@ public class StageAwardViewCopy extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d(TAG, "onTouchEvent:  width = " + getWidth() + " , height = " + getHeight());
+        Log.i(TAG, "onTouchEvent:  width = " + getWidth() + " , height = " + getHeight());
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onTouchEvent:  ACTION_DOWN x = " + event.getX() + " , y =" + event.getY());
+                Log.i(TAG, "onTouchEvent:  ACTION_DOWN x = " + event.getX() + " , y =" + event.getY());
                 break;
             case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent:  ACTION_UP x = " + event.getX() + " , y =" + event.getY());
+                Log.i(TAG, "onTouchEvent:  ACTION_UP x = " + event.getX() + " , y =" + event.getY());
                 getClickIndex(event.getX(), event.getY());
                 break;
             default:

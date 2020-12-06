@@ -46,30 +46,30 @@ class RestoreToCountView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        /*Log.d(TAG, "onDraw: count${canvas.saveCount}")
+        /*Log.i(TAG, "onDraw: count${canvas.saveCount}")
         val id1 = canvas.save()
         canvas.clipRect(0, 0, 800, 800)
         canvas.drawColor(Color.RED)
-        Log.d(TAG, "onDraw: count${canvas.saveCount},id1=$id1")
+        Log.i(TAG, "onDraw: count${canvas.saveCount},id1=$id1")
 
         val id2 = canvas.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), mPaint, Canvas.ALL_SAVE_FLAG)
         canvas.clipRect(100, 100, 700, 700)
         canvas.drawColor(Color.GREEN)
-        Log.d(TAG, "onDraw: count${canvas.saveCount},id2=$id2")
+        Log.i(TAG, "onDraw: count${canvas.saveCount},id2=$id2")
 
         val id3 = canvas.saveLayerAlpha(0f, 0f, width.toFloat(), height.toFloat(), 0xf0, Canvas.ALL_SAVE_FLAG)
         canvas.clipRect(200, 200, 600, 600)
         canvas.drawColor(Color.YELLOW)
-        Log.d(TAG, "onDraw: count${canvas.saveCount},id3=$id3")
+        Log.i(TAG, "onDraw: count${canvas.saveCount},id3=$id3")
 
         val id4 = canvas.save()
         canvas.clipRect(300, 300, 500, 500)
         canvas.drawColor(Color.BLUE)
-        Log.d(TAG, "onDraw: count${canvas.saveCount},id4=$id4")
+        Log.i(TAG, "onDraw: count${canvas.saveCount},id4=$id4")
 
         canvas.restoreToCount(id3)
         canvas.drawColor(Color.GRAY)
-        Log.d(TAG, "onDraw: count${canvas.saveCount}")*/
+        Log.i(TAG, "onDraw: count${canvas.saveCount}")*/
 
         testSaveLayerAlpha(canvas)
 

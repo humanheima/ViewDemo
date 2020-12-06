@@ -54,12 +54,12 @@ class AvatarView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         canvas.drawColor(Color.BLUE)
-        Log.d(TAG, "onDraw: measuredWidth:$measuredWidth,measuredHeight:$measuredHeight")
-        Log.d(TAG, "onDraw: $width,$height")
+        Log.i(TAG, "onDraw: measuredWidth:$measuredWidth,measuredHeight:$measuredHeight")
+        Log.i(TAG, "onDraw: $width,$height")
         val scaleX: Float = (width * 1.0f / bitmap.width)
         val scaleY: Float = (height * 1.0f / bitmap.height)
 
-        Log.d(TAG, "onDraw: $scaleX,$scaleY")
+        Log.i(TAG, "onDraw: $scaleX,$scaleY")
         val scale = Math.min(scaleX, scaleY)
         mMatrix.setScale(scale, scale)
         bitmapShader.setLocalMatrix(mMatrix)

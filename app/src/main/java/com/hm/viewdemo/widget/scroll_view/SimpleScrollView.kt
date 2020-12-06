@@ -1,4 +1,4 @@
-package com.hm.viewdemo.widget
+package com.hm.viewdemo.widget.scroll_view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -37,6 +37,11 @@ class SimpleScrollView @JvmOverloads constructor(
         val configuration = ViewConfiguration.get(context)
         mMinimumVelocity = configuration.scaledMinimumFlingVelocity
         mMaximumVelocity = configuration.scaledMaximumFlingVelocity
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        Log.i(TAG, "onMeasure: ")
     }
 
     /**
@@ -87,12 +92,12 @@ class SimpleScrollView @JvmOverloads constructor(
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = x - mLastXIntercept
                 val deltaY = y - mLastYIntercept
-                Log.d(TAG, "Math.abs(deltaX)=" + abs(deltaX) + ",Math.abs(deltaY)=" + abs(deltaY))
+                Log.i(TAG, "Math.abs(deltaX)=" + abs(deltaX) + ",Math.abs(deltaY)=" + abs(deltaY))
                 intercepted = abs(deltaY) > abs(deltaX)
             }
             MotionEvent.ACTION_UP -> intercepted = false
         }
-        Log.d(TAG, "intercepted=$intercepted")
+        Log.i(TAG, "intercepted=$intercepted")
         mLastX = x
         mLastY = y
         mLastXIntercept = x
@@ -110,7 +115,7 @@ class SimpleScrollView @JvmOverloads constructor(
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaY = mLastY - y
-                Log.e(TAG, "onTouchEvent: scrollY = $scrollY deltaY = $deltaY")
+                Log.e(TAG, "onTouchEvent: scrollY = $scrollY deltaY = $deltaY  height = $height")
                 scrollTo(0, scrollY + deltaY)
                 //invalidate()
             }
@@ -133,6 +138,12 @@ class SimpleScrollView @JvmOverloads constructor(
         return true
     }
 
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        Log.i(TAG, "onDraw: ${canvas?.height} ${canvas?.hashCode()}")
+    }
+
     private fun fling(velocityY: Int) {
         scroller.fling(0, scrollY, 0, velocityY, 0, 0, 0, 100000)
         invalidate()
@@ -140,7 +151,7 @@ class SimpleScrollView @JvmOverloads constructor(
 
     override fun scrollTo(x: Int, y: Int) {
         var newScrollY = y
-        Log.d(TAG, "scrollTo: y= $y")
+        Log.i(TAG, "scrollTo: y= $y")
 
         if (newScrollY < 0) {
             newScrollY = 0
@@ -152,10 +163,14 @@ class SimpleScrollView @JvmOverloads constructor(
         super.scrollTo(x, newScrollY)
     }
 
+    override fun draw(canvas: Canvas?) {
+        Log.i(TAG, "draw: ")
+        super.draw(canvas)
+    }
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
             val y = scroller.currY
-            Log.d(TAG, "computeScroll: mScroller.currY = $y")
+            Log.i(TAG, "computeScroll: mScroller.currY = $y")
             scrollTo(0, y)
             invalidate()
         }
@@ -166,9 +181,10 @@ class SimpleScrollView @JvmOverloads constructor(
         if (childCount > 0) {
             val child = getChildAt(0)
             scrollRange = 0.coerceAtLeast(child.height - (height - paddingBottom - paddingTop))
+            Log.i(TAG, "getScrollRange: scrollRange = $scrollRange  自身偏移量 = $scrollY $child 的偏移量 = ${child.scrollY}")
         }
-        Log.d(TAG, "getScrollRange: scrollRange = $scrollRange")
+        Log.i(TAG, "getScrollRange: scrollRange = $scrollRange")
+
         return scrollRange
     }
-
 }

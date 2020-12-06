@@ -33,7 +33,7 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         setContentView(com.hm.viewdemo.R.layout.activity_coordinate_layout)
         img_top.setOnClickListener {
             val curTranslationY = app_bar.translationY
-            Log.d(TAG, "curTranslationY: $curTranslationY")
+            Log.i(TAG, "curTranslationY: $curTranslationY")
             val oa = ObjectAnimator.ofFloat(app_bar, "translationY", curTranslationY, 300f)
             oa.duration = 2000
             oa.start()

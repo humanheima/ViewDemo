@@ -106,7 +106,7 @@ public class YmdhmDateSelector {
         spanHour = (!spanDay) && (startHour != endHour);
         spanMin = (!spanHour) && (startMinute != endMinute);
 
-        Log.d(TAG, "initStartEnd: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay
+        Log.i(TAG, "initStartEnd: spanYear=" + spanYear + ",spanMon=" + spanMon + ",spanDay" + spanDay
                 + ",spanHour=" + spanHour + ",spanMin=" + spanMin);
     }
 
@@ -147,7 +147,7 @@ public class YmdhmDateSelector {
     }
 
     public void show(String currentDate) {
-        Log.d(TAG, "当前时间: " + currentDate);
+        Log.i(TAG, "当前时间: " + currentDate);
         if (!TextUtils.isEmpty(currentDate)) {
             currentCalender.setTime(parse(currentDate, dateFormat));
         } else {
@@ -158,7 +158,7 @@ public class YmdhmDateSelector {
         currentDay = currentCalender.get(Calendar.DAY_OF_MONTH);
         currentHour = currentCalender.get(Calendar.HOUR_OF_DAY);
         currentMinute = currentCalender.get(Calendar.MINUTE);
-        Log.d(TAG, "show: currentHour=" + currentHour + ",currentMinute=" + currentMinute);
+        Log.i(TAG, "show: currentHour=" + currentHour + ",currentMinute=" + currentMinute);
         initTimer();
         seletorDialog.show();
     }

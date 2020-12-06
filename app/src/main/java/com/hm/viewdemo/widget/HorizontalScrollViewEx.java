@@ -65,7 +65,7 @@ public class HorizontalScrollViewEx extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int deltaX = x - mLastXIntercept;
                 int deltaY = y - mLastYIntercept;
-                Log.d(TAG, "Math.abs(deltaX)=" + Math.abs(deltaX) + ",Math.abs(deltaY)=" + Math.abs(deltaY));
+                Log.i(TAG, "Math.abs(deltaX)=" + Math.abs(deltaX) + ",Math.abs(deltaY)=" + Math.abs(deltaY));
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     intercepted = true;
                 } else {
@@ -78,7 +78,7 @@ public class HorizontalScrollViewEx extends ViewGroup {
             default:
                 break;
         }
-        Log.d(TAG, "intercepted=" + intercepted);
+        Log.i(TAG, "intercepted=" + intercepted);
         mLastX = x;
         mLastY = y;
         mLastXIntercept = x;

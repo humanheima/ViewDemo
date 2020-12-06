@@ -79,7 +79,7 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
     private Bitmap copyByCanvas2(View view) {
         int width = view.getMeasuredWidth();
         int height = view.getMeasuredHeight();
-        Log.d(TAG, "copyByCanvas: width=" + width + ",height=" + height);
+        Log.i(TAG, "copyByCanvas: width=" + width + ",height=" + height);
         Bitmap bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bp);
         view.draw(canvas);
@@ -117,7 +117,7 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
         int width = view.getMeasuredWidth();
         int height = view.getMeasuredHeight();
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        Log.d(TAG, "copyByCanvas: width=" + width + ",height=" + height);
+        Log.i(TAG, "copyByCanvas: width=" + width + ",height=" + height);
         Bitmap bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bp);
         view.draw(canvas);

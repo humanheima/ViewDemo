@@ -45,16 +45,16 @@ public class CustomView extends View {
         //打印出所有的属性
         int count = attrs.getAttributeCount();
         for (int i = 0; i < count; i++) {
-            Log.d(TAG, "attributeName: " + attrs.getAttributeName(i) +
+            Log.i(TAG, "attributeName: " + attrs.getAttributeName(i) +
                     ",attributeValue: " + attrs.getAttributeValue(i));
         }
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView, R.attr.CustomView_Theme_Style, R.style.CustomView_Yellow_Style);
         fontSize = (int) ta.getDimension(R.styleable.CustomView_cus_font, 16);
-        Log.d(TAG, "getDimension: fontSize=" + fontSize);
+        Log.i(TAG, "getDimension: fontSize=" + fontSize);
         fontSize = ta.getDimensionPixelSize(R.styleable.CustomView_cus_font, 16);
-        Log.d(TAG, "getDimensionPixelSize: fontSize=" + fontSize);
+        Log.i(TAG, "getDimensionPixelSize: fontSize=" + fontSize);
         fontSize = ta.getDimensionPixelOffset(R.styleable.CustomView_cus_font, 16);
-        Log.d(TAG, "getDimensionPixelOffset: fontSize=" + fontSize);
+        Log.i(TAG, "getDimensionPixelOffset: fontSize=" + fontSize);
 
         customText = ta.getString(R.styleable.CustomView_text);
         customColor = ta.getColor(R.styleable.CustomView_color, Color.BLUE);

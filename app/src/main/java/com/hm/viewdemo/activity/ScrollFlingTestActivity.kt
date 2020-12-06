@@ -34,8 +34,8 @@ class ScrollFlingTestActivity : AppCompatActivity() {
             ll_content.addView(button, layoutParams)
         }
         ll_content.post {
-            Log.d(TAG, "onCreate: ${simple_scroll_view.measuredHeight}")
-            Log.d(TAG, "onCreate: ${ll_content.measuredHeight}")
+            Log.i(TAG, "onCreate: ${simple_scroll_view.measuredHeight}")
+            Log.i(TAG, "onCreate: ${ll_content.measuredHeight}")
 
         }
 

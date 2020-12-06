@@ -139,7 +139,7 @@ class SpiderView @JvmOverloads constructor(
             //绘制小圆点
             canvas.drawCircle(x, y, 10f, valuePaint)
 
-            Log.d(TAG, "drawRegion: $x,$y")
+            Log.i(TAG, "drawRegion: $x,$y")
 
             if (i == 0) {
                 path.moveTo(x, centerY)
