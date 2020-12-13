@@ -52,47 +52,7 @@ class DialogTestActivity : AppCompatActivity() {
             showCustomDialog()
         }
         btnShowDialog2.setOnClickListener {
-
-            var webView = WebView(this)
-
-            Log.i(TAG, "onCreate: webView = ${webView.toString()}")
-
-            webView.webViewClient = object : WebViewClient() {
-
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    super.onPageStarted(view, url, favicon)
-                    Log.i(TAG, "onPageStarted: ")
-                }
-
-                override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
-                    super.onReceivedHttpError(view, request, errorResponse)
-                    Log.i(TAG, "onReceivedHttpError: ")
-                }
-
-
-                override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-                    super.onReceivedSslError(view, handler, error)
-                    Log.i(TAG, "onReceivedSslError: ")
-                }
-
-                override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
-                    super.onReceivedError(view, request, error)
-                    Log.i(TAG, "onReceivedError: ${error.toString()}")
-                }
-
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                    Log.i(TAG, "onPageFinished: ")
-                    showDialog2(webView)
-                }
-            }
-
-            val webSettings: WebSettings = webView.settings
-            webSettings.javaScriptEnabled = true //启用JavaScript
-            //下面两句话允许网页弹框
-            webSettings.javaScriptCanOpenWindowsAutomatically = true
-            webView.webChromeClient = WebChromeClient()
-            webView.loadUrl("https://www.baidu.com/")
+            showDialog2()
         }
     }
 
@@ -121,11 +81,10 @@ class DialogTestActivity : AppCompatActivity() {
         alertDialog?.show()
     }
 
-    private fun showDialog2(webView: WebView) {
+    private fun showDialog2() {
         if (customDialogFragment == null) {
             customDialogFragment = CustomDialogFragment()
         }
-        customDialogFragment?.webView = webView
         customDialogFragment?.show(supportFragmentManager, null)
     }
 

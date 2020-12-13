@@ -80,9 +80,9 @@ public class DrawPathView extends View {
         mPaint.setStrokeWidth(10);
         canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
         canvas.drawLine(width / 2.0f, 0f, width / 2.0f, height * 1.0f, mPaint);
-        rectF.set(width / 2.0f, height / 2.0f, width * 2 / 3f, height * 2 / 3f);
+        //rectF.set(width / 2.0f, height / 2.0f, width * 2 / 3f, height * 2 / 3f);
 
-        canvas.drawArc(rectF, 0f, 30f, false, mPaint);
+        //canvas.drawArc(rectF, 0f, 30f, false, mPaint);
 
         /*mPaint.setPathEffect(pathEffect);
         mPaint.setColor(Color.BLUE);
@@ -92,7 +92,7 @@ public class DrawPathView extends View {
 
         //testPathLineTo(canvas);
         //testPathAddRect(canvas);
-        //pathAddRoundRect(canvas);
+        pathAddRoundRect(canvas);
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
         //testPathArcTo(canvas);
@@ -447,7 +447,8 @@ public class DrawPathView extends View {
      */
     private void pathAddRoundRect(Canvas canvas) {
         mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
+        //mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStyle(Paint.Style.FILL);
         //移动到屏幕中间
         canvas.translate(width / 2.0f, height / 2.0f);
         Path path = new Path();

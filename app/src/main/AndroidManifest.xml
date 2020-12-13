@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.WebViewTestActivity"></activity>
+        <activity android:name=".activity.TestWaveViewActivity"></activity>
+        <activity android:name=".activity.WebViewTestActivity" />
         <activity android:name=".activity.SorbViewTestActivity" />
         <activity android:name=".activity.ScrollFlingTestActivity" />
         <activity android:name=".activity.RoundProgressBarTestMainActivity" />
