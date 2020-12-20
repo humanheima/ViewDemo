@@ -54,6 +54,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestSeekBar -> {
+                SeekBarTestActivity.launch(this)
+            }
             R.id.btnTestWaveView -> {
                 TestWaveViewActivity.launch(this)
             }

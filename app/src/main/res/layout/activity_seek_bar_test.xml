@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SeekBarTestActivity">
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:maxHeight="1dp"
+        android:minHeight="1dp"
+        android:progressDrawable="@drawable/seek_bar_progress_drawable"
+        android:splitTrack="false"
+        android:thumb="@drawable/seek_bar_thumb" />
+
+    <Button
+        android:id="@+id/btn_set_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置进度" />
+
+    <Button
+        android:id="@+id/btn_measure_text_width"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测量文字宽度" />
+
+</LinearLayout>
