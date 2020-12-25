@@ -12,8 +12,8 @@
         android:id="@+id/flipper"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="20dip"
-        android:flipInterval="200">
+        android:layout_marginBottom="20dp"
+        android:flipInterval="3000">
 
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:maxLines="1"
-            android:text="animation_2_text_1animation_2_text_1animation_2"
+            android:text="animation_2_text_1"
             android:textSize="25sp" />
 
         <TextView
@@ -56,8 +56,9 @@
         android:id="@+id/flipperDynamic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:flipInterval="2000">
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:flipInterval="400">
 
     </ViewFlipper>
 
@@ -66,5 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="动态添加数据" />
+
 </LinearLayout>
 

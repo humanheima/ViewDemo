@@ -18,6 +18,7 @@ import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import com.hm.viewdemo.R
+import com.hm.viewdemo.databinding.ActivityTextSwitcherBinding
 import kotlinx.android.synthetic.main.activity_text_switcher.*
 
 /**
@@ -29,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_text_switcher.*
 class TextSwitcherActivity : AppCompatActivity() {
 
     private val TAG: String? = "TextSwitcherActivity"
+
+    private lateinit var binding: ActivityTextSwitcherBinding
 
     companion object {
 
@@ -45,6 +48,8 @@ class TextSwitcherActivity : AppCompatActivity() {
     var strs2 = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
     var strs3 = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 
+    var strs4 = listOf("昔我往矣", "杨柳依依", "今我来思", "雨雪霏霏", "黄河远上白云间", "一片孤城万仞山", "羌笛何须怨杨柳", "春风不度玉门关")
+
     private val textSwitcherList: ArrayList<TextSwitcher> = ArrayList()
 
     var index0Start = 0
@@ -53,8 +58,9 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     var index2Start = 0
 
-
     var index3Start = 0
+
+    var indexSingleTextStart = 0
 
     var amount = 1000
 
@@ -62,7 +68,8 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_text_switcher)
+        binding = ActivityTextSwitcherBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initTextSwitcher()
 
@@ -86,6 +93,9 @@ class TextSwitcherActivity : AppCompatActivity() {
                         //更新千位数的动画
                         next3()
                     }
+                    4 -> {
+                        nextSingleText()
+                    }
                 }
                 Log.i(TAG, "handleMessage: ")
 
@@ -98,6 +108,10 @@ class TextSwitcherActivity : AppCompatActivity() {
             textSwitcher1.setCurrentText("0")
             textSwitcher0.setCurrentText("0")
             startAnimation(3)
+        }
+
+        binding.btnStartSingleText.setOnClickListener {
+            nextSingleText()
         }
     }
 
@@ -142,6 +156,13 @@ class TextSwitcherActivity : AppCompatActivity() {
                 textSwitcherList[i].setCurrentText(amountStr[i].toString())
             }
         }
+
+        //单个TextSwitcher
+
+        binding.textSwitcherSingleText.inAnimation = inAnim
+        binding.textSwitcherSingleText.outAnimation = outAnim
+        binding.textSwitcherSingleText.setFactory(factory)
+        binding.textSwitcherSingleText.setCurrentText("0")
     }
 
     private fun startAnimation(rate: Int) {
@@ -266,4 +287,13 @@ class TextSwitcherActivity : AppCompatActivity() {
         }
     }
 
+    private fun nextSingleText() {
+        if (indexSingleTextStart < strs4.size) {
+            Log.i(TAG, "nextSingleText: ")
+            binding.textSwitcherSingleText.setText(strs4[indexSingleTextStart++])
+            handler.sendEmptyMessageDelayed(4, 3000)
+        } else {
+            indexSingleTextStart = 0
+        }
+    }
 }

@@ -16,6 +16,7 @@
 -->
 
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="@android:integer/config_longAnimTime"
+    android:duration="200"
     android:fromYDelta="100%p"
+    android:interpolator="@android:anim/linear_interpolator"
     android:toYDelta="0" />

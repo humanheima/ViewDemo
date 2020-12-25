@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
@@ -20,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_announcement.*
  */
 class AnnouncementActivity : AppCompatActivity() {
 
-
     companion object {
 
         @JvmStatic
@@ -33,9 +33,11 @@ class AnnouncementActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_announcement)
-        flipper.inAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_in)
-        flipper.outAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_out)
-        //flipper.startFlipping()
+        //flipper.inAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_in)
+        //flipper.outAnimation = AnimationUtils.loadAnimation(this, R.anim.push_up_out)
+        flipper.inAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_bottom)
+        flipper.outAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_top)
+        flipper.startFlipping()
 
         for (i in 0..10) {
             val textView = getTextView("hello world$i")
@@ -46,7 +48,8 @@ class AnnouncementActivity : AppCompatActivity() {
         //flipperDynamic.startFlipping()
 
         btnDynamicAddView.setOnClickListener {
-            flipper.startFlipping()
+            //flipper.startFlipping()
+            flipperDynamic.startFlipping()
         }
     }
 
@@ -59,6 +62,7 @@ class AnnouncementActivity : AppCompatActivity() {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
         textView.text = text
         textView.ellipsize = TextUtils.TruncateAt.END
+        textView.gravity = Gravity.CENTER
         textView.maxLines = 1
         return textView
 
