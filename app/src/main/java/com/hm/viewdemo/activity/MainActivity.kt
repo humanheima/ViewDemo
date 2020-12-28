@@ -54,6 +54,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestScrollUp -> {
+                TestScrollerUpViewActivity.launch(this)
+            }
             R.id.btnTestSeekBar -> {
                 SeekBarTestActivity.launch(this)
             }
