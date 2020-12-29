@@ -95,7 +95,7 @@ public class TestScrollerView extends View {
         }
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size));
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_20dp));
         mPaint.setTextAlign(Paint.Align.LEFT);
         mPaint.setColor(getResources().getColor(R.color.colorAccent));
         mPaint.setStyle(Paint.Style.FILL);
