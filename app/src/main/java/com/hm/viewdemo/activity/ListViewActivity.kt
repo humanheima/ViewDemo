@@ -92,9 +92,8 @@ class ListViewActivity : AppCompatActivity() {
                     Log.i(TAG, "onScroll: scrollY =  $currentScrollY")
 
                     if (currentScrollY > 0) {
-
+                        adsorbView.setSuction(true)
                     }
-                    adsorbView.setSuction(true)
                 }
             }
 
@@ -105,7 +104,9 @@ class ListViewActivity : AppCompatActivity() {
                  */
                 for (i in 0 until mCurrentFirstVisibleItem) {
                     val itemRecord = recordSp.get(i)
-                    height += itemRecord.height
+                    if (itemRecord!=null){
+                        height += itemRecord.height
+                    }
                 }
                 //取出当前第一个可见Item的ItemRecord对象
                 var itemRecord = recordSp.get(mCurrentFirstVisibleItem)
@@ -178,7 +179,7 @@ class ListViewActivity : AppCompatActivity() {
 
     private fun useArrayAdapter() {
         list = arrayListOf()
-        for (i in 0..20) {
+        for (i in 0..200) {
             val bean = MyBean("title$i", "detail$i")
             list.add(bean)
         }

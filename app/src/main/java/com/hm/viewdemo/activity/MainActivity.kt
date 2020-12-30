@@ -54,6 +54,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestRelativeRule -> {
+                RelativeDynamicAddRuleActivity.launch(this)
+            }
+
             R.id.btnTestScrollUp -> {
                 TestScrollerUpViewActivity.launch(this)
             }
@@ -62,9 +66,6 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             }
             R.id.btnTestWaveView -> {
                 TestWaveViewActivity.launch(this)
-            }
-            R.id.btnTestSorbView -> {
-                SorbViewTestActivity.launch(this)
             }
             R.id.btnTestScrollFling -> {
                 ScrollFlingTestActivity.launch(this)
