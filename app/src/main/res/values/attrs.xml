@@ -113,4 +113,17 @@
         <attr name="end_color" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="TestScrollerUpDownView">
+        <attr name="text_color" format="color|reference" />
+        <attr name="text_size" format="dimension|reference" />
+
+        <!--最后一个字-->
+        <attr name="last_word" format="string|reference" />
+        <attr name="last_word_text_color" format="color|reference" />
+        <attr name="last_word_text_size" format="dimension|reference" />
+        <!--单位毫秒-->
+        <attr name="animation_duration" format="integer|reference" />
+
+    </declare-styleable>
+
 </resources>

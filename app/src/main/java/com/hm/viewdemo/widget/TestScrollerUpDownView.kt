@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.support.annotation.ColorRes
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -16,9 +15,9 @@ import java.util.*
  * Created by dumingwei on 2020/12/28
  *
  *
- * Desc: 测试向上滚动的View
+ * Desc: 测试向上向下滚动的View
  */
-class TestScrollerUpView @JvmOverloads constructor(
+class TestScrollerUpDownView @JvmOverloads constructor(
         context: Context?,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
@@ -34,7 +33,7 @@ class TestScrollerUpView @JvmOverloads constructor(
     private var mPaint: Paint
 
     /**
-     * 绘制"元"字的画笔
+     * 绘制最后一个字的画笔
      */
     private var mRmbPaint: Paint
 
@@ -48,32 +47,50 @@ class TestScrollerUpView @JvmOverloads constructor(
     private var bgColor = 0
     private var mItemHeight = 0
     private var scrollDistance = 0
-    private var textColor = 0
-    private val rmb = "元"
-    private var animatorDuration = 0
 
-    fun setTextColor(@ColorRes textColor: Int) {
-        this.textColor = textColor
-    }
+    var textColor = 0
+    var textSize = 0
+
+    var lastWordTextColor = 0
+    var lastWordTextSize = 0
+
+
+    /**
+     * 最后一个字
+     */
+    var lastWord: String = "元"
+    var animatorDuration = 0
 
     init {
-        mData.add("昔闻洞庭水")
-        mData.add("今上岳阳楼")
-        mData.add("念去去")
-        mData.add("千里烟波")
-        mData.add("暮霭沉沉楚天阔")
-        mData.add("多情自古伤离别")
-        mData.add("更哪堪冷落清秋节")
-        animatorDuration = 3000
+        val ta = context?.obtainStyledAttributes(attrs, R.styleable.TestScrollerUpDownView)
+        ta?.let {
+            textColor = it.getColor(R.styleable.TestScrollerUpDownView_text_color, Color.BLACK)
+            textSize = it.getDimensionPixelSize(R.styleable.TestScrollerUpDownView_text_size, resources.getDimensionPixelSize(R.dimen.text_size_20dp))
+
+            lastWord = it.getString(R.styleable.TestScrollerUpDownView_last_word) ?: ""
+            lastWordTextColor = it.getColor(R.styleable.TestScrollerUpDownView_last_word_text_color, Color.BLACK)
+            lastWordTextSize = it.getDimensionPixelSize(R.styleable.TestScrollerUpDownView_last_word_text_size, resources.getDimensionPixelSize(R.dimen.text_size_20dp))
+
+            animatorDuration = it.getInt(R.styleable.TestScrollerUpDownView_animation_duration, 3000)
+        }
+        ta?.recycle()
+
         bgColor = Color.LTGRAY
-        textColor = resources.getColor(R.color.colorAccent)
+
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint.color = textColor
-        mPaint.textSize = resources.getDimensionPixelSize(R.dimen.text_size_20dp).toFloat()
+        mPaint.textSize = textSize.toFloat()
+
         mRmbPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mRmbPaint.color = textColor
-        mRmbPaint.textSize = resources.getDimensionPixelSize(R.dimen.text_size_14dp).toFloat()
+        mRmbPaint.color = lastWordTextColor
+        mRmbPaint.textSize = lastWordTextSize.toFloat()
+
         mScroller = Scroller(context)
+    }
+
+    fun setData(data: MutableList<String>) {
+        mData.clear()
+        mData.addAll(data)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -105,7 +122,7 @@ class TestScrollerUpView @JvmOverloads constructor(
             val itemDrawY = mFirstItemDrawY + i * mItemHeight
             canvas.drawText(data, mFirstItemDrawX.toFloat(), itemDrawY.toFloat(), mPaint)
             //绘制最后一个"元"字
-            canvas.drawText(rmb, (width + length) / 2, itemDrawY.toFloat(), mRmbPaint)
+            canvas.drawText(lastWord, (width + length) / 2, itemDrawY.toFloat(), mRmbPaint)
         }
     }
 
