@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RelativeDynamicAddRuleActivity"></activity>
+        <activity android:name=".activity.FontFamilyMainActivity"></activity>
+        <activity android:name=".activity.RelativeDynamicAddRuleActivity" />
         <activity android:name=".activity.TestScrollerUpViewActivity" />
         <activity android:name=".activity.SeekBarTestActivity" />
         <activity android:name=".activity.TestWaveViewActivity" />

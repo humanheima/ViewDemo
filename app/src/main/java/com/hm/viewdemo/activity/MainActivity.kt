@@ -54,6 +54,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestFontFamily -> {
+                FontFamilyMainActivity.launch(this)
+            }
             R.id.btnTestRelativeRule -> {
                 RelativeDynamicAddRuleActivity.launch(this)
             }
