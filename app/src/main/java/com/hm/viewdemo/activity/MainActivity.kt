@@ -12,6 +12,7 @@ import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.design.TabLayoutActivity
+import com.hm.viewdemo.activity.textview.FontMetricsActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
@@ -54,6 +55,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestFontMetrics -> {
+                FontMetricsActivity.launch(this)
+            }
             R.id.btnTestFontFamily -> {
                 FontFamilyMainActivity.launch(this)
             }

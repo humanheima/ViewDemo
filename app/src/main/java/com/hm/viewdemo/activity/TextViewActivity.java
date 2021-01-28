@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.util.ScreenUtil;
+import com.hm.viewdemo.widget.VerticalAlignTextSpan;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -56,6 +57,12 @@ public class TextViewActivity extends BaseActivity {
 
     private final String TAG = getClass().getSimpleName();
 
+
+    public static void launch(Context context) {
+        Intent starter = new Intent(context, TextViewActivity.class);
+        context.startActivity(starter);
+    }
+
     @BindView(R.id.text_view_8)
     TextView textView8;
     @BindView(R.id.text_view_9)
@@ -64,12 +71,6 @@ public class TextViewActivity extends BaseActivity {
     TextView textView10;
     @BindView(R.id.text_view_11)
     TextView textView11;
-
-    public static void launch(Context context) {
-        Intent starter = new Intent(context, TextViewActivity.class);
-        context.startActivity(starter);
-    }
-
     @BindView(R.id.text_view_1)
     TextView textView1;
     @BindView(R.id.text_view_2)
@@ -87,6 +88,11 @@ public class TextViewActivity extends BaseActivity {
 
     @BindView(R.id.tvRegex)
     TextView tvRegex;
+
+    @BindView(R.id.text_view_12)
+    TextView textView12;
+    TextView textView13;
+    TextView textView14;
 
     @Override
     protected int bindLayout() {
@@ -110,8 +116,14 @@ public class TextViewActivity extends BaseActivity {
 
         setTextViewRegex();
 
+        textView12 = findViewById(R.id.text_view_12);
+        textView13 = findViewById(R.id.text_view_13);
+        textView14 = findViewById(R.id.text_view_14);
         Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
 
+        setTextView12();
+        setTextView13();
+        setTextView14();
     }
 
     private void setTextView11() {
@@ -392,4 +404,41 @@ public class TextViewActivity extends BaseActivity {
         tvRegex.setText(builder);
     }
 
+    private void setTextView12() {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
+        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(2.0f);
+        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        SubscriptSpan subscriptSpan = new SubscriptSpan();
+        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        textView12.setText(builder);
+    }
+
+    private void setTextView13() {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
+
+        SubscriptSpan subscriptSpan = new SubscriptSpan();
+        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(2.0f);
+        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        textView13.setText(builder);
+    }
+
+    private void setTextView14() {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
+
+        //RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(1.3f);
+        //builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        VerticalAlignTextSpan verticalAlignTextSpan = new VerticalAlignTextSpan(ScreenUtil.spToPx(this,24));
+        builder.setSpan(verticalAlignTextSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        textView14.setText(builder);
+    }
 }

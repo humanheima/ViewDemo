@@ -8,10 +8,7 @@ import android.util.Log
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.ImageView
-import android.widget.SimpleAdapter
-import android.widget.TextView
+import android.widget.*
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
 import com.hm.viewdemo.bean.MyBean
@@ -59,6 +56,8 @@ class ListViewActivity : AppCompatActivity() {
         }
 
         listView.setOnItemClickListener { parent, view, position, id ->
+
+            Toast.makeText(this, "position = $position", Toast.LENGTH_SHORT).show()
         }
 
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
@@ -104,7 +103,7 @@ class ListViewActivity : AppCompatActivity() {
                  */
                 for (i in 0 until mCurrentFirstVisibleItem) {
                     val itemRecord = recordSp.get(i)
-                    if (itemRecord!=null){
+                    if (itemRecord != null) {
                         height += itemRecord.height
                     }
                 }
@@ -119,20 +118,32 @@ class ListViewActivity : AppCompatActivity() {
             }
 
             override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
+                val statusString = when (scrollState) {
+                    AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> "SCROLL_STATE_TOUCH_SCROLL"
+                    AbsListView.OnScrollListener.SCROLL_STATE_FLING -> "SCROLL_STATE_FLING"
+                    AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> "SCROLL_STATE_IDLE"
+                    else -> "SCROLL_STATE_OTHER"
+                }
+                Log.i(TAG, "onScrollStateChanged: scrollState = $statusString")
                 when (scrollState) {
                     AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> {
-                        Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_TOUCH_SCROLL ${getScrollY()}")
+                        //Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_TOUCH_SCROLL ${getScrollY()}")
                     }
                     AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
-                        Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_IDLE")
+                        //Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_IDLE")
                         adsorbView.setSuction(false)
+
+                        val view = listView.getChildAt(listView.childCount - 1)
+
+                        Log.i(TAG, "onScrollStateChanged: view.bottom = ${view.bottom}")
+                        Log.i(TAG, "onScrollStateChanged: listView.height = ${listView.height}")
                     }
                 }
             }
         })
 
-        addHeadAndFoot()
-        addHeadAndFoot()
+        //addHeadAndFoot()
+        //addHeadAndFoot()
 
         useArrayAdapter()
         //useSimpleAdapter()
@@ -174,7 +185,7 @@ class ListViewActivity : AppCompatActivity() {
         val adapter = SimpleAdapter(this, mSimpleList, R.layout.item_simple_adapter,
                 arrayOf("img", "text"), intArrayOf(R.id.img, R.id.tv))
         // 将适配器中的数据添加到控件中
-        listView.adapter = adapter;
+        listView.adapter = adapter
     }
 
     private fun useArrayAdapter() {

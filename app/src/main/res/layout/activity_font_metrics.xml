@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.textview.FontMetricsActivity">
+
+
+    <TextView
+        android:id="@+id/tvNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="#dddddd"
+        android:text="abcdefghijklmnopqrstuvwxyz"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
+
+    <!--改变字体竖直上的高度-->
+    <TextView
+        android:id="@+id/tvChangeFontCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="#dddddd"
+        android:text="abcdefghijklmnopqrstuvwxyz"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
+
+</LinearLayout>
