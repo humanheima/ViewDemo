@@ -197,6 +197,8 @@ class ListViewActivity : AppCompatActivity() {
         adapter = ListViewAdapter(this, R.layout.item_list_view, list)
 
         listView.adapter = adapter
+
+        adapter.notifyDataSetChanged()
     }
 
 

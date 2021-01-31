@@ -25,6 +25,14 @@ public abstract class AbsListView extends AdapterView<ListAdapter> {
         * 未排序的Views可以作为 ConvertView被适配器使用。
         */
        private ArrayList<View>[] mScrapViews;
+
+       /**
+        * 当只有一种ViewType类型的时候，mCurrentScrap是mScrapViews的第一个元素。
+        */
+       private ArrayList<View> mCurrentScrap;
+
+
+
         
     }
 
@@ -73,7 +81,7 @@ View getActiveView(int position) {
     final View[] activeViews = mActiveViews;
     if (index >=0 && index < activeViews.length) {
         final View match = activeViews[index];
-        //获取到以后，从mActiveViews移除
+        //注释1处，获取到以后，从mActiveViews移除
         activeViews[index] = null;
         return match;
     }
@@ -226,3 +234,186 @@ private View retrieveFromScrap(ArrayList<View> scrapViews, int position) {
     }
 }
 ```
+
+AbsListView的onTouchUp方法
+
+```java
+private void onTouchUp(MotionEvent ev) {
+    switch (mTouchMode) {
+        case TOUCH_MODE_SCROLL:
+        final int childCount = getChildCount();
+        if (childCount > 0) {
+            final int firstChildTop = getChildAt(0).getTop();
+            final int lastChildBottom = getChildAt(childCount - 1).getBottom();
+            final int contentTop = mListPadding.top;
+            final int contentBottom = getHeight() - mListPadding.bottom;
+            if (mFirstPosition == 0 && firstChildTop >= contentTop &&
+                    mFirstPosition + childCount < mItemCount &&
+                    lastChildBottom <= getHeight() - contentBottom) {
+                mTouchMode = TOUCH_MODE_REST;
+                //注释1处
+                reportScrollStateChange(OnScrollListener.SCROLL_STATE_IDLE);
+            } else {
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+
+                final int initialVelocity = (int)
+                        (velocityTracker.getYVelocity(mActivePointerId) * mVelocityScale);
+                // Fling if we have enough velocity and we aren't at a boundary.
+                // Since we can potentially overfling more than we can overscroll, don't
+                // allow the weird behavior where you can scroll to a boundary then
+                // fling further.
+                boolean flingVelocity = Math.abs(initialVelocity) > mMinimumVelocity;
+                if (flingVelocity &&
+                        !((mFirstPosition == 0 &&
+                                firstChildTop == contentTop - mOverscrollDistance) ||
+                          (mFirstPosition + childCount == mItemCount &&
+                                lastChildBottom == contentBottom + mOverscrollDistance))) {
+                        if (!dispatchNestedPreFling(0, -initialVelocity)) {
+                        if (mFlingRunnable == null) {
+                            mFlingRunnable = new FlingRunnable();
+                        }
+                        reportScrollStateChange(OnScrollListener.SCROLL_STATE_FLING);
+                        //注释2处，可以fling    
+                        mFlingRunnable.start(-initialVelocity);
+                    } 
+                } 
+            }
+        } 
+        break;
+    //...
+       
+    }
+    //...
+}
+```
+
+FlingRunnable的start方法。
+
+```java
+void start(int initialVelocity) {
+    int initialY = initialVelocity < 0 ? Integer.MAX_VALUE : 0;
+    mLastFlingY = initialY;
+    mScroller.setInterpolator(null);
+    //注释1处，调用OverScroller的fling方法开始根据速度计算下一帧的坐标
+    mScroller.fling(0, initialY, 0, initialVelocity,
+            0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE);
+    //注释2处，将mTouchMode置为TOUCH_MODE_FLING
+    mTouchMode = TOUCH_MODE_FLING;
+    mSuppressIdleStateChangeCall = false;
+    //注释2处，post一个runnable对象，下一帧到来的时候会调用run方法。
+    postOnAnimation(this);
+
+    if (PROFILE_FLINGING) {
+        if (!mFlingProfilingStarted) {
+            Debug.startMethodTracing("AbsListViewFling");
+            mFlingProfilingStarted = true;
+        }
+    }
+}
+```
+
+FlingRunnable的run方法。
+
+```java
+@Override
+public void run() {
+    switch (mTouchMode) {
+        default:
+            //停止fling
+            endFling();
+        return;
+
+    case TOUCH_MODE_SCROLL:
+        //fling已经结束了，直接return
+        if (mScroller.isFinished()) {
+            return;
+        }
+        // Fall through
+        case TOUCH_MODE_FLING: {
+            if (mDataChanged) {
+                layoutChildren();
+            }
+
+            if (mItemCount == 0 || getChildCount() == 0) {
+                endFling();
+                return;
+            }
+
+            final OverScroller scroller = mScroller;
+            //注释1处，more为true表示fling未结束
+            boolean more = scroller.computeScrollOffset();
+            //要到达的坐标
+            final int y = scroller.getCurrY();
+
+            // Flip sign to convert finger direction to list items direction
+            //上一帧和本次的滚动距离差值    
+            int delta = mLastFlingY - y;
+
+            // Pretend that each frame of a fling scroll is a touch scroll
+            if (delta > 0) {
+                //向上滚动。 List is moving towards the top. Use first view as mMotionPosition
+                mMotionPosition = mFirstPosition;
+                final View firstView = getChildAt(0);
+                mMotionViewOriginalTop = firstView.getTop();
+
+                // Don't fling more than 1 screen
+                delta = Math.min(getHeight() - mPaddingBottom - mPaddingTop - 1, delta);
+            } else {
+                //向下滚动。 List is moving towards the bottom. Use last view as mMotionPosition
+                int offsetToLast = getChildCount() - 1;
+                mMotionPosition = mFirstPosition + offsetToLast;
+
+                final View lastView = getChildAt(offsetToLast);
+                mMotionViewOriginalTop = lastView.getTop();
+
+                // Don't fling more than 1 screen
+                delta = Math.max(-(getHeight() - mPaddingBottom - mPaddingTop - 1), delta);
+            }
+
+            // Check to see if we have bumped into the scroll limit
+            View motionView = getChildAt(mMotionPosition - mFirstPosition);
+            int oldTop = 0;
+            if (motionView != null) {
+                oldTop = motionView.getTop();
+            }
+
+            // Don't stop just because delta is zero (it could have been rounded)
+            //注释2处，调用trackMotionScroll回收View，填充新的View
+            final boolean atEdge = trackMotionScroll(delta, delta);
+            final boolean atEnd = atEdge && (delta != 0);
+            if (atEnd) {
+                //处理overScroll的情况，忽略。。。
+            }
+            if (more && !atEnd) {
+                
+                if (atEdge) invalidate();
+                //注释3处，
+                mLastFlingY = y;
+                postOnAnimation(this);
+            } else {
+                //注释4处
+                endFling();
+            }
+            break;
+        }
+           
+    }
+}
+```
+
+FlingRunnable的endFling方法。
+
+
+```java
+void endFling() {
+    //将mTouchMode置为TOUCH_MODE_REST
+    mTouchMode = TOUCH_MODE_REST;
+    //移除掉FlingRunnable，不再响应下一帧
+    removeCallbacks(this);
+    removeCallbacks(mCheckFlywheel);
+   //...
+
+}
+```
+

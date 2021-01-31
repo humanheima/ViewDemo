@@ -17,6 +17,7 @@ class MyListView @JvmOverloads constructor(
 ) : ListView(context, attrs, defStyleAttr) {
 
 
+    private var layoutCount = 0
     private var mMotionY = 0
     private val TAG: String = "MyListView"
 
@@ -26,6 +27,10 @@ class MyListView @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        if (layoutCount == 1) {
+            return
+        }
+        layoutCount++
         super.onLayout(changed, l, t, r, b)
         Log.i(TAG, "onLayout: childCount ${childCount} measuredWidth = $measuredWidth , measuredHeight =$measuredHeight changed = $changed")
 
