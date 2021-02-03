@@ -55,6 +55,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestCircleProgressView -> {
+                RingProgressActivity.launch(this)
+            }
             R.id.btnTestFontMetrics -> {
                 FontMetricsActivity.launch(this)
             }
