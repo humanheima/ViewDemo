@@ -220,7 +220,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btn_textview -> TextViewActivity.launch(this)
             R.id.btn_histogram_view -> MpAndroidChartActivity.launch(this)
             R.id.btn_test_fudan -> TestFuDanActivity.launch(this)
-            R.id.btn_show_loading -> LoadingDialogActivity.launch(this)
+            R.id.btn_show_loading -> ProgressBarActivity.launch(this)
             R.id.btn_event_dispatch -> EventDispatchActivity.launch(this)
             R.id.simpleFlowLayout -> SimpleFlowLayoutActivity.launch(this)
             else -> {

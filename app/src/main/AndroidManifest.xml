@@ -103,7 +103,7 @@
         <activity android:name=".activity.TextViewActivity" />
         <activity android:name=".activity.MpAndroidChartActivity" />
         <activity android:name=".activity.TestFuDanActivity" />
-        <activity android:name=".activity.LoadingDialogActivity" />
+        <activity android:name=".activity.ProgressBarActivity" />
         <activity android:name=".activity.EventDispatchActivity" />
         <activity android:name=".activity.ViewStubActivity" />
         <activity android:name=".activity.RoundImageViewActivity" />

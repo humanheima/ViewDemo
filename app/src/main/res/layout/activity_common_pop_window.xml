@@ -7,14 +7,44 @@
     tools:context=".activity.CommonPopWindowActivity">
 
     <Button
-        android:id="@+id/btnShowPop1"
+        android:id="@+id/btnShowPopTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="弹出popWindow"
+        android:text="弹出PopWindow，在锚点上方"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnShowPopBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="弹出PopWindow，在锚点下方"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowPopTop" />
+
+    <Button
+        android:id="@+id/btnShowPopLeft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="弹出PopWindow，在锚点左边"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowPopBottom" />
+
+    <Button
+        android:id="@+id/btnShowPopRight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="弹出PopWindow,在锚点右边"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowPopLeft" />
 
     <Button
         android:id="@+id/btn_anchor"

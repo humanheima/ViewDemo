@@ -85,7 +85,8 @@ class ClipRegionView @JvmOverloads constructor(
         }
 
         clipWidth += 5
-        invalidate()
+        //能在onDraw里面调用invalidate，会死循环吧。
+        //invalidate()
     }
 
 

@@ -19,7 +19,7 @@ import butterknife.BindView;
  * <p>
  * Desc: 测试loading dialog progress等
  */
-public class LoadingDialogActivity extends BaseActivity {
+public class ProgressBarActivity extends BaseActivity {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -30,13 +30,13 @@ public class LoadingDialogActivity extends BaseActivity {
     private int progress;
 
     public static void launch(Context context) {
-        Intent starter = new Intent(context, LoadingDialogActivity.class);
+        Intent starter = new Intent(context, ProgressBarActivity.class);
         context.startActivity(starter);
     }
 
     @Override
     protected int bindLayout() {
-        return R.layout.activity_loading_dialog;
+        return R.layout.activity_progress_bar;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class LoadingDialogActivity extends BaseActivity {
 
         @Override
         public void handleMessage(Message msg) {
-            LoadingDialogActivity activity = ((LoadingDialogActivity) weakActivity.get());
+            ProgressBarActivity activity = ((ProgressBarActivity) weakActivity.get());
             if (activity != null) {
                 activity.progressBar.setProgress(msg.arg1);
                 activity.textProgress.setText(msg.arg1 + "%");
