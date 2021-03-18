@@ -55,6 +55,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestPadding -> {
+                PaddingTestActivity.launch(this)
+            }
             R.id.btnTestCircleProgressView -> {
                 RingProgressActivity.launch(this)
             }

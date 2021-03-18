@@ -11,9 +11,9 @@
         android:layout_centerInParent="true"
         app:currentProgress="75"
         app:maxProgress="100"
-        app:ringColor="@android:color/darker_gray"
-        app:ringProgressColor="@android:color/holo_red_light"
-        app:ringWidth="30dp"
+        app:ringColor="#FFEACE"
+        app:ringProgressColor="#FF6000"
+        app:ringWidth="3dp"
         app:rps_text_color="@android:color/holo_blue_light"
         app:rps_text_size="40sp" />
 

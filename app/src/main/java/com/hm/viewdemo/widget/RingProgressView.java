@@ -20,9 +20,9 @@ import com.hm.viewdemo.R;
 public class RingProgressView extends View {
 
     // 圆环的颜色
-    private int ringColor = 0xFF00FF00;
+    private int ringColor = 0xFFEACE;
     // 圆环进度的颜色
-    private int ringProgressColor = 0xFFFF0000;
+    private int ringProgressColor = 0xFF6000;
     //圆环的宽度
     private int ringWidth = 10;
     // 字体大小

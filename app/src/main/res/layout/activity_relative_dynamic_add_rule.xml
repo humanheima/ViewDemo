@@ -5,20 +5,40 @@
     android:layout_height="match_parent"
     tools:context=".activity.RelativeDynamicAddRuleActivity">
 
-
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorAccent" />
-
-    <Button
-        android:id="@+id/btn_change_rule"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_change_rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="改变约束"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_save_bottom_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="把bottomMargin保存到本地"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_load_bottom_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="从本地加载把bottomMargin"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+    <com.hm.viewdemo.widget.AdsorbView
+        android:id="@+id/adsorb_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="改变约束" />
+        android:layout_marginBottom="100dp"
+        android:background="@color/colorAccent" />
 
 </RelativeLayout>

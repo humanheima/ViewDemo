@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
@@ -36,6 +37,9 @@ class CountDownTimerActivity : AppCompatActivity() {
         btnStart.setOnClickListener {
             startCountDown()
         }
+
+        Log.d(TAG, "onCreate: SystemClock.elapsedRealtime() =" + SystemClock.elapsedRealtime())
+        Log.d(TAG, "onCreate: SystemClock.elapsedRealtime() =" + dataFormat.format(SystemClock.elapsedRealtime()))
 
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, 0)
