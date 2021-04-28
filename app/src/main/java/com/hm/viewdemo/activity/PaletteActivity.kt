@@ -5,23 +5,19 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.util.SparseIntArray
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
-import com.hm.viewdemo.base.BaseAdapter
 import kotlinx.android.synthetic.main.activity_palette.*
 
 /**

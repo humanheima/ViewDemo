@@ -56,7 +56,7 @@ class DrawEveryThingView @JvmOverloads constructor(
     private fun initPaint() {
         mPaint = Paint()
         mPaint.color = Color.BLACK           // 画笔颜色 - 黑色
-        mPaint.style = Paint.Style.FILL
+        mPaint.style = Paint.Style.STROKE
         mPaint.textSize = sp2px(14).toFloat()
     }
 
@@ -70,7 +70,8 @@ class DrawEveryThingView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawColor(Color.parseColor("#FF009688"))
+        testDrawOval(canvas)
+        //canvas.drawColor(Color.parseColor("#FF009688"))
         //绘制坐标系
         //mPaint.setColor(Color.RED);
         //canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
@@ -98,20 +99,14 @@ class DrawEveryThingView @JvmOverloads constructor(
         //canvas.drawPoints(points, 2, 12, mPaint);
         //canvas.drawPoints(points,mPaint);
         //画椭圆
-        //canvas.drawOval(rectF, mPaint)
-        //mPaint.setStrokeWidth(dp2px(2));
-        //canvas.drawLine(10, 10, 200, 50, mPaint);
-        //float[] points = {20, 20, 120, 20, 70, 20, 70, 120, 20, 120, 120, 120, 150, 20, 250, 20,150, 20, 150, 120, 250, 20, 250, 120, 150, 120, 250, 120};
-        //canvas.drawLines(points, mPaint);
-        //canvas.drawLines(points, 4, 24, mPaint);
 
-        mPaint.style = Paint.Style.FILL
-        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
-
-        mPaint.style = Paint.Style.STROKE
-        mPaint.color = Color.RED
-        mPaint.strokeWidth = sp2px(2)
-        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
+//        mPaint.style = Paint.Style.FILL
+//        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
+//
+//        mPaint.style = Paint.Style.STROKE
+//        mPaint.color = Color.RED
+//        mPaint.strokeWidth = sp2px(2)
+//        canvas.drawRoundRect(rectF, dp2px(8), dp2px(8), mPaint)
 
         //mPaint.setStyle(Paint.Style.FILL);
         //canvas.drawArc(rectF,0,90,true,mPaint);
@@ -131,6 +126,27 @@ class DrawEveryThingView @JvmOverloads constructor(
 
     }
 
+
+    private fun testDrawOval(canvas: Canvas) {
+
+        val halfWidth = measuredWidth / 2f
+        val halfHeight = measuredHeight / 2f
+
+        //画一个横坐标
+        canvas.drawLine(0f, halfHeight, measuredWidth.toFloat(), halfHeight, mPaint)
+
+        //画一个纵坐标
+        canvas.drawLine(halfWidth, 0f, halfWidth + 1, measuredHeight.toFloat(), mPaint)
+        val radius = 150
+
+        val oval = RectF(halfWidth - radius, halfHeight - radius, halfWidth + radius, halfHeight + radius)
+
+        val path = Path()
+        path.addArc(oval, 107f, -20f)
+
+        canvas.drawPath(path, mPaint)
+
+    }
 
     private fun testDrawLine(canvas: Canvas) {
         mPaint.style = Paint.Style.STROKE

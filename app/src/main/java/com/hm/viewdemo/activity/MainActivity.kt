@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.os.Debug
@@ -27,7 +28,7 @@ import kotlin.random.Random
 
 class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
-    var perms = arrayOf(WRITE_EXTERNAL_STORAGE)
+    var perms = arrayOf(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
@@ -39,8 +40,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             val filePath = "$filesDir/mytrace.trace"
             Debug.startMethodTracing(filePath)
         }
-        if (!EasyPermissions.hasPermissions(this, perms[0])) {
-            EasyPermissions.requestPermissions(this, "I need permission!", 100, perms[0])
+        if (!EasyPermissions.hasPermissions(this, perms[0], perms[1])) {
+            EasyPermissions.requestPermissions(this, "I need permission!", 100, perms[0], perms[1])
         }
         ScreenUtil.testDensity(this)
         //BlockDetectByPrinter.start()
@@ -107,6 +108,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             }
             R.id.btnListViewFloat -> {
                 ListViewFloatActivity.launch(this)
+            }
+            R.id.btnListViewFloat2 -> {
+                ListViewFloat2Activity.launch(this)
             }
             R.id.btn_test_lottie -> {
                 LottieActivity.launch(this)
@@ -273,7 +277,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-
+        Log.d(TAG, "onPermissionsDenied: ")
+        Toast.makeText(this, "onPermissionsDenied", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {

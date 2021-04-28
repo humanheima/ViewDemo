@@ -2,14 +2,10 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.net.http.SslError
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Window
-import android.webkit.*
 import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
@@ -75,9 +71,9 @@ class DialogTestActivity : AppCompatActivity() {
                     }
 
             alertDialog = builder.create()
+            alertDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         }
 
-        alertDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         alertDialog?.show()
     }
 

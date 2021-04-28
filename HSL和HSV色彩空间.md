@@ -7,9 +7,26 @@ HSV即色相、饱和度、明度（英语：Hue, Saturation, Value），又称H
 
 ### HSV
 
+H：取值 0度：红色，120度：绿色，240度：蓝色
+S：0%：灰色，100%：就是H的取值。
+V：0%：黑色，100%：就是H的取值。
+
+可以在这个网页[测试 HSV](https://c.runoob.com/front-end/868)
+
 ### HSL
 
-![](Colors HSL.png)
+HSL即色相、饱和度、亮度（英语：Hue, Saturation, Lightness）。 可以在这个网页[测试 Colors HSL](https://www.w3schools.com/colors/colors_hsl.asp)
+可以参考这个图片
+
+![HSL取值](Colors HSL.png)
+
+H：取值 0度：红色，120度：绿色，240度：蓝色
+S：0%：灰色，100%：就是H的取值。
+L：0%：黑色，100%：白色。
+
+
+
+
 
 * Hue：角度值，取值范围 0～360 ；0表示红色，120表示绿色，240表示蓝色。
 * Saturation：百分比值；0% 表示灰色，100% 表示全色。

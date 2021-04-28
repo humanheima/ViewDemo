@@ -12,33 +12,59 @@ import android.widget.*
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
 import com.hm.viewdemo.bean.MyBean
+import com.hm.viewdemo.databinding.ActivityListViewFloat2Binding
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_list_view_float.*
-import kotlinx.android.synthetic.main.view_float_layout.*
 
 /**
  * Created by dumingwei on 2020/4/1
  *
  * Desc: ListView的item的悬浮效果
  */
-class ListViewFloatActivity : AppCompatActivity() {
+class ListViewFloat2Activity : AppCompatActivity() {
 
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
 
     private val TAG: String? = "ListViewFloatActivity"
 
+    private lateinit var binding: ActivityListViewFloat2Binding
+
+    private lateinit var listView: ListView
+
+    //悬浮的headView的容器
+    private lateinit var headViewFloatContainer: FrameLayout
+
+
+    //ListView添加headView的时候用
+    private lateinit var headViewContainerInListView: FrameLayout
+
+    private lateinit var floatHeadView: View
+
+    private lateinit var defaultLp: FrameLayout.LayoutParams
+
+    private var mIsFloatingShowing = false
+
     companion object {
 
         fun launch(context: Context) {
-            val intent = Intent(context, ListViewFloatActivity::class.java)
+            val intent = Intent(context, ListViewFloat2Activity::class.java)
             context.startActivity(intent)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view_float_2)
+        binding = ActivityListViewFloat2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        defaultLp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+
+        listView = findViewById(R.id.listView)
+
+        headViewFloatContainer = findViewById(R.id.fl_float_container)
+
+
+
         listView.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this, "ListView中item点击$position", Toast.LENGTH_SHORT).show()
         }
@@ -46,23 +72,22 @@ class ListViewFloatActivity : AppCompatActivity() {
         addHeadAndFoot()
         //addHeadAndFoot()
 
-        ivFloatImage.setOnClickListener {
-            Toast.makeText(this, "我是include布局文件中的控件", Toast.LENGTH_SHORT).show()
-            listView.smoothScrollToPosition(1)
-        }
+//        ivFloatImage.setOnClickListener {
+//            Toast.makeText(this, "我是include布局文件中的控件", Toast.LENGTH_SHORT).show()
+//            //listView.smoothScrollToPosition(1)
+//            listView.setSelection(1)
+//        }
         addFloatView()
 
         useArrayAdapter()
-
-
 
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
                 Log.i(TAG, "onScroll: firstVisibleItem = $firstVisibleItem")
                 if (firstVisibleItem >= 1) {
-                    includeViewFloatLayout.visibility = View.VISIBLE
+                    //includeViewFloatLayout.visibility = View.VISIBLE
                 } else {
-                    includeViewFloatLayout.visibility = View.GONE
+                    //includeViewFloatLayout.visibility = View.GONE
                 }
             }
 
@@ -74,12 +99,30 @@ class ListViewFloatActivity : AppCompatActivity() {
     }
 
     private fun addFloatView() {
-        val floatView = View.inflate(this, R.layout.view_float_layout, null)
-        floatView.findViewById<ImageView>(R.id.ivFloatImage).setOnClickListener {
+        headViewContainerInListView = FrameLayout(this)
+        floatHeadView = View.inflate(this, R.layout.view_float_layout, null)
+        floatHeadView.findViewById<ImageView>(R.id.ivFloatImage).setOnClickListener {
             Toast.makeText(this, "做为ListView的item中的控件", Toast.LENGTH_SHORT).show()
         }
+        headViewContainerInListView.addView(floatHeadView, defaultLp)
+        listView.addHeaderView(headViewContainerInListView)
+    }
 
-        listView.addHeaderView(floatView)
+    private fun showFloatView(showFloatView: Boolean) {
+        //避免重复添加移除操作
+        if (mIsFloatingShowing == showFloatView) {
+            return
+        }
+        if (showFloatView) {
+            mIsFloatingShowing = true
+            if (floatHeadView.parent != null) {
+                (floatHeadView.parent as? ViewGroup)?.removeView(floatHeadView)
+                headViewFloatContainer.addView(floatHeadView, defaultLp)
+            }
+        } else {
+            mIsFloatingShowing = false
+
+        }
     }
 
     private fun useSimpleAdapter() {

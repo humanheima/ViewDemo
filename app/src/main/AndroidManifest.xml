@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PaddingTestActivity"></activity>
+        <activity android:name=".activity.PaddingTestActivity" />
         <activity android:name=".activity.textview.FontMetricsActivity" />
         <activity android:name=".activity.FontFamilyMainActivity" />
         <activity android:name=".activity.RelativeDynamicAddRuleActivity" />
@@ -130,6 +130,7 @@
         <activity android:name=".activity.ToastActivity" />
         <activity android:name=".activity.ListViewFloatActivity" />
         <activity android:name=".activity.RingProgressActivity" />
+        <activity android:name=".activity.ListViewFloat2Activity" />
     </application>
 
 </manifest>
