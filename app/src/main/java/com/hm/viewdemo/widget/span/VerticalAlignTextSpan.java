@@ -1,4 +1,4 @@
-package com.hm.viewdemo.widget;
+package com.hm.viewdemo.widget.span;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

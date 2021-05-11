@@ -31,7 +31,8 @@ class ScrollerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_scroller)
         btnStartScroll.setOnClickListener {
             //向右下方向滚动100像素
-            smoothScrollView.smoothScrollTo(-100, -100)
+            //smoothScrollView.smoothScrollTo(-100, -100)
+            smoothScrollView.smoothScrollTo(100, 100)
         }
 
         btnScroll.setOnClickListener {

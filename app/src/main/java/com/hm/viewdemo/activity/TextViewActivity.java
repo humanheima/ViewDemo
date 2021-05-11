@@ -39,7 +39,8 @@ import android.widget.Toast;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.util.ScreenUtil;
-import com.hm.viewdemo.widget.VerticalAlignTextSpan;
+import com.hm.viewdemo.widget.span.SpaceSpan;
+import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -94,6 +95,8 @@ public class TextViewActivity extends BaseActivity {
     TextView textView13;
     TextView textView14;
 
+    TextView textView15;
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_text_view;
@@ -119,12 +122,17 @@ public class TextViewActivity extends BaseActivity {
         textView12 = findViewById(R.id.text_view_12);
         textView13 = findViewById(R.id.text_view_13);
         textView14 = findViewById(R.id.text_view_14);
+
+        textView15 = findViewById(R.id.text_view_15);
+
         Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
 
         setTextView12();
         setTextView13();
         setTextView14();
+        setTextView15();
     }
+
 
     private void setTextView11() {
         SpannableStringBuilder builder = new SpannableStringBuilder("什么情况save6you3fromanything" +
@@ -276,7 +284,7 @@ public class TextViewActivity extends BaseActivity {
     private void setTextView4() {
         String days = "100";
         String mileage = "1000";
-        String result = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+        String result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓";
         SpannableStringBuilder builder = new SpannableStringBuilder(result);
         int dayStart = result.indexOf(days);
         int mileageStart = result.indexOf(mileage);
@@ -436,9 +444,41 @@ public class TextViewActivity extends BaseActivity {
         //RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(1.3f);
         //builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        VerticalAlignTextSpan verticalAlignTextSpan = new VerticalAlignTextSpan(ScreenUtil.spToPx(this,24));
+        VerticalAlignTextSpan verticalAlignTextSpan = new VerticalAlignTextSpan(ScreenUtil.spToPx(this, 24));
         builder.setSpan(verticalAlignTextSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
         textView14.setText(builder);
     }
+
+    private void setTextView15() {
+        String days = "100";
+        String mileage = "1000";
+        //把这三个字符替换成10dp的空白
+        String beReplace = "被替代";
+
+        String result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓被替代哈哈";
+        SpannableStringBuilder builder = new SpannableStringBuilder(result);
+        int dayStart = result.indexOf(days);
+        int mileageStart = result.indexOf(mileage);
+        int replaceStart = result.indexOf(beReplace);
+        Log.i(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
+
+
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
+        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        RelativeSizeSpan sizeSpan1 = new RelativeSizeSpan(2.0F);
+
+        SpaceSpan spaceSpan = new SpaceSpan(ScreenUtil.dpToPx(this, 10));
+
+        builder.setSpan(spaceSpan, replaceStart, replaceStart + beReplace.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        //builder.setSpan(colorSpan, dayStart, dayStart + days.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        //builder.setSpan(sizeSpan, dayStart, dayStart + days.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        //builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        textView15.setText(builder);
+    }
+
 }
