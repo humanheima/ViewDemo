@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ClickableSpan;
+import android.text.style.DynamicDrawableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.LeadingMarginSpan;
@@ -33,11 +34,14 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.util.ScreenUtil;
 import com.hm.viewdemo.widget.span.SpaceSpan;
 import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
@@ -55,14 +59,18 @@ import butterknife.BindView;
  */
 public class TextViewActivity extends BaseActivity {
 
-
     private final String TAG = getClass().getSimpleName();
-
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, TextViewActivity.class);
         context.startActivity(starter);
     }
+
+    private TextView tvLimitTextLengthResult;
+    private Button btnTestLimitTextLength;
+
+
+    private TextView tvTestFont;
 
     @BindView(R.id.text_view_8)
     TextView textView8;
@@ -97,6 +105,10 @@ public class TextViewActivity extends BaseActivity {
 
     TextView textView15;
 
+    private EditText etInput;
+    private TextView tvResult;
+    private Button btnSendInput;
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_text_view;
@@ -104,6 +116,31 @@ public class TextViewActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+
+        tvLimitTextLengthResult = findViewById(R.id.tvLimitTextLengthResult);
+        btnTestLimitTextLength = findViewById(R.id.btnTestLimitTextLength);
+        tvTestFont = findViewById(R.id.tv_test_font);
+
+
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(), "DroidSansMono_1_subfont.ttf");
+
+        if (typeface != null) {
+            Log.d(TAG, "initData: typeface!=null");
+            tvTestFont.setTypeface(typeface);
+        }
+
+        etInput = findViewById(R.id.etInput);
+        tvResult = findViewById(R.id.tvResult);
+        btnSendInput = findViewById(R.id.btnSendInput);
+        btnSendInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence charSequence = etInput.getText();
+                tvResult.setText(charSequence);
+            }
+        });
+
         setTextView1();
         setTextView2();
         setTextView3();
@@ -131,6 +168,63 @@ public class TextViewActivity extends BaseActivity {
         setTextView13();
         setTextView14();
         setTextView15();
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnTestLimitTextLength) {
+
+            showLimitResult();
+        }
+    }
+
+    private void showLimitResult() {
+        String s1 = "abcde";
+        String s2 = "abcdef";
+        String result1 = MyUtils.getTextLimitMaxLength(s1, 5);
+        String result2 = MyUtils.getTextLimitMaxLength(s2, 5);
+
+        String s3 = "古道";
+        String s4 = "古道西风瘦马";
+        String result3 = MyUtils.getTextLimitMaxLength(s3, 5);
+        String result4 = MyUtils.getTextLimitMaxLength(s4, 5);
+
+        String s5 = "古道西";
+        String s6 = "古道西风瘦马";
+        String result5 = MyUtils.getTextLimitMaxLength(s5, 6);
+        String result6 = MyUtils.getTextLimitMaxLength(s6, 6);
+
+        String s7 = "a古道";
+        String s8 = "a古道西风瘦马";
+        String result7 = MyUtils.getTextLimitMaxLength(s7, 5);
+        String result8 = MyUtils.getTextLimitMaxLength(s8, 5);
+
+        String s9 = "a古道";
+        String s10 = "a古道西风瘦马";
+        String result9 = MyUtils.getTextLimitMaxLength(s9, 6);
+        String result10 = MyUtils.getTextLimitMaxLength(s10, 6);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(result1);
+        builder.append("\n");
+        builder.append(result2);
+        builder.append("\n");
+        builder.append(result3);
+        builder.append("\n");
+        builder.append(result4);
+        builder.append("\n");
+        builder.append(result5);
+        builder.append("\n");
+        builder.append(result6);
+        builder.append("\n");
+        builder.append(result7);
+        builder.append("\n");
+        builder.append(result8);
+        builder.append("\n");
+        builder.append(result9);
+        builder.append("\n");
+        builder.append(result10);
+
+        tvLimitTextLengthResult.setText(builder.toString());
+
     }
 
 
@@ -235,28 +329,33 @@ public class TextViewActivity extends BaseActivity {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append("暗影IV");
         builder.append("已经开始暴走了");
-        builder.append("艰难苦恨繁霜鬓");
+        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
         StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
         StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
         UnderlineSpan underlineSpan = new UnderlineSpan();
         //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
         Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        ImageSpan imageSpan1 = new ImageSpan(drawable);
+        drawable.setBounds(0, 0, 150, 150);
+        //图片和文字基线对齐
+        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
+
+        SpannableString spannableString = new SpannableString(builder);
+
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(TextViewActivity.this, "点击TextView", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TextViewActivity.this, "HAAHH 点击TextView", Toast.LENGTH_SHORT).show();
             }
         };
-        builder.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(imageSpan1, 9, 10, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        textView3.setText(builder);
+        spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(clickableSpan, 9, 10, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        textView3.setText(spannableString);
 
         //设置ClickableSpan后要加上这行代码
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+        //textView3.setMovementMethod(LinkMovementMethod.getInstance());
 
        /* String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
         SpannableString spannableString = new SpannableString(agreementStr);

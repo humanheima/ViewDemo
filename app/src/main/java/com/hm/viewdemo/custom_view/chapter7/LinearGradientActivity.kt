@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.TextView
 import com.hm.viewdemo.R
 
 class LinearGradientActivity : AppCompatActivity() {
@@ -19,5 +20,6 @@ class LinearGradientActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_linear_gradient)
+        val textView:TextView =TextView(this)
     }
 }

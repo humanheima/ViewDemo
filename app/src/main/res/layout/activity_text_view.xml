@@ -10,6 +10,50 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvLimitTextLengthResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnTestLimitTextLength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="onClick"
+            android:text="测试限制文字长度，英文算一个字符，中文算两个字符"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_test_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="1234567890=古今山河"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#333333"
+            tools:text="@string/hello_world" />
+
+        <EditText
+            android:id="@+id/etInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp" />
+
+        <Button
+            android:id="@+id/btnSendInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发送文字" />
+
         <com.hm.viewdemo.widget.RequiredTextView
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -49,6 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:textSize="14sp" />
 
         <TextView

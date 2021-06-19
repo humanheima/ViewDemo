@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hm.viewdemo.R;
@@ -27,7 +30,11 @@ public class ProgressBarActivity extends BaseActivity {
     TextView textProgress;
 
     private MyHandler handler;
-    private int progress;
+
+    private RatingBar ratingBar;
+
+    private Button btnChangeRating;
+
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, ProgressBarActivity.class);
@@ -60,6 +67,15 @@ public class ProgressBarActivity extends BaseActivity {
             }
         }).start();
 
+        ratingBar = findViewById(R.id.rating_bar);
+        btnChangeRating = findViewById(R.id.btn_change_rate);
+
+        btnChangeRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar.setRating(3.5f);
+            }
+        });
     }
 
     private static class MyHandler extends Handler {

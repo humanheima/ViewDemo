@@ -101,7 +101,8 @@ class LinearGradientView @JvmOverloads constructor(
 
     //绘制渐变文字
     private fun drawGradientText(canvas: Canvas) {
-        val colors = intArrayOf(Color.BLACK, Color.RED, Color.BLUE, Color.BLACK)
+        //val colors = intArrayOf(Color.BLACK, Color.RED, Color.BLUE, Color.BLACK)
+        val colors = intArrayOf(0xff000000.toInt(), 0x7f000000, 0x0f000000)
         paint.getTextBounds(text, 0, text.length, rect)
 
         val textWidth = rect.width()

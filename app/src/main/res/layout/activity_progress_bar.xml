@@ -7,7 +7,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -188,6 +189,20 @@
                 android:layout_height="80dp"
                 android:indeterminate="true"
                 android:indeterminateDrawable="@drawable/progress_indeterminate_running" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="2.5" />
+
+            <Button
+                android:id="@+id/btn_change_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改评分" />
 
         </LinearLayout>
 
