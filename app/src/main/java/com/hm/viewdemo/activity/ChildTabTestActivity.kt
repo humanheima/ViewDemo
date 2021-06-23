@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import com.hm.viewdemo.R
 import com.hm.viewdemo.bean.LiteChildTab
 import com.hm.viewdemo.util.ScreenUtil
-import com.hm.viewdemo.widget.LiteSingleChildTabView
+import com.hm.viewdemo.widget.SingleChildTabView
 
 /**
  * Created by dumingwei on 2021/6/23
@@ -36,10 +36,10 @@ class ChildTabTestActivity : AppCompatActivity() {
         }
     }
 
-    lateinit var childTabView0: LiteSingleChildTabView
-    lateinit var childTabView1: LiteSingleChildTabView
-    lateinit var childTabView2: LiteSingleChildTabView
-    lateinit var childTabView3: LiteSingleChildTabView
+    lateinit var childTabView0: SingleChildTabView
+    lateinit var childTabView1: SingleChildTabView
+    lateinit var childTabView2: SingleChildTabView
+    lateinit var childTabView3: SingleChildTabView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class ChildTabTestActivity : AppCompatActivity() {
 
     private fun bindAverageViews(size: Int, tabList: List<LiteChildTab>) {
         //使用线性布局均分
-        val viewList = arrayListOf<LiteSingleChildTabView>()
+        val viewList = arrayListOf<SingleChildTabView>()
 
         when (size) {
             2 -> {

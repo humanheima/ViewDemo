@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.widget.RelativeLayout
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.bean.LiteChildTab
@@ -16,11 +16,12 @@ import com.hm.viewdemo.util.ScreenUtil
 /**
  * Created by dumingwei on 2021/6/16.
  *
- * Desc: 子tab单独的View
+ * Desc: 子tab单独的View，如果继承RelativeLayout的会有问题，会导致bgChildTabView显示不全，暂时还不知道原因，就不较真了，直接继承FrameLayout
+ *
  */
-class LiteSingleChildTabView @JvmOverloads constructor(
+class SingleChildTabView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val TAG: String = "LiteSingleChildTabView"
 
@@ -74,8 +75,9 @@ class LiteSingleChildTabView @JvmOverloads constructor(
             bgChildTabView?.visibility = View.VISIBLE
             bgChildTabView?.background = mDrawable
 
-            //mDrawable?.setBounds(0, 0, bgChildTabView?.width ?: 0,  dp8)
-
+            bgChildTabView?.post {
+                Log.i(TAG, "setSelectedStatus: ${bgChildTabView?.height} dp8 = ${dp8}")
+            }
 
         } else {
             tvChildTabTitle?.setTextColor(unSelectedColor)

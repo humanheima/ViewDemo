@@ -16,25 +16,25 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <com.hm.viewdemo.widget.LiteSingleChildTabView
+        <com.hm.viewdemo.widget.SingleChildTabView
             android:id="@+id/main_single_child_tabview_0"
             android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
 
-        <com.hm.viewdemo.widget.LiteSingleChildTabView
+        <com.hm.viewdemo.widget.SingleChildTabView
             android:id="@+id/main_single_child_tabview_1"
             android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
 
-        <com.hm.viewdemo.widget.LiteSingleChildTabView
+        <com.hm.viewdemo.widget.SingleChildTabView
             android:id="@+id/main_single_child_tabview_2"
             android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
 
-        <com.hm.viewdemo.widget.LiteSingleChildTabView
+        <com.hm.viewdemo.widget.SingleChildTabView
             android:id="@+id/main_single_child_tabview_3"
             android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
