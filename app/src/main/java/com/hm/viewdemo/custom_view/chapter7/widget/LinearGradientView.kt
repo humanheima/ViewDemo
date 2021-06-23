@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import com.hm.viewdemo.util.ScreenUtil
 
 /**
  * Created by dumingwei on 2019-08-27.
@@ -25,6 +26,9 @@ class LinearGradientView @JvmOverloads constructor(
     private var paint: Paint = Paint()
     private var mMatrix = Matrix()
     private var tileMode: Shader.TileMode = Shader.TileMode.CLAMP
+
+    private val mDefaultColor = -0xff444444
+
 
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
@@ -52,6 +56,7 @@ class LinearGradientView @JvmOverloads constructor(
         super.onSizeChanged(w, h, oldw, oldh)
         if (w > 0 && h > 0) {
             //twoColorGradient(w, h)
+            threeColorGradient(h)
             //manyColorGradient(w, h)
         }
     }
@@ -87,9 +92,21 @@ class LinearGradientView @JvmOverloads constructor(
         paint.shader = linearGradient
     }
 
+    private fun threeColorGradient(h: Int) {
+        val gradientColor = intArrayOf(0x0d000000, 0x26000000, -0x80000000)
+        val gradientPosition = floatArrayOf(0f, 0.5f, 1f)
+        var gradientY1: Int = h
+        if (gradientY1 <= 0) {
+            gradientY1 = ScreenUtil.getScreenHeight(context)
+        }
+        //从上到下渐变
+        paint.shader = LinearGradient(0f, 0f, 0f, gradientY1.toFloat(), gradientColor, gradientPosition
+                , Shader.TileMode.CLAMP)
+    }
+
     override fun onDraw(canvas: Canvas) {
-        //canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
-        drawGradientText(canvas)
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
+        //drawGradientText(canvas)
 
     }
 
@@ -123,5 +140,9 @@ class LinearGradientView @JvmOverloads constructor(
         paint.shader = linearGradient
         canvas.drawText(text, 0f, height / 2f, paint)
         invalidate()
+    }
+
+    private fun changeColorAlpha(srcColor: Int, alpha: Int): Int {
+        return Color.argb(alpha, Color.red(srcColor), Color.green(srcColor), Color.blue(srcColor))
     }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChildTabTestActivity">
+
+    <LinearLayout
+        android:id="@+id/main_ll_average_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.hm.viewdemo.widget.LiteSingleChildTabView
+            android:id="@+id/main_single_child_tabview_0"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+        <com.hm.viewdemo.widget.LiteSingleChildTabView
+            android:id="@+id/main_single_child_tabview_1"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+        <com.hm.viewdemo.widget.LiteSingleChildTabView
+            android:id="@+id/main_single_child_tabview_2"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+        <com.hm.viewdemo.widget.LiteSingleChildTabView
+            android:id="@+id/main_single_child_tabview_3"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

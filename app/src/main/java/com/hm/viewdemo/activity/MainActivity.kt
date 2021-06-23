@@ -56,6 +56,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestChildTabView -> {
+                ChildTabTestActivity.launch(this)
+            }
             R.id.btnTestPadding -> {
                 PaddingTestActivity.launch(this)
             }
