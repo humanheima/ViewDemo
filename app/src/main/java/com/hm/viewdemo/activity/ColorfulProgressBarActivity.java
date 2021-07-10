@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
@@ -10,8 +11,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.capton.colorfulprogressbar.ColorfulProgressbar;
+import com.capton.colorfulprogressbar.ColorfulView;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.util.ScreenUtil;
 
 public class ColorfulProgressBarActivity extends AppCompatActivity {
 
@@ -26,6 +29,13 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
     Switch aSwitch2;
 
 
+    private Paint progressPaint = new Paint();  //颜色一画笔
+    private Paint progressPaint2 = new Paint();  //颜色二画笔
+    private ColorfulView colorfulView;
+
+    private int progressColor;    //进度条颜色一
+    private int progressColor2;  //进度条颜色二
+
     public static void launch(Context context) {
         Intent starter = new Intent(context, ColorfulProgressBarActivity.class);
         context.startActivity(starter);
@@ -35,6 +45,9 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colorful_progress_bar);
+
+        initColorfulView();
+
         initView();
 
        /* setContentView(R.layout.activity_demo);
@@ -49,19 +62,44 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
 */
     }
 
+    private void initColorfulView() {
+        progressColor = getResources().getColor(com.capton.colorfulprogressbar.R.color.colorAccent);    //进度条颜色一
+        progressColor2 = getResources().getColor(com.capton.colorfulprogressbar.R.color.ltcolorAccent);  //进度条颜色二
+
+
+        progressPaint.setColor(progressColor);
+        progressPaint2.setColor(progressColor2);
+
+        progressPaint.setAntiAlias(true);
+        progressPaint2.setAntiAlias(true);
+
+        //colorfulView = findViewById(R.id.colorfulView);
+
+        //colorfulView.setPaint(progressPaint);
+        //colorfulView.setPaint2(progressPaint2);
+        //colorfulView.setmWidthWidth(ScreenUtil.dpToPx(this, 200));
+
+        //colorfulView.setDpRadius(ScreenUtil.dpToPx(this, 8));
+
+    }
+
     private void initView() {
-        progressbar = (ColorfulProgressbar) findViewById(R.id.colorful);
-        progressbar2 = (ColorfulProgressbar) findViewById(R.id.colorful2);
-        progressbar3 = (ColorfulProgressbar) findViewById(R.id.colorful3);
-        progressbar4 = (ColorfulProgressbar) findViewById(R.id.colorful4);
 
-        controller = (SeekBar) findViewById(R.id.controller);
-        controller2 = (SeekBar) findViewById(R.id.controller2);
 
-        aSwitch = (Switch) findViewById(R.id.switch1);
-        aSwitch2 = (Switch) findViewById(R.id.switch2);
+        progressbar = findViewById(R.id.colorful);
+        progressbar2 = findViewById(R.id.colorful2);
+        progressbar3 = findViewById(R.id.colorful3);
+        progressbar4 = findViewById(R.id.colorful4);
+
+        controller = findViewById(R.id.controller);
+        controller2 = findViewById(R.id.controller2);
+
+        aSwitch = findViewById(R.id.switch1);
+        aSwitch2 = findViewById(R.id.switch2);
 
         progressbar.setHeight(DisplayUtil.dip2px(this, 20));
+        progressbar.setSecondProgress(0);//第二进度设置为0
+        progressbar.showPercentText(false);
 
         progressbar2.setHeight(DisplayUtil.dip2px(this, 10));
         progressbar2.setStyle(ColorfulProgressbar.STYLE_NORMAL);
@@ -71,7 +109,7 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         progressbar2.setMaxProgress(100);
 
         progressbar.setProgress(50);
-        progressbar.setSecondProgress(10);
+        //progressbar.setSecondProgress(10);
 
         progressbar2.setProgress(50);
         progressbar2.setSecondProgress(10);
@@ -94,6 +132,8 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        //控制第二进度
         controller2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
