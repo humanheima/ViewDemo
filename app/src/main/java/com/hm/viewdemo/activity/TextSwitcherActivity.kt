@@ -124,8 +124,8 @@ class TextSwitcherActivity : AppCompatActivity() {
 
         val inAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_in_from_bottom)
         val outAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_out_to_top)
-        inAnim.duration = 50
-        outAnim.duration = 50
+        inAnim.duration = 500
+        outAnim.duration = 500
 
         val factory = object : ViewSwitcher.ViewFactory {
             override fun makeView(): View {

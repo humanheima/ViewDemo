@@ -1,1 +1,2 @@
+include ':colorfulprogressbar'
 include ':app', ':pullrefresh', ':countdowntimer', ':dot-progress-bar'

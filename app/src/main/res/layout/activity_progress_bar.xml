@@ -124,6 +124,15 @@
                 android:indeterminate="true" />
 
             <ProgressBar
+                style="@style/MyHorizontalProgressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60" />
+
+            <ProgressBar
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

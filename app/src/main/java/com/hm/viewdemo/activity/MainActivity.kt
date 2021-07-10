@@ -56,6 +56,13 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestColorProgressBar -> {
+                ColorfulProgressBarActivity.launch(this)
+            }
+
+            R.id.btnTestViewSwitcher -> {
+                ViewSwitcherActivity.launch(this)
+            }
             R.id.btnTestChildTabView -> {
                 ChildTabTestActivity.launch(this)
             }
