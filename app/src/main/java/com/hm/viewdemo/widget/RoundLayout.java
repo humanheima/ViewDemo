@@ -35,6 +35,7 @@ public class RoundLayout extends FrameLayout {
         mRoundCorner = ta.getDimensionPixelSize(R.styleable.RoundLayout_round_corner, 0);
         radii[0] = mRoundCorner;
         radii[1] = mRoundCorner;
+        radii[2] = mRoundCorner;
         radii[3] = mRoundCorner;
         radii[4] = mRoundCorner;
         radii[5] = mRoundCorner;
