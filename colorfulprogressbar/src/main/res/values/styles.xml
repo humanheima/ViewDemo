@@ -7,4 +7,11 @@
         <attr name="two_round_corner" format="dimension|reference" />
 
     </declare-styleable>
+
+    <declare-styleable name="RoundLayoutHello">
+
+        <attr name="round_corner" format="dimension|reference" />
+
+    </declare-styleable>
+
 </resources>

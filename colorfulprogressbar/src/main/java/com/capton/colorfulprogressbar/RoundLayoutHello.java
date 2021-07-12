@@ -1,4 +1,4 @@
-package com.hm.viewdemo.widget;
+package com.capton.colorfulprogressbar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,14 +9,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.hm.viewdemo.R;
-
 /**
  * Created by dumingwei on 2019-08-13.
  * Desc:
  */
-public class RoundLayout extends FrameLayout {
-
+public class RoundLayoutHello extends FrameLayout {
 
     // 1. 定义圆角信息 和 path
     private float[] radii = new float[8];   // top-left, top-right, bottom-right, bottom-left
@@ -24,15 +21,14 @@ public class RoundLayout extends FrameLayout {
     private int mRoundCorner;
     private RectF mRectF;
 
-
-    public RoundLayout(Context context) {
+    public RoundLayoutHello(Context context) {
         this(context, null);
     }
 
-    public RoundLayout(Context context, AttributeSet attrs) {
+    public RoundLayoutHello(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundLayout);
-        mRoundCorner = ta.getDimensionPixelSize(R.styleable.RoundLayout_round_corner, 0);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundLayoutHello);
+        mRoundCorner = ta.getDimensionPixelSize(R.styleable.RoundLayoutHello_round_corner, 0);
         ta.recycle();
         radii[0] = mRoundCorner;
         radii[1] = mRoundCorner;
@@ -44,8 +40,6 @@ public class RoundLayout extends FrameLayout {
         radii[7] = mRoundCorner;
         mRectF = new RectF();
         mPath = new Path();
-
-
     }
 
     public void setRoundCorner(int mRoundCorner) {
@@ -76,4 +70,5 @@ public class RoundLayout extends FrameLayout {
         canvas.clipPath(mPath);
         return super.drawChild(canvas, child, drawingTime);
     }
+
 }

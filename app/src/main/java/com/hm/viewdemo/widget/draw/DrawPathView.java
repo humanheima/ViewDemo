@@ -92,10 +92,10 @@ public class DrawPathView extends View {
 
         //testPathLineTo(canvas);
         //testPathAddRect(canvas);
-        pathAddRoundRect(canvas);
+        //pathAddRoundRect(canvas);
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
-        //testPathArcTo(canvas);
+        testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);

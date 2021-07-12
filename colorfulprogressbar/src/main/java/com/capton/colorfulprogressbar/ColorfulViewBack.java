@@ -13,12 +13,12 @@ import android.view.View;
  * Created by capton on 2017/8/10.
  */
 
-public class ColorfulView extends View {
+public class ColorfulViewBack extends View {
     private Paint paint;
     private Paint paint2;
     private int mWidth;
 
-    public ColorfulView(Context context, int width, Paint paint, Paint paint2) {
+    public ColorfulViewBack(Context context, int width, Paint paint, Paint paint2) {
         super(context);
         mWidth = width;
         this.paint = paint;

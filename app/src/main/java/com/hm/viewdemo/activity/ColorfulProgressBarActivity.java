@@ -14,7 +14,6 @@ import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.ColorfulView;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
-import com.hm.viewdemo.util.ScreenUtil;
 
 public class ColorfulProgressBarActivity extends AppCompatActivity {
 
@@ -97,7 +96,7 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         aSwitch = findViewById(R.id.switch1);
         aSwitch2 = findViewById(R.id.switch2);
 
-        progressbar.setHeight(DisplayUtil.dip2px(this, 20));
+        progressbar.setHeight(DisplayUtil.dip2px(this, 8));
         progressbar.setSecondProgress(0);//第二进度设置为0
         progressbar.showPercentText(false);
 

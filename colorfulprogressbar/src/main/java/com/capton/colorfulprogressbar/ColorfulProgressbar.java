@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -174,6 +175,7 @@ public class ColorfulProgressbar extends ViewGroup {
 
             switch (style) {
                 case STYLE_COLORFUL:
+                    //这里设置了宽度是和进度条一模一样的。
                     colofulView = new ColorfulView(getContext(), getMeasuredWidth(), progressPaint, progressPaint2);
                     break;
                 case STYLE_NORMAL:
@@ -201,20 +203,24 @@ public class ColorfulProgressbar extends ViewGroup {
              * */
             addView(progressView);
             addView(backgroundMaskView);
+
             addView(colofulView);
             addView(maskView);
             addView(percentView);
 
+            maskView.setVisibility(View.GONE);
+
             getChildAt(0).layout(0, 0, getMeasuredWidth(), getMeasuredHeight()); //布局第二进度条位置
             getChildAt(1).layout(0, 0, getMeasuredWidth(), getMeasuredHeight()); //布局背景罩
 
-            int ChildHeight = getMeasuredWidth();
-            getChildAt(2).layout(0, -ChildHeight + getMeasuredHeight(), getMeasuredWidth(), getMeasuredWidth()); //布局双色进度条
+            int childHeight = getMeasuredWidth();
+            //最后布局出来是一个高度依赖于宽度的正方形
+            getChildAt(2).layout(0, -childHeight + getMeasuredHeight(), getMeasuredWidth(), getMeasuredWidth()); //布局双色进度条
             /*
              * 根据标识位，为双色进度条设置位移动画（无限上下移动，视觉上达到斜条移动的效果）
              * */
             if (animationOn) {
-                translateAnimation = new TranslateAnimation(0, 0, 0, ChildHeight - getMeasuredHeight());
+                translateAnimation = new TranslateAnimation(0, 0, 0, childHeight - getMeasuredHeight());
                 translateAnimation.setDuration((long) (8000 * (float) getMeasuredWidth() / DisplayUtil.getScreenWidthPx(getContext())));
                 translateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
                 translateAnimation.setRepeatCount(-1);
@@ -430,11 +436,11 @@ public class ColorfulProgressbar extends ViewGroup {
 
         if (setBackgroudColor) {
             backgroundPaint.setColor(backgroundColor);
-            canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backgroundPaint);
+            //canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backgroundPaint);
         } else {
             setBackgroundResource(R.drawable.background);
-            if (isSetBackgroudColorByXml)
-                canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backgroundPaint);
+            //if (isSetBackgroudColorByXml)
+            //canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backgroundPaint);
         }
     }
 }
