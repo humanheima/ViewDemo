@@ -14,6 +14,7 @@ import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.ColorfulView;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.util.ScreenUtil;
 
 public class ColorfulProgressBarActivity extends AppCompatActivity {
 
@@ -65,20 +66,17 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         progressColor = getResources().getColor(com.capton.colorfulprogressbar.R.color.colorAccent);    //进度条颜色一
         progressColor2 = getResources().getColor(com.capton.colorfulprogressbar.R.color.ltcolorAccent);  //进度条颜色二
 
-
         progressPaint.setColor(progressColor);
         progressPaint2.setColor(progressColor2);
 
         progressPaint.setAntiAlias(true);
         progressPaint2.setAntiAlias(true);
 
-        //colorfulView = findViewById(R.id.colorfulView);
+        colorfulView = findViewById(R.id.colorfulView);
 
-        //colorfulView.setPaint(progressPaint);
-        //colorfulView.setPaint2(progressPaint2);
-        //colorfulView.setmWidthWidth(ScreenUtil.dpToPx(this, 200));
-
-        //colorfulView.setDpRadius(ScreenUtil.dpToPx(this, 8));
+        colorfulView.setPaint(progressPaint);
+        colorfulView.setPaint2(progressPaint2);
+        colorfulView.setmWidth(ScreenUtil.dpToPx(this, 200));
 
     }
 
