@@ -153,6 +153,8 @@ public class ColorfulProgressbar extends ViewGroup {
 
     boolean once;
 
+    private static final String TAG = "ColorfulProgressbar";
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
@@ -182,6 +184,13 @@ public class ColorfulProgressbar extends ViewGroup {
                     colofulView = new ColorfulView(getContext(), getMeasuredWidth(), progressPaint, progressPaint);
                     break;
             }
+
+
+            Log.d(TAG, "onLayout: getMeasuredWidth = " + getMeasuredWidth() + " getMeasuredHeight = " + getMeasuredHeight());
+            int widthSpec = MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY);
+            int heightSpec = MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.EXACTLY);
+
+            colofulView.measure(widthSpec, heightSpec);
 
             percentView = new TextView(getContext());
             percentView.setText((int) ((float) partition2 * 100) + "%");

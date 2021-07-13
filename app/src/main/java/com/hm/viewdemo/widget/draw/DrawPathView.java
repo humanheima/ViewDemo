@@ -28,6 +28,7 @@ public class DrawPathView extends View {
     private static final String TAG = "DrawPathView";
 
     private Paint mPaint;
+    private Paint mPaint2;
     private int width;
     private int height;
 
@@ -60,6 +61,12 @@ public class DrawPathView extends View {
         mPaint.setColor(Color.BLACK);           // 画笔颜色 - 黑色
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setTextSize(sp2px(14));
+
+        mPaint2 = new Paint();
+        mPaint2.setColor(Color.BLUE);           // 画笔颜色 - 黑色
+        mPaint2.setStyle(Paint.Style.FILL);
+        mPaint2.setTextSize(sp2px(14));
+
     }
 
     @Override
@@ -91,11 +98,11 @@ public class DrawPathView extends View {
         canvas.drawLine(40, 40, 400, 400, mPaint);*/
 
         //testPathLineTo(canvas);
-        //testPathAddRect(canvas);
+        testPathAddRect(canvas);
         //pathAddRoundRect(canvas);
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
-        testPathArcTo(canvas);
+        //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
@@ -431,13 +438,67 @@ public class DrawPathView extends View {
      *
      * @param canvas
      */
+
+    private Path tempPath = new Path();
+
     private void testPathAddRect(Canvas canvas) {
         //移动到屏幕中间
         mPaint.setColor(Color.BLACK);
-        canvas.translate(width / 2.0f, height / 2.0f);
-        Path path = new Path();
-        path.addRect(-200, -200, 200, 200, Path.Direction.CW);
-        canvas.drawPath(path, mPaint);
+        //canvas.translate(width / 2.0f, height / 2.0f);
+        //Path path = new Path();
+        //path.addRect(-200, -200, 200, 200, Path.Direction.CW);
+        //canvas.drawPath(path, mPaint);
+
+
+        Log.i(TAG, "testPathAddRect: " + getMeasuredWidth() + " height = " + getMeasuredHeight());
+
+        //间隔宽度100
+        int interval = 100;
+
+        int height = 100;
+        int range = getMeasuredWidth() / interval + 1;
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.FILL);
+        tempPath.rewind();
+
+        //tempPath.moveTo(0, 0);
+
+        for (int i = 0; i < range; i++) {
+            tempPath.reset();
+            tempPath.moveTo(i * interval, 0);
+            tempPath.lineTo((i - 1) * interval, height);
+            tempPath.lineTo(i * interval, height);
+            tempPath.lineTo((i + 1) * interval, 0);
+
+            tempPath.close();
+
+            if (i % 2 == 0) {
+                canvas.drawPath(tempPath, mPaint);
+            } else {
+                canvas.drawPath(tempPath, mPaint2);
+            }
+        }
+
+        for (int i = -range; i < 0; i++) {
+            tempPath.reset();
+            tempPath.moveTo(i * interval, 0);
+            tempPath.lineTo((i - 1) * interval, height);
+            tempPath.lineTo(i * interval, height);
+            tempPath.lineTo((i + 1) * interval, 0);
+
+            tempPath.close();
+
+            if (i % 2 == 0) {
+                canvas.drawPath(tempPath, mPaint);
+            } else {
+                canvas.drawPath(tempPath, mPaint2);
+            }
+        }
+//        tempPath.lineTo(-100, 100);
+//        tempPath.lineTo(0, 100);
+//        tempPath.lineTo(100, 0);
+//
+//        tempPath.close();
     }
 
     /**

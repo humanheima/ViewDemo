@@ -32,13 +32,16 @@ public class ColorfulView extends View {
         setMeasuredDimension(mWidth, mWidth);
     }
 
+    private Path p1 =new Path();
+    private Path p2 =new Path();
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         float x, y;
         float x2, y2;
         for (int i = 20; i > 0; i--) {
-            Path p1 = new Path();
+            //Path p1 = new Path();
+            p1.rewind();
             x = y = ((float) mWidth / 20) * i;
             p1.lineTo(0, y);
             p1.lineTo(x, 0);
@@ -51,7 +54,8 @@ public class ColorfulView extends View {
             }
         }
         for (int i = 0; i < 20; i++) {
-            Path p2 = new Path();
+            //Path p2 = new Path();
+            p2.rewind();
             x2 = y2 = ((float) mWidth / 20) * i;
             p2.moveTo(mWidth, mWidth);
             p2.lineTo(mWidth, y2);

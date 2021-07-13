@@ -46,7 +46,6 @@ public class ProgressBarActivity extends BaseActivity {
     private ProgressBar changeWidthProgressBar;
     private SeekBar sbController;
 
-
     public static void launch(Context context) {
         Intent starter = new Intent(context, ProgressBarActivity.class);
         context.startActivity(starter);
