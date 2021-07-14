@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.hm.viewdemo.R
 import com.hm.viewdemo.bean.SendOptionsBean
+import com.hm.viewdemo.widget.CircleMaskView
 import kotlinx.android.synthetic.main.activity_draw_every_thing.*
 import java.util.*
 
@@ -24,7 +26,6 @@ class DrawEveryThingActivity : AppCompatActivity() {
         }
     }
 
-
     lateinit var stage3List: MutableList<SendOptionsBean>
 
     lateinit var stage6List: MutableList<SendOptionsBean>
@@ -34,6 +35,10 @@ class DrawEveryThingActivity : AppCompatActivity() {
     private var stage6FinishProgress = 0f
 
     private lateinit var handler: Handler
+
+    private lateinit var circleMaskView: CircleMaskView
+
+    private lateinit var valueAnimator: ValueAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +76,24 @@ class DrawEveryThingActivity : AppCompatActivity() {
 
             updateStage6()
 
+        }
+
+        circleMaskView = findViewById(R.id.circle_mask_view)
+
+        circleMaskView.post {
+
+            val initialInnerRadius = circleMaskView.measuredWidth / 2
+
+            valueAnimator = ValueAnimator.ofInt(initialInnerRadius, 30)
+            valueAnimator.duration = 3000
+            valueAnimator.addUpdateListener {
+                val animatedValue = it.animatedValue as Int
+                Log.i(TAG, "onCreate: it.animatedValue =  $animatedValue")
+                //circleMaskView.setPaintWidth(animatedValue)
+                circleMaskView.setInnerRadius(animatedValue)
+            }
+            valueAnimator.startDelay = 2000
+            valueAnimator.start()
         }
     }
 

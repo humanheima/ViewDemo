@@ -19,6 +19,12 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
+        <com.hm.viewdemo.widget.CircleMaskView
+            android:id="@+id/circle_mask_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal" />
+
         <com.hm.viewdemo.widget.draw.DrawEveryThingView
             android:layout_width="match_parent"
             android:layout_height="300dp"
