@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d8000000"
     tools:context=".activity.DrawEveryThingActivity">
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal" />
+
 
         <com.hm.viewdemo.widget.draw.DrawEveryThingView
             android:layout_width="match_parent"

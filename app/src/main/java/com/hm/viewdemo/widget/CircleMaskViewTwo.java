@@ -17,7 +17,7 @@ import com.hm.viewdemo.R;
 /**
  * Created by dumingwei on 2017/3/4.
  */
-public class CircleMaskView extends View {
+public class CircleMaskViewTwo extends View {
 
     private int mColor;
     private int mFrontColor;
@@ -35,18 +35,18 @@ public class CircleMaskView extends View {
     private Bitmap srcBitmap;
 
 
-    public CircleMaskView(Context context) {
+    public CircleMaskViewTwo(Context context) {
         this(context, null);
     }
 
-    public CircleMaskView(Context context, AttributeSet attrs) {
+    public CircleMaskViewTwo(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
 
     }
 
-    public CircleMaskView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleMaskViewTwo(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mColor = getResources().getColor(R.color.colorAccent);
+        mColor = Color.parseColor("#d8000000");
         //mFrontColor = getResources().getColor(Color.TRANSPARENT);
         mFrontColor = Color.parseColor("#d8000000");
         mPaint.setColor(mColor);
@@ -82,36 +82,36 @@ public class CircleMaskView extends View {
         radius = getMeasuredHeight() / 2f;
         Log.i(TAG, "onMeasure: " + getMeasuredWidth() + " " + getMeasuredHeight());
         //源图片
-        srcBitmap = makeSrc();
+        //srcBitmap = makeSrc();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
-        mPaint.setXfermode(xfermode);
-        canvas.drawBitmap(makeSrc(), 0, 0, mPaint);
-        mPaint.setXfermode(null);
+        //canvas.drawColor(mColor);
+        //canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
+        //mPaint.setXfermode(xfermode);
+       // canvas.drawBitmap(makeSrc(), 0, 0, mPaint);
+        //mPaint.setXfermode(null);
     }
 
     private Bitmap makeSrc() {
-        Bitmap bm = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bm = Bitmap.createBitmap(innerRadius, innerRadius, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
         //设置的透明度是FF
-        //p.setColor(0xFFFFFFFF);
-        p.setColor(Color.BLUE);
-        c.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, (1.5f * innerRadius / 2f), p);
+        p.setColor(0xFFFFFFFF);
+        c.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, innerRadius, p);
         return bm;
     }
 
     public void setInnerRadius(int radius) {
         innerRadius = radius;
+
     }
 
     public void setInnerRadiusAndInValidate(int radius) {
-        innerRadius = radius;
-        //srcBitmap = makeSrc();
-        invalidate();
+        //innerRadius = radius;
+        //invalidate();
 
     }
 

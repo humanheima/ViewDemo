@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.hm.viewdemo.R
 import com.hm.viewdemo.bean.SendOptionsBean
+import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.CircleMaskView
 import kotlinx.android.synthetic.main.activity_draw_every_thing.*
 import java.util.*
@@ -80,17 +81,19 @@ class DrawEveryThingActivity : AppCompatActivity() {
 
         circleMaskView = findViewById(R.id.circle_mask_view)
 
+        val dpToPx = ScreenUtil.dpToPx(this, 200)
+        circleMaskView.setInnerRadius(dpToPx)
         circleMaskView.post {
 
-            val initialInnerRadius = circleMaskView.measuredWidth / 2
+            val initialInnerRadius = circleMaskView.measuredWidth
 
-            valueAnimator = ValueAnimator.ofInt(initialInnerRadius, 30)
+            valueAnimator = ValueAnimator.ofInt(dpToPx, 30)
             valueAnimator.duration = 3000
             valueAnimator.addUpdateListener {
                 val animatedValue = it.animatedValue as Int
                 Log.i(TAG, "onCreate: it.animatedValue =  $animatedValue")
                 //circleMaskView.setPaintWidth(animatedValue)
-                circleMaskView.setInnerRadius(animatedValue)
+                circleMaskView.setInnerRadiusAndInValidate(animatedValue)
             }
             valueAnimator.startDelay = 2000
             valueAnimator.start()
