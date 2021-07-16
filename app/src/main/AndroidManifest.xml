@@ -79,7 +79,8 @@
         <activity android:name=".activity.LayoutInflateActivity" />
         <activity
             android:name=".activity.MainActivity"
-            android:configChanges="fontScale">
+            android:configChanges="fontScale"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
