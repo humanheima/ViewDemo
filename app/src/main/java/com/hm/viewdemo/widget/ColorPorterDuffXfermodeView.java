@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.hm.viewdemo.R;
 import com.hm.viewdemo.util.ScreenUtil;
 
 /**
@@ -23,15 +24,21 @@ import com.hm.viewdemo.util.ScreenUtil;
  * 为什么会需要一个新的图层，例如在处理xfermode的时候，原canvas上的图（包括背景）会影响src和dst的合成，
  * 这个时候，使用一个新的透明图层是一个很好的选择。又例如需要当前绘制的图形都带有一定的透明度，
  * 那么创建一个带有透明度的图层，也是一个方便的选择。
+ * <p>
+ * 测试，xfermode不一定要使用bitmap作为图层载体。直接绘制Color也是可以的。
  */
 
-public class PorterDuffXfermodeView extends AppCompatImageView {
+public class ColorPorterDuffXfermodeView extends AppCompatImageView {
 
     private Paint paint;
 
     private Bitmap mSrcB;
     private Bitmap mDstB;
 
+    private RectF mDstRectF = new RectF();
+    private RectF mSrcRectF = new RectF();
+
+    private int itemWidth;
     private Xfermode[] sModes = {
             new PorterDuffXfermode(PorterDuff.Mode.CLEAR),
             new PorterDuffXfermode(PorterDuff.Mode.SRC),
@@ -51,40 +58,53 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
             new PorterDuffXfermode(PorterDuff.Mode.SCREEN)
     };
 
-    public PorterDuffXfermodeView(Context context) {
+    public ColorPorterDuffXfermodeView(Context context) {
         this(context, null);
     }
 
-    public PorterDuffXfermodeView(Context context, @Nullable AttributeSet attrs) {
+    public ColorPorterDuffXfermodeView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PorterDuffXfermodeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ColorPorterDuffXfermodeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         //加上这行代码
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        int itemWidth = ScreenUtil.dpToPx(context, 200);
+        itemWidth = ScreenUtil.dpToPx(context, 200);
         mSrcB = makeSrc(itemWidth, itemWidth);
         mDstB = makeDst(itemWidth, itemWidth);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        //创建一个新的图层
-        int layerId = canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
+//        //创建一个新的图层
+//        int layerId = canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
+//        //绘制目标图像
+//        paint.setColor(getResources().getColor(R.color.main_color_ffffcc44));
+//        mDstRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
+//        canvas.drawOval(mDstRectF, paint);
+//
+//        canvas.save();
+//
+//        paint.setXfermode(sModes[1]);
+//
+//        paint.setColor(getResources().getColor(R.color.main_color_ff66aaff));
+//        mSrcRectF.set(itemWidth / 3f, itemWidth / 3f, itemWidth * 19 / 20f, itemWidth * 19 / 20f);
+//        //mSrcRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
+//
+//        canvas.drawRect(mSrcRectF, paint);
+//
+//        //canvas.drawBitmap(mSrcB, 0, 0, paint);
+//        paint.setXfermode(null);
+//
+//        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
+//        canvas.restoreToCount(layerId);
 
-        //目标图像（DST）和图像（SRC）混合的操作
-        canvas.drawBitmap(mDstB, 0, 0, paint);
-        paint.setXfermode(sModes[1]);
-        canvas.drawBitmap(mSrcB, 0, 0, paint);
-        paint.setXfermode(null);
-
-        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
-        canvas.restoreToCount(layerId);
+        //clearModel(canvas, 100);
+        clearModelInNewLayer(canvas, 100);
 
     }
 
@@ -95,13 +115,13 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         //使用CLEAR作为PorterDuffXfermode绘制蓝色的矩形
         paint.setXfermode(sModes[0]);
         paint.setColor(0xFF66AAFF);
-        canvas.drawRect(r, r, r * 2.7f, r * 2.7f, paint);
+        canvas.drawRect(r, r, r * 2f, r * 2f, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
     }
 
     /**
-     * 在单独的图层上绘制
+     * 在单独的图层上绘制，这个为什么是空白呢？
      * <p>
      * 注意对比和 {@link #clearModel(Canvas, int)}方法的区别
      *
@@ -110,15 +130,14 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
      */
     private void clearModelInNewLayer(Canvas canvas, int r) {
         //创建一个新的图层
-        //todo 这样 saveLayer是不对的，保存的图层就是一个宽高都为0的图层，所以什么也看不到。
-        canvas.saveLayer(new RectF(), null, Canvas.ALL_SAVE_FLAG);
+        canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
         //正常绘制黄色的圆形
         paint.setColor(0xFFFFCC44);
         canvas.drawCircle(r, r, r, paint);
         //使用CLEAR作为PorterDuffXfermode绘制蓝色的矩形
         paint.setXfermode(sModes[0]);
-        paint.setColor(0x66AAFF);
-        canvas.drawRect(r, r, r * 2.7f, r * 2.7f, paint);
+        paint.setColor(0xFF66AAFF);
+        canvas.drawRect(r, r, r * 2f, r * 2f, paint);
         //最后将画笔去除Xfermode
         paint.setXfermode(null);
         //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
@@ -163,7 +182,7 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
         //设置的透明度是FF
-        p.setColor(0xFFFFCC44);
+        p.setColor(getResources().getColor(R.color.main_color_ffffcc44));
         c.drawOval(new RectF(0, 0, w * 3 / 4f, h * 3 / 4f), p);
         return bm;
     }
@@ -173,8 +192,9 @@ public class PorterDuffXfermodeView extends AppCompatImageView {
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
         //设置的透明度是FF
-        p.setColor(0xFF66AAFF);
+        p.setColor(getResources().getColor(R.color.main_color_ff66aaff));
         c.drawRect(w / 3f, h / 3f, w * 19 / 20f, h * 19 / 20f, p);
         return bm;
     }
+
 }

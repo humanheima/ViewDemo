@@ -10,68 +10,62 @@
 
     <com.capton.colorfulprogressbar.ColorfulProgressbar
         android:id="@+id/colorful"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    </com.capton.colorfulprogressbar.ColorfulProgressbar>
+        android:layout_height="360dp"
+        android:layout_marginTop="16dp"/>
 
     <com.capton.colorfulprogressbar.ColorfulProgressbar
         android:id="@+id/colorful2"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/colorful"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    </com.capton.colorfulprogressbar.ColorfulProgressbar>
-    <com.capton.colorfulprogressbar.ColorfulProgressbar
-        android:id="@+id/colorful3"
-        app:max="100"
-        app:progress="50"
-        app:secondProgress="10"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/colorful2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    </com.capton.colorfulprogressbar.ColorfulProgressbar>
+        android:layout_marginTop="16dp"></com.capton.colorfulprogressbar.ColorfulProgressbar>
 
     <com.capton.colorfulprogressbar.ColorfulProgressbar
-        android:id="@+id/colorful4"
-        app:style="@string/style_normal"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:max="100"
-        app:progress="50"
-        app:secondProgress="10"
-        app:progressColor1="@color/green"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/colorful3"
+        android:id="@+id/colorful3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-    </com.capton.colorfulprogressbar.ColorfulProgressbar>
+        android:layout_below="@+id/colorful2"
+        android:layout_marginTop="16dp"
+        app:max="100"
+        app:progress="50"
+        app:secondProgress="10"></com.capton.colorfulprogressbar.ColorfulProgressbar>
+
+    <com.capton.colorfulprogressbar.ColorfulProgressbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/colorful4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorful3"
+        android:layout_marginTop="16dp"
+        app:max="100"
+        app:progress="50"
+        app:progressColor1="@color/green"
+        app:secondProgress="10"
+        app:style="@string/style_normal"></com.capton.colorfulprogressbar.ColorfulProgressbar>
+
     <TextView
         android:id="@+id/animationText"
-        android:text="动画开关："
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/colorful4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorful4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="16dp"
+        android:text="动画开关：" />
 
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/animationText" />
+
     <TextView
         android:id="@+id/progressText"
-        android:text="百分比开关："
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/switch1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switch1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="16dp"
+        android:text="百分比开关：" />
 
     <Switch
         android:id="@+id/switch2"
@@ -81,40 +75,41 @@
 
     <TextView
         android:id="@+id/tip"
-        android:text="Set Progress : 50%"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/switch2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switch2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="16dp"
+        android:text="Set Progress : 50%" />
 
-   <SeekBar
-       android:id="@+id/controller"
-       android:layout_below="@+id/tip"
-       android:layout_width="match_parent"
-       android:layout_marginTop="8dp"
-       android:max="100"
-       android:progress="50"
-       android:layout_height="wrap_content"
-       tools:layout_editor_absoluteY="0dp"
-       tools:layout_editor_absoluteX="8dp" />
+    <SeekBar
+        android:id="@+id/controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tip"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:progress="50"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <TextView
         android:id="@+id/tip2"
-        android:text="Set SecondProgress : 10%"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/controller"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/controller"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="16dp"
+        android:text="Set SecondProgress : 10%" />
 
     <SeekBar
         android:id="@+id/controller2"
-        android:layout_below="@+id/tip2"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tip2"
         android:layout_marginTop="8dp"
         android:max="100"
         android:progress="10"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
 </RelativeLayout>

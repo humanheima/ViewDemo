@@ -181,6 +181,8 @@ public class ColorfulProgressbar extends ViewGroup {
                     break;
             }
 
+            colofulView.setOriginalHeight(DisplayUtil.dip2px(getContext(), 20));
+
             percentView = new TextView(getContext());
             percentView.setText((int) ((float) partition2 * 100) + "%");
             percentView.setTextSize(DisplayUtil.px2sp(getContext(), (float) (getMeasuredHeight() * 0.8)));
@@ -219,8 +221,8 @@ public class ColorfulProgressbar extends ViewGroup {
                 translateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
                 translateAnimation.setRepeatCount(-1);
                 translateAnimation.setRepeatMode(Animation.RESTART);
-                getChildAt(2).setAnimation(translateAnimation);
-                translateAnimation.start();
+                //getChildAt(2).setAnimation(translateAnimation);
+                //translateAnimation.start();
             }
 
             getChildAt(3).layout(0, 0, getMeasuredWidth(), getMeasuredHeight() * 2 / 3); //布局白色渐变层

@@ -20,6 +20,13 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="launchXfermodeTestActivity"
+                android:text="测试Xfermode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:onClick="launchDrawEveryThingActivity"
                 android:text="drawEveryThing"
                 android:textAllCaps="false" />
@@ -288,13 +295,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
                 android:text="@string/test_time_selector"
-                android:textAllCaps="false" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="launchXfermodeTestActivity"
-                android:text="xfermodeTest"
                 android:textAllCaps="false" />
 
             <Button
