@@ -21,8 +21,7 @@
             android:layout_height="200dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:visibility="gone" />
 
         <com.hm.viewdemo.widget.XFermodeView
             android:layout_width="match_parent"

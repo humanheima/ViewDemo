@@ -14,8 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ViewSwitcherActivity"></activity>
-        <activity android:name=".activity.ChildTabTestActivity"></activity>
+        <activity android:name=".activity.RoundProgressBarActivity"></activity>
+        <activity android:name=".activity.ViewSwitcherActivity" />
+        <activity android:name=".activity.ChildTabTestActivity" />
         <activity android:name=".activity.PaddingTestActivity" />
         <activity android:name=".activity.textview.FontMetricsActivity" />
         <activity android:name=".activity.FontFamilyMainActivity" />

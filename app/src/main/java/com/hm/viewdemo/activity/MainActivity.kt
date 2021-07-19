@@ -7,6 +7,7 @@ import android.os.Debug
 import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
@@ -30,6 +31,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     var perms = arrayOf(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 
+    private lateinit var btnRoundProgressView: Button
+
     override fun bindLayout(): Int {
         return R.layout.activity_main
     }
@@ -48,6 +51,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
         Debug.stopMethodTracing()
 
+        btnRoundProgressView = findViewById(R.id.btn_round_progress_view);
+        btnRoundProgressView.scrollX = 100
+
         scroll_view_root.post {
             Log.e(TAG, "initData: scroll_view_root.measuredHeight = ${scroll_view_root.measuredHeight}")
             Log.e(TAG, "initData: fl_content.measuredHeight = ${fl_content.measuredHeight}")
@@ -56,6 +62,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_round_progress_view -> {
+
+                RoundProgressBarActivity.launch(this)
+            }
             R.id.btnTestColorProgressBar -> {
                 ColorfulProgressBarActivity.launch(this)
             }

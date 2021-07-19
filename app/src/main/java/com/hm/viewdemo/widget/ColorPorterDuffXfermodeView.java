@@ -80,31 +80,29 @@ public class ColorPorterDuffXfermodeView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        //创建一个新的图层
-//        int layerId = canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
-//        //绘制目标图像
-//        paint.setColor(getResources().getColor(R.color.main_color_ffffcc44));
-//        mDstRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
-//        canvas.drawOval(mDstRectF, paint);
-//
-//        canvas.save();
-//
-//        paint.setXfermode(sModes[1]);
-//
-//        paint.setColor(getResources().getColor(R.color.main_color_ff66aaff));
-//        mSrcRectF.set(itemWidth / 3f, itemWidth / 3f, itemWidth * 19 / 20f, itemWidth * 19 / 20f);
-//        //mSrcRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
-//
-//        canvas.drawRect(mSrcRectF, paint);
-//
-//        //canvas.drawBitmap(mSrcB, 0, 0, paint);
-//        paint.setXfermode(null);
-//
-//        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
-//        canvas.restoreToCount(layerId);
+        //创建一个新的图层
+        int layerId = canvas.saveLayer(0f, 0f, getMeasuredWidth(), getMeasuredHeight(), null, Canvas.ALL_SAVE_FLAG);
+        //绘制目标图像
+        paint.setColor(getResources().getColor(R.color.main_color_ffffcc44));
+        mDstRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
+        canvas.drawOval(mDstRectF, paint);
+
+        paint.setXfermode(sModes[6]);
+
+        paint.setColor(getResources().getColor(R.color.main_color_ff66aaff));
+        mSrcRectF.set(itemWidth / 3f, itemWidth / 3f, itemWidth * 19 / 20f, itemWidth * 19 / 20f);
+        //mSrcRectF.set(0, 0, itemWidth * 3 / 4f, itemWidth * 3 / 4f);
+
+        canvas.drawRect(mSrcRectF, paint);
+
+        //canvas.drawBitmap(mSrcB, 0, 0, paint);
+        paint.setXfermode(null);
+
+        //将新的图层绘制到上一个图层或者屏幕上（如果没有上一个图层）。
+        canvas.restoreToCount(layerId);
 
         //clearModel(canvas, 100);
-        clearModelInNewLayer(canvas, 100);
+        //clearModelInNewLayer(canvas, 100);
 
     }
 
