@@ -20,11 +20,22 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
-        <com.hm.viewdemo.widget.CircleMaskView
-            android:id="@+id/circle_mask_view"
-            android:layout_width="249dp"
-            android:layout_height="289dp"
-            android:layout_gravity="center_horizontal" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.hm.viewdemo.widget.CircleMaskView
+                android:id="@+id/circle_mask_view"
+                android:layout_width="249dp"
+                android:layout_height="289dp"
+                android:layout_gravity="center_horizontal" />
+
+            <com.hm.viewdemo.widget.CircleView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
 
         <com.hm.viewdemo.widget.draw.DrawEveryThingView

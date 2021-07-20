@@ -63,8 +63,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_round_progress_view -> {
-
-                RoundProgressBarActivity.launch(this)
+                //RoundProgressBarActivity.launch(this)
             }
             R.id.btnTestColorProgressBar -> {
                 ColorfulProgressBarActivity.launch(this)

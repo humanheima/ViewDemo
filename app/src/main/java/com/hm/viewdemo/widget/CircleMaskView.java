@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -18,12 +17,12 @@ import com.hm.viewdemo.util.ScreenUtil;
 
 /**
  * Created by dumingwei on 2017/3/4.
+ * 圆形遮罩层，动态改变遮罩的大小
  */
 public class CircleMaskView extends View {
 
     private int mColor;
-    private int mFrontColor;
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private static final int DEFAULT_SIZE = 200;
     private PorterDuffXfermode xfermode;// 图形混合模式
     private PorterDuffXfermode clear;// 图形混合模式
@@ -34,29 +33,17 @@ public class CircleMaskView extends View {
 
     //原图片的开始的半径
     private int srcCanvasRadius;
-    //src需要平移这段距离以后，开始画圆
-    private int translateXDistance;
-    private int translateYDistance;
 
-    private float radius;
-
+    //目标图层
     private Bitmap dstBitmap;
-
-
+    //源图层
     private Bitmap srcBitmap;
-    private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Canvas canvas;
+    private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private Canvas srcCanvas;
 
     public void setSrcCanvasRadius(int srcCanvasRadius) {
         this.srcCanvasRadius = srcCanvasRadius;
-    }
-
-    public void setTranslateXDistance(int translateXDistance) {
-        this.translateXDistance = translateXDistance;
-    }
-
-    public void setTranslateYDistance(int translateYDistance) {
-        this.translateYDistance = translateYDistance;
     }
 
     public CircleMaskView(Context context) {
@@ -71,10 +58,7 @@ public class CircleMaskView extends View {
     public CircleMaskView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mColor = getResources().getColor(R.color.colorAccent);
-        //mFrontColor = getResources().getColor(Color.TRANSPARENT);
-        mFrontColor = Color.parseColor("#d8000000");
         mPaint.setColor(mColor);
-        //mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(0f);
         //这行代码一定要加，不然 xfermode 会出现不可预料的效果
@@ -83,8 +67,6 @@ public class CircleMaskView extends View {
         clear = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 
         Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.scenery);
-        //dstBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.scenery);
-        //dstBitmap = ImageUtil.getSampledBitmapFromResource(getResources(), R.drawable.scenery, ScreenUtil.dpToPx(getContext(), 249), ScreenUtil.dpToPx(getContext(), 289));
         int width = temp.getWidth();
         int height = temp.getHeight();
 
@@ -98,7 +80,6 @@ public class CircleMaskView extends View {
 
         matrix.postScale(scaleWidth, scaleHeight);
 
-        //dstBitmap = Bitmap.createBitmap(temp, 0, 0, newWidth, newHeight);
         dstBitmap = Bitmap.createBitmap(temp, 0, 0, width, height, matrix, true);
 
         temp.recycle();
@@ -125,19 +106,13 @@ public class CircleMaskView extends View {
             setMeasuredDimension(widthSpecSize, DEFAULT_SIZE);
         }
 
-        radius = getMeasuredHeight() / 2f;
         Log.i(TAG, "onMeasure: " + getMeasuredWidth() + " " + getMeasuredHeight());
-
-
-        //dstBitmap.setWidth(getMeasuredWidth());
-        // dstBitmap.setHeight(getMeasuredHeight());
         //源图片
         srcBitmap = makeSrc();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //canvas.drawColor(Color.BLUE);
         canvas.drawBitmap(dstBitmap, 0, 0, mPaint);
         mPaint.setXfermode(xfermode);
         canvas.drawBitmap(makeSrc(), 0, 0, mPaint);
@@ -146,30 +121,25 @@ public class CircleMaskView extends View {
 
     private Bitmap makeSrc() {
         if (srcBitmap == null) {
-            //srcBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
             //直径
             int diameter = srcCanvasRadius * 2;
             srcBitmap = Bitmap.createBitmap(diameter, diameter, Bitmap.Config.ARGB_8888);
         }
 
-        if (canvas == null) {
-            canvas = new Canvas(srcBitmap);
-            //canvas.translate(-translateXDistance, -translateYDistance);
+        if (srcCanvas == null) {
+            srcCanvas = new Canvas(srcBitmap);
         }
-
 
         Log.i(TAG, "makeSrc: srcCanvasRadius = " + srcCanvasRadius + " getMeasuredWidth()  = " + getMeasuredWidth() + " getMeasuredHeight() = " + getMeasuredHeight());
 
-        //Canvas c = new Canvas(srcBitmap);
-
+        //清除源图层上的像素，这个一定要清除
         p.setXfermode(clear);
-        canvas.drawPaint(p);
+        srcCanvas.drawPaint(p);
         p.setXfermode(null);
         //设置的透明度是FF
         p.setColor(0xFFFFFFFF);
-        //canvas.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, (1.5f * innerRadius / 2f), p);
-        //canvas.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, innerRadius, p);
-        canvas.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, innerRadius, p);
+        //重新在源图层上绘制圆形，圆形的半径是不断缩小的
+        srcCanvas.drawCircle(getMeasuredWidth() / 2f, getMeasuredHeight() / 2f, innerRadius, p);
         return srcBitmap;
     }
 
@@ -179,15 +149,13 @@ public class CircleMaskView extends View {
 
     public void setInnerRadiusAndInValidate(int radius) {
         innerRadius = radius;
-        //srcBitmap = makeSrc();
         invalidate();
-
     }
-
 
     public void setColor(int mColor) {
         this.mColor = mColor;
         mPaint.setColor(mColor);
         invalidate();
     }
+
 }

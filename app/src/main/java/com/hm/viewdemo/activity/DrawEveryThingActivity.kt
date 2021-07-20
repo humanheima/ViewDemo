@@ -22,7 +22,6 @@ class DrawEveryThingActivity : AppCompatActivity() {
         }
     }
 
-
     private lateinit var circleMaskView: CircleMaskView
 
     private lateinit var valueAnimator: ValueAnimator
@@ -34,17 +33,10 @@ class DrawEveryThingActivity : AppCompatActivity() {
 
         //初始半径，宽高的勾股定理，计算出直径是 382，半径就是191
         val startPx = ScreenUtil.dpToPx(this, 191)
+        //最终的半径
         val finalPx = ScreenUtil.dpToPx(this, 14)
 
-        //控件一半的距离
-        val halfWidth = ScreenUtil.dpToPx(this, 249) / 2
-        val halfHeight = ScreenUtil.dpToPx(this, 289) / 2
-
         circleMaskView.setSrcCanvasRadius(startPx)
-        circleMaskView.setTranslateXDistance(startPx - halfWidth)
-        //circleMaskView.setTranslateXDistance(halfWidth)
-        circleMaskView.setTranslateYDistance(startPx - halfHeight)
-        //circleMaskView.setTranslateYDistance(halfHeight)
         circleMaskView.setInnerRadius(startPx)
         circleMaskView.post {
 
@@ -53,10 +45,8 @@ class DrawEveryThingActivity : AppCompatActivity() {
             valueAnimator.addUpdateListener {
                 val animatedValue = it.animatedValue as Int
                 Log.i(TAG, "onCreate: it.animatedValue =  $animatedValue")
-                //circleMaskView.setPaintWidth(animatedValue)
                 circleMaskView.setInnerRadiusAndInValidate(animatedValue)
             }
-            //valueAnimator.startDelay = 2000
             valueAnimator.start()
         }
     }

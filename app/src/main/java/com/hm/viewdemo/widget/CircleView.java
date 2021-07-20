@@ -35,6 +35,8 @@ public class CircleView extends View {
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleView, defStyleAttr, 0);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(3);
         mColor = array.getColor(R.styleable.CircleView_circle_color, Color.RED);
         bgColor = array.getColor(R.styleable.CircleView_bg_color, Color.BLUE);
         array.recycle();
@@ -91,8 +93,8 @@ public class CircleView extends View {
         int radius = Math.min(width, height) / 2;
         mPaint.setColor(bgColor);
         canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
-        mPaint.setColor(mColor);
-        canvas.drawCircle(paddingLeft + width / 2f, paddingTop + height / 2f, radius, mPaint);
+        //mPaint.setColor(mColor);
+        //canvas.drawCircle(paddingLeft + width / 2f, paddingTop + height / 2f, radius, mPaint);
     }
 
     public void setColor(int mColor) {
