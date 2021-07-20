@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.hm.viewdemo.R;
 
@@ -21,13 +22,15 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by dumingwei on 2017/11/30 0030.
+ * <p>
  */
 
 public class RoundImageViewByXfermode extends AppCompatImageView {
 
     private Paint mPaint;
     private Xfermode mXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
-    private Bitmap mMaskBitmap;
+    //源图层
+    private Bitmap mSrcBitmap;
     private WeakReference<Bitmap> mWeakBitmap;
 
     /**
@@ -84,25 +87,30 @@ public class RoundImageViewByXfermode extends AppCompatImageView {
             int dWidth = drawable.getIntrinsicWidth();
             int dHeight = drawable.getIntrinsicHeight();
             if (null != drawable) {
+
                 bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
                 float scale;
+                //创建一个画布，把目标图层和源图层都绘制到drawCanvas上，然后把drawCanvas绘制到canvas上
                 Canvas drawCanvas = new Canvas(bitmap);
                 if (type == TYPE_ROUND) {
+                    //圆角
                     scale = Math.max(getWidth() * 1.0f / dWidth, getHeight() * 1.0f / dHeight);
                 } else {
+                    //圆形
                     scale = getWidth() * 1.0f / Math.min(dWidth, dHeight);
                 }
                 //根据缩放比例，设置bounds，相当于缩放图片了
                 drawable.setBounds(0, 0, (int) (scale * dWidth), (int) (scale * dHeight));
+                //绘制图片
                 drawable.draw(drawCanvas);
-                if (null == mMaskBitmap || mMaskBitmap.isRecycled()) {
-                    mMaskBitmap = getBitMap();
+                if (null == mSrcBitmap || mSrcBitmap.isRecycled()) {
+                    mSrcBitmap = getBitMap();
                 }
                 mPaint.reset();
                 mPaint.setFilterBitmap(false);
                 mPaint.setXfermode(mXfermode);
                 //绘制形状
-                drawCanvas.drawBitmap(mMaskBitmap, 0, 0, mPaint);
+                drawCanvas.drawBitmap(mSrcBitmap, 0, 0, mPaint);
                 mPaint.setXfermode(null);
                 //将准备好的bitmap绘制出来
                 canvas.drawBitmap(bitmap, 0, 0, mPaint);
@@ -126,7 +134,7 @@ public class RoundImageViewByXfermode extends AppCompatImageView {
             canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()),
                     mBorderRadius, mBorderRadius, paint);
         } else {
-            canvas.drawCircle(getWidth() / 2, getWidth() / 2, getWidth() / 2, paint);
+            canvas.drawCircle(getWidth() / 2f, getWidth() / 2f, getWidth() / 2f, paint);
         }
         return bitmap;
     }
@@ -134,9 +142,9 @@ public class RoundImageViewByXfermode extends AppCompatImageView {
     @Override
     public void invalidate() {
         mWeakBitmap = null;
-        if (mMaskBitmap != null) {
-            mMaskBitmap.recycle();
-            mMaskBitmap = null;
+        if (mSrcBitmap != null) {
+            mSrcBitmap.recycle();
+            mSrcBitmap = null;
         }
         super.invalidate();
     }

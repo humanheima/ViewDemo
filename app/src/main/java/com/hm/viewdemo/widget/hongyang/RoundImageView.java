@@ -22,6 +22,7 @@ import com.hm.viewdemo.R;
 
 /**
  * Created by dumingwei on 2017/11/30 0030.
+ * 使用BitmapShader 实现圆形或者圆角图片
  */
 
 public class RoundImageView extends AppCompatImageView {

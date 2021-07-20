@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.hm.viewdemo.R;
 
@@ -54,6 +55,7 @@ public class RoundImageViewByXfermodeCopy extends AppCompatImageView {
     public RoundImageViewByXfermodeCopy(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundImageViewByXfermode);
         mBorderRadius = a.getDimensionPixelSize(R.styleable.RoundImageView_borderRadius,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, BORDER_RADIUS_DEFAULT,
