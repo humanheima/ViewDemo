@@ -3,8 +3,8 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -61,8 +61,8 @@ class MaxHeightLayoutActivity : BaseActivity() {
     private fun showPop() {
         if (popWindow == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.pop, null)
-            val recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
-            val layoutManager = LinearLayoutManager(this)
+            val recyclerView = view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
+            val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = lessAdapter
             popWindow = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
@@ -76,8 +76,8 @@ class MaxHeightLayoutActivity : BaseActivity() {
     private fun showMuchPop() {
         if (muchPopWindow == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.pop, null)
-            val recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
-            val layoutManager = LinearLayoutManager(this)
+            val recyclerView = view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
+            val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = muchAdapter
             muchPopWindow = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)

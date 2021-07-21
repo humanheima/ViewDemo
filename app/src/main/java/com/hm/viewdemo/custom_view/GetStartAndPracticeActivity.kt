@@ -3,7 +3,7 @@ package com.hm.viewdemo.custom_view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.custom_view.chapter7.Chapter7Activity

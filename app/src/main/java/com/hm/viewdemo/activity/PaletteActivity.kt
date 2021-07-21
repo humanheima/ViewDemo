@@ -5,12 +5,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.graphics.Palette
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -35,7 +35,7 @@ class PaletteActivity : AppCompatActivity() {
         }
     }
 
-    private val list = arrayListOf<@android.support.annotation.ColorInt Int>()
+    private val list = arrayListOf<@androidx.annotation.ColorInt Int>()
     private val drawableList = arrayListOf<@DrawableRes Int>()
 
     private val TAG: String = "PaletteActivity"
@@ -61,8 +61,8 @@ class PaletteActivity : AppCompatActivity() {
         drawableList.add(R.drawable.avatar)
         drawableList.add(R.drawable.ic_dog)
 
-        rvColor.layoutManager = LinearLayoutManager(this)
-        rvColor.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        rvColor.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rvColor.addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL))
         rvColor.adapter = baseRvAdapter
         changeImage(R.drawable.balloon)
 
@@ -80,7 +80,7 @@ class PaletteActivity : AppCompatActivity() {
                 Log.i(TAG, "onResourceReady: ")
                 ivBitmap.setImageBitmap(resource)
                 list.clear()
-                Palette.from(resource).generate {
+                androidx.palette.graphics.Palette.from(resource).generate {
                     val color1 = it?.getDarkMutedColor(ContextCompat.getColor(this@PaletteActivity,
                             R.color.colorPrimary)) ?: Color.RED
                     val color2 = it?.getDarkVibrantColor(ContextCompat.getColor(this@PaletteActivity,

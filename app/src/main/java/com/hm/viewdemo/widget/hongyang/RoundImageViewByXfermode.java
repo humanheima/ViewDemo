@@ -11,10 +11,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.View;
 
 import com.hm.viewdemo.R;
 

@@ -3,12 +3,12 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
 import com.hm.viewdemo.bean.MyBean
@@ -38,7 +38,7 @@ class ListViewFloatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view_float_2)
+        setContentView(R.layout.activity_list_view_float)
         listView.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this, "ListView中item点击$position", Toast.LENGTH_SHORT).show()
         }

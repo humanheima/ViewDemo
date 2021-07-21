@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.widget.TextViewCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.widget.TextViewCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.util.TypedValue
 import android.widget.TextView
 import com.hm.viewdemo.R

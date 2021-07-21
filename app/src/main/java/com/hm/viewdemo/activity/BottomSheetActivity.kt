@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.hm.viewdemo.R
@@ -53,21 +53,21 @@ class BottomSheetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_sheet)
         behavior = BottomSheetBehavior.from(scroll_bottom_sheet)
-        val layoutParams = scroll_bottom_sheet.layoutParams as CoordinatorLayout.LayoutParams
+        val layoutParams = scroll_bottom_sheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 
         val stringList = ArrayList<String>()
         for (i in 0 until 1) {
             stringList.add("string$i")
         }
-        recycler_view.itemAnimator = DefaultItemAnimator()
-        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = RecycleViewAdapter(stringList, this)
         recycler_view.adapter = adapter
         if (stringList.size > 4) {
             layoutParams.height = ScreenUtil.dpToPx(this, 400)
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
         } else {
-            layoutParams.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
+            layoutParams.height = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.WRAP_CONTENT
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
         }
         scroll_bottom_sheet.layoutParams = layoutParams

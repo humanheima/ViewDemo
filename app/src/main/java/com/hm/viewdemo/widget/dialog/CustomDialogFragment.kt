@@ -3,7 +3,7 @@ package com.hm.viewdemo.widget.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,7 @@ import com.hm.viewdemo.databinding.DialogSigninBinding
  * Created by dumingwei on 2019-10-22.
  * Desc:
  */
-class CustomDialogFragment : DialogFragment() {
+class CustomDialogFragment : androidx.fragment.app.DialogFragment() {
 
     private var _binding: DialogSigninBinding? = null
 

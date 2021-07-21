@@ -7,7 +7,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 

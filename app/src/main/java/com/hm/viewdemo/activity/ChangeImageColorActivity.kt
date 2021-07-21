@@ -6,9 +6,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_change_image_color.*

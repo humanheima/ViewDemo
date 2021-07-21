@@ -2,7 +2,7 @@ package com.hm.viewdemo.custom_view.chapter8
 
 import android.content.Context
 import android.graphics.PorterDuff
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_xfermode.view.*
  * Created by dumingwei on 2017/3/5.
  */
 class XfermodeAdapter(private val context: Context, private val dataList: List<PorterDuff.Mode>)
-    : RecyclerView.Adapter<XfermodeAdapter.VH>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<XfermodeAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(context).inflate(R.layout.item_xfermode, parent, false)
@@ -30,6 +30,6 @@ class XfermodeAdapter(private val context: Context, private val dataList: List<P
         return dataList.size
     }
 
-    class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
 }
 

@@ -4,9 +4,9 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,13 +38,13 @@ class CoordinateLayoutActivity : AppCompatActivity() {
             oa.duration = 2000
             oa.start()
         }
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recycler_view.layoutManager = layoutManager
         recycler_view.adapter = RvAdapter()
     }
 
 
-    class RvAdapter : RecyclerView.Adapter<RvAdapter.VH>() {
+    class RvAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<RvAdapter.VH>() {
         override fun onCreateViewHolder(parent: ViewGroup, position: Int): VH {
             val view = LayoutInflater.from(parent.context).inflate(com.hm.viewdemo.R.layout.item_news_list, parent, false)
             return VH(view)
@@ -59,7 +59,7 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         }
 
 
-        class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
+        class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
     }
 
 }

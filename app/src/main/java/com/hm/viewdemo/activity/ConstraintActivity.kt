@@ -2,10 +2,10 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.constraint.Guideline
-import android.support.transition.TransitionManager
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Guideline
+import androidx.transition.TransitionManager
 import android.widget.ImageView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity

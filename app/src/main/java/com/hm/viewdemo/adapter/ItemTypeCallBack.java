@@ -1,6 +1,6 @@
 package com.hm.viewdemo.adapter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by dumingwei on 2017/4/19.

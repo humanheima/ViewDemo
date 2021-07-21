@@ -3,11 +3,11 @@ package com.hm.viewdemo.activity.design
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_tab_layout.*
  */
 class TabLayoutActivity : AppCompatActivity() {
 
-    private val fragments: ArrayList<Fragment> = arrayListOf()
+    private val fragments: ArrayList<androidx.fragment.app.Fragment> = arrayListOf()
 
     private val datas: ArrayList<MockData> = arrayListOf()
 
@@ -60,8 +60,8 @@ class TabLayoutActivity : AppCompatActivity() {
             tabLayout.addTab(tab)
         }
 
-        viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
-            override fun getItem(position: Int): Fragment {
+        viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int): androidx.fragment.app.Fragment {
                 return fragments[position]
             }
 
@@ -87,7 +87,7 @@ class TabLayoutActivity : AppCompatActivity() {
             }
 
         })
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 //do nothing
             }

@@ -1,10 +1,10 @@
 package com.hm.viewdemo.nested_scroll
 
 import android.content.Context
-import android.support.v4.view.NestedScrollingParent2
-import android.support.v4.view.NestedScrollingParentHelper
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewPager
+import androidx.core.view.NestedScrollingParent2
+import androidx.core.view.NestedScrollingParentHelper
+import androidx.core.view.ViewCompat
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -23,7 +23,7 @@ class StickyNavLayout2 @JvmOverloads constructor(
 
     private lateinit var mTop: View
     private lateinit var mNav: View
-    private lateinit var mViewPager: ViewPager
+    private lateinit var mViewPager: androidx.viewpager.widget.ViewPager
 
     private var mTopViewHeight: Int = 0
 
@@ -34,7 +34,7 @@ class StickyNavLayout2 @JvmOverloads constructor(
         mTop = findViewById(R.id.stickyNavLayoutTopView)
         mNav = findViewById(R.id.stickyNavLayoutIndicator)
         val view: View = findViewById(R.id.stickyNavLayoutViewpager)
-        if (view !is ViewPager) {
+        if (view !is androidx.viewpager.widget.ViewPager) {
             throw RuntimeException(
                     "id_stickynavlayout_viewpager show used by ViewPager !")
         }

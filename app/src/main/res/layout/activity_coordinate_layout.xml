@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="256dp"
@@ -22,15 +22,15 @@
                 android:src="@drawable/balloon"
                 app:layout_scrollFlags="scroll" />
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>
 
 

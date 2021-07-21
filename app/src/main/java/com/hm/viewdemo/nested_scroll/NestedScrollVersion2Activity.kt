@@ -3,9 +3,9 @@ package com.hm.viewdemo.nested_scroll
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_nested_scroll_version_two.*
 import java.util.*
@@ -13,7 +13,7 @@ import java.util.*
 class NestedScrollVersion2Activity : AppCompatActivity() {
 
     private val mTitles = arrayOf("简介", "评价", "相关")
-    private var mAdapter: FragmentPagerAdapter? = null
+    private var mAdapter: androidx.fragment.app.FragmentPagerAdapter? = null
     private val mFragments = arrayListOf<TabFragment>()
 
     private val mDatas = ArrayList<String>()
@@ -41,12 +41,12 @@ class NestedScrollVersion2Activity : AppCompatActivity() {
             mFragments.add(TabFragment.newInstance(mTitles[i]) as TabFragment)
         }
 
-        mAdapter = object : FragmentPagerAdapter(supportFragmentManager) {
+        mAdapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
             override fun getCount(): Int {
                 return mTitles.size
             }
 
-            override fun getItem(position: Int): Fragment {
+            override fun getItem(position: Int): androidx.fragment.app.Fragment {
                 return mFragments[position]
             }
 

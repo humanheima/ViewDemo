@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.annotation.FloatRange
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.FloatRange
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
@@ -53,8 +53,8 @@ class ColorTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_color_test)
-        rvColor.layoutManager = LinearLayoutManager(this)
-        rvColor.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        rvColor.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rvColor.addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL))
         rvColor.adapter = baseRvAdapter
         changeHsv()
     }

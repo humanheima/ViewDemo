@@ -2,7 +2,7 @@ package com.mikyou.countdowntimer;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;

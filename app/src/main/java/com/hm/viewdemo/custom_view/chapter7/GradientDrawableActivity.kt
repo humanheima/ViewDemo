@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_gradient_drawable.*
 

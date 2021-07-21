@@ -3,9 +3,9 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
-import android.support.transition.TransitionManager
-import android.support.v7.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.TransitionManager
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_lollipop.*
 

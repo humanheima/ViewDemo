@@ -1,7 +1,7 @@
 package com.hm.viewdemo.activity.design
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.frag_tablayout.*
  *
  * Desc:
  */
-class TabLayoutFragment : Fragment() {
+class TabLayoutFragment : androidx.fragment.app.Fragment() {
 
     companion object {
 
