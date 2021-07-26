@@ -3,11 +3,12 @@ package com.hm.viewdemo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.DisplayUtil;
@@ -36,17 +37,6 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colorful_progress_bar);
         initView();
-
-       /* setContentView(R.layout.activity_demo);
-        Paint progressPaint=new Paint();
-        Paint progressPaint2=new Paint();
-        progressPaint.setAntiAlias(true);
-        progressPaint2.setAntiAlias(true);
-        progressPaint.setColor(getResources().getColor(com.capton.colorfulprogressbar.R.color.colorAccent));
-        progressPaint2.setColor(getResources().getColor(com.capton.colorfulprogressbar.R.color.ltcolorAccent));
-        ColorfulView colorfulView=new ColorfulView(this,DisplayUtil.dip2px(this,300),progressPaint,progressPaint2);
-        ((ViewGroup)findViewById(R.id.container)).addView(colorfulView);
-*/
     }
 
     private void initView() {

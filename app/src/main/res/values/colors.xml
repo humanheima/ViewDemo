@@ -22,7 +22,6 @@
     <color name="color_000fff">#000fff</color>
 
 
-
     <color name="color_90EE90">#90EE90</color>
     <color name="color_FFE4B5">#FFE4B5</color>
 
@@ -36,7 +35,7 @@
     <color name="main_color_ffffcc44">#FFFFCC44</color>
     <color name="main_color_ff66aaff">#FF66AAFF</color>
 
-
+    <color name="gray">#D3D3D3</color>
 
 
 </resources>

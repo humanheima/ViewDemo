@@ -11,18 +11,12 @@
         android:id="@+id/cv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:stateListAnimator="@drawable/selector_elevation"
-        android:visibility="visible"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        tools:targetApi="lollipop">
+        app:cardElevation="8dp">
 
         <ImageView
             android:id="@+id/iv_cover"
@@ -54,6 +48,8 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_f96300_radius_23"
             android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="使用XML添加阴影效果"
             android:textSize="18dp" />
 

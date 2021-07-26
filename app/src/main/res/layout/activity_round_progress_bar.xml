@@ -7,20 +7,19 @@
     android:orientation="vertical"
     tools:context=".activity.RoundProgressBarActivity">
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp">
+        android:layout_marginEnd="16dp">
 
         <com.hm.viewdemo.widget.RoundProgressView
             android:id="@+id/roundProgressView"
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="20dp"
+            android:background="@drawable/scan_round_rect" />
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 </LinearLayout>

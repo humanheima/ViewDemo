@@ -20,6 +20,7 @@ import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
+import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -62,8 +63,17 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_rule_view -> {
+                RuleViewMainActivity.launch(this)
+            }
+            R.id.btn_ruler_view -> {
+                RulerMainActivity.launch(this)
+            }
+            R.id.btn_ruler_view_money -> {
+                MoneyScaleMainActivity.launch(this)
+            }
             R.id.btn_round_progress_view -> {
-                //RoundProgressBarActivity.launch(this)
+                RoundProgressBarActivity.launch(this)
             }
             R.id.btnTestColorProgressBar -> {
                 ColorfulProgressBarActivity.launch(this)

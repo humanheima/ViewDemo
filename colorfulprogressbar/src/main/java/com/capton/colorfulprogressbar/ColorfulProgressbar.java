@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 public class ColorfulProgressbar extends ViewGroup {
 
+
+    private static final String TAG = "ColorfulProgressbar";
+
     public static final String STYLE_NORMAL = "normal";  //正常单色样式
     public static final String STYLE_COLORFUL = "colorful"; //双色样式
     public String style = "colorful";
@@ -217,12 +220,28 @@ public class ColorfulProgressbar extends ViewGroup {
              * */
             if (animationOn) {
                 translateAnimation = new TranslateAnimation(0, 0, 0, ChildHeight - getMeasuredHeight());
-                translateAnimation.setDuration((long) (8000 * (float) getMeasuredWidth() / DisplayUtil.getScreenWidthPx(getContext())));
+                translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        Log.e(TAG, "onAnimationRepeat: ");
+                    }
+                });
+                translateAnimation.setDuration((long) (4000 * (float) getMeasuredWidth() / DisplayUtil.getScreenWidthPx(getContext())));
                 translateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
                 translateAnimation.setRepeatCount(-1);
                 translateAnimation.setRepeatMode(Animation.RESTART);
-                //getChildAt(2).setAnimation(translateAnimation);
-                //translateAnimation.start();
+                getChildAt(2).setAnimation(translateAnimation);
+                translateAnimation.start();
             }
 
             getChildAt(3).layout(0, 0, getMeasuredWidth(), getMeasuredHeight() * 2 / 3); //布局白色渐变层

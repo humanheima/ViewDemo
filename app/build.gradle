@@ -66,6 +66,8 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
 
     implementation 'com.jakewharton:butterknife:10.2.3'
+    implementation project(path: ':ruler')
+    implementation project(path: ':myruleview')
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 }
 

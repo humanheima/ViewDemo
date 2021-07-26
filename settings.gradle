@@ -1,2 +1,4 @@
+include ':myruleview'
+include ':ruler'
 include ':colorfulprogressbar'
 include ':app', ':pullrefresh', ':countdowntimer', ':dot-progress-bar'

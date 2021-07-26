@@ -136,6 +136,11 @@
         <activity android:name=".activity.RingProgressActivity" />
         <activity android:name=".activity.ListViewFloat2Activity" />
         <activity android:name=".activity.ColorfulProgressBarActivity" />
+
+        <activity android:name=".moneyscale.MoneyScaleMainActivity" />
+        <activity android:name=".activity.RulerMainActivity" />
+        <activity android:name=".activity.RuleViewMainActivity" />
+
     </application>
 
 </manifest>
