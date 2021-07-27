@@ -72,7 +72,7 @@
                 app:lineMidHeight="30dp"
                 app:lineMinHeight="20dp"
                 app:lineSpaceWidth="10dp"
-                app:lineWidth="2dip"
+                app:lineWidth="2dp"
                 app:maxValue="250.0"
                 app:minValue="80.0"
                 app:perValue="1"
@@ -85,7 +85,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="11.0dip"
                 android:scaleType="fitXY"
-                android:src="@drawable/user_info_ruler_height" />
+                android:src="@drawable/user_info_ruler_height"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -101,7 +102,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:maxHeight="17.0sp"
             android:text="体重(kg)"
             android:textColor="#cc222222"
             android:textSize="15.0sp" />
@@ -112,7 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="11.0dip"
             android:includeFontPadding="false"
-            android:maxHeight="24.0sp"
             android:text="55"
             android:textColor="#cc222222"
             android:textSize="24.0sp" />
@@ -133,7 +132,7 @@
 
             <ImageView
                 android:layout_width="14.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6.0dip"
                 android:scaleType="fitXY"

@@ -54,9 +54,9 @@ public class RuleViewMainActivity extends AppCompatActivity {
             }
         });
 
-        ruler_height.setValue(165, 80, 250, 1);
+        ruler_height.setValue(20, 10, 30, 1);
 
-        ruler_weight.setValue(55, 20, 200, 0.1f);
+        //ruler_weight.setValue(55, 20, 200, 0.1f);
 
     }
 }

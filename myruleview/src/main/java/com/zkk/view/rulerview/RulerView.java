@@ -16,6 +16,7 @@ import android.widget.Scroller;
 
 public class RulerView extends View {
 
+    private static final String TAG = "RulerView";
     private int mMinVelocity;
     private Scroller mScroller;  //Scroller是一个专门用于处理滚动效果的工具类   用mScroller记录/计算View滚动的位置，再重写View的computeScroll()，完成实际的滚动
     private VelocityTracker mVelocityTracker; //主要用跟踪触摸屏事件（flinging事件和其他gestures手势事件）的速率。
@@ -26,7 +27,7 @@ public class RulerView extends View {
     private float mMaxValue = 200;        // 最大数值
     private float mMinValue = 100.0f;     //最小的数值
     private float mPerValue = 1;          //最小单位  如 1:表示 每2条刻度差为1.   0.1:表示 每2条刻度差为0.1
-                                          // 在demo中 身高mPerValue为1  体重mPerValue 为0.1
+    // 在demo中 身高mPerValue为1  体重mPerValue 为0.1
 
     private float mLineSpaceWidth = 5;    //  尺子刻度2条线之间的距离
     private float mLineWidth = 4;         //  尺子刻度的宽度
@@ -35,7 +36,7 @@ public class RulerView extends View {
     private float mLineMinHeight = 17;    //  mLineMinHeight  表示最短的那个高度(也就是 1 2 3 4 等时的高度)
 
     private float mTextMarginTop = 10;    //o
-    private float mTextSize =30;         //尺子刻度下方数字 textsize
+    private float mTextSize = 30;         //尺子刻度下方数字 textsize
 
     private boolean mAlphaEnable = false;  // 尺子 最左边 最后边是否需要透明 (透明效果更好点)
 
@@ -43,6 +44,7 @@ public class RulerView extends View {
 
     private Paint mTextPaint;             // 尺子刻度下方数字( 也就是每隔10个出现的数值) paint
     private Paint mLinePaint;             //  尺子刻度  paint
+    private Paint mTempPaint;             //  尺子刻度  paint
 
     private int mTotalLine;               //共有多少条 刻度
     private int mMaxOffset;               //所有刻度 共有多长
@@ -51,7 +53,8 @@ public class RulerView extends View {
     private OnValueChangeListener mListener;  // 滑动后数值回调
 
     private int mLineColor = Color.GRAY;   //刻度的颜色
-    private int mTextColor=Color.BLACK;    //文字的颜色
+    private int mTextColor = Color.BLACK;    //文字的颜色
+    private int mCenterLineColor = Color.RED;    //文字的颜色
 
 
     public RulerView(Context context) {
@@ -65,11 +68,11 @@ public class RulerView extends View {
 
     public RulerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context,attrs);
+        init(context, attrs);
     }
 
     protected void init(Context context, AttributeSet attrs) {
-        Log.d("zkk---","init");
+        Log.d(TAG, "init");
         mScroller = new Scroller(context);
 
 
@@ -93,7 +96,7 @@ public class RulerView extends View {
         mLineMinHeight = typedArray.getDimension(R.styleable.RulerView_lineMinHeight, mLineMinHeight);
         mLineColor = typedArray.getColor(R.styleable.RulerView_lineColor, mLineColor);
 
-        mTextSize = typedArray.getDimension(R.styleable.RulerView_textSize,  mTextSize);
+        mTextSize = typedArray.getDimension(R.styleable.RulerView_textSize, mTextSize);
         mTextColor = typedArray.getColor(R.styleable.RulerView_textColor, mTextColor);
         mTextMarginTop = typedArray.getDimension(R.styleable.RulerView_textMarginTop, mTextMarginTop);
 
@@ -101,7 +104,6 @@ public class RulerView extends View {
         mMinValue = typedArray.getFloat(R.styleable.RulerView_minValue, 0.0f);
         mMaxValue = typedArray.getFloat(R.styleable.RulerView_maxValue, 100.0f);
         mPerValue = typedArray.getFloat(R.styleable.RulerView_perValue, 0.1f);
-
 
 
         mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
@@ -112,18 +114,22 @@ public class RulerView extends View {
         mTextHeight = getFontHeight(mTextPaint);
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
         mLinePaint.setStrokeWidth(mLineWidth);
         mLinePaint.setColor(mLineColor);
 
+        mTempPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTempPaint.setColor(Color.BLUE);
+        mTempPaint.setStrokeWidth(1);
 
-
-       // setValue(1990, 1940, 2016, 1);
+        typedArray.recycle();
+        // setValue(1990, 1940, 2016, 1);
 
     }
 
 
-    public static int  myfloat(float paramFloat){
-        return (int)(0.5F + paramFloat * 1.0f);
+    public static int myfloat(float paramFloat) {
+        return (int) (0.5F + paramFloat * 1.0f);
     }
 
     private float getFontHeight(Paint paint) {
@@ -133,24 +139,23 @@ public class RulerView extends View {
 
 
     /**
-     *
      * @param selectorValue 未选择时 默认的值 滑动后表示当前中间指针正在指着的值
-     * @param minValue   最大数值
-     * @param maxValue   最小的数值
-     * @param per   最小单位  如 1:表示 每2条刻度差为1.   0.1:表示 每2条刻度差为0.1 在demo中 身高mPerValue为1  体重mPerValue 为0.1
+     * @param minValue      最大数值
+     * @param maxValue      最小的数值
+     * @param per           最小单位  如 1:表示 每2条刻度差为1.   0.1:表示 每2条刻度差为0.1 在demo中 身高mPerValue为1  体重mPerValue 为0.1
      */
     public void setValue(float selectorValue, float minValue, float maxValue, float per) {
         this.mSelectorValue = selectorValue;
         this.mMaxValue = maxValue;
         this.mMinValue = minValue;
+        //统一都做了十倍然后计算
         this.mPerValue = (int) (per * 10.0f);
         this.mTotalLine = ((int) ((mMaxValue * 10 - mMinValue * 10) / mPerValue)) + 1;
 
 
         mMaxOffset = (int) (-(mTotalLine - 1) * mLineSpaceWidth);
         mOffset = (mMinValue - mSelectorValue) / mPerValue * mLineSpaceWidth * 10;
-        Log.d("zkk===","mOffset--           "+mOffset  +"         =====mMaxOffset    "+mMaxOffset
-        +"  mTotalLine  " +mTotalLine);
+        Log.d(TAG, "mOffset = " + mOffset + " mMaxOffset = " + mMaxOffset + " mTotalLine = " + mTotalLine);
         invalidate();
         setVisibility(VISIBLE);
     }
@@ -161,11 +166,11 @@ public class RulerView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-
         super.onSizeChanged(w, h, oldw, oldh);
         if (w > 0 && h > 0) {
             mWidth = w;
             mHeight = h;
+            Log.i(TAG, "onSizeChanged: mWidth/2 = " + mWidth / 2);
         }
     }
 
@@ -176,13 +181,15 @@ public class RulerView extends View {
         float left, height;
         String value;
         int alpha = 0;
-        float scale;
+        float scale = 0;
         int srcPointX = mWidth / 2;
+        int centerLine;
         for (int i = 0; i < mTotalLine; i++) {
             left = srcPointX + mOffset + i * mLineSpaceWidth;
 
-            if (left < 0 || left > mWidth) {
-                continue;  //  先画默认值在正中间，左右各一半的view。  多余部分暂时不画(也就是从默认值在中间，画旁边左右的刻度线)
+            Log.i(TAG, "onDraw: left = " + left);
+            if (left < 0 || left > mWidth) {//超出的部分不用画出来
+                continue;
             }
 
             if (i % 10 == 0) {
@@ -198,6 +205,13 @@ public class RulerView extends View {
 
                 mLinePaint.setAlpha(alpha);
             }
+
+//            if (scale >= 0.98) {
+//                mLinePaint.setColor(mCenterLineColor);
+//            } else {
+//                mLinePaint.setColor(mLineColor);
+//
+//            }
             canvas.drawLine(left, 0, left, height, mLinePaint);
 
             if (i % 10 == 0) {
@@ -205,8 +219,9 @@ public class RulerView extends View {
                 if (mAlphaEnable) {
                     mTextPaint.setAlpha(alpha);
                 }
+                //文字要居中绘制
                 canvas.drawText(value, left - mTextPaint.measureText(value) / 2,
-                        height + mTextMarginTop + mTextHeight, mTextPaint);    // 在为整数时,画 数值
+                        height + mTextMarginTop + mTextHeight, mTextPaint);    // 在为整数时,画数值
             }
 
         }
@@ -214,7 +229,7 @@ public class RulerView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d("zkk---","onTouchEvent-");
+        Log.d("zkk---", "onTouchEvent-");
 
         int action = event.getAction();
         int xPosition = (int) event.getX();
@@ -248,7 +263,7 @@ public class RulerView extends View {
     }
 
     private void countVelocityTracker() {
-        Log.d("zkk---","countVelocityTracker-");
+        Log.d("zkk---", "countVelocityTracker-");
         mVelocityTracker.computeCurrentVelocity(1000);  //初始化速率的单位
         float xVelocity = mVelocityTracker.getXVelocity(); //当前的速度
         if (Math.abs(xVelocity) > mMinVelocity) {
@@ -276,14 +291,13 @@ public class RulerView extends View {
         mOffset = (mMinValue - mSelectorValue) * 10.0f / mPerValue * mLineSpaceWidth;
 
 
-
         notifyValueChange();
         postInvalidate();
     }
 
 
     /**
-     * 滑动后的操作
+     * 滑动后的操作，修改mOffset
      */
     private void changeMoveAndValue() {
         mOffset -= mMove;
@@ -320,7 +334,7 @@ public class RulerView extends View {
 
     @Override
     public void computeScroll() {
-        Log.d("zkk---","computeScroll-");
+        Log.d("zkk---", "computeScroll-");
         super.computeScroll();
         if (mScroller.computeScrollOffset()) {     //mScroller.computeScrollOffset()返回 true表示滑动还没有结束
             if (mScroller.getCurrX() == mScroller.getFinalX()) {

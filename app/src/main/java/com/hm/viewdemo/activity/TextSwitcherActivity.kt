@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -17,6 +16,7 @@ import android.widget.FrameLayout
 import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityTextSwitcherBinding
 import kotlinx.android.synthetic.main.activity_text_switcher.*
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_text_switcher.*
 /**
  * Created by dumingwei on 2020/4/2
  *
- * Desc: 测试TextSwitcher
+ * Desc: 测试TextSwitcher，AnnouncementActivity也可以看一下
  */
 
 class TextSwitcherActivity : AppCompatActivity() {
@@ -290,10 +290,11 @@ class TextSwitcherActivity : AppCompatActivity() {
     private fun nextSingleText() {
         if (indexSingleTextStart < strs4.size) {
             Log.i(TAG, "nextSingleText: ")
-            binding.textSwitcherSingleText.setText(strs4[indexSingleTextStart++])
-            handler.sendEmptyMessageDelayed(4, 3000)
         } else {
             indexSingleTextStart = 0
         }
+        binding.textSwitcherSingleText.setText(strs4[indexSingleTextStart++])
+
+        handler.sendEmptyMessageDelayed(4, 3000)
     }
 }

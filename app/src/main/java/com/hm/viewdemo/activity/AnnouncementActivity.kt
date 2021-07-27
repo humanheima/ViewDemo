@@ -3,20 +3,20 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_announcement.*
 
 /**
  * Crete by dumingwei on 2019-05-27
- * Desc: 自动滚动的公告条
+ * Desc: 自动滚动的公告条，TextSwitcherActivity也可以看一下
  *
  */
 class AnnouncementActivity : AppCompatActivity() {

@@ -42,6 +42,7 @@ class ToastActivity : AppCompatActivity() {
 
     private fun showCustomToast(text: String) {
         val view = LayoutInflater.from(this).inflate(R.layout.custom_toast, null)
+        view.measuredHeight
         val tvMessage = view.findViewById<TextView>(R.id.toast_tv)
         tvMessage.text = text
         //注意这里没有使用Toast.makeText方法
