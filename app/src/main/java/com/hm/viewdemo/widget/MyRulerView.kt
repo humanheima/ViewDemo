@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorInt
 import com.hm.viewdemo.R
@@ -88,7 +89,13 @@ class MyRulerView @JvmOverloads constructor(
     private val mAlphaEnable: Boolean = false // 尺子 最左边 最后边是否需要透明 (透明效果更好点)
 
     //相对于屏幕中间的偏移量
-    private var mOffset: Float = 0f // 默认状态下，mSelectorValue所在的位置  位于尺子总刻度的位置
+    private var mOffset: Float = 0f
+
+    //最小的偏移量，这是一个负数
+    private var mMinOffset: Float = 0f
+
+    //滑动的偏移量
+    private var mMovedX: Float = 0f
 
     init {
         startColor = resources.getColor(R.color.colorPrimary)
@@ -134,7 +141,9 @@ class MyRulerView @JvmOverloads constructor(
 
         }
 
-        Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine")
+        mMinOffset = -(mTotalLine - 1) * lineSpace - lineWidth / 2f
+
+        Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine , mOffset = $mOffset")
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -188,7 +197,7 @@ class MyRulerView @JvmOverloads constructor(
                 } else if (i % 5 == 0) {
                     lineHeight = midLineHeight
                 }
-                val left = startLeft + mOffset + lineSpace * i
+                val left = startLeft + mOffset + lineSpace * i + mMovedX
                 val right = left + lineWidth
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
@@ -209,6 +218,46 @@ class MyRulerView @JvmOverloads constructor(
                 canvas.drawText(text, left + lineWidth / 2 - textPaint.measureText(text) / 2, startTop + maxLineHeight + textHeight, textPaint)
             }
         }
+    }
+
+    /**
+     * 用户手指按下控件滑动时的初始位置坐标
+     */
+    var mDownX = 0f
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                mDownX = event.x
+
+            }
+            MotionEvent.ACTION_MOVE -> {
+                mMovedX = event.x - mDownX
+                //mOffset += mMovedX
+                invalidate()
+
+            }
+            MotionEvent.ACTION_UP -> {
+                mOffset += mMovedX
+                //最大的偏移量
+                val maxOffset = -lineWidth / 2f
+                if (mOffset >= maxOffset) {
+                    mOffset = maxOffset
+                } else if (mOffset <= mMinOffset) {
+                    //最小的偏移量
+                    mOffset = mMinOffset
+                } else {
+                    //在合法的范围内，如果没有落到某个刻度中间，则调整某个
+                }
+
+                mMovedX = 0f
+
+                Log.i(TAG, "onTouchEvent: mOffset = $mOffset")
+
+                invalidate()
+            }
+        }
+        return true
     }
 
 }
