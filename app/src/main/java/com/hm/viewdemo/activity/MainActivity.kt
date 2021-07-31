@@ -63,6 +63,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_myruler_view -> {
+                MyRuleViewActivity.launch(this)
+            }
             R.id.btn_rule_view -> {
                 RuleViewMainActivity.launch(this)
             }
