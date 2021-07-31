@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.MyRulerView
@@ -14,6 +15,8 @@ import com.hm.viewdemo.widget.MyRulerView
  */
 class MyRuleViewActivity : AppCompatActivity() {
 
+
+    private val TAG: String = "MyRuleViewActivity"
 
     private lateinit var myRulerViewOddNumber: MyRulerView
     private lateinit var myRulerViewEvenNumber: MyRulerView
@@ -35,9 +38,15 @@ class MyRuleViewActivity : AppCompatActivity() {
 
         myRulerViewEvenNumber = findViewById(R.id.my_ruler_view_even_number)
 
-        myRulerViewOddNumber.setInitialValue(1f, 21f, 1f)
+        myRulerViewOddNumber.setInitialValue(1f, 20f, 10f, 1f)
 
-        myRulerViewEvenNumber.setInitialValue(1f, 22f, 1f)
+        myRulerViewOddNumber.onNumSelectListener = object : MyRulerView.OnNumSelectListener {
+            override fun onNumSelect(selectedNum: Float) {
+                Log.i(TAG, "onNumSelect: ")
+            }
+        }
+
+        myRulerViewEvenNumber.setInitialValue(1f, 21f, 12f, 1f)
     }
 
 }

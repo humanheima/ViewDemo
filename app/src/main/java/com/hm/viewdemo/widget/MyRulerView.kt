@@ -62,6 +62,7 @@ class MyRulerView @JvmOverloads constructor(
     /**
      * 控件绘制画笔
      */
+
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
@@ -82,14 +83,17 @@ class MyRulerView @JvmOverloads constructor(
     @ColorInt
     private var startColor = Color.parseColor("#ff3415b0")
 
-    /**
-     * 指示器半径
-     */
+    private var mCenterLineColor = Color.RED //文字的颜色
+
+
+    private var indicatorPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    //指示器半径
     var indicatorRadius = lineWidth / 2
 
     private val indicatorPath = Path()
 
-    private val mAlphaEnable: Boolean = false // 尺子 最左边 最后边是否需要透明 (透明效果更好点)
+    private val mAlphaEnable: Boolean = true // 尺子 最左边 最后边是否需要透明 (透明效果更好点)
 
     //相对于屏幕中间的偏移量
     private var mOffset: Float = 0f
@@ -109,7 +113,11 @@ class MyRulerView @JvmOverloads constructor(
     /**
      * 辅助计算滑动，主要用于惯性计算
      */
-    private lateinit var scroller: Scroller
+    private var scroller: Scroller
+
+    private var mSelectedNum: Float = 0f
+
+    var onNumSelectListener: OnNumSelectListener? = null
 
     init {
 
@@ -120,6 +128,10 @@ class MyRulerView @JvmOverloads constructor(
         scroller = Scroller(getContext())
 
         startColor = resources.getColor(R.color.colorPrimary)
+
+        indicatorPaint.color = startColor
+        indicatorPaint.style = Paint.Style.FILL
+        indicatorPaint.strokeCap = Paint.Cap.ROUND
 
         paint.color = startColor
         paint.style = Paint.Style.FILL
@@ -144,23 +156,29 @@ class MyRulerView @JvmOverloads constructor(
     /**
      * @param startNum 开始值
      * @param endNum 结束值
+     * @param selectedNUm 初始选中的值
      * @param unitNum 刻度值
      */
-    fun setInitialValue(startNum: Float, endNum: Float, unitNum: Float) {
+    fun setInitialValue(startNum: Float, endNum: Float, selectedNUm: Float, unitNum: Float) {
         mStartNum = startNum
         mEndNum = endNum
+        mSelectedNum = selectedNUm
+
         mUnitNum = unitNum
 
         mTotalLine = ((mEndNum - mStartNum) / mUnitNum).toInt() + 1
 
-        mOffset = if (mTotalLine % 2 == 0) {
-            //偶数个刻度，需要偏移的量，中间两个刻度的中间在控件中间
-            -(((mTotalLine - 1) * lineSpace + lineWidth) / 2f)
-        } else {
-            //奇数个刻度，需要偏移的量，保证中间的那个刻度矩形是在控件中间
-            -((mTotalLine / 2) * lineSpace + lineWidth / 2f)
+//        mOffset = if (mTotalLine % 2 == 0) {
+//            //偶数个刻度，需要偏移的量，中间两个刻度的中间在控件中间
+//            -(((mTotalLine - 1) * lineSpace + lineWidth) / 2f)
+//        } else {
+//            //奇数个刻度，需要偏移的量，保证中间的那个刻度矩形是在控件中间
+//            -((mTotalLine / 2) * lineSpace + lineWidth / 2f)
+//        }
 
-        }
+        mOffset = -((mSelectedNum - mStartNum) * lineSpace + lineWidth / 2f)
+
+        //mOffset = 0f
 
         mStartOffset = mOffset
 
@@ -201,7 +219,7 @@ class MyRulerView @JvmOverloads constructor(
          * 3. 绘制文字
          *
          */
-        canvas.drawPath(indicatorPath, paint)
+        canvas.drawPath(indicatorPath, indicatorPaint)
 
         val startLeft = mWidth / 2f//以屏幕中间为基准
         val startTop = indicatorRadius * 4f
@@ -212,9 +230,9 @@ class MyRulerView @JvmOverloads constructor(
             for (i in 0 until mTotalLine) {
 
                 var lineHeight = minLineHeight
-                if (i % 10 == 0) {
+                if ((i + 1) % 10 == 0) {
                     lineHeight = maxLineHeight
-                } else if (i % 5 == 0) {
+                } else if ((i + 1) % 5 == 0) {
                     lineHeight = midLineHeight
                 }
                 val left = startLeft + mOffset + lineSpace * i + mMovedX
@@ -222,10 +240,18 @@ class MyRulerView @JvmOverloads constructor(
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
 
+                val center = (left + right) / 2f
+
+                if (abs(startLeft - center) <= lineSpace / 2) {
+                    paint.color = mCenterLineColor
+                } else {
+                    paint.color = startColor
+                }
                 if (mAlphaEnable) {
-                    alphaPercent = 1 - abs(left - startLeft) / startLeft
+                    alphaPercent = 1 - abs(center - startLeft) / startLeft
                     //为什么要乘以alphaPercent的平方呢？
-                    val alpha = (255 * alphaPercent * alphaPercent).toInt()
+                    //val alpha = (255 * alphaPercent * alphaPercent).toInt()
+                    val alpha = (255 * alphaPercent).toInt()
                     paint.alpha = alpha
                     textPaint.alpha = alpha
                 }
@@ -234,7 +260,7 @@ class MyRulerView @JvmOverloads constructor(
                 //绘制圆角矩形
                 canvas.drawRoundRect(mUnitRectF, rx, rx, paint)
 
-                val text = i.toString()
+                val text = (i + 1).toString()
                 canvas.drawText(text, left + lineWidth / 2 - textPaint.measureText(text) / 2, startTop + maxLineHeight + textHeight, textPaint)
             }
         }
@@ -256,8 +282,10 @@ class MyRulerView @JvmOverloads constructor(
             }
             MotionEvent.ACTION_MOVE -> {
                 mMovedX = event.x - mDownX
+                val selectedNum = getSelectedNum()
+                Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNum =$selectedNum")
+                onNumSelectListener?.onNumSelect(selectedNum)
                 invalidate()
-
             }
             MotionEvent.ACTION_UP -> {
                 mOffset += mMovedX
@@ -294,6 +322,10 @@ class MyRulerView @JvmOverloads constructor(
                 }
 
                 mMovedX = 0f
+
+                val selectedNum = getSelectedNum()
+                Log.i(TAG, "onTouchEvent: ACTION_UP selectedNum =$selectedNum")
+                onNumSelectListener?.onNumSelect(selectedNum)
 
                 mVelocityTracker.computeCurrentVelocity(500, mMaximumVelocity)
 
@@ -372,7 +404,19 @@ class MyRulerView @JvmOverloads constructor(
                     scroller.forceFinished(true)
                 }
             }
+            val selectedNum = getSelectedNum()
+            Log.i(TAG, "computeScroll: selectedNum =$selectedNum")
+            onNumSelectListener?.onNumSelect(selectedNum)
             postInvalidate()
         }
+    }
+
+    fun getSelectedNum(): Float {
+        return (abs(mOffset) - lineWidth / 2) / lineSpace + 1
+    }
+
+
+    interface OnNumSelectListener {
+        fun onNumSelect(selectedNum: Float)
     }
 }
