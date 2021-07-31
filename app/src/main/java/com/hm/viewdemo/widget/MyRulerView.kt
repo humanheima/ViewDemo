@@ -5,7 +5,10 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.view.VelocityTracker
 import android.view.View
+import android.view.ViewConfiguration
+import android.widget.Scroller
 import androidx.annotation.ColorInt
 import com.hm.viewdemo.R
 import kotlin.math.abs
@@ -91,13 +94,31 @@ class MyRulerView @JvmOverloads constructor(
     //相对于屏幕中间的偏移量
     private var mOffset: Float = 0f
 
+    private var mStartOffset: Float = 0f
+
     //最小的偏移量，这是一个负数
     private var mMinOffset: Float = 0f
 
     //滑动的偏移量
     private var mMovedX: Float = 0f
 
+    private var mMinimumVelocity = 0f
+    private var mMaximumVelocity = 0f
+    private var mVelocityTracker: VelocityTracker = VelocityTracker.obtain()
+
+    /**
+     * 辅助计算滑动，主要用于惯性计算
+     */
+    private lateinit var scroller: Scroller
+
     init {
+
+        val configuration = ViewConfiguration.get(context)
+        mMinimumVelocity = configuration.scaledMinimumFlingVelocity.toFloat()
+        mMaximumVelocity = configuration.scaledMaximumFlingVelocity.toFloat()
+
+        scroller = Scroller(getContext())
+
         startColor = resources.getColor(R.color.colorPrimary)
 
         paint.color = startColor
@@ -141,6 +162,8 @@ class MyRulerView @JvmOverloads constructor(
 
         }
 
+        mStartOffset = mOffset
+
         mMinOffset = -(mTotalLine - 1) * lineSpace - lineWidth / 2f
 
         Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine , mOffset = $mOffset")
@@ -164,7 +187,6 @@ class MyRulerView @JvmOverloads constructor(
         indicatorPath.lineTo(mWidth / 2f + indicatorRadius, 0f)
         indicatorPath.lineTo(mWidth / 2f, 2 * indicatorRadius.toFloat())
         indicatorPath.close()
-
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -181,9 +203,7 @@ class MyRulerView @JvmOverloads constructor(
          */
         canvas.drawPath(indicatorPath, paint)
 
-
         val startLeft = mWidth / 2f//以屏幕中间为基准
-
         val startTop = indicatorRadius * 4f
 
         var alphaPercent = 0f
@@ -226,14 +246,16 @@ class MyRulerView @JvmOverloads constructor(
     var mDownX = 0f
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        mVelocityTracker.addMovement(event)
+
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
+                mMovedX = 0f
                 mDownX = event.x
 
             }
             MotionEvent.ACTION_MOVE -> {
                 mMovedX = event.x - mDownX
-                //mOffset += mMovedX
                 invalidate()
 
             }
@@ -247,10 +269,40 @@ class MyRulerView @JvmOverloads constructor(
                     //最小的偏移量
                     mOffset = mMinOffset
                 } else {
-                    //在合法的范围内，如果没有落到某个刻度中间，则调整某个
+                    if (mOffset < mStartOffset) {
+                        //手指从右向左滑动，diff小于0，
+                        val diff = (mOffset - mStartOffset) % lineSpace
+                        //如果滑动距离超过lineSpace的一半，继续向左移动，落到下一个刻度中间
+                        if (abs(diff) >= lineSpace / 2) {
+                            mOffset -= (lineSpace + diff)
+                        } else {
+                            //向右移动，落到刚才的刻度上
+                            mOffset -= diff
+                        }
+                    } else {
+                        //手指从左向右滑动
+                        //手指从右向左滑动，diff大于0，
+                        val diff = (mOffset - mStartOffset) % lineSpace
+                        //如果滑动距离超过lineSpace的一半，继续向左移动，落到下一个刻度中间
+                        if (diff >= lineSpace / 2) {
+                            mOffset += (lineSpace - diff)
+                        } else {
+                            //向右移动，落到刚才的刻度上
+                            mOffset -= diff
+                        }
+                    }
                 }
 
                 mMovedX = 0f
+
+                mVelocityTracker.computeCurrentVelocity(500, mMaximumVelocity)
+
+                val velocityX = mVelocityTracker.xVelocity
+                Log.i(TAG, "onTouchEvent: velocityX = $velocityX mMinimumVelocity = $mMinimumVelocity")
+
+                if (abs(velocityX) > mMinimumVelocity) {
+                    scroller.fling(0, 0, velocityX.toInt(), 0, Int.MIN_VALUE, Int.MAX_VALUE, 0, 0)
+                }
 
                 Log.i(TAG, "onTouchEvent: mOffset = $mOffset")
 
@@ -260,4 +312,67 @@ class MyRulerView @JvmOverloads constructor(
         return true
     }
 
+
+    override fun computeScroll() {
+        if (scroller.computeScrollOffset()) {
+            if (scroller.currX == scroller.finalX) {
+                mMovedX = scroller.currX - scroller.startX.toFloat()
+                Log.i(TAG, "computeScroll: scroller.currX == scroller.finalX")
+                //最大的偏移量
+                val maxOffset = -lineWidth / 2f
+                if (mOffset + mMovedX >= maxOffset) {
+                    mOffset = maxOffset
+                    mMovedX = 0f
+                    scroller.forceFinished(true)
+                } else if (mOffset + mMovedX <= mMinOffset) {
+                    //最小的偏移量
+                    mOffset = mMinOffset
+                    mMovedX = 0f
+                    scroller.forceFinished(true)
+                } else {
+                    mOffset += mMovedX
+                    if (mOffset < mStartOffset) {
+                        //手指从右向左滑动，diff小于0，
+                        val diff = (mOffset - mStartOffset) % lineSpace
+                        //如果滑动距离超过lineSpace的一半，继续向左移动，落到下一个刻度中间
+                        if (abs(diff) >= lineSpace / 2) {
+                            mOffset -= (lineSpace + diff)
+                        } else {
+                            //向右移动，落到刚才的刻度上
+                            mOffset -= diff
+                        }
+                    } else {
+                        //手指从左向右滑动
+                        //手指从右向左滑动，diff大于0，
+                        val diff = (mOffset - mStartOffset) % lineSpace
+                        //如果滑动距离超过lineSpace的一半，继续向左移动，落到下一个刻度中间
+                        if (diff >= lineSpace / 2) {
+                            mOffset += (lineSpace - diff)
+                        } else {
+                            //向右移动，落到刚才的刻度上
+                            mOffset -= diff
+                        }
+                    }
+
+                    mMovedX = 0f
+                }
+
+            } else {
+                mMovedX = scroller.currX - scroller.startX.toFloat()
+                //最大的偏移量
+                val maxOffset = -lineWidth / 2f
+                if (mOffset + mMovedX >= maxOffset) {
+                    mOffset = maxOffset
+                    mMovedX = 0f
+                    scroller.forceFinished(true)
+                } else if (mOffset + mMovedX <= mMinOffset) {
+                    //最小的偏移量
+                    mOffset = mMinOffset
+                    mMovedX = 0f
+                    scroller.forceFinished(true)
+                }
+            }
+            postInvalidate()
+        }
+    }
 }
