@@ -65,6 +65,8 @@ class MyRulerView @JvmOverloads constructor(
 
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
+    private var selectedPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     /**
      * 文字画笔
      */
@@ -83,7 +85,7 @@ class MyRulerView @JvmOverloads constructor(
     @ColorInt
     private var startColor = Color.parseColor("#ff3415b0")
 
-    private var mCenterLineColor = Color.RED //文字的颜色
+    private var mSelectedColor = Color.RED //文字的颜色
 
 
     private var indicatorPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -137,7 +139,9 @@ class MyRulerView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         paint.strokeCap = Paint.Cap.ROUND
 
-
+        selectedPaint.color = mSelectedColor
+        selectedPaint.style = Paint.Style.FILL
+        selectedPaint.strokeCap = Paint.Cap.ROUND
 
         textPaint.color = startColor
         textPaint.style = Paint.Style.FILL
@@ -230,7 +234,7 @@ class MyRulerView @JvmOverloads constructor(
             for (i in 0 until mTotalLine) {
 
                 var lineHeight = minLineHeight
-                if ((i + 1) % 10 == 0) {
+                if (i == 0 || (i + 1) % 10 == 0) {
                     lineHeight = maxLineHeight
                 } else if ((i + 1) % 5 == 0) {
                     lineHeight = midLineHeight
@@ -240,25 +244,38 @@ class MyRulerView @JvmOverloads constructor(
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
 
-                val center = (left + right) / 2f
-
-                if (abs(startLeft - center) <= lineSpace / 2) {
-                    paint.color = mCenterLineColor
-                } else {
-                    paint.color = startColor
-                }
-                if (mAlphaEnable) {
-                    alphaPercent = 1 - abs(center - startLeft) / startLeft
-                    //为什么要乘以alphaPercent的平方呢？
-                    //val alpha = (255 * alphaPercent * alphaPercent).toInt()
-                    val alpha = (255 * alphaPercent).toInt()
-                    paint.alpha = alpha
-                    textPaint.alpha = alpha
-                }
                 val rx = lineWidth / 2f
 
-                //绘制圆角矩形
-                canvas.drawRoundRect(mUnitRectF, rx, rx, paint)
+                val center = (left + right) / 2f
+
+
+                /**
+                 * 距离控件水平方向上正中间的距离
+                 */
+                val absToCenter = abs(startLeft - center)
+                if (absToCenter < lineSpace) {
+                    var selectedAlpha = 127 + (128 * (1 - absToCenter * 1.0f / lineSpace)).toInt()
+                    Log.i(TAG, "onDraw: alpha = $selectedAlpha")
+                    if (selectedAlpha >= 255) {
+                        selectedAlpha = 255
+                    }
+                    if (selectedAlpha <= 127) {
+                        selectedAlpha = 127
+                    }
+                    selectedPaint.alpha = selectedAlpha
+                    //使用选中的颜色的画笔
+                    canvas.drawRoundRect(mUnitRectF, rx, rx, selectedPaint)
+                } else {
+                    if (mAlphaEnable) {
+                        alphaPercent = 1 - abs(center - startLeft) / startLeft
+                        //为什么要乘以alphaPercent的平方呢？
+                        //val alpha = (255 * alphaPercent * alphaPercent).toInt()
+                        val alpha = (255 * alphaPercent).toInt()
+                        paint.alpha = alpha
+                        textPaint.alpha = alpha
+                    }
+                    canvas.drawRoundRect(mUnitRectF, rx, rx, paint)
+                }
 
                 val text = (i + 1).toString()
                 canvas.drawText(text, left + lineWidth / 2 - textPaint.measureText(text) / 2, startTop + maxLineHeight + textHeight, textPaint)
