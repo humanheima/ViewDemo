@@ -18,7 +18,7 @@ import kotlin.math.abs
  *
  * Desc:自定义刻度尺控件
  */
-class MyRulerView @JvmOverloads constructor(
+class MyRulerViewPratice @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
@@ -121,6 +121,8 @@ class MyRulerView @JvmOverloads constructor(
 
     var onNumSelectListener: OnNumSelectListener? = null
 
+    private var mFloatTextArray: FloatArray? = null
+
     init {
 
         val configuration = ViewConfiguration.get(context)
@@ -147,7 +149,6 @@ class MyRulerView @JvmOverloads constructor(
         textPaint.style = Paint.Style.FILL
         textPaint.strokeCap = Paint.Cap.ROUND
         textPaint.textSize = textSize
-
         val fontMetrics = textPaint.fontMetrics
         textHeight = fontMetrics.descent - fontMetrics.ascent
 
@@ -164,7 +165,7 @@ class MyRulerView @JvmOverloads constructor(
      * @param selectedNUm 初始选中的值
      * @param unitNum 刻度值
      */
-    fun setInitialValue(startNum: Float, endNum: Float, selectedNUm: Float, unitNum: Float) {
+    fun setInitialValue(startNum: Float, endNum: Float, selectedNUm: Float, unitNum: Float, floatTextArray: FloatArray) {
         mStartNum = startNum
         mEndNum = endNum
         mSelectedNum = selectedNUm
@@ -172,6 +173,9 @@ class MyRulerView @JvmOverloads constructor(
         mUnitNum = unitNum
 
         mTotalLine = ((mEndNum - mStartNum) / mUnitNum).toInt() + 1
+
+        //浮点数数组的长度大小是mTotalLine
+        mFloatTextArray = floatTextArray
 
 //        mOffset = if (mTotalLine % 2 == 0) {
 //            //偶数个刻度，需要偏移的量，中间两个刻度的中间在控件中间
@@ -269,7 +273,6 @@ class MyRulerView @JvmOverloads constructor(
 
                     //注意修改文字画笔的透明度
                     textPaint.alpha = 255
-
                 } else {
                     if (mAlphaEnable) {
                         alphaPercent = 1 - abs(center - startLeft) / startLeft
@@ -282,7 +285,8 @@ class MyRulerView @JvmOverloads constructor(
                     canvas.drawRoundRect(mUnitRectF, rx, rx, paint)
                 }
 
-                val text = (i + 1).toString()
+                //val text = (i + 1).toString()
+                val text = mFloatTextArray?.get(i)?.toString() ?: "${i + 1}"
                 canvas.drawText(text, left + lineWidth / 2 - textPaint.measureText(text) / 2, startTop + maxLineHeight + textHeight, textPaint)
             }
         }
@@ -434,7 +438,16 @@ class MyRulerView @JvmOverloads constructor(
     }
 
     fun getSelectedNum(): Float {
-        return (abs(mOffset) - lineWidth / 2) / lineSpace + 1
+        val index = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
+        Log.i(TAG, "getSelectedNum: index = $index")
+        //return index + 1
+        mFloatTextArray?.let {
+            if (index >= 0 && index < it.size) {
+                return it[index]
+            }
+        }
+        return -1f
+
     }
 
 
