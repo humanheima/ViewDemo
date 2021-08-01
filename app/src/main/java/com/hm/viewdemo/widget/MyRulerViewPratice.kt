@@ -308,10 +308,18 @@ class MyRulerViewPratice @JvmOverloads constructor(
             }
             MotionEvent.ACTION_MOVE -> {
                 mMovedX = event.x - mDownX
-                val selectedNum = getSelectedNum()
-                Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNum =$selectedNum")
-                onNumSelectListener?.onNumSelect(selectedNum)
-                invalidate()
+                //mOffset += mMovedX
+                val selectedNumFloatIndex = getSelectedNumIndex()
+                Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNumFloatIndex =$selectedNumFloatIndex mSelectedNum $mSelectedNum")
+                if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
+                    //认为发生了改变
+                    mSelectedNum = selectedNumFloatIndex.toFloat()
+                    onNumSelectListener?.onNumSelect(getSelectedNum(selectedNumFloatIndex))
+
+                }
+                // mDownX = event.x
+                // mMovedX = 0f
+                postInvalidate()
             }
             MotionEvent.ACTION_UP -> {
                 mOffset += mMovedX
@@ -349,9 +357,18 @@ class MyRulerViewPratice @JvmOverloads constructor(
 
                 mMovedX = 0f
 
-                val selectedNum = getSelectedNum()
-                Log.i(TAG, "onTouchEvent: ACTION_UP selectedNum =$selectedNum")
-                onNumSelectListener?.onNumSelect(selectedNum)
+//                val selectedNum = getSelectedNum()
+//                Log.i(TAG, "onTouchEvent: ACTION_UP selectedNum =$selectedNum")
+//                onNumSelectListener?.onNumSelect(selectedNum)
+
+                val selectedNumFloatIndex = getSelectedNumIndexWhenActionUp()
+                Log.i(TAG, "onTouchEvent: ACTION_UP selectedNumFloatIndex =$selectedNumFloatIndex")
+                if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
+                    mSelectedNum = selectedNumFloatIndex.toFloat()
+                    //认为发生了改变
+                    onNumSelectListener?.onNumSelect(getSelectedNum(selectedNumFloatIndex))
+
+                }
 
                 mVelocityTracker.computeCurrentVelocity(500, mMaximumVelocity)
 
@@ -430,15 +447,38 @@ class MyRulerViewPratice @JvmOverloads constructor(
                     scroller.forceFinished(true)
                 }
             }
-            val selectedNum = getSelectedNum()
-            Log.i(TAG, "computeScroll: selectedNum =$selectedNum")
-            onNumSelectListener?.onNumSelect(selectedNum)
+//            val selectedNum = getSelectedNum()
+//            Log.i(TAG, "computeScroll: selectedNum =$selectedNum")
+//            onNumSelectListener?.onNumSelect(selectedNum)
+
+            val selectedNumFloatIndex = getSelectedNumIndex()
+            Log.i(TAG, "onTouchEvent: ACTION_UP selectedNumFloatIndex =$selectedNumFloatIndex")
+            if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
+                mSelectedNum = selectedNumFloatIndex.toFloat()
+                //认为发生了改变
+                onNumSelectListener?.onNumSelect(getSelectedNum(selectedNumFloatIndex))
+
+            }
+
             postInvalidate()
         }
     }
 
-    fun getSelectedNum(): Float {
-        val index = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
+    fun getSelectedNumIndexWhenActionUp(): Int {
+        val selectedIndex = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
+        Log.i(TAG, "getSelectedNumIndexWhenActionUp: selectedIndex = $selectedIndex")
+        return selectedIndex
+    }
+
+    fun getSelectedNumIndex(): Int {
+        val selectedIndex = ((abs(mOffset + mMovedX) - lineWidth / 2) / lineSpace).toInt()
+        Log.i(TAG, "getSelectedNumIndexFloat: selectedIndex = $selectedIndex")
+        return selectedIndex
+    }
+
+
+    fun getSelectedNum(index: Int): Float {
+        //val index = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
         Log.i(TAG, "getSelectedNum: index = $index")
         //return index + 1
         mFloatTextArray?.let {
@@ -449,7 +489,6 @@ class MyRulerViewPratice @JvmOverloads constructor(
         return -1f
 
     }
-
 
     interface OnNumSelectListener {
         fun onNumSelect(selectedNum: Float)

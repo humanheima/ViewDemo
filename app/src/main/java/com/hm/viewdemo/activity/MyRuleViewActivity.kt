@@ -1,8 +1,12 @@
 package com.hm.viewdemo.activity
 
+import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
@@ -25,6 +29,9 @@ class MyRuleViewActivity : AppCompatActivity() {
     private lateinit var myRulerViewOddNumber: MyRulerView
     private lateinit var myRulerViewEvenNumber: MyRulerView
 
+
+    private lateinit var vb: Vibrator
+
     companion object {
 
         @JvmStatic
@@ -37,6 +44,10 @@ class MyRuleViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_rule_view)
+
+        vb = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
+
+
 
         myRulerViewPractice = findViewById(R.id.my_ruler_view_practice)
 
@@ -65,6 +76,12 @@ class MyRuleViewActivity : AppCompatActivity() {
         myRulerViewPractice.onNumSelectListener = object : MyRulerViewPratice.OnNumSelectListener {
             override fun onNumSelect(selectedNum: Float) {
                 Log.i(TAG, "onNumSelect: $selectedNum")
+                vb.cancel()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vb.vibrate(VibrationEffect.createOneShot(30L,255))
+                } else {
+                    vb.vibrate(30)
+                }
             }
         }
 
