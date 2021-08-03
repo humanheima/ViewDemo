@@ -242,6 +242,12 @@ class MyRulerView @JvmOverloads constructor(
                 }
                 val left = startLeft + mOffset + lineSpace * i + mMovedX
                 val right = left + lineWidth
+
+                //边界优化
+                if (left < lineWidth || right > mWidth - lineWidth) {
+                    continue
+                }
+
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
 

@@ -86,11 +86,11 @@ class MyRuleViewActivity : AppCompatActivity() {
         }
 
 
-        myRulerViewOddNumber.setInitialValue(1f, 20f, 10f, 1f)
+        myRulerViewOddNumber.setInitialValue(1f, 40f, 10f, 1f)
 
         myRulerViewOddNumber.onNumSelectListener = object : MyRulerView.OnNumSelectListener {
             override fun onNumSelect(selectedNum: Float) {
-                Log.i(TAG, "onNumSelect: ")
+                Log.i(TAG, "onNumSelect: $selectedNum")
             }
         }
 

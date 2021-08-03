@@ -104,6 +104,7 @@ class MyRulerViewPractice @JvmOverloads constructor(
 
     //最小的偏移量，这是一个负数
     private var mMinOffset: Float = 0f
+    private var mMaxOffset: Float = 0f
 
     //滑动的偏移量
     private var mMovedX: Float = 0f
@@ -194,6 +195,8 @@ class MyRulerViewPractice @JvmOverloads constructor(
 
         mMinOffset = -(mTotalLine - 1) * lineSpace - lineWidth / 2f
 
+        mMaxOffset = -lineWidth / 2f
+
         Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine , mOffset = $mOffset")
     }
 
@@ -243,6 +246,10 @@ class MyRulerViewPractice @JvmOverloads constructor(
                 }
                 val left = startLeft + mOffset + lineSpace * i
                 val right = left + lineWidth
+
+                if (left < lineWidth || right > mWidth - lineWidth) {
+                    continue
+                }
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
 
