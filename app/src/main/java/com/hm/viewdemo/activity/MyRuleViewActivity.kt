@@ -11,7 +11,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.MyRulerView
-import com.hm.viewdemo.widget.MyRulerViewPratice
+import com.hm.viewdemo.widget.MyRulerViewPractice
 import java.text.DecimalFormat
 
 /**
@@ -24,7 +24,7 @@ class MyRuleViewActivity : AppCompatActivity() {
 
     private val TAG: String = "MyRuleViewActivity"
 
-    private lateinit var myRulerViewPractice: MyRulerViewPratice
+    private lateinit var myRulerViewPractice: MyRulerViewPractice
 
     private lateinit var myRulerViewOddNumber: MyRulerView
     private lateinit var myRulerViewEvenNumber: MyRulerView
@@ -73,7 +73,7 @@ class MyRuleViewActivity : AppCompatActivity() {
 
         myRulerViewPractice.setInitialValue(startNum, endNum, 10f, 1f, floatTextArray)
 
-        myRulerViewPractice.onNumSelectListener = object : MyRulerViewPratice.OnNumSelectListener {
+        myRulerViewPractice.onNumSelectListener = object : MyRulerViewPractice.OnNumSelectListener {
             override fun onNumSelect(selectedNum: Float) {
                 Log.i(TAG, "onNumSelect: $selectedNum")
                 vb.cancel()

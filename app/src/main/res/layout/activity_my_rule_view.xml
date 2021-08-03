@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.MyRuleViewActivity">
 
-    <com.hm.viewdemo.widget.MyRulerViewPratice
+    <com.hm.viewdemo.widget.MyRulerViewPractice
         android:id="@+id/my_ruler_view_practice"
         android:layout_width="match_parent"
         android:layout_height="100dp"

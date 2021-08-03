@@ -300,6 +300,7 @@ class MyRulerView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 mMovedX = 0f
                 mLastX = event.x
+                scroller.abortAnimation()
 
             }
             MotionEvent.ACTION_MOVE -> {

@@ -18,12 +18,12 @@ import kotlin.math.abs
  *
  * Desc:自定义刻度尺控件
  */
-class MyRulerViewPratice @JvmOverloads constructor(
+class MyRulerViewPractice @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
 
-    private val TAG: String = "MyRulerView"
+    private val TAG: String = "MyRulerViewPractice"
 
     private var mWidth: Int = 0
     private var mHeight: Int = 0
@@ -107,6 +107,7 @@ class MyRulerViewPratice @JvmOverloads constructor(
 
     //滑动的偏移量
     private var mMovedX: Float = 0f
+    private var mLastX = 0f
 
     private var mMinimumVelocity = 0f
     private var mMaximumVelocity = 0f
@@ -196,10 +197,6 @@ class MyRulerViewPratice @JvmOverloads constructor(
         Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine , mOffset = $mOffset")
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = w
@@ -244,7 +241,7 @@ class MyRulerViewPratice @JvmOverloads constructor(
                 } else if ((i + 1) % 5 == 0) {
                     lineHeight = midLineHeight
                 }
-                val left = startLeft + mOffset + lineSpace * i + mMovedX
+                val left = startLeft + mOffset + lineSpace * i
                 val right = left + lineWidth
                 val bottom = startTop + lineHeight
                 mUnitRectF.set(left, startTop, right, bottom)
@@ -260,7 +257,7 @@ class MyRulerViewPratice @JvmOverloads constructor(
                 val absToCenter = abs(startLeft - center)
                 if (absToCenter < lineSpace) {
                     var selectedAlpha = 127 + (128 * (1 - absToCenter * 1.0f / lineSpace)).toInt()
-                    Log.i(TAG, "onDraw: alpha = $selectedAlpha")
+                    //Log.i(TAG, "onDraw: alpha = $selectedAlpha")
                     if (selectedAlpha >= 255) {
                         selectedAlpha = 255
                     }
@@ -292,37 +289,31 @@ class MyRulerViewPratice @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 用户手指按下控件滑动时的初始位置坐标
-     */
-    var mDownX = 0f
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         mVelocityTracker.addMovement(event)
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                mMovedX = 0f
-                mDownX = event.x
-
+                mLastX = event.x
+                scroller.abortAnimation()
             }
             MotionEvent.ACTION_MOVE -> {
-                mMovedX = event.x - mDownX
-                //mOffset += mMovedX
+                val movedX = event.x - mLastX
+                mOffset += movedX
+                mLastX = event.x
+
                 val selectedNumFloatIndex = getSelectedNumIndex()
-                Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNumFloatIndex =$selectedNumFloatIndex mSelectedNum $mSelectedNum")
+                Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNumFloatIndex =$selectedNumFloatIndex")
                 if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
                     //认为发生了改变
                     mSelectedNum = selectedNumFloatIndex.toFloat()
                     onNumSelectListener?.onNumSelect(getSelectedNum(selectedNumFloatIndex))
 
                 }
-                // mDownX = event.x
-                // mMovedX = 0f
-                postInvalidate()
+                invalidate()
             }
             MotionEvent.ACTION_UP -> {
-                mOffset += mMovedX
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
                 if (mOffset >= maxOffset) {
@@ -355,13 +346,7 @@ class MyRulerViewPratice @JvmOverloads constructor(
                     }
                 }
 
-                mMovedX = 0f
-
-//                val selectedNum = getSelectedNum()
-//                Log.i(TAG, "onTouchEvent: ACTION_UP selectedNum =$selectedNum")
-//                onNumSelectListener?.onNumSelect(selectedNum)
-
-                val selectedNumFloatIndex = getSelectedNumIndexWhenActionUp()
+                val selectedNumFloatIndex = getSelectedNumIndex()
                 Log.i(TAG, "onTouchEvent: ACTION_UP selectedNumFloatIndex =$selectedNumFloatIndex")
                 if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
                     mSelectedNum = selectedNumFloatIndex.toFloat()
@@ -373,10 +358,12 @@ class MyRulerViewPratice @JvmOverloads constructor(
                 mVelocityTracker.computeCurrentVelocity(500, mMaximumVelocity)
 
                 val velocityX = mVelocityTracker.xVelocity
-                Log.i(TAG, "onTouchEvent: velocityX = $velocityX mMinimumVelocity = $mMinimumVelocity")
+                //Log.i(TAG, "onTouchEvent: velocityX = $velocityX mMinimumVelocity = $mMinimumVelocity")
 
                 if (abs(velocityX) > mMinimumVelocity) {
                     scroller.fling(0, 0, velocityX.toInt(), 0, Int.MIN_VALUE, Int.MAX_VALUE, 0, 0)
+                    //mLastScrolledX要和 startX一致
+                    mLastScrolledX = 0
                 }
 
                 Log.i(TAG, "onTouchEvent: mOffset = $mOffset")
@@ -388,24 +375,25 @@ class MyRulerViewPratice @JvmOverloads constructor(
     }
 
 
+    private var mLastScrolledX: Int = 0
+
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
-            if (scroller.currX == scroller.finalX) {
-                mMovedX = scroller.currX - scroller.startX.toFloat()
+            val currX = scroller.currX
+            var scrolledX = currX - mLastScrolledX
+            mOffset += scrolledX
+            if (currX == scroller.finalX) {
                 Log.i(TAG, "computeScroll: scroller.currX == scroller.finalX")
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
-                if (mOffset + mMovedX >= maxOffset) {
+                if (mOffset >= maxOffset) {
                     mOffset = maxOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
-                } else if (mOffset + mMovedX <= mMinOffset) {
+                } else if (mOffset <= mMinOffset) {
                     //最小的偏移量
                     mOffset = mMinOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
                 } else {
-                    mOffset += mMovedX
                     if (mOffset < mStartOffset) {
                         //手指从右向左滑动，diff小于0，
                         val diff = (mOffset - mStartOffset) % lineSpace
@@ -428,58 +416,47 @@ class MyRulerViewPratice @JvmOverloads constructor(
                             mOffset -= diff
                         }
                     }
-
-                    mMovedX = 0f
                 }
-
             } else {
-                mMovedX = scroller.currX - scroller.startX.toFloat()
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
-                if (mOffset + mMovedX >= maxOffset) {
+                if (mOffset >= maxOffset) {
                     mOffset = maxOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
-                } else if (mOffset + mMovedX <= mMinOffset) {
+                } else if (mOffset <= mMinOffset) {
                     //最小的偏移量
                     mOffset = mMinOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
                 }
             }
-//            val selectedNum = getSelectedNum()
-//            Log.i(TAG, "computeScroll: selectedNum =$selectedNum")
-//            onNumSelectListener?.onNumSelect(selectedNum)
+
+            mLastScrolledX = currX
 
             val selectedNumFloatIndex = getSelectedNumIndex()
-            Log.i(TAG, "onTouchEvent: ACTION_UP selectedNumFloatIndex =$selectedNumFloatIndex")
+            Log.i(TAG, "computeScroll: selectedNumFloatIndex =$selectedNumFloatIndex")
             if (abs(mSelectedNum - selectedNumFloatIndex) >= 0.5f) {
                 mSelectedNum = selectedNumFloatIndex.toFloat()
                 //认为发生了改变
                 onNumSelectListener?.onNumSelect(getSelectedNum(selectedNumFloatIndex))
-
             }
 
-            postInvalidate()
+            invalidate()
         }
     }
 
-    fun getSelectedNumIndexWhenActionUp(): Int {
-        val selectedIndex = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
-        Log.i(TAG, "getSelectedNumIndexWhenActionUp: selectedIndex = $selectedIndex")
-        return selectedIndex
-    }
-
     fun getSelectedNumIndex(): Int {
-        val selectedIndex = ((abs(mOffset + mMovedX) - lineWidth / 2) / lineSpace).toInt()
-        Log.i(TAG, "getSelectedNumIndexFloat: selectedIndex = $selectedIndex")
+        var selectedIndex = ((abs(mOffset + mMovedX) - lineWidth / 2) / lineSpace).toInt()
+        mFloatTextArray?.let {
+            if (selectedIndex >= it.size) {
+                selectedIndex = it.size - 1
+            }
+        }
         return selectedIndex
     }
-
 
     fun getSelectedNum(index: Int): Float {
         //val index = ((abs(mOffset) - lineWidth / 2) / lineSpace).toInt()
-        Log.i(TAG, "getSelectedNum: index = $index")
+        //Log.i(TAG, "getSelectedNum: index = $index")
         //return index + 1
         mFloatTextArray?.let {
             if (index >= 0 && index < it.size) {
