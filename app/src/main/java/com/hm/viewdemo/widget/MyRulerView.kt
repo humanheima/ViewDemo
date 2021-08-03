@@ -291,7 +291,7 @@ class MyRulerView @JvmOverloads constructor(
     /**
      * 用户手指按下控件滑动时的初始位置坐标
      */
-    var mDownX = 0f
+    var mLastX = 0f
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         mVelocityTracker.addMovement(event)
@@ -299,18 +299,22 @@ class MyRulerView @JvmOverloads constructor(
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 mMovedX = 0f
-                mDownX = event.x
+                mLastX = event.x
 
             }
             MotionEvent.ACTION_MOVE -> {
-                mMovedX = event.x - mDownX
+                mMovedX = event.x - mLastX
                 val selectedNum = getSelectedNum()
                 Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNum =$selectedNum")
                 onNumSelectListener?.onNumSelect(selectedNum)
+
+                mOffset += mMovedX
+                mLastX = event.x
+                mMovedX = 0f
+
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
-                mOffset += mMovedX
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
                 if (mOffset >= maxOffset) {
@@ -342,8 +346,6 @@ class MyRulerView @JvmOverloads constructor(
                         }
                     }
                 }
-
-                mMovedX = 0f
 
                 val selectedNum = getSelectedNum()
                 Log.i(TAG, "onTouchEvent: ACTION_UP selectedNum =$selectedNum")
