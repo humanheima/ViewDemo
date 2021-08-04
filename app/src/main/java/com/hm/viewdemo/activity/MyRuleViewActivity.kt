@@ -93,7 +93,6 @@ class MyRuleViewActivity : AppCompatActivity() {
                 Log.i(TAG, "onNumSelect: $selectedNum")
             }
         }
-
         myRulerViewEvenNumber.setInitialValue(1f, 21f, 12f, 1f)
     }
 

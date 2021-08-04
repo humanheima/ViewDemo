@@ -105,8 +105,8 @@ class MyRulerView @JvmOverloads constructor(
     //最小的偏移量，这是一个负数
     private var mMinOffset: Float = 0f
 
-    //滑动的偏移量
-    private var mMovedX: Float = 0f
+    //用户手指按下控件滑动时的初始位置坐标
+    var mLastX = 0f
 
     private var mMinimumVelocity = 0f
     private var mMaximumVelocity = 0f
@@ -154,7 +154,6 @@ class MyRulerView @JvmOverloads constructor(
         mTotalLine = ((mEndNum - mStartNum) / mUnitNum).toInt()
 
         Log.i(TAG, "init :mStartNum = $mStartNum , mStartNum = $mStartNum , mUnitNum = $mUnitNum , mTotalLine = $mTotalLine")
-
     }
 
 
@@ -240,7 +239,7 @@ class MyRulerView @JvmOverloads constructor(
                 } else if ((i + 1) % 5 == 0) {
                     lineHeight = midLineHeight
                 }
-                val left = startLeft + mOffset + lineSpace * i + mMovedX
+                val left = startLeft + mOffset + lineSpace * i
                 val right = left + lineWidth
 
                 //边界优化
@@ -294,31 +293,22 @@ class MyRulerView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 用户手指按下控件滑动时的初始位置坐标
-     */
-    var mLastX = 0f
-
     override fun onTouchEvent(event: MotionEvent): Boolean {
         mVelocityTracker.addMovement(event)
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                mMovedX = 0f
                 mLastX = event.x
                 scroller.abortAnimation()
 
             }
             MotionEvent.ACTION_MOVE -> {
-                mMovedX = event.x - mLastX
+                val movedX = event.x - mLastX
+                mOffset += movedX
+                mLastX = event.x
                 val selectedNum = getSelectedNum()
                 Log.i(TAG, "onTouchEvent: ACTION_MOVE selectedNum =$selectedNum")
                 onNumSelectListener?.onNumSelect(selectedNum)
-
-                mOffset += mMovedX
-                mLastX = event.x
-                mMovedX = 0f
-
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
@@ -365,6 +355,7 @@ class MyRulerView @JvmOverloads constructor(
 
                 if (abs(velocityX) > mMinimumVelocity) {
                     scroller.fling(0, 0, velocityX.toInt(), 0, Int.MIN_VALUE, Int.MAX_VALUE, 0, 0)
+                    mLastScrolledX = 0
                 }
 
                 Log.i(TAG, "onTouchEvent: mOffset = $mOffset")
@@ -376,24 +367,26 @@ class MyRulerView @JvmOverloads constructor(
     }
 
 
+    private var mLastScrolledX: Int = 0
+
+
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
-            if (scroller.currX == scroller.finalX) {
-                mMovedX = scroller.currX - scroller.startX.toFloat()
+            val currX = scroller.currX
+            var scrolledX = currX - mLastScrolledX
+            mOffset += scrolledX
+            if (currX == scroller.finalX) {
                 Log.i(TAG, "computeScroll: scroller.currX == scroller.finalX")
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
-                if (mOffset + mMovedX >= maxOffset) {
+                if (mOffset >= maxOffset) {
                     mOffset = maxOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
-                } else if (mOffset + mMovedX <= mMinOffset) {
+                } else if (mOffset <= mMinOffset) {
                     //最小的偏移量
                     mOffset = mMinOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
                 } else {
-                    mOffset += mMovedX
                     if (mOffset < mStartOffset) {
                         //手指从右向左滑动，diff小于0，
                         val diff = (mOffset - mStartOffset) % lineSpace
@@ -416,29 +409,26 @@ class MyRulerView @JvmOverloads constructor(
                             mOffset -= diff
                         }
                     }
-
-                    mMovedX = 0f
                 }
-
             } else {
-                mMovedX = scroller.currX - scroller.startX.toFloat()
                 //最大的偏移量
                 val maxOffset = -lineWidth / 2f
-                if (mOffset + mMovedX >= maxOffset) {
+                if (mOffset >= maxOffset) {
                     mOffset = maxOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
-                } else if (mOffset + mMovedX <= mMinOffset) {
+                } else if (mOffset <= mMinOffset) {
                     //最小的偏移量
                     mOffset = mMinOffset
-                    mMovedX = 0f
                     scroller.forceFinished(true)
                 }
             }
+
+            mLastScrolledX = currX
+
             val selectedNum = getSelectedNum()
             Log.i(TAG, "computeScroll: selectedNum =$selectedNum")
             onNumSelectListener?.onNumSelect(selectedNum)
-            postInvalidate()
+            invalidate()
         }
     }
 
@@ -446,8 +436,8 @@ class MyRulerView @JvmOverloads constructor(
         return (abs(mOffset) - lineWidth / 2) / lineSpace + 1
     }
 
-
     interface OnNumSelectListener {
         fun onNumSelect(selectedNum: Float)
     }
+
 }
