@@ -2,19 +2,10 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_card_view.*
 
 /**
  * Crete by dumingwei on 2019-08-01
@@ -24,7 +15,13 @@ import kotlinx.android.synthetic.main.activity_card_view.*
  */
 class CardViewActivity : AppCompatActivity() {
 
+
     companion object {
+
+        private val TAG: String = "CardViewActivity"
+
+        private val COS_45 = Math.cos(Math.toRadians(45.0))
+
         fun launch(context: Context) {
             val intent = Intent(context, CardViewActivity::class.java)
             context.startActivity(intent)
@@ -34,6 +31,7 @@ class CardViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_view)
+        Log.i(TAG, "onCreate: COS_45 = $COS_45")
     }
 
 

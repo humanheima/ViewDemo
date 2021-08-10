@@ -8,7 +8,7 @@
     <dimen name="vertical_space">8dp</dimen>
     <dimen name="horizontal_space">16dp</dimen>
 
-    <dimen name="cardview_margin">12dp</dimen>
+    <dimen name="cardview_margin">0dp</dimen>
 
 
 </resources>

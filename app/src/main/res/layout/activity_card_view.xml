@@ -7,6 +7,38 @@
     android:orientation="vertical"
     tools:context=".activity.CardViewActivity">
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="24dp"
+        android:padding="80dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:cardPreventCornerOverlap="false">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@mipmap/ballon" />
+
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="24dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@mipmap/ballon" />
+
+    </FrameLayout>
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_content"
         android:layout_width="match_parent"
@@ -15,6 +47,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp">
 
@@ -38,7 +71,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="23dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
