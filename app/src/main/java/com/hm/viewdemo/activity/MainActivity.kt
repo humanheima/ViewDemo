@@ -63,17 +63,20 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_outline -> {
+                OutlineTestActivity.launch(this)
+            }
             R.id.btn_myruler_view -> {
-                MyRuleViewActivity.launch(this)
+                //MyRuleViewActivity.launch(this)
             }
             R.id.btn_rule_view -> {
-                RuleViewMainActivity.launch(this)
+                //RuleViewMainActivity.launch(this)
             }
             R.id.btn_ruler_view -> {
-                RulerMainActivity.launch(this)
+                //RulerMainActivity.launch(this)
             }
             R.id.btn_ruler_view_money -> {
-                MoneyScaleMainActivity.launch(this)
+                //MoneyScaleMainActivity.launch(this)
             }
             R.id.btn_round_progress_view -> {
                 RoundProgressBarActivity.launch(this)

@@ -9,6 +9,12 @@ import com.hm.viewdemo.R
 /**
  * Created by dumingwei on 2019-08-27.
  * Desc:
+ * Shader.TileMode.CLAMP会将边缘的像素进行拉伸、扩展到整个View的宽度或高度
+ * Shader.TileMode.MIRROR在绘制的矩形区域内，X轴方向和Y轴方向上出现了镜面翻转 直到占满整个View的宽高
+ * Shader.TileMode.REPEAT 将图像进行复制平铺 跟电脑桌面壁纸一样 占不满一屏会进行平铺
+ *
+ * 参考链接：https://www.jianshu.com/p/83af13b41bb6
+ *
  */
 class BitmapShaderView @JvmOverloads constructor(
         context: Context,

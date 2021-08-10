@@ -9,12 +9,14 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.Rect;
 import android.graphics.RectF;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.hm.viewdemo.R;
 
@@ -38,6 +40,41 @@ public class DrawPathView extends View {
     private Bitmap mBitmap;             // 箭头图片
     private Matrix mMatrix;             // 矩阵,用于对图片进行一些操作
 
+    private int tempWidth;
+    private int tempHeight;
+
+    private float horizontalOffset = 0;
+    private float verticalOffset = 0;
+
+    private static final float SHADOW_MULTIPLIER = 1.5f;
+
+    //圆角弧度
+    private float mCornerRadius = 12f;
+    //用户设置的elevation
+    private float mRawShadowSize = 16f;
+    //用户设置的最大的elevation，不指定的话，就等于mRawShadowSize
+    private float mRawMaxShadowSize = 16f;
+    private float mShadowSize = 25.5f;
+
+    //额外的阴影，默认是1dp
+    private float mInsetShadow = 1f;
+
+    private int primaryColor;
+    private int accentColor;
+
+    private final RectF mCardBounds =new RectF();
+
+
+    private void buildComponents(Rect bounds) {
+        // Card is offset SHADOW_MULTIPLIER * maxShadowSize to account for the shadow shift.
+        // We could have different top-bottom offsets to avoid extra gap above but in that case
+        // center aligning Views inside the CardView would be problematic.
+        final float verticalOffset = mRawMaxShadowSize * SHADOW_MULTIPLIER;
+        mCardBounds.set(bounds.left + mRawMaxShadowSize, bounds.top + verticalOffset,
+                bounds.right - mRawMaxShadowSize, bounds.bottom - verticalOffset);
+        //buildShadowCorners();
+    }
+
     public DrawPathView(Context context) {
         this(context, null);
     }
@@ -50,8 +87,27 @@ public class DrawPathView extends View {
         super(context, attrs, defStyleAttr);
         initPaint();
 
+        primaryColor = getResources().getColor(R.color.colorPrimary);
+        accentColor = getResources().getColor(R.color.colorAccent);
         mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);
         mMatrix = new Matrix();
+
+        tempWidth = dp2px(278);
+        tempHeight = dp2px(150);
+
+        mInsetShadow = dp2px(1f);
+
+        mCornerRadius = dp2px(12);
+
+        mRawShadowSize = dp2px(16);
+
+        mRawMaxShadowSize = dp2px(16);
+
+        mShadowSize = SHADOW_MULTIPLIER * mRawMaxShadowSize + mInsetShadow + 0.5f;
+
+        horizontalOffset = mRawMaxShadowSize;
+
+        verticalOffset = mRawMaxShadowSize * SHADOW_MULTIPLIER;
 
     }
 
@@ -77,9 +133,9 @@ public class DrawPathView extends View {
         //绘制坐标系
         mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(10);
-        canvas.drawLine(0f, height / 2.0f, width * 1.0f, height / 2.0f, mPaint);
-        canvas.drawLine(width / 2.0f, 0f, width / 2.0f, height * 1.0f, mPaint);
+        mPaint.setStrokeWidth(3);
+        canvas.drawLine(0f, height / 5.0f, width * 1.0f, height / 5.0f, mPaint);
+        canvas.drawLine(width / 5.0f, 0f, width / 5.0f, height * 1.0f, mPaint);
         //rectF.set(width / 2.0f, height / 2.0f, width * 2 / 3f, height * 2 / 3f);
 
         //canvas.drawArc(rectF, 0f, 30f, false, mPaint);
@@ -440,26 +496,108 @@ public class DrawPathView extends View {
         canvas.drawPath(path, mPaint);
     }
 
+
+    private Path mCornerShadowPath = new Path();
+
     /**
      * 测试 path 添加圆角矩形
      *
      * @param canvas
      */
     private void pathAddRoundRect(Canvas canvas) {
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(primaryColor);
         //mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStyle(Paint.Style.FILL);
         //移动到屏幕中间
-        canvas.translate(width / 2.0f, height / 2.0f);
+        canvas.translate(width / 5.0f, height / 5.0f);
         Path path = new Path();
-        RectF rectF1 = new RectF(50, 50, 240, 200);
-        path.addRoundRect(rectF1, 10, 15, Path.Direction.CW);
-
-        RectF rectF2 = new RectF(290, 50, 480, 200);
-        float[] raddi = {10, 15, 20, 25, 30, 35, 40, 45};
-        path.addRoundRect(rectF2, raddi, Path.Direction.CW);
+        RectF rectF1 = new RectF(verticalOffset, verticalOffset, verticalOffset + tempWidth, verticalOffset + tempHeight);
+        path.addRect(rectF1, Path.Direction.CW);
 
         canvas.drawPath(path, mPaint);
+
+        mPaint.setColor(accentColor);
+
+        RectF innerBounds = new RectF(-mCornerRadius, -mCornerRadius, mCornerRadius, mCornerRadius);
+        RectF outerBounds = new RectF(innerBounds);
+        outerBounds.inset(-mShadowSize, -mShadowSize);
+
+        mCornerShadowPath.reset();
+
+        mCornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
+        // -mCornerRadius = -12
+        mCornerShadowPath.moveTo(-mCornerRadius, 0);
+        // -mShadowSize = -(16 * 1.5 + 1 + 0.5)  = -25.5
+        mCornerShadowPath.rLineTo(-mShadowSize, 0);
+
+        // outer arc
+        mCornerShadowPath.arcTo(outerBounds, 180f, 90f, false);
+        // inner arc
+        mCornerShadowPath.arcTo(innerBounds, 270f, -90f, false);
+        mCornerShadowPath.close();
+
+        canvas.drawPath(mCornerShadowPath, mPaint);
+
+
+//        RectF rectF2 = new RectF(290, 50, 480, 200);
+//        float[] raddi = {10, 15, 20, 25, 30, 35, 40, 45};
+//        path.addRoundRect(rectF2, raddi, Path.Direction.CW);
+//
+//        canvas.drawPath(path, mPaint);
+    }
+
+
+
+
+    private void drawShadow(Canvas canvas) {
+
+//        //阴影上边界
+//        final float edgeShadowTop = -mCornerRadius - mShadowSize;
+//        final float inset = mCornerRadius + mInsetShadow + mRawShadowSize / 2;
+//        //正常情况下应该成立
+//        final boolean drawHorizontalEdges = mCardBounds.width() - 2 * inset > 0;
+//        final boolean drawVerticalEdges = mCardBounds.height() - 2 * inset > 0;
+//        // LT，绘制左上角的阴影
+//        int saved = canvas.save();
+//        canvas.translate(mCardBounds.left + inset, mCardBounds.top + inset);
+//        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
+//        if (drawHorizontalEdges) {
+//            canvas.drawRect(0, edgeShadowTop,
+//                    mCardBounds.width() - 2 * inset, -mCornerRadius,
+//                    mEdgeShadowPaint);
+//        }
+//        canvas.restoreToCount(saved);
+//        // RB
+//        saved = canvas.save();
+//        canvas.translate(mCardBounds.right - inset, mCardBounds.bottom - inset);
+//        canvas.rotate(180f);
+//        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
+//        if (drawHorizontalEdges) {
+//            canvas.drawRect(0, edgeShadowTop,
+//                    mCardBounds.width() - 2 * inset, -mCornerRadius + mShadowSize,
+//                    mEdgeShadowPaint);
+//        }
+//        canvas.restoreToCount(saved);
+//        // LB
+//        saved = canvas.save();
+//        canvas.translate(mCardBounds.left + inset, mCardBounds.bottom - inset);
+//        canvas.rotate(270f);
+//        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
+//        if (drawVerticalEdges) {
+//            canvas.drawRect(0, edgeShadowTop,
+//                    mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
+//        }
+//        canvas.restoreToCount(saved);
+//        // RT
+//        saved = canvas.save();
+//        canvas.translate(mCardBounds.right - inset, mCardBounds.top + inset);
+//        canvas.rotate(90f);
+//        canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
+//        if (drawVerticalEdges) {
+//            canvas.drawRect(0, edgeShadowTop,
+//                    mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
+//        }
+//        canvas.restoreToCount(saved);
     }
 
 
@@ -524,7 +662,7 @@ public class DrawPathView extends View {
         canvas.drawPath(path, mPaint);
     }
 
-    public int dp2px(int dpVal) {
+    public int dp2px(float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
     }
