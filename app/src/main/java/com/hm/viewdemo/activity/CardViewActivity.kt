@@ -20,7 +20,6 @@ import kotlin.math.ceil
  */
 class CardViewActivity : AppCompatActivity() {
 
-
     private val TAG: String = "CardViewActivity"
 
     private val SHADOW_MULTIPLIER = 1.5f
@@ -32,6 +31,7 @@ class CardViewActivity : AppCompatActivity() {
 
     //圆角12dp
     private var mRadius: Int = 12
+
     //阴影和最大阴影都设为16dp
     private var mElevation: Int = 16
     private var mMaxElevation: Int = 16
@@ -42,6 +42,7 @@ class CardViewActivity : AppCompatActivity() {
 
 
     companion object {
+
 
         fun launch(context: Context) {
             val intent = Intent(context, CardViewActivity::class.java)
