@@ -63,6 +63,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestSkeletonView -> {
+                SkeletonViewActivity.launch(this)
+            }
             R.id.btn_test_outline -> {
                 OutlineTestActivity.launch(this)
             }
