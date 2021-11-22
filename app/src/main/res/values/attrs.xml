@@ -108,9 +108,18 @@
 
     </declare-styleable>
 
+    <!--属性共用的话，就把共用的属性提取出来。-->
+    <attr name="start_color" format="color|reference" />
+    <attr name="end_color" format="color|reference" />
+
     <declare-styleable name="LinearGradientView">
-        <attr name="start_color" format="color|reference" />
-        <attr name="end_color" format="color|reference" />
+        <attr name="start_color" />
+        <attr name="end_color" />
+    </declare-styleable>
+
+    <declare-styleable name="LinearGradientView2">
+        <attr name="start_color" />
+        <attr name="end_color" />
     </declare-styleable>
 
     <declare-styleable name="TestScrollerUpDownView">
@@ -128,13 +137,13 @@
 
     <!-- 自定义环形进度条的属性-->
     <declare-styleable name="RingProgressView">
-        <attr name="ringColor" format="color"/>
-        <attr name="ringProgressColor" format="color"/>
-        <attr name="ringWidth" format="dimension"/>
-        <attr name="rps_text_size" format="dimension"/>
-        <attr name="rps_text_color" format="color"/>
-        <attr name="currentProgress" format="integer"/>
-        <attr name="maxProgress" format="integer"/>
+        <attr name="ringColor" format="color" />
+        <attr name="ringProgressColor" format="color" />
+        <attr name="ringWidth" format="dimension" />
+        <attr name="rps_text_size" format="dimension" />
+        <attr name="rps_text_color" format="color" />
+        <attr name="currentProgress" format="integer" />
+        <attr name="maxProgress" format="integer" />
     </declare-styleable>
 
 </resources>

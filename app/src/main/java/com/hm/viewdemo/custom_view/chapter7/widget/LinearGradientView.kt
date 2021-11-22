@@ -92,9 +92,22 @@ class LinearGradientView @JvmOverloads constructor(
         paint.shader = linearGradient
     }
 
+    /**
+     * 颜色数组的长度和位置数组的长度需要一样
+     */
     private fun threeColorGradient(h: Int) {
-        val gradientColor = intArrayOf(0x0d000000, 0x26000000, -0x80000000)
-        val gradientPosition = floatArrayOf(0f, 0.5f, 1f)
+        val color1: Int = Color.parseColor("#445ACB")
+        val color2: Int = Color.parseColor("#6E90FF")
+        val color3: Int = Color.parseColor("#F3F7FF")
+
+        val gradientColor = intArrayOf(color1, color2, color3)
+
+        /**
+         * 第一个颜色0-0.5
+         * 第二个颜色0.5-0.8
+         * 第三个颜色0.8-1.0
+         */
+        val gradientPosition = floatArrayOf(0.5f, 0.8f, 1f)
         var gradientY1: Int = h
         if (gradientY1 <= 0) {
             gradientY1 = ScreenUtil.getScreenHeight(context)
