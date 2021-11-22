@@ -93,7 +93,11 @@ class LinearGradientView @JvmOverloads constructor(
     }
 
     private fun threeColorGradient(h: Int) {
-        val gradientColor = intArrayOf(0x0d000000, 0x26000000, -0x80000000)
+        val color1: Int = Color.parseColor("#F1753C")
+        val color2: Int = Color.parseColor("#EB582F")
+        val color3: Int = Color.parseColor("#0E1548")
+
+        val gradientColor = intArrayOf(color1, color2, color3)
         val gradientPosition = floatArrayOf(0f, 0.5f, 1f)
         var gradientY1: Int = h
         if (gradientY1 <= 0) {

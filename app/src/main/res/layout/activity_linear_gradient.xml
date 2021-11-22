@@ -8,27 +8,25 @@
 
     <com.hm.viewdemo.custom_view.chapter7.widget.LinearGradientView
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="200dp" />
 
 
     <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
         android:id="@+id/play_page_bg_view1"
         android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:visibility="visible" />
 
     <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
         android:id="@+id/play_page_bg_view2"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:visibility="gone"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp" />
 
     <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
         android:id="@+id/play_page_bg_view3"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="100dp"
         android:layout_marginTop="20dp" />
 
