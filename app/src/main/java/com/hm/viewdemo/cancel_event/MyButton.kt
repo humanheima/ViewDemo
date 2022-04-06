@@ -1,6 +1,7 @@
 package com.hm.viewdemo.cancel_event
 
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -36,6 +37,11 @@ class MyButton : Button {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         Log.i(TAG, "onTouchEvent: ${event.action}")
         return super.onTouchEvent(event)
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        Log.i(TAG, "onDraw: canvas = ${canvas.hashCode()}")
+        super.onDraw(canvas)
     }
 
     companion object {

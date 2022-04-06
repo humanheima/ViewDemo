@@ -1,14 +1,15 @@
 package com.hm.viewdemo.widget;
 
 import android.content.Context;
-import androidx.appcompat.widget.AppCompatButton;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Created by dumingwei on 2017/10/7.
  */
-public class EventDispatchButton extends AppCompatButton {
+public class EventDispatchButton extends View {
 
     private static final String TAG = "EventDispatchButton";
 
@@ -26,17 +27,25 @@ public class EventDispatchButton extends AppCompatButton {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-       /* switch (event.getAction()) {
+        String action = "";
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "onTouchEvent ACTION_DOWN");
-                return false;
+                action = "ACTION_DOWN";
+                break;
             case MotionEvent.ACTION_MOVE:
                 Log.i(TAG, "onTouchEvent ACTION_MOVE");
+                action = "ACTION_MOVE";
                 break;
             case MotionEvent.ACTION_UP:
                 Log.i(TAG, "onTouchEvent ACTION_UP");
+                action = "ACTION_UP";
                 break;
-        }*/
-        return super.onTouchEvent(event);
+        }
+
+        boolean handled = super.onTouchEvent(event);
+        Log.i(TAG, "onTouchEvent: action = " + action + " handled = " + handled);
+        return handled;
     }
+
 }

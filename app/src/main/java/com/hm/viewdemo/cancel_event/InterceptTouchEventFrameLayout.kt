@@ -1,6 +1,7 @@
 package com.hm.viewdemo.cancel_event
 
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -24,5 +25,11 @@ class InterceptTouchEventFrameLayout @JvmOverloads constructor(
             MotionEvent.ACTION_UP -> return true
         }
         return super.onInterceptTouchEvent(ev)
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        Log.i(TAG, "onDraw: canvas = ${canvas.hashCode()}")
+        super.onDraw(canvas)
+
     }
 }

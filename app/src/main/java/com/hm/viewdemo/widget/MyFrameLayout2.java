@@ -10,22 +10,23 @@ import android.widget.FrameLayout;
  * Created by dumingwei on 2019/2/28.
  * Desc:
  */
-public class MyFrameLayout extends FrameLayout {
+public class MyFrameLayout2 extends FrameLayout {
 
 
-    private static final String TAG = "MyFrameLayout";
+    private static final String TAG = "MyFrameLayout2";
+
     private boolean shouldIntercept = false;
 
-    public MyFrameLayout(Context context) {
+    public MyFrameLayout2(Context context) {
         super(context);
     }
 
-    public MyFrameLayout(Context context, AttributeSet attrs) {
+    public MyFrameLayout2(Context context, AttributeSet attrs) {
         super(context, attrs);
         //Log.e(TAG, "MyFrameLayout: ");
     }
 
-    public MyFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyFrameLayout2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -59,7 +60,7 @@ public class MyFrameLayout extends FrameLayout {
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "onInterceptTouchEvent ACTION_DOWN");
                 action = "ACTION_DOWN";
-                return false;
+                break;
             case MotionEvent.ACTION_MOVE:
                 Log.i(TAG, "onInterceptTouchEvent ACTION_MOVE");
                 action = "ACTION_MOVE";
@@ -70,9 +71,11 @@ public class MyFrameLayout extends FrameLayout {
                 break;
         }
 
-        boolean handled = super.onInterceptTouchEvent(event);
+        //boolean handled = super.onInterceptTouchEvent(event);
+        boolean handled = true;
         Log.e(TAG, "onInterceptTouchEvent: " + action + " handled = " + handled);
         return handled;
+
     }
 
     public void setShouldIntercept(boolean shouldIntercept) {
@@ -83,26 +86,4 @@ public class MyFrameLayout extends FrameLayout {
         return shouldIntercept;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        String action = "";
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                Log.i(TAG, "onTouchEvent ACTION_DOWN");
-                action = "ACTION_DOWN";
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                Log.i(TAG, "onTouchEvent ACTION_MOVE");
-                action = "ACTION_MOVE";
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.i(TAG, "onTouchEvent ACTION_UP");
-                action = "ACTION_UP";
-                break;
-        }
-
-        boolean handled = super.onTouchEvent(event);
-        Log.e(TAG, "onTouchEvent: " + action + " handled = " + handled);
-        return handled;
-    }
 }

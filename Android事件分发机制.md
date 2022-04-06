@@ -340,4 +340,34 @@ public boolean dispatchTouchEvent(MotionEvent event) {
 注释1处，如果View设置了OnTouchListener，则OnTouchListener的onTouch回调方法会被调用。如果OnTouchListener的onTouch回调方法返回true，事件分发结束。如果OnTouchListener的onTouch回调方法返回false，那么View的onTouchEvent方法会被调用。
 
 注释2处，调用onTouchEvent方法。
+
+```java
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+    String action = "";
+    switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            Log.i(TAG, "onTouchEvent ACTION_DOWN");
+            action = "ACTION_DOWN";
+            break;
+        case MotionEvent.ACTION_MOVE:
+            Log.i(TAG, "onTouchEvent ACTION_MOVE");
+            action = "ACTION_MOVE";
+            break;
+        case MotionEvent.ACTION_UP:
+            Log.i(TAG, "onTouchEvent ACTION_UP");
+            action = "ACTION_UP";
+            break;
+    }
+    //注释1处
+    boolean handled = super.onTouchEvent(event);
+    Log.i(TAG, "onTouchEvent: action = " + action + " handled = " + handled);
+    return handled;
+}
+```
+
+注释1处，`super.onTouchEvent(event)`默认是返回false。当`ACTION_DOWN`的时候，如果我们返回了false，后续是不会收到`ACTION_MOVE`和`ACTION_UP`事件的。
+
+
+
 如果View设置了OnClickListener，在View的onTouchEvent方法中，OnClickListener的onClick回调会被调用。
