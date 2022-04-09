@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SkeletonViewActivity"></activity>
+        <activity android:name=".activity.StageRedPacketActivity"></activity>
+        <activity android:name=".activity.SkeletonViewActivity" />
         <activity android:name=".activity.OutlineTestActivity" />
         <activity android:name=".activity.MyRuleViewActivity" />
         <activity android:name=".activity.RoundProgressBarActivity" />

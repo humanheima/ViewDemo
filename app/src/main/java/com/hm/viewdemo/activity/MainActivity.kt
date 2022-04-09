@@ -20,7 +20,6 @@ import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
-import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -63,6 +62,11 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+
+            R.id.btn_draw_stage_red_packet -> {
+                StageRedPacketActivity.launch(this)
+            }
+
             R.id.btnTestSkeletonView -> {
                 SkeletonViewActivity.launch(this)
             }
