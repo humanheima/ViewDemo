@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'walle'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion '28.0.3'
@@ -12,14 +12,31 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        release {
+            //读取gradle.properties的属性
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+        debug {
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+
+
+    }
+
     buildTypes {
         release {
-
             minifyEnabled true
-
             shrinkResources true
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
         }
     }
     aaptOptions {
@@ -38,9 +55,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
 }
+
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
+}
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -69,6 +95,7 @@ dependencies {
     implementation project(path: ':ruler')
     implementation project(path: ':myruleview')
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation 'com.meituan.android.walle:library:1.1.7'
 }
 
 apply plugin: 'kotlin-android'
