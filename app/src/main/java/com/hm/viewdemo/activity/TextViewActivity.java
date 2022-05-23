@@ -109,6 +109,9 @@ public class TextViewActivity extends BaseActivity {
     private TextView tvResult;
     private Button btnSendInput;
 
+    private EditText etOne;
+
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_text_view;
@@ -168,6 +171,10 @@ public class TextViewActivity extends BaseActivity {
         setTextView13();
         setTextView14();
         setTextView15();
+
+        etOne = findViewById(R.id.et_one);
+
+        //setEtOne();
     }
 
     public void onClick(View v) {
@@ -578,6 +585,19 @@ public class TextViewActivity extends BaseActivity {
         //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView15.setText(builder);
+    }
+
+    /**
+     * 测试EditText 设置 text 长度超限的问题。
+     */
+    private void setEtOne() {
+        String text = "1234567890123";//长度是13，在xml文件中限制了etOne的maxLength为12
+        if (text.length() > 12) {
+            text = text.substring(0, 12);
+        }
+        etOne.setText(text);
+        etOne.setSelection(text.length());
+
     }
 
 }

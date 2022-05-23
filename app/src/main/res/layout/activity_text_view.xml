@@ -10,13 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvLimitTextLengthResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textSize="16sp" />
-
         <Button
             android:id="@+id/btnTestLimitTextLength"
             android:layout_width="match_parent"
@@ -25,6 +18,25 @@
             android:onClick="onClick"
             android:text="测试限制文字长度，英文算一个字符，中文算两个字符"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnSendInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发送文字" />
+
+        <EditText
+            android:id="@+id/etInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:id="@+id/tvLimitTextLengthResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_test_font"
@@ -41,38 +53,6 @@
             android:layout_marginTop="8dp"
             android:textColor="#333333"
             tools:text="@string/hello_world" />
-
-        <EditText
-            android:id="@+id/etInput"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="40dp" />
-
-        <Button
-            android:id="@+id/btnSendInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="发送文字" />
-
-        <com.hm.viewdemo.widget.RequiredTextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            app:postfix="*"
-            app:postfix_color="@color/colorAccent"
-            app:postfix_text_size="14.5px"
-            app:required_text="你懂的，哈哈" />
-
-        <com.hm.viewdemo.widget.RequiredTextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            app:postfix="*"
-            app:postfix_color="@color/colorAccent"
-            app:postfix_text_size="16.5dp"
-            app:required_text="你懂的，哈哈" />
 
         <TextView
             android:id="@+id/text_view_1"
@@ -191,6 +171,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:textSize="14sp"
+            tools:text="测试SpaceSpan" />
+
+        <com.hm.viewdemo.widget.RequiredTextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            app:postfix="*"
+            app:postfix_color="@color/colorAccent"
+            app:postfix_text_size="14.5px"
+            app:required_text="你懂的，哈哈" />
+
+        <com.hm.viewdemo.widget.RequiredTextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            app:postfix="*"
+            app:postfix_color="@color/colorAccent"
+            app:postfix_text_size="16.5dp"
+            app:required_text="你懂的，哈哈" />
+
+        <EditText
+            android:id="@+id/et_one"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:maxLength="12"
             android:textSize="14sp"
             tools:text="测试SpaceSpan" />
 
