@@ -34,8 +34,8 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:src="@drawable/main_ic_back_white"
-            android:tint="@color/colorAccent" />
+            android:src="@drawable/bookshelf_icon_edit"
+            />
 
     </LinearLayout>
 

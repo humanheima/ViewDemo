@@ -36,11 +36,14 @@ class ChangeImageColorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_image_color)
 
+        colorList.add(ContextCompat.getColor(this, R.color.white))
         colorList.add(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         colorList.add(ContextCompat.getColor(this, R.color.colorAccent))
         colorList.add(ContextCompat.getColor(this, R.color.vip_start_color))
         colorList.add(ContextCompat.getColor(this, R.color.vip_end_color))
         colorList.add(Color.parseColor("#ff3344"))
+
+        //tintIvColor(ivPng, R.drawable.bookshelf_icon_edit, getColor(R.color.white))
 
         btnChangeSvgColor.setOnClickListener {
 
