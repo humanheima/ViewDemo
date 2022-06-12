@@ -55,13 +55,19 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         btnRoundProgressView.scrollX = 100
 
         scroll_view_root.post {
-            Log.e(TAG, "initData: scroll_view_root.measuredHeight = ${scroll_view_root.measuredHeight}")
+            Log.e(
+                TAG,
+                "initData: scroll_view_root.measuredHeight = ${scroll_view_root.measuredHeight}"
+            )
             Log.e(TAG, "initData: fl_content.measuredHeight = ${fl_content.measuredHeight}")
         }
     }
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_load_res -> {
+                LoadResActivity.launch(this)
+            }
 
             R.id.btn_draw_stage_red_packet -> {
                 StageRedPacketActivity.launch(this)
@@ -258,7 +264,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btn_customer_view -> CustomerViewActivity.launch(this)
             R.id.btn_expandable_listview -> ExpandableListViewActivity.launch(this)
             R.id.btn_vertical_verticla_activity -> VerticalVerticalActivity.launch(this)
-            R.id.btn_scrollview_recyclerview_activity -> ScrollViewNestRecyclerViewActivity.launch(this)
+            R.id.btn_scrollview_recyclerview_activity -> ScrollViewNestRecyclerViewActivity.launch(
+                this
+            )
             R.id.btn_MaxHeightLayoutActivity -> MaxHeightLayoutActivity.launch(this)
             R.id.btn_bottomSheet -> BottomSheetActivity.launch(this)
             R.id.btn_constraint_layout -> ConstraintActivity.launch(this)
@@ -290,9 +298,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
                 personList.add(Person(1.63, "dumingwei"))
             }
             val element = Info(
-                    personList,
-                    "id =$i",
-                    "price =$i * 100"
+                personList,
+                "id =$i",
+                "price =$i * 100"
             )
             arrayList.add(element)
 
