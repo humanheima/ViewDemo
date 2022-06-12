@@ -65,6 +65,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_load_res -> {
+                LoadResActivity.launch(this)
+            }
 
             R.id.btnTestVectorDrawable -> {
                 VectorDrawableMainActivity.launch(this)

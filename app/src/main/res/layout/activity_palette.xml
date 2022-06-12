@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.PaletteActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.PaletteActivity">
 
     <ImageView
-        android:id="@+id/ivBitmap"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:background="@drawable/balloon"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/ivBitmap"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:background="@drawable/balloon"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnChangeIv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="改变图片"
-        app:layout_constraintTop_toBottomOf="@+id/ivBitmap" />
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:descendantFocusability="blocksDescendants"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeIv">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvColor"
+            android:id="@+id/btnChangeIv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:itemCount="9"
-            tools:layoutManger="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_palette_color" />
+            android:text="改变图片"
+            app:layout_constraintTop_toBottomOf="@+id/ivBitmap" />
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:descendantFocusability="blocksDescendants"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeIv">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="9"
+                tools:spanCount="3"
+                tools:layoutManger="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_palette_color" />
 
     </RelativeLayout>
 

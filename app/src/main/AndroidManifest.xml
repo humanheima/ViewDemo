@@ -18,6 +18,8 @@
         <activity
             android:name=".activity.VectorDrawableMainActivity"
             android:exported="false" />
+
+        <activity android:name=".activity.LoadResActivity"/>
         <activity android:name=".activity.StageRedPacketActivity" />
         <activity android:name=".activity.SkeletonViewActivity" />
         <activity android:name=".activity.OutlineTestActivity" />
