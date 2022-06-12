@@ -34,6 +34,8 @@ class LoadResActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_res)
 
+        val color = resources.getColor(R.color.colorPrimary)
+        val color2 = resources.getColor(R.color.color_list)
         val assetManager = assets
 
         Log.i(TAG, "onCreate: assetManager = $assetManager")
@@ -42,6 +44,8 @@ class LoadResActivity : AppCompatActivity() {
         iv2 = findViewById(R.id.iv_2)
         iv3 = findViewById(R.id.iv_3)
         iv4 = findViewById(R.id.iv_4)
+
+        iv1.background =resources.getDrawable(R.drawable.avatar)
 
         iv1.post {
             Log.i(TAG, "onCreate: ${iv1.background}")
