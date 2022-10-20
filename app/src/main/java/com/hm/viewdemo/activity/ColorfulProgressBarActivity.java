@@ -3,19 +3,25 @@ package com.hm.viewdemo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.bean.MyBean;
+import com.xx.reader.utils.JsonUtilKt;
+import java.util.Iterator;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ColorfulProgressBarActivity extends AppCompatActivity {
 
+
+    private final String TAG = "ColorfulProgressBarActi";
 
     ColorfulProgressbar progressbar;
     ColorfulProgressbar progressbar2;
@@ -37,6 +43,7 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colorful_progress_bar);
         initView();
+        testJson();
     }
 
     private void initView() {
@@ -139,4 +146,24 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         });
     }
 
+
+    private void testJson() {
+        MyBean bean = new MyBean("标题", "描述");
+        //把对象转化成字符串
+        String jsonString = JsonUtilKt.toJson(bean);
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Iterator<String> keys = jsonObject.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+
+                Object value = jsonObject.opt(key);
+                Log.i(TAG, "testJson: key = " + key + " value = " + value);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

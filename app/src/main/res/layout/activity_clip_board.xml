@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.ClipBoardActivity">
+
+    <Button
+            android:id="@+id/btn_put_text"
+            android:text="向粘贴板里放入文本"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_get_text"
+            android:text="从粘贴板里读取文本"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_clear_clipboard"
+            android:text="清除粘贴板"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_test_Uri"
+            android:text="测试Uri相关"
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_test_URLEncoder"
+            android:text="测试URLEncoder相关"
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+</LinearLayout>

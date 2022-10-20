@@ -65,6 +65,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestClipBoard -> {
+                ClipBoardActivity.launch(this)
+            }
             R.id.btn_load_res -> {
                 LoadResActivity.launch(this)
             }

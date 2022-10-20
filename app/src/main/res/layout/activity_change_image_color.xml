@@ -13,7 +13,6 @@
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:tint="@color/colorAccent"
         app:srcCompat="@drawable/ic_android_black_24dp" />
 
     <Button

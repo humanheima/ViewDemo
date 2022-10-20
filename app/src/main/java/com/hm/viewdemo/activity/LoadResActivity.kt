@@ -56,7 +56,6 @@ class LoadResActivity : AppCompatActivity() {
 
     fun testColorType() {
         val value = TypedValue()
-
         val clazz: Class<R.color> = R.color::class.java
 
         for (declaredField in clazz.declaredFields) {
