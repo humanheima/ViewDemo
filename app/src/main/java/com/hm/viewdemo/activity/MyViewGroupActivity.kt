@@ -30,7 +30,9 @@ class MyViewGroupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_view_group)
         fm_root_layout = findViewById(R.id.fm_root_layout)
+        //先把 MyViewGroup 添加到 Activity 的根布局文件中
         val viewGroup = MyViewGroup(this)
+
         fm_root_layout.addView(
             viewGroup,
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -52,6 +54,8 @@ class MyViewGroupActivity : AppCompatActivity() {
             background = ColorDrawable(resources.getColor(R.color.colorAccent))
         }
 
+
+        //依次添加 mFirstView 和 mSecondView
         viewGroup.mFirstView = firstView
         viewGroup.mSecondView = secondView
 
