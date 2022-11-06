@@ -92,7 +92,7 @@ class ClipBoardActivity : AppCompatActivity() {
 
 
                 val textUrl =
-                    "unitexxreader://app/openBookshelf?query=%7B%22_report%22%3A%2220211213003%22%2C%22_m%22%3A%22m%241657594537_751461332%24854038156549%24xxm%240%240%24%241662686836510%24mxx_A94%24%22%2C%22isDirectFlag%22%3Atrue%7D"
+                    "unitexxreader://nativepage/client/readepage?bid=2933760400662203&cid=1&ccid=7875308428230768&clearTop=2&murl=unitexxreader%3A%2F%2Fnativepage%2Fhomepage%3Fquery%3D%257B%2522_report%2522%253A%2522xx20220913003%2522%252C%2522_xxm%2522%253A%2522m%25242f82d741-2744-40f5-a280-7c64145dc1c1%2524%2524bookread%25242933760400662203%25247875308428230768%2524%25241666344899259%2524%2524%2522%257D"
                 ClipBoardUtil.putToClipboard(this, "simple_label", textUrl)
             }
 

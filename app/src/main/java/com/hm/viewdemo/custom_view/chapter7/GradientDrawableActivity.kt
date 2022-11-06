@@ -29,12 +29,44 @@ class GradientDrawableActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gradient_drawable)
 
-        val background = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
-                resources.getColor(R.color.vip_start_color),
-                resources.getColor(R.color.vip_end_color
+//        val background = GradientDrawable(
+//            GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
+//                resources.getColor(R.color.vip_start_color),
+//                resources.getColor(
+//                    R.color.vip_end_color
+//                )
+//            )
+//        )
+        val background = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                resources.getColor(R.color.xx_color_99a1fd),
+                resources.getColor(
+                    R.color.xx_color_e0bad0
+                ),
+
+                resources.getColor(
+                    R.color.xx_color_00e4cdac
                 )
-        ))
+            )
+        )
 
         ivFirst.background = background
+
+        val background1 = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                resources.getColor(R.color.xx_color_6699a1fd),
+                resources.getColor(
+                    R.color.xx_color_66e0bad0
+                ),
+
+                resources.getColor(
+                    R.color.xx_color_6600e4cdac
+                )
+            )
+        )
+
+        ivSecond.background = background1
+
+
     }
 }

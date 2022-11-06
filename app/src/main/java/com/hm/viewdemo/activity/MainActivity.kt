@@ -65,6 +65,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestRoundView -> {
+                RoundScrollViewActivity.launch(this)
+            }
             R.id.btnTestViewDrawOrder -> {
                 MyViewGroupActivity.launch(this)
             }

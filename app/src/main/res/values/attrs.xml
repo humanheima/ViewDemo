@@ -146,4 +146,9 @@
         <attr name="maxProgress" format="integer" />
     </declare-styleable>
 
+    <!-- 自定义Round ScrollView属性-->
+    <declare-styleable name="RoundScrollView">
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
 </resources>

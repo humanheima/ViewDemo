@@ -42,4 +42,12 @@
     <color name="cardview_shadow_start_color">#37000000</color>
 
 
+    <color name="xx_color_99a1fd">#99A1FD</color>
+    <color name="xx_color_e0bad0">#e0bad0</color>
+    <color name="xx_color_00e4cdac">#e4cdac</color>
+
+    <color name="xx_color_6699a1fd">#6699A1FD</color>
+    <color name="xx_color_66e0bad0">#66E0BAD0</color>
+    <color name="xx_color_6600e4cdac">#00e4cdac</color>
+
 </resources>
