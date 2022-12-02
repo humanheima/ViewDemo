@@ -2,6 +2,7 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -43,15 +44,16 @@ class LoadResActivity : AppCompatActivity() {
         iv3 = findViewById(R.id.iv_3)
         iv4 = findViewById(R.id.iv_4)
 
-        testColorType()
 
-        iv1.post {
-            Log.i(TAG, "onCreate: ${iv1.background}")
-            Log.i(TAG, "onCreate: ${iv2.background}")
-            Log.i(TAG, "onCreate: ${iv3.background}")
-            Log.i(TAG, "onCreate: ${iv4.background}")
-        }
+        //testColorType()
 
+//        iv1.post {
+//            Log.i(TAG, "onCreate: ${iv1.background}")
+//            Log.i(TAG, "onCreate: ${iv2.background}")
+//            Log.i(TAG, "onCreate: ${iv3.background}")
+//            Log.i(TAG, "onCreate: ${iv4.background}")
+//        }
+        resources.getColor(R.color.xx_color_6699a1fd)
     }
 
     fun testColorType() {

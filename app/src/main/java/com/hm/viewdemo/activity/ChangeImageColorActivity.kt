@@ -52,7 +52,7 @@ class ChangeImageColorActivity : AppCompatActivity() {
             }
             val color = colorList[svgIndex]
 
-            //tintIvColor(ivSvg, R.drawable.ic_android_black_24dp, color)
+            tintIvColor(ivSvg, R.drawable.ic_android_black_24dp, color)
             //ivSvg.setColorFilter(color)
             svgIndex++
         }

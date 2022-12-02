@@ -58,9 +58,9 @@ public class ScreenUtil {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         Display defaultDisplay = windowManager.getDefaultDisplay();
 
-        if (Build.VERSION.SDK_INT>=19){
+        if (Build.VERSION.SDK_INT >= 19) {
             defaultDisplay.getRealMetrics(displayMetrics);
-        }else {
+        } else {
             defaultDisplay.getMetrics(displayMetrics);
         }
         return displayMetrics.heightPixels;
@@ -106,6 +106,13 @@ public class ScreenUtil {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return (int) (displayMetrics.density * dpValue);
+    }
+
+    public static float dpToPxFloat(Context context, int dpValue) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.density * dpValue;
     }
 
     public static int spToPx(Context context, int dpValue) {
