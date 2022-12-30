@@ -21,6 +21,7 @@ import butterknife.BindView;
  * Created by dumingwei on 2020/4/15
  * <p>
  * Desc: 测试loading dialog progress等
+ * 参考链接：https://blog.csdn.net/mad1989/article/details/38042875
  */
 public class ProgressBarActivity extends BaseActivity {
 

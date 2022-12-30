@@ -13,6 +13,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
@@ -39,10 +40,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.util.FontsUtil;
 import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.util.ScreenUtil;
+import com.hm.viewdemo.widget.MyTypefaceSpan;
 import com.hm.viewdemo.widget.span.SpaceSpan;
 import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
 
@@ -120,11 +124,9 @@ public class TextViewActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-
         tvLimitTextLengthResult = findViewById(R.id.tvLimitTextLengthResult);
         btnTestLimitTextLength = findViewById(R.id.btnTestLimitTextLength);
         tvTestFont = findViewById(R.id.tv_test_font);
-
 
         Typeface typeface = Typeface.createFromAsset(getResources().getAssets(), "DroidSansMono_1_subfont.ttf");
 
@@ -132,6 +134,13 @@ public class TextViewActivity extends BaseActivity {
             Log.d(TAG, "initData: typeface!=null");
             tvTestFont.setTypeface(typeface);
         }
+
+        SpannableStringBuilder builder = new SpannableStringBuilder("1234512345=古今山河");
+        MyTypefaceSpan myTypefaceSpan = FontsUtil.getInstance(this).getMyNumTypefaceSpan();
+        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(1.5f);
+
+        builder.setSpan(myTypefaceSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(relativeSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
         etInput = findViewById(R.id.etInput);
         tvResult = findViewById(R.id.tvResult);
@@ -246,7 +255,8 @@ public class TextViewActivity extends BaseActivity {
 
     private void setTextView10() {
         SpannableStringBuilder builder = new SpannableStringBuilder("什么情况save6you3fromanything");
-        MaskFilterSpan embossMaskFilterSpan = new MaskFilterSpan(new EmbossMaskFilter(new float[]{3, 3, 3}, 0.5f, 8, 3));
+        MaskFilterSpan embossMaskFilterSpan = new MaskFilterSpan(
+                new EmbossMaskFilter(new float[]{3, 3, 3}, 0.5f, 8, 3));
         builder.setSpan(embossMaskFilterSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         MaskFilterSpan blurMaskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2, BlurMaskFilter.Blur.OUTER));
         builder.setSpan(blurMaskFilterSpan, 6, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -300,12 +310,20 @@ public class TextViewActivity extends BaseActivity {
     }
 
     private void setTextView1() {
-        SpannableString spannableString = new SpannableString("暗影IV已经开始暴走了");
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableString spannableString1 = new SpannableString(spannableString);
-        spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView1.setText(spannableString1);
+        String spannableString = "那边就可以\uD83D\uDE0C\uD83C\uDDF7\uD83C\uDDEA\uD83C"
+                + "\uDDE7\uD83C\uDDE9\uD83C\uDDF7\uD83C\uDDEA\uD83C\uDDF1\uD83C\uDDFA\uD83C\uDDF2\uD83C"
+                + "\uDDE8\uD83E\uDD79\uD83E\uDD79\uD83D\uDE1C\uD83D\uDE05\\uD83E\\uDD2A\\uD83D\\uDE02\\uD83D"
+                + "\\uDE02\\uD83E\\uDD2A\\uD83D\\uDE0E\\uD83E\\uDD78\\uD83D\\uDE02\\uD83E\\uDD29\\uD83D\\uDE02\\uD83E"
+                + "\\uDD29\\uD83D\\uDE02\\uD83D\\uDE07\\uD83E\\uDD29\\uD83D\\uDE07\\uD83E\\uDD78\\uD83D\\uDE05\\uD83E"
+                + "\\uDD78\\uD83D\\uDE05\\uD83E\\uDD29\\uD83E\\uDD29\\uD83D\\uDE0A\\uD83D\\uDE07\\uD83D\\uDE07\\uD83E"
+                + "\\uDD29\\uD83D\\uDE05\\uD83E\\uDD28\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E"
+                + "\\uDD28\\uD83D\\uDE05\\uD83E\\uDD79\\uD83E\\uDD28\\uD83E\\uDD79\",\n"
+                + "\t\t";
+        //ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        //spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //SpannableString spannableString1 = new SpannableString(spannableString);
+        //spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView1.setText(spannableString);
     }
 
     private void setTextView2() {
@@ -333,48 +351,48 @@ public class TextViewActivity extends BaseActivity {
     }
 
     private void setTextView3() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("暗影IV");
-        builder.append("已经开始暴走了");
-        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
-        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
-        StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
-        UnderlineSpan underlineSpan = new UnderlineSpan();
-        //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
-        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
-        drawable.setBounds(0, 0, 150, 150);
-        //图片和文字基线对齐
-        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
+//        SpannableStringBuilder builder = new SpannableStringBuilder();
+//        builder.append("11hello暗影IV");
+//        builder.append("已经开始暴走了");
+//        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
+//        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+//        StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
+//        UnderlineSpan underlineSpan = new UnderlineSpan();
+//        //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
+//        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+//        drawable.setBounds(0, 0, 150, 150);
+//        //图片和文字基线对齐
+//        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
+//
+//        SpannableString spannableString = new SpannableString(builder);
+//
+//        ClickableSpan clickableSpan = new ClickableSpan() {
+//            @Override
+//            public void onClick(View widget) {
+//                Toast.makeText(TextViewActivity.this, "HAAHH 点击TextView", Toast.LENGTH_SHORT).show();
+//            }
+//        };
+//        spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+//        spannableString.setSpan(clickableSpan, 9, 19, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+//        //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+//        textView3.setText(spannableString);
+//
+//        //设置ClickableSpan后要加上这行代码
+//        textView3.setMovementMethod(LinkMovementMethod.getInstance());
 
-        SpannableString spannableString = new SpannableString(builder);
-
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                Toast.makeText(TextViewActivity.this, "HAAHH 点击TextView", Toast.LENGTH_SHORT).show();
-            }
-        };
-        spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        spannableString.setSpan(clickableSpan, 9, 10, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        textView3.setText(spannableString);
-
-        //设置ClickableSpan后要加上这行代码
-        //textView3.setMovementMethod(LinkMovementMethod.getInstance());
-
-       /* String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+        String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
         SpannableString spannableString = new SpannableString(agreementStr);
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(android.view.View widget) {//
                 //这里的判断是为了去掉在点击后字体出现的背景色
-                if (widget instanceof TextView){
+                if (widget instanceof TextView) {
                     ((TextView) widget).setHighlightColor(Color.TRANSPARENT);
                 }
 
-                    Toast.makeText(TextViewActivity.this, "haha", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TextViewActivity.this, "haha", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -384,7 +402,7 @@ public class TextViewActivity extends BaseActivity {
             }
         }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView3.setText(spannableString);
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());*/
+        textView3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setTextView4() {
@@ -495,14 +513,18 @@ public class TextViewActivity extends BaseActivity {
         AbsoluteSizeSpan coinSizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16));
 
         if (secondTextStartIndex != -1) {
-            builder.setSpan(secondColorSpan, secondTextStartIndex, secondTextStartIndex + secondText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(secondColorSpan, secondTextStartIndex, secondTextStartIndex + secondText.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //去掉秒字
-            builder.setSpan(secondSizeSpan, secondTextStartIndex, secondTextStartIndex + secondText.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(secondSizeSpan, secondTextStartIndex, secondTextStartIndex + secondText.length() - 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (coinTextStartIndex != -1) {
-            builder.setSpan(coinColorSpan, coinTextStartIndex, coinTextStartIndex + coinText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(coinColorSpan, coinTextStartIndex, coinTextStartIndex + coinText.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //去掉金币两个字
-            builder.setSpan(coinSizeSpan, coinTextStartIndex, coinTextStartIndex + coinText.length() - 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(coinSizeSpan, coinTextStartIndex, coinTextStartIndex + coinText.length() - 2,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         //设置粗体。斜体
@@ -569,7 +591,6 @@ public class TextViewActivity extends BaseActivity {
         int replaceStart = result.indexOf(beReplace);
         Log.i(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
 
-
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
         RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
         ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.parseColor("#009ad6"));
@@ -582,7 +603,8 @@ public class TextViewActivity extends BaseActivity {
         //builder.setSpan(colorSpan, dayStart, dayStart + days.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan, dayStart, dayStart + days.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable
+        // .SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView15.setText(builder);
     }
