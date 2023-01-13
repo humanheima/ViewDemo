@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
@@ -73,10 +74,19 @@
                     android:layout_height="40dp" />
 
             <!--api21以后才能用-->
+            <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/my_progress_large_white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:indeterminate="true" />
+
             <ProgressBar
                     style="@style/My_Circle_ProgressBar_Large"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:indeterminate="true" />
 

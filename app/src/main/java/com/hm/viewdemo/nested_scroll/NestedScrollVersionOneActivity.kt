@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_nested_scroll_version_one.*
 class NestedScrollVersionOneActivity : AppCompatActivity() {
 
     private val mTitles = arrayOf("简介", "评价", "相关")
-    private var mAdapter: androidx.fragment.app.FragmentPagerAdapter? = null
+    private var mAdapter: FragmentPagerAdapter? = null
     private val mFragments = arrayListOf<TabFragment>()
 
 
@@ -47,7 +47,7 @@ class NestedScrollVersionOneActivity : AppCompatActivity() {
                 return mTitles.size
             }
 
-            override fun getItem(position: Int): androidx.fragment.app.Fragment {
+            override fun getItem(position: Int): Fragment {
                 return mFragments[position]
             }
 

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_change_image_color.*
 
@@ -24,6 +25,8 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
     private var pngIndex = 0
 
+    private var llRoot: LinearLayout? = null
+
     companion object {
 
         fun launch(context: Context) {
@@ -35,6 +38,12 @@ class ChangeImageColorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_image_color)
+
+        llRoot =findViewById(R.id.ll_root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            llRoot?.backgroundTintList =ColorStateList.valueOf(getColor(R.color.colorAccent))
+        }
 
         colorList.add(ContextCompat.getColor(this, R.color.white))
         colorList.add(ContextCompat.getColor(this, R.color.colorPrimaryDark))
