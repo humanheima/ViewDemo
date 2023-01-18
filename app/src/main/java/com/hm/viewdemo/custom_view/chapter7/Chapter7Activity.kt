@@ -42,7 +42,8 @@ class Chapter7Activity : AppCompatActivity() {
             }
             R.id.btnRadialGradient -> {
                 RadialGradientActivity.launch(this)
-            } R.id.btnGradientDrawable -> {
+            }
+            R.id.btnGradientDrawable -> {
                 GradientDrawableActivity.launch(this)
             }
         }
