@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -48,7 +49,9 @@ public class CustomView extends View {
             Log.i(TAG, "attributeName: " + attrs.getAttributeName(i) +
                     ",attributeValue: " + attrs.getAttributeValue(i));
         }
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView, R.attr.CustomView_Theme_Style, R.style.CustomView_Yellow_Style);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomView, R.attr.CustomView_Theme_Style,
+                R.style.CustomView_Yellow_Style);
         fontSize = (int) ta.getDimension(R.styleable.CustomView_cus_font, 16);
         Log.i(TAG, "getDimension: fontSize=" + fontSize);
         fontSize = ta.getDimensionPixelSize(R.styleable.CustomView_cus_font, 16);
@@ -58,10 +61,14 @@ public class CustomView extends View {
 
         customText = ta.getString(R.styleable.CustomView_text);
         customColor = ta.getColor(R.styleable.CustomView_color, Color.BLUE);
-        ta.recycle();
         textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(customColor);
         textPaint.setTextSize(fontSize);
+
+        int resId = ta.getResourceId(R.styleable.CustomView_bgResId,-1);
+        setBackground(getResources().getDrawable(resId));
+        ta.recycle();
+
     }
 
     @Override

@@ -15,7 +15,8 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.RoundScrollViewActivity"></activity>
+        <activity android:name=".activity.ListenNestedScrollViewActivity"></activity>
+        <activity android:name=".activity.RoundScrollViewActivity" />
         <activity android:name=".activity.ViewOutlineProviderActivity" />
         <activity android:name=".activity.MyViewGroupActivity" />
         <activity android:name=".activity.ClipBoardActivity" />

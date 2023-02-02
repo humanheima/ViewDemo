@@ -66,7 +66,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder instanceof VH) {
             ((VH) holder).text1.setText(dataList.get(position));
             if (onItemClickListener != null) {
-                ((VH) holder).text1.setOnClickListener(new View.OnClickListener() {
+                (holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onItemClickListener.onItemClick(v, holder.getAdapterPosition());

@@ -58,6 +58,7 @@
 
     <declare-styleable name="CustomView">
         <!--颜色-->
+        <attr name="bgResId" format="reference" />
         <attr name="color" format="color" />
         <!--字体大小-->
         <attr name="cus_font" format="dimension" />

@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".custom_view.chapter_10.Chapter10Activity">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".custom_view.chapter_10.Chapter10Activity">
 
     <!--<com.hm.viewdemo.custom_view.chapter_10.ShapeShaderView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />-->
 
     <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp" />
 
-    <!--<com.hm.viewdemo.widget.CustomView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cus_font="12sp"
-        app:text="hello owrld" />-->
+    <com.hm.viewdemo.widget.CustomView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:cus_font="12sp"
+            app:bgResId="@drawable/bg_primary_radius_23"
+            app:text="hello owrld" />
 
 
     <com.hm.viewdemo.custom_view.chapter_10.StrokeImageView
-        android:id="@+id/ivStroke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:clickable="true"
-        android:padding="4dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/cat_dog" />
+            android:id="@+id/ivStroke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:clickable="true"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cat_dog" />
 
- <!--   <com.hm.viewdemo.custom_view.chapter_10.RectRefreshSurfaceView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
+    <!--   <com.hm.viewdemo.custom_view.chapter_10.RectRefreshSurfaceView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent" />-->
 
 
 </LinearLayout>

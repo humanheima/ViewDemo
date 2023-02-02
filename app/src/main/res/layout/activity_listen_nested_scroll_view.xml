@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.ListenNestedScrollViewActivity">
+
+    <com.hm.viewdemo.widget.NewNestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/newNestedScrollView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:id="@+id/rl_normal_voice_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_gol_voice"
+                        android:text="金句语音模块"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_gold_voice_list"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/tv_gol_voice"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:overScrollMode="never"
+                        tools:itemCount="10"
+                        tools:layoutManger="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:orientation="vertical"
+                        tools:visibility="visible" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                    android:layout_below="@+id/rl_normal_voice_layout"
+                    android:id="@+id/rl_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_image"
+                        android:text="形象图模块"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <ImageView
+                        android:layout_below="@+id/tv_image"
+                        android:id="@+id/iv_role_image"
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </com.hm.viewdemo.widget.NewNestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

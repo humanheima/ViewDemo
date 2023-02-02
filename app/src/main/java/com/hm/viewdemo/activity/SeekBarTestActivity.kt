@@ -31,7 +31,9 @@ import com.hm.viewdemo.util.ScreenUtil
 
 
 /**
- * 另外一种方法，直接把 原文> 作为一个viewgroup，获取它的宽度。suffixWidth。
+ * 另外一种方法
+ * 获取TextView 一行的宽度  oneLineWidth 和 两行的宽度 twoLineWidth
+ * 直接把 原文> 作为一个viewGroup，获取它的宽度：suffixWidth。
  * 那么原文内容，最多的宽度就是 twoLineWidth - suffixWidth，超过这个宽度，就用截断几个字符，并加上...
  *
  * 保证截断字符加上... 之后的总长度小于等于 twoLineWidth - suffixWidth
