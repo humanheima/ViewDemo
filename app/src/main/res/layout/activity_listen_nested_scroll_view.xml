@@ -10,6 +10,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/newNestedScrollView"
+            android:layout_marginBottom="200dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,16 +61,22 @@
                         android:text="形象图模块"
                         android:textSize="18sp"
                         android:gravity="center"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_90EE90"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                 <ImageView
                         android:layout_below="@+id/tv_image"
                         android:id="@+id/iv_role_image"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/color_90EE90"
                         android:layout_width="match_parent"
                         android:layout_height="200dp" />
+
+                <ImageView
+                        android:layout_below="@+id/iv_role_image"
+                        android:background="@color/colorAccent"
+                        android:layout_width="match_parent"
+                        android:layout_height="2000dp" />
 
             </RelativeLayout>
 

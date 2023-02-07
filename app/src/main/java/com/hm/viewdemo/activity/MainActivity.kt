@@ -150,7 +150,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnCommonPopWindow -> {
                 CommonPopWindowActivity.launch(this)
             }
-            R.id.btnColor -> {
+            R.id.btnPickColor -> {
                 ColorTestActivity.launch(this)
             }
             R.id.btnPalette -> {
