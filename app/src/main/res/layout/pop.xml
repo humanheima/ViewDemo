@@ -2,6 +2,7 @@
 <com.hm.viewdemo.widget.MaxHeightLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/max_height_layout"
     android:layout_width="match_parent"
+        android:background="@color/pink_400"
     android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView

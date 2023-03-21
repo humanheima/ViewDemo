@@ -3,18 +3,17 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.PopupWindow
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_max_height_layout.*
-import java.util.*
 
 class MaxHeightLayoutActivity : BaseActivity() {
 
@@ -26,6 +25,8 @@ class MaxHeightLayoutActivity : BaseActivity() {
 
     private var lessAdapter: RecycleViewAdapter? = null
     private var muchAdapter: RecycleViewAdapter? = null
+
+    private lateinit var btnTwo: Button
 
     companion object {
         fun launch(context: Context) {
@@ -49,6 +50,14 @@ class MaxHeightLayoutActivity : BaseActivity() {
         }
         lessAdapter = RecycleViewAdapter(lessDataList, this)
         muchAdapter = RecycleViewAdapter(muchDataList, this)
+        btnTwo = findViewById(R.id.btn_show_much_pop_window)
+        btn_show_pop_window.post {
+            val location = IntArray(2)
+            btn_show_pop_window.getLocationOnScreen(location)
+            Log.i(TAG, "initData: ${location[1]}")
+
+        }
+
     }
 
     fun onClick(view: View) {
@@ -61,31 +70,53 @@ class MaxHeightLayoutActivity : BaseActivity() {
     private fun showPop() {
         if (popWindow == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.pop, null)
-            val recyclerView = view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
+            val recyclerView =
+                view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
             val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = lessAdapter
-            popWindow = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+            popWindow = PopupWindow(
+                view,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+            )
             popWindow!!.setBackgroundDrawable(ColorDrawable())
-            popWindow!!.showAtLocation(btn_show_pop_window, Gravity.BOTTOM, 0, 0)
+            popWindow!!.showAsDropDown(btn_show_pop_window, 0, 100, Gravity.BOTTOM)
         } else {
-            popWindow!!.showAtLocation(btn_show_pop_window, Gravity.BOTTOM, 0, 0)
+            popWindow!!.showAsDropDown(btn_show_pop_window, 0, 100, Gravity.BOTTOM)
         }
     }
 
     private fun showMuchPop() {
         if (muchPopWindow == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.pop, null)
-            val recyclerView = view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
+            val recyclerView =
+                view.findViewById<View>(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView
             val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = muchAdapter
-            muchPopWindow = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+            muchPopWindow = PopupWindow(
+                view,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+            )
             muchPopWindow!!.isFocusable = true
             muchPopWindow!!.setBackgroundDrawable(ColorDrawable())
-            muchPopWindow!!.showAtLocation(btn_show_much_pop_window, Gravity.BOTTOM, 0, 0)
+            muchPopWindow!!.showAtLocation(
+                btn_show_much_pop_window,
+                Gravity.BOTTOM,
+                0,
+                btnTwo.height
+            )
         } else {
-            muchPopWindow!!.showAtLocation(btn_show_much_pop_window, Gravity.BOTTOM, 0, 0)
+            muchPopWindow!!.showAtLocation(
+                btn_show_much_pop_window,
+                Gravity.BOTTOM,
+                0,
+                btnTwo.height
+            )
         }
     }
 

@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_pop_window_with_input.*
  * Created by dumingwei on 2020/11/13
  *
  * Desc: PopWindow中有输入框的情景
+ * 参考链接：https://blog.csdn.net/xiaoliluote/article/details/99549281
  */
 class PopWindowWithInputActivity : AppCompatActivity() {
 
@@ -116,15 +117,18 @@ class PopWindowWithInputActivity : AppCompatActivity() {
             }
 
             popupStyle1 = PopupWindow(
-                    contentView,
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    true
+                contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
             )
             popupStyle1?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         }
         popupStyle1?.showAtLocation(btnStyle1, Gravity.BOTTOM, 0, 0)
-        showKeyBoard()
+        handler.postDelayed({
+            showKeyBoard()
+        }, 200)
+        //showKeyBoard()
     }
 
     private fun showKeyBoard() {
