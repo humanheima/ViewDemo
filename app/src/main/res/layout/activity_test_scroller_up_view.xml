@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.TestScrollerUpViewActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.TestScrollerUpViewActivity">
+
+    <!-- <com.hm.viewdemo.widget.TestScrollerUpDownView
+         android:id="@+id/test_scroller_up_view"
+         android:layout_width="match_parent"
+         android:layout_height="100dp"
+         app:animation_duration="3000"
+         app:last_word="元"
+         app:last_word_text_color="@color/colorAccent"
+         app:last_word_text_size="@dimen/text_size_14dp"
+         app:text_color="@color/colorPrimary"
+         app:text_size="@dimen/text_size_20dp" />-->
 
     <com.hm.viewdemo.widget.TestScrollerUpDownView
-        android:id="@+id/test_scroller_up_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:animation_duration="3000"
-        app:last_word="元"
-        app:last_word_text_color="@color/colorAccent"
-        app:last_word_text_size="@dimen/text_size_14dp"
-        app:text_color="@color/colorPrimary"
-        app:text_size="@dimen/text_size_20dp" />
+            android:id="@+id/test_scroller_up_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            style="@style/TestScrollerUpDownView"
+            app:animation_duration="3000" />
 
     <Button
-        android:id="@+id/btn_start_scroll_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="向上滚动" />
+            android:id="@+id/btn_start_scroll_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="向上滚动" />
 
     <Button
-        android:id="@+id/btn_start_scroll_down"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="向下滚动" />
+            android:id="@+id/btn_start_scroll_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="向下滚动" />
 
 </LinearLayout>

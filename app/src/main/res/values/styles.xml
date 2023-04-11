@@ -168,4 +168,13 @@
         <item name="android:maxHeight">76dip</item>
     </style>
 
+    <style name="TestScrollerUpDownView">
+        <item name="text_color">@color/colorPrimary</item>
+        <item name="text_size">@dimen/text_size_20dp</item>
+        <item name="last_word">￥</item>
+        <item name="last_word_text_color">@color/color_00f1f1</item>
+        <item name="last_word_text_size">@dimen/text_size_14dp</item>
+
+    </style>
+
 </resources>
