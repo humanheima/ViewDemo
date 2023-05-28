@@ -61,6 +61,21 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             )
             Log.e(TAG, "initData: fl_content.measuredHeight = ${fl_content.measuredHeight}")
         }
+
+        val list = listOf(1, 2, 3, 4, 5)
+        val list2 = listOf(1, 2, 3, 4, 5)
+        val iterator = list.iterator()
+        outLooper@
+        while (iterator.hasNext()){
+            Log.i(TAG, "initData: next = ${iterator.next()}")
+            val iterator2 = list2.iterator()
+            while (iterator2.hasNext()){
+                Log.i(TAG, "initData: next2 = ${iterator2.next()}")
+                break@outLooper
+            }
+        }
+
+
     }
 
     fun onClick(view: View) {

@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
@@ -26,6 +27,8 @@ import com.hm.viewdemo.R;
  */
 
 public class RoundImageView extends AppCompatImageView {
+
+    private static final String TAG = "RoundImageView";
 
     private static final String STATE_INSTANCE = "state_instance";
     private static final String STATE_TYPE = "state_type";
@@ -123,6 +126,7 @@ public class RoundImageView extends AppCompatImageView {
             mWidth = Math.min(getMeasuredWidth(), getMeasuredHeight());
             mRadius = mWidth >> 1;
             setMeasuredDimension(mWidth, mWidth);
+            Log.i(TAG, "onMeasure: mWidth = " + mWidth);
         }
     }
 
