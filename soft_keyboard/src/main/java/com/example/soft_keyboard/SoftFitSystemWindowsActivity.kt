@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  * Created by p_dmweidu on 2023/6/1
  * Desc: 非全屏下，测试软键盘 fitSystemWindows 的 Activity，看起里不需要额外处理。
+ * android:fitsSystemWindows=“true”会使得屏幕上的可布局空间位于状态栏下方与导航栏上方，即布局空间不会被状态栏和导航栏遮挡。
  */
 class SoftFitSystemWindowsActivity : AppCompatActivity() {
 

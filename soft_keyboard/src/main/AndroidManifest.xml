@@ -3,37 +3,45 @@
         package="com.example.soft_keyboard">
 
     <application>
+        <activity
+                android:name=".scroll.ScrollAdjustPanActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:exported="false" />
 
+        <!--android:theme="@style/Theme.FullScreen"-->
+        <activity
+                android:name=".scroll.ScrollAdjustReSizeActivity"
+                android:windowSoftInputMode="adjustResize"
+                android:exported="false" />
         <activity
                 android:name=".funscreen.FullScreenSoftAdjustpanActivity"
-                android:windowSoftInputMode="adjustPan"
+                android:exported="false"
                 android:theme="@style/Theme.FullScreen"
-                android:exported="false" />
-
+                android:windowSoftInputMode="adjustPan" />
         <activity
-                android:theme="@style/Theme.FullScreen"
                 android:name=".funscreen.FullScreenSoftAdjustResizeActivity"
-                android:windowSoftInputMode="adjustPan"
-                android:exported="false" />
-
-        <activity
+                android:exported="false"
                 android:theme="@style/Theme.FullScreen"
+                android:windowSoftInputMode="adjustPan" />
+        <activity
                 android:name=".funscreen.FullScreenSoftFitSystemWindowsActivity"
-                android:windowSoftInputMode="adjustPan"
-                android:exported="false" />
+                android:exported="false"
+                android:theme="@style/Theme.FullScreen"
+                android:windowSoftInputMode="adjustPan" />
         <activity
                 android:name=".SoftAdjustResizeActivity"
-                android:windowSoftInputMode="adjustResize"
-                android:exported="false" />
-
+                android:exported="false"
+                android:windowSoftInputMode="adjustResize" />
         <activity
                 android:name=".SoftFitSystemWindowsActivity"
-                android:windowSoftInputMode="adjustResize"
-                android:exported="false" />
+                android:exported="false"
+                android:windowSoftInputMode="adjustResize" />
         <activity
                 android:name=".SoftAdjustpanActivity"
-                android:windowSoftInputMode="adjustPan"
-                android:exported="false" />
+                android:exported="false"
+                android:windowSoftInputMode="adjustPan" />
+
+
         <activity
                 android:name=".TestSoftKeyboardActivity"
                 android:exported="true">

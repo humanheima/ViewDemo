@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.soft_keyboard.funscreen.FullScreenSoftAdjustResizeActivity
 import com.example.soft_keyboard.funscreen.FullScreenSoftAdjustpanActivity
 import com.example.soft_keyboard.funscreen.FullScreenSoftFitSystemWindowsActivity
+import com.example.soft_keyboard.scroll.ScrollAdjustPanActivity
+import com.example.soft_keyboard.scroll.ScrollAdjustReSizeActivity
 
 /**
  * Created by p_dmweidu on 2023/6/1
@@ -38,14 +40,18 @@ class TestSoftKeyboardActivity : AppCompatActivity() {
 
     }
 
-    public fun onClick(view: View){
-        when(view.id){
+    public fun onClick(view: View) {
+        when (view.id) {
             R.id.btn_adjustpan -> SoftAdjustpanActivity.launch(this)
             R.id.btn_adjustresize -> SoftAdjustResizeActivity.launch(this)
             R.id.btn_FitSystemWindows -> SoftFitSystemWindowsActivity.launch(this)
             R.id.btn_fullscreen_adjustpan -> FullScreenSoftAdjustpanActivity.launch(this)
             R.id.btn_fullscreen_adjustresize -> FullScreenSoftAdjustResizeActivity.launch(this)
-            R.id.btn_fullscreen_FitSystemWindows -> FullScreenSoftFitSystemWindowsActivity.launch(this)
+            R.id.btn_fullscreen_FitSystemWindows -> FullScreenSoftFitSystemWindowsActivity.launch(
+                this
+            )
+            R.id.btn_scroll_adjustpan -> ScrollAdjustPanActivity.launch(this)
+            R.id.btn_scroll_adjustresize -> ScrollAdjustReSizeActivity.launch(this)
         }
     }
 

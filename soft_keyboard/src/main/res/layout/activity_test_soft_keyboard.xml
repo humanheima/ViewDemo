@@ -87,5 +87,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    <!--滚动布局-->
+
+    <Button
+            android:id="@+id/btn_scroll_adjustpan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试在滚动布局中adjustpan"
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+            android:id="@+id/btn_scroll_adjustresize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试在滚动布局中adjustResize"
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/btn_scroll_FitSystemWindows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试在滚动布局中FitSystemWindows"
+            android:textAllCaps="false"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>
