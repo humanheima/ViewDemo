@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  * Created by p_dmweidu on 2023/6/1
  * Desc: 测试软键盘 AdjustResize 的 Activity
+ * 非全屏模式下，使用 AdjustResize，不需要额外处理。
  */
 class SoftAdjustResizeActivity : AppCompatActivity() {
 
