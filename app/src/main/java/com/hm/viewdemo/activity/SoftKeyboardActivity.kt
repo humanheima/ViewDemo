@@ -13,6 +13,10 @@ import android.widget.EditText
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_soft_keyboard.*
 
+/**
+ * Created by p_dmweidu on 2023/6/1
+ * Desc: 监听软键盘的弹起和关闭
+ */
 class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutListener {
 
     private var activityRootView: View? = null

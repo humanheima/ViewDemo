@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rl_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Button
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="android:windowSoftInputMode=adjustResize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+            android:id="@+id/ll_bottom_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shape_round_solid_top_r16_background0"
+            android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+                android:id="@+id/rl_book_category_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    tools:visibility="gone"
+                    android:id="@+id/rl_action_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <!--重命名-->
+                <RelativeLayout
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/rl_rename_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                    <TextView
+                            android:id="@+id/tv_rename_category"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="重命名"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <!--置顶或者取消置顶-->
+                <RelativeLayout
+                        android:layout_below="@+id/rl_rename_category"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/rl_top_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                    <TextView
+                            android:id="@+id/tv_top_status"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="置顶"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <!--分组至-->
+                <RelativeLayout
+                        android:id="@+id/rl_category_to"
+                        android:layout_below="@+id/rl_top_category"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                    <TextView
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="分组至"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!--重命名编辑框-->
+            <RelativeLayout
+                    android:id="@+id/rl_input_new_category_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                <EditText
+                        android:id="@+id/edit_rename_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:hint="请输入分组名"
+                        android:padding="12dp"
+                        android:gravity="top|start"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/skin_neutral_surface_medium_round8" />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/edit_rename_category"
+                        android:layout_marginTop="8dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="10dp">
+
+                    <TextView
+                            android:id="@+id/tv_name_length"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0/10"
+                            android:textColor="@color/purple_200"
+                            android:textSize="14sp" />
+
+                    <Button
+                            android:id="@+id/btn_submit"
+                            android:layout_height="wrap_content"
+                            android:layout_width="56dp"
+                            android:layout_marginLeft="12dp"
+                            android:textColor="@color/purple_500"
+                            android:text="提交"
+                            android:enabled="false" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+                android:id="@+id/tv_cancel"
+                android:text="取消"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@color/purple_500"
+                android:layout_margin="16dp"
+                android:layout_height="40dp" />
+
+        <View
+                android:id="@+id/padding_container"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+    </LinearLayout>
+
+</RelativeLayout>

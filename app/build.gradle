@@ -98,6 +98,9 @@ dependencies {
     implementation 'com.meituan.android.walle:library:1.1.7'
 
     implementation 'com.google.code.gson:gson:2.9.1'
+
+    implementation project(path: ':soft_keyboard')
+
 }
 
 apply plugin: 'kotlin-android'

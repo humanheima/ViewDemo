@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
@@ -66,10 +67,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         val list2 = listOf(1, 2, 3, 4, 5)
         val iterator = list.iterator()
         outLooper@
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Log.i(TAG, "initData: next = ${iterator.next()}")
             val iterator2 = list2.iterator()
-            while (iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 Log.i(TAG, "initData: next2 = ${iterator2.next()}")
                 break@outLooper
             }
@@ -80,6 +81,9 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestSoftKeyboard -> {
+                TestSoftKeyboardActivity.launch(this)
+            }
             R.id.btnListenNestedScrollView -> {
                 ListenNestedScrollViewActivity.launch(this)
             }

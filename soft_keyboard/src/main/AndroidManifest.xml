@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.example.soft_keyboard">
+
+    <application>
+
+        <activity
+                android:name=".funscreen.FullScreenSoftAdjustpanActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:theme="@style/Theme.FullScreen"
+                android:exported="false" />
+
+        <activity
+                android:theme="@style/Theme.FullScreen"
+                android:name=".funscreen.FullScreenSoftAdjustResizeActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:exported="false" />
+
+        <activity
+                android:theme="@style/Theme.FullScreen"
+                android:name=".funscreen.FullScreenSoftFitSystemWindowsActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:exported="false" />
+        <activity
+                android:name=".SoftAdjustResizeActivity"
+                android:windowSoftInputMode="adjustResize"
+                android:exported="false" />
+
+        <activity
+                android:name=".SoftFitSystemWindowsActivity"
+                android:windowSoftInputMode="adjustResize"
+                android:exported="false" />
+        <activity
+                android:name=".SoftAdjustpanActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:exported="false" />
+        <activity
+                android:name=".TestSoftKeyboardActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

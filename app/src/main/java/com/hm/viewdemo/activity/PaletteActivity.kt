@@ -5,14 +5,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
-import androidx.core.graphics.ColorUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -36,8 +36,8 @@ class PaletteActivity : AppCompatActivity() {
         }
     }
 
-    private val list = arrayListOf<@androidx.annotation.ColorInt Int>()
-    private val drawableList = arrayListOf<@DrawableRes Int>()
+    private val list = arrayListOf<Int>()
+    private val drawableList = arrayListOf<Int>()
 
     private val TAG: String = "PaletteActivity"
 
