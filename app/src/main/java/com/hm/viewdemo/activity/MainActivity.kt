@@ -23,6 +23,7 @@ import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
+import com.hm.viewdemo.widget.ChatThreeAvatarView
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.random.Random
@@ -33,6 +34,12 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     var perms = arrayOf(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 
     private lateinit var btnRoundProgressView: Button
+
+
+    private val avatarList = mutableListOf<String>()
+
+    private var chatThreeAvatarView: ChatThreeAvatarView? = null
+    private var chatThreeAvatarView1: ChatThreeAvatarView? = null
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
@@ -76,6 +83,14 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             }
         }
 
+        avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/7F2B7CCCC90CFD154497A93A7CA147FC.jpg")
+        avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/2482F0C14C5823AB3F43424FFEEEFFA1.jpg")
+        avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")
+
+        chatThreeAvatarView = findViewById(R.id.chat_three_avatar_view)
+        chatThreeAvatarView1 = findViewById(R.id.chat_three_avatar_view1)
+        chatThreeAvatarView?.setAvatarList(avatarList)
+        chatThreeAvatarView1?.setAvatarList(avatarList.subList(0, 2))
 
     }
 

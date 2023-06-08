@@ -177,4 +177,12 @@
 
     </style>
 
+    <declare-styleable name="OverlapAvatarView">
+        <attr name="avatar_size" format="dimension" />
+        <attr name="avatar_overlap_size" format="dimension" />
+        <attr name="avatar_round_width" format="dimension" />
+        <attr name="avatar_border_color" format="color" />
+        <attr name="avatar_border_width" format="dimension" />
+    </declare-styleable>
+
 </resources>

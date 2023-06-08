@@ -17,6 +17,33 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+            <com.hm.viewdemo.widget.ChatThreeAvatarView
+                    android:id="@+id/chat_three_avatar_view"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="200dp"
+                    android:background="@drawable/bg_round_three_avatar_drawable"
+                    android:layout_height="200dp"/>
+
+            <com.hm.viewdemo.widget.ChatThreeAvatarView
+                    android:id="@+id/chat_three_avatar_view1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="100dp"
+                    android:background="@drawable/bg_round_three_avatar_drawable"
+                    android:layout_height="100dp"/>
+
+            <include
+                    layout="@layout/chat_three_avatar_view"
+                    android:layout_width="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="200dp" />
+
+            <include
+                    layout="@layout/chat_three_avatar_view"
+                    android:layout_width="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/bg_round_three_avatar_drawable"
+                    android:layout_height="100dp" />
+
             <Button
                     android:id="@+id/btnTestSoftKeyboard"
                     android:layout_width="match_parent"
