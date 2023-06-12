@@ -28,6 +28,7 @@ class TestScrollerUpViewActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         super.onCreate(savedInstanceState)
         binding = ActivityTestScrollerUpViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,6 +55,11 @@ class TestScrollerUpViewActivity : AppCompatActivity() {
             scrollUpDownView.smoothScrollDown()
         }
 
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.alpha_out)
     }
 
 }
