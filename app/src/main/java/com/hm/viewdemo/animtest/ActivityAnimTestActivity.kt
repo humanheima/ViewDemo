@@ -25,7 +25,7 @@ class ActivityAnimTestActivity : AppCompatActivity() {
          * 从MainActivity跳转到这个Activity
          * MainActivity执行alpha_out动画，这个Activity执行alpha_in动画
          */
-        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
+        //overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_act_test)
     }
@@ -35,7 +35,7 @@ class ActivityAnimTestActivity : AppCompatActivity() {
         /**
          * 从这个Activity返回MainActivity，这个Activity执行alpha_out动画，MainActivity执行alpha_in动画
          */
-        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
+        //overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
     }
 
 

@@ -9,6 +9,21 @@
         <item name="CustomView_Theme_Style">@style/CustomView_Green_Style</item>
     </style>
 
+    <!-- 使用Theme来Activity进入和退出动画 -->
+    <style name="ActivityAnimTestTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/ActivityAlphaAnim</item>
+    </style>
+
+    <style name="ActivityAlphaAnim">
+
+        <item name="android:activityOpenExitAnimation">@anim/alpha_out</item>
+        <item name="android:activityOpenEnterAnimation">@anim/alpha_in</item>
+        <item name="android:activityCloseEnterAnimation">@anim/alpha_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/alpha_out</item>
+
+    </style>
+
+
     <style name="DefaultSlideDeleteLayout">
         <item name="slideEnable">false</item>
         <item name="iosStyle">false</item>

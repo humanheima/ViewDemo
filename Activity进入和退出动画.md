@@ -27,3 +27,6 @@ alpha_out.xml
         android:toAlpha="0.0" />
 ```
 
+参考链接
+
+* [Android动画之Activity切换动画overridePendingTransition实现和Theme Xml方式实现](https://blog.csdn.net/u010126792/article/details/85766747)

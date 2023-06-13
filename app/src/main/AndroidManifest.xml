@@ -157,7 +157,9 @@
         <activity android:name=".moneyscale.MoneyScaleMainActivity" />
         <activity android:name=".activity.RulerMainActivity" />
         <activity android:name=".activity.RuleViewMainActivity" />
-        <activity android:name=".animtest.ActivityAnimTestActivity" />
+        <activity
+                android:name=".animtest.ActivityAnimTestActivity"
+                android:theme="@style/ActivityAnimTestTheme" />
     </application>
 
 </manifest>
