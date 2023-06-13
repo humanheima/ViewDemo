@@ -59,7 +59,11 @@ class TestScrollerUpViewActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(0, R.anim.alpha_out)
+        /**
+         * exitAnim:退出的动画
+         */
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
+
     }
 
 }

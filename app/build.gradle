@@ -94,6 +94,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.3'
     implementation project(path: ':ruler')
     implementation project(path: ':myruleview')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     implementation 'com.meituan.android.walle:library:1.1.7'
 
