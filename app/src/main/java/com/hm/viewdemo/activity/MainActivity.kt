@@ -40,7 +40,6 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     private val avatarList = mutableListOf<String>()
 
     private var chatThreeAvatarView: ChatThreeAvatarView? = null
-    private var chatThreeAvatarView1: ChatThreeAvatarView? = null
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
@@ -89,10 +88,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")
 
         chatThreeAvatarView = findViewById(R.id.chat_three_avatar_view)
-        chatThreeAvatarView1 = findViewById(R.id.chat_three_avatar_view1)
         chatThreeAvatarView?.setAvatarList(avatarList)
-        chatThreeAvatarView1?.setAvatarList(avatarList.subList(0, 2))
-
     }
 
     fun onClick(view: View) {

@@ -16,6 +16,10 @@ import com.hm.viewdemo.inter.OnItemClickListener;
 
 import java.util.ArrayList;
 
+/**
+ * Created by p_dmweidu on 2023/7/27
+ * Desc: 全屏BottomSheetDialogFragment
+ */
 public class FullSheetDialogFragment extends BottomSheetDialogFragment {
 
     private BottomSheetBehavior mBehavior;
@@ -51,7 +55,7 @@ public class FullSheetDialogFragment extends BottomSheetDialogFragment {
     public void onStart() {
         super.onStart();
         //默认全屏展开
-        mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        //mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     public void doClick(View v) {

@@ -45,7 +45,7 @@ abstract class BaseSoftKyeBoardAct : AppCompatActivity() {
             override
             fun onGlobalLayout() {
                 val r = Rect()
-                //获取当前窗口实际的可见区域
+                //获取当前窗口实际的可见区域，不包括顶部的状态栏
                 window.decorView.getWindowVisibleDisplayFrame(r)
                 val height: Int = r.height()
                 if (mWindowHeight == 0) {
@@ -57,6 +57,7 @@ abstract class BaseSoftKyeBoardAct : AppCompatActivity() {
                         mSoftKeyboardHeight = mWindowHeight - height
                         Log.i(TAG, "onGlobalLayout: SoftKeyboard height = $mSoftKeyboardHeight")
                     }
+
                 }
 
                 val heightDiff = screenHeightPixels - r.bottom

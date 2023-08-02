@@ -4,25 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
-import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.fragment.FullSheetDialogFragment
 import com.hm.viewdemo.util.ScreenUtil
 import kotlinx.android.synthetic.main.activity_bottom_sheet.*
-import java.util.*
 
 
 /**
  * Crete by dumingwei on 2019-06-24
- * Desc:
+ * Desc:学习BottomSheet
  */
 
 class BottomSheetActivity : AppCompatActivity() {
@@ -53,21 +51,23 @@ class BottomSheetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_sheet)
         behavior = BottomSheetBehavior.from(scroll_bottom_sheet)
-        val layoutParams = scroll_bottom_sheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
+        val layoutParams =
+            scroll_bottom_sheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 
         val stringList = ArrayList<String>()
-        for (i in 0 until 1) {
+        for (i in 0 until 15) {
             stringList.add("string$i")
         }
-        recycler_view.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
-        recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        recycler_view.itemAnimator = DefaultItemAnimator()
+        recycler_view.layoutManager = LinearLayoutManager(this)
         val adapter = RecycleViewAdapter(stringList, this)
         recycler_view.adapter = adapter
         if (stringList.size > 4) {
             layoutParams.height = ScreenUtil.dpToPx(this, 400)
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
         } else {
-            layoutParams.height = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.WRAP_CONTENT
+            layoutParams.height =
+                androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.WRAP_CONTENT
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
         }
         scroll_bottom_sheet.layoutParams = layoutParams
@@ -88,11 +88,16 @@ class BottomSheetActivity : AppCompatActivity() {
                  * 否则透明度的计算公式为： 最大透明度*（滑动偏移量和最大偏移量的比例）
                  */
                 if (onSlide > MAX_OFFSET) {
-                    coordinatorLayout.setBackgroundColor(Color.argb((MAX_ALPHA),
-                            0, 0, 0))
+                    coordinatorLayout.setBackgroundColor(
+                        Color.argb(
+                            (MAX_ALPHA),
+                            0, 0, 0
+                        )
+                    )
                 } else {
                     coordinatorLayout.setBackgroundColor(
-                            Color.argb((MAX_ALPHA * (onSlide / MAX_OFFSET)).toInt(), 0, 0, 0))
+                        Color.argb((MAX_ALPHA * (onSlide / MAX_OFFSET)).toInt(), 0, 0, 0)
+                    )
                 }
             }
         })

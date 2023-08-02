@@ -23,6 +23,7 @@
             android:layout_height="100dp"
             app:cus_font="12sp"
             app:bgResId="@drawable/bg_primary_radius_23"
+            app:type="common"
             app:text="hello owrld" />
 
 

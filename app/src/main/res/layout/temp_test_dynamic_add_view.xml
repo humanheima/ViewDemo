@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context=".activity.LoadResActivity">
+
+        <ImageView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+        <ImageView
+                android:layout_marginStart="10dp"
+
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+        <ImageView
+                android:layout_marginStart="10dp"
+
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context=".activity.LoadResActivity">
+
+        <ImageView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+        <ImageView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context=".activity.LoadResActivity">
+
+        <ImageView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:background="@drawable/balloon"
+                android:layout_height="100dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

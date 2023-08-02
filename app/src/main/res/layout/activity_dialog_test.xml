@@ -1,40 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.DialogTestActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.DialogTestActivity">
 
     <Button
-        android:id="@+id/btnShowDialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="测试Dialog"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/btnShowDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试Dialog"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnShowDialog1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自定义布局"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/btnShowDialog1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义布局"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnShowDialog2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自定义DialogFragment"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/btnShowDialog2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义DialogFragment"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/btnShowDialog4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加布局中文件的个数"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+<Button
+            android:id="@+id/btnShowDialog3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义布局，布局是动态创建的。"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>

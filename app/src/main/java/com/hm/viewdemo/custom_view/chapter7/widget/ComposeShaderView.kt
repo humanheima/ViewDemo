@@ -38,8 +38,8 @@ class ComposeShaderView @JvmOverloads constructor(
         bitmap = (resources.getDrawable(R.drawable.icon) as BitmapDrawable).bitmap
         bitmapShader = BitmapShader(bitmap, tileMode, tileMode)
 
-        linearGradient = LinearGradient(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat(),
-                Color.RED, Color.BLUE, tileMode)
+        linearGradient = LinearGradient(0f, 0f, 0f, bitmap.height.toFloat(), Color.RED, Color.BLUE, tileMode)
+        //linearGradient = LinearGradient(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat(), Color.RED, Color.BLUE, tileMode)
 
         composeShader = ComposeShader(bitmapShader, linearGradient, PorterDuff.Mode.MULTIPLY)
 
