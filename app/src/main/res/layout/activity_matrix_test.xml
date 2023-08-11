@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".activity.MatrixTestActivity">
+
+    <TextView
+            android:id="@+id/tv_origin"
+            android:layout_width="match_parent"
+            android:text="原始的图像"
+            android:layout_height="wrap_content" />
+
+    <ImageView
+            android:layout_below="@+id/tv_origin"
+            android:id="@+id/iv_dog"
+            android:layout_width="wrap_content"
+            android:background="@drawable/ic_dog"
+            android:layout_height="wrap_content" />
+
+    <com.hm.viewdemo.widget.MatrixTestView
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/iv_dog"
+            android:id="@+id/matrix_test_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</RelativeLayout>

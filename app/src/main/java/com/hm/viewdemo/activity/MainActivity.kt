@@ -359,6 +359,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         startActivity(intent)
     }
 
+    fun launchMatrixTestActivity(view: View) {
+        MatrixTestActivity.launch(this)
+    }
+
     fun launchRoundImageViewActivity(view: View) {
         RoundImageViewActivity.launch(this)
     }

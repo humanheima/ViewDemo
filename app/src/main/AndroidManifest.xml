@@ -16,11 +16,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".ActivityOptionsAnimationActivity"
+                android:name=".activity.MatrixTestActivity"
                 android:exported="false" />
-        <activity
-                android:name=".ActTestActivity"
-                android:exported="false" />
+
         <activity android:name=".activity.TestDrawableStateActivity" />
         <activity android:name=".activity.ListenNestedScrollViewActivity" />
         <activity android:name=".activity.RoundScrollViewActivity" />
