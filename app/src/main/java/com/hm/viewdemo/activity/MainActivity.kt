@@ -29,7 +29,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.random.Random
 
-
+/**
+ * Created by p_dmweidu on 2023/8/21
+ * Desc:
+ * 测试Switch 的用法： https://juejin.cn/post/6970959897575817224
+ */
 class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     var perms = arrayOf(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)

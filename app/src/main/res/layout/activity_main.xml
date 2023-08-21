@@ -14,9 +14,24 @@
             android:layout_height="wrap_content">
 
         <LinearLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+            <Switch
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:track="@drawable/switch_tracker"
+                    android:thumb="@drawable/switch_thumb_oval"
+                    android:layout_height="40dp" />
+
+            <Switch
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:track="@drawable/selector_track"
+                    android:thumb="@drawable/selector_thumb"
+                    android:layout_height="40dp" />
 
             <Button
                     android:layout_width="match_parent"
