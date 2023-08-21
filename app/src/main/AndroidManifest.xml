@@ -16,9 +16,13 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".activity.MatrixTestActivity"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+                android:name=".activity.MaterialChipActivity"
                 android:exported="false" />
 
+        <activity
+                android:name=".activity.MatrixTestActivity"
+                android:exported="false" />
         <activity android:name=".activity.TestDrawableStateActivity" />
         <activity android:name=".activity.ListenNestedScrollViewActivity" />
         <activity android:name=".activity.RoundScrollViewActivity" />
