@@ -29,7 +29,6 @@ class LinearGradientActivity : AppCompatActivity() {
         setContentView(R.layout.activity_linear_gradient)
 
         lgView1 = findViewById(R.id.lg_view_1)
-
         playPageBgView1 = findViewById(R.id.play_page_bg_view1)
 
         playPageBgView2 = findViewById(R.id.play_page_bg_view2)
