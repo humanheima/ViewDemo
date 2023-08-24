@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
@@ -29,8 +29,8 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
     ColorfulProgressbar progressbar4;
     SeekBar controller;
     SeekBar controller2;
-    Switch aSwitch;
-    Switch aSwitch2;
+    private SwitchCompat aSwitch;
+    private SwitchCompat aSwitch2;
 
 
     public static void launch(Context context) {
@@ -55,8 +55,8 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
         controller = (SeekBar) findViewById(R.id.controller);
         controller2 = (SeekBar) findViewById(R.id.controller2);
 
-        aSwitch = (Switch) findViewById(R.id.switch1);
-        aSwitch2 = (Switch) findViewById(R.id.switch2);
+        aSwitch = findViewById(R.id.switch1);
+        aSwitch2 = findViewById(R.id.switch2);
 
         progressbar.setHeight(DisplayUtil.dip2px(this, 20));
 
