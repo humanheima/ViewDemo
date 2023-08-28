@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/colorful"
-            android:layout_marginTop="16dp"></com.capton.colorfulprogressbar.ColorfulProgressbar>
+            android:layout_marginTop="16dp" />
 
     <com.capton.colorfulprogressbar.ColorfulProgressbar
             android:id="@+id/colorful3"
@@ -29,9 +29,9 @@
             android:layout_marginTop="16dp"
             app:max="100"
             app:progress="50"
-            app:secondProgress="10"></com.capton.colorfulprogressbar.ColorfulProgressbar>
+            app:secondProgress="10" />
 
-    <com.capton.colorfulprogressbar.ColorfulProgressbar xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.capton.colorfulprogressbar.ColorfulProgressbar
             android:id="@+id/colorful4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             app:progress="50"
             app:progressColor1="@color/green"
             app:secondProgress="10"
-            app:style="@string/style_normal"></com.capton.colorfulprogressbar.ColorfulProgressbar>
+            app:style="@string/style_normal" />
 
     <TextView
             android:id="@+id/animationText"
@@ -76,11 +76,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/progressText" />
 
+    <com.hm.viewdemo.widget.ClickSwitchCompat
+            android:id="@+id/switch3"
+            android:layout_below="@+id/switch2"
+            android:background="@null"
+            android:thumb="@drawable/selector_thumb"
+            app:track="@drawable/selector_track"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     <TextView
             android:id="@+id/tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/switch2"
+            android:layout_below="@+id/switch3"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="16dp"
             android:text="Set Progress : 50%" />
@@ -115,4 +124,5 @@
             android:progress="10"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp" />
+
 </RelativeLayout>

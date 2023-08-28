@@ -4,34 +4,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import com.capton.colorfulprogressbar.ColorfulProgressbar;
 import com.capton.colorfulprogressbar.DisplayUtil;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.bean.MyBean;
+import com.hm.viewdemo.widget.ClickSwitchCompat;
 import com.xx.reader.utils.JsonUtilKt;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Created by p_dmweidu on 2023/8/28
+ * Desc: 测试 ColorfulProgressBar
+ */
 public class ColorfulProgressBarActivity extends AppCompatActivity {
 
 
     private final String TAG = "ColorfulProgressBarActi";
 
-    ColorfulProgressbar progressbar;
-    ColorfulProgressbar progressbar2;
-    ColorfulProgressbar progressbar3;
-    ColorfulProgressbar progressbar4;
-    SeekBar controller;
-    SeekBar controller2;
+    private ColorfulProgressbar progressbar;
+    private ColorfulProgressbar progressbar2;
+    private ColorfulProgressbar progressbar3;
+    private ColorfulProgressbar progressbar4;
+    private SeekBar controller;
+    private SeekBar controller2;
     private SwitchCompat aSwitch;
     private SwitchCompat aSwitch2;
-
+    private ClickSwitchCompat switch3;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, ColorfulProgressBarActivity.class);
@@ -47,16 +55,18 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        progressbar = (ColorfulProgressbar) findViewById(R.id.colorful);
-        progressbar2 = (ColorfulProgressbar) findViewById(R.id.colorful2);
-        progressbar3 = (ColorfulProgressbar) findViewById(R.id.colorful3);
-        progressbar4 = (ColorfulProgressbar) findViewById(R.id.colorful4);
+        progressbar = findViewById(R.id.colorful);
+        progressbar2 = findViewById(R.id.colorful2);
+        progressbar3 = findViewById(R.id.colorful3);
+        progressbar4 = findViewById(R.id.colorful4);
 
-        controller = (SeekBar) findViewById(R.id.controller);
-        controller2 = (SeekBar) findViewById(R.id.controller2);
+        controller = findViewById(R.id.controller);
+        controller2 = findViewById(R.id.controller2);
 
         aSwitch = findViewById(R.id.switch1);
         aSwitch2 = findViewById(R.id.switch2);
+
+        switch3 = findViewById(R.id.switch3);
 
         progressbar.setHeight(DisplayUtil.dip2px(this, 20));
 
@@ -144,8 +154,35 @@ public class ColorfulProgressBarActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
+        aSwitch.setEnabled(false);
+        aSwitch2.setEnabled(false);
+
+        switch3.setSpecialClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = switch3.isChecked();
+                if (checked) {
+                    switch3.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch3.setChecked(false);
+                            Toast.makeText(ColorfulProgressBarActivity.this, "开关已关闭", Toast.LENGTH_SHORT).show();
+                        }
+                    }, 300);
+
+                } else {
+                    switch3.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch3.setChecked(true);
+                            Toast.makeText(ColorfulProgressBarActivity.this, "开关已打开", Toast.LENGTH_SHORT).show();
+                        }
+                    }, 300);
+                }
+            }
+        });
+    }
 
     private void testJson() {
         MyBean bean = new MyBean("标题", "描述");
