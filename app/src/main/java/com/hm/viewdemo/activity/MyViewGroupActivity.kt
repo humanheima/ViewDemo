@@ -25,15 +25,15 @@ class MyViewGroupActivity : AppCompatActivity() {
         }
     }
 
-    lateinit var fm_root_layout: FrameLayout
+    private lateinit var fmRootLayout: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_view_group)
-        fm_root_layout = findViewById(R.id.fm_root_layout)
+        fmRootLayout = findViewById(R.id.fm_root_layout)
         //先把 MyViewGroup 添加到 Activity 的根布局文件中
         val viewGroup = MyViewGroup(this)
 
-        fm_root_layout.addView(
+        fmRootLayout.addView(
             viewGroup,
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
