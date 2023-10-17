@@ -97,9 +97,13 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_merge -> {
+                MergeTestActivity.launch(this)
+            }
             R.id.btn_test_chip -> {
                 MaterialChipActivity.launch(this)
             }
+
             R.id.btnTestActivityAnim -> {
                 ActivityAnimTestActivity.launch(this)
             }

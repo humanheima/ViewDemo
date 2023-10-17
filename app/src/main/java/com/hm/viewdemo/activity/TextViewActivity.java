@@ -7,7 +7,6 @@ import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -18,45 +17,38 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ClickableSpan;
-import android.text.style.DynamicDrawableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.MaskFilterSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ScaleXSpan;
-import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
 import android.text.style.TabStopSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.core.content.ContextCompat;
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.util.FontsUtil;
 import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.util.ScreenUtil;
+import com.hm.viewdemo.util.TextViewSpanUtil;
 import com.hm.viewdemo.widget.MyTypefaceSpan;
 import com.hm.viewdemo.widget.span.SpaceSpan;
 import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
-
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import butterknife.BindView;
+import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * 测试TextView 设置Span
@@ -75,6 +67,8 @@ public class TextViewActivity extends BaseActivity {
 
 
     private TextView tvTestFont;
+
+    private TextView tv_with_suffix;
 
     @BindView(R.id.text_view_8)
     TextView textView8;
@@ -167,6 +161,12 @@ public class TextViewActivity extends BaseActivity {
         setTextView11();
 
         setTextViewRegex();
+
+        tv_with_suffix = findViewById(R.id.tv_with_suffix);
+
+        TextViewSpanUtil.toggleEllipsize(this, tv_with_suffix, 3,
+                "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，洪都带五湖，控蛮荆而引瓯越，",
+                "  详情", R.color.colorAccent, false);
 
         textView12 = findViewById(R.id.text_view_12);
         textView13 = findViewById(R.id.text_view_13);

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context=".activity.MergeTestActivity">
+
+    <!--include标签的使用-->
+    <TextView
+            android:textSize="18sp"
+            android:text="1、include标签的使用"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <include layout="@layout/layout_include1" />
+    <!--重写id-->
+    <include
+            android:id="@+id/tv_include1"
+            layout="@layout/layout_include1" />
+
+    <!--重写宽高-->
+    <include
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            layout="@layout/layout_include1" />
+
+
+    <include layout="@layout/layout_include2" />
+
+    <include
+            android:id="@+id/view_same"
+            layout="@layout/layout_include2" />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include
+                android:id="@+id/view_merge"
+                layout="@layout/layout_merge" />
+
+        <TextView
+                android:text="我不是merge中的布局"
+                android:layout_below="@+id/tv_merge1"
+                android:background="@android:color/holo_purple"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

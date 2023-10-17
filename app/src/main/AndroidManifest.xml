@@ -16,10 +16,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-                android:name=".activity.MaterialChipActivity"
+                android:name=".activity.MergeTestActivity"
                 android:exported="false" />
-
+        <activity
+                android:name=".activity.MaterialChipActivity"
+                android:exported="false"
+                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
                 android:name=".activity.MatrixTestActivity"
                 android:exported="false" />
