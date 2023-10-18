@@ -1,14 +1,20 @@
 package com.hm.viewdemo.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 
 public class TextViewSpanUtil {
 
@@ -67,14 +73,29 @@ public class TextViewSpanUtil {
                         finalText = originText + endText;
                     }
                     SpannableStringBuilder ssb = new SpannableStringBuilder(finalText);
+                    int end = finalText.length();
+                    int start = end - endText.length();
                     ssb.setSpan(new ForegroundColorSpan(context.getResources().getColor
                                     (endColorID)),
-                            finalText.length() - endText.length(), finalText.length(),
+                            start, end,
                             Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    ssb.setSpan(new ClickableSpan() {
+                        @Override
+                        public void onClick(@NonNull View widget) {
+                            if (widget instanceof TextView) {
+                                ((TextView) widget).setHighlightColor(Color.TRANSPARENT);
+                            }
+                            Toast.makeText(context, "haha", Toast.LENGTH_SHORT).show();
+                        }
 
-
+                        @Override
+                        public void updateDrawState(@NonNull TextPaint ds) {
+                            //super.updateDrawState(ds);
+                            ds.setUnderlineText(false);
+                        }
+                    }, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     textView.setText(ssb);
-
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
                 }
                 textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
