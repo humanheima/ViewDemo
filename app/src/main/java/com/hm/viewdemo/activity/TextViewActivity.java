@@ -43,6 +43,7 @@ import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.util.ScreenUtil;
 import com.hm.viewdemo.util.TextViewSpanUtil;
 import com.hm.viewdemo.widget.MyTypefaceSpan;
+import com.hm.viewdemo.widget.SeeDetailTextStyle1;
 import com.hm.viewdemo.widget.span.SpaceSpan;
 import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
 import java.io.IOException;
@@ -61,6 +62,8 @@ public class TextViewActivity extends BaseActivity {
         Intent starter = new Intent(context, TextViewActivity.class);
         context.startActivity(starter);
     }
+
+    private SeeDetailTextStyle1 sdtv1;
 
     private TextView tvLimitTextLengthResult;
     private Button btnTestLimitTextLength;
@@ -117,6 +120,7 @@ public class TextViewActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        sdtv1 = findViewById(R.id.sdtv1);
 
         tvLimitTextLengthResult = findViewById(R.id.tvLimitTextLengthResult);
         btnTestLimitTextLength = findViewById(R.id.btnTestLimitTextLength);
@@ -142,8 +146,11 @@ public class TextViewActivity extends BaseActivity {
         btnSendInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence charSequence = etInput.getText();
-                tvResult.setText(charSequence);
+                String charSequence = etInput.getText().toString();
+                //tv_with_suffix.setText(charSequence);
+                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tv_with_suffix, 3,
+                        charSequence,
+                        "  详情", R.color.colorAccent, false);
             }
         });
 
@@ -165,7 +172,7 @@ public class TextViewActivity extends BaseActivity {
         tv_with_suffix = findViewById(R.id.tv_with_suffix);
 
         TextViewSpanUtil.toggleEllipsize(this, tv_with_suffix, 3,
-                "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，洪都带五湖，控蛮荆而引瓯越，",
+                "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
                 "  详情", R.color.colorAccent, false);
 
         textView12 = findViewById(R.id.text_view_12);

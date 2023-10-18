@@ -36,6 +36,7 @@ public class TextViewSpanUtil {
         if (TextUtils.isEmpty(originText)) {
             return;
         }
+        textView.requestLayout();
         textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -55,18 +56,25 @@ public class TextViewSpanUtil {
                     Log.i(TAG, "onGlobalLayout: moreTextWidth2 measure = " + moreTextWidth2);
                     float availableTextWidth =
                             (textView.getWidth() - paddingLeft - paddingRight) * minLines - moreTextWidth;
-                    CharSequence ellipsizeStr = TextUtils.ellipsize(originText, paint, availableTextWidth,
+                    CharSequence ellipsizeStr = TextUtils.ellipsize(originText + endText, paint, availableTextWidth,
                             TextUtils.TruncateAt.END);
-                    if (ellipsizeStr.length() < originText.length()) {
-                        CharSequence temp = ellipsizeStr + endText;
-                        SpannableStringBuilder ssb = new SpannableStringBuilder(temp);
-                        ssb.setSpan(new ForegroundColorSpan(context.getResources().getColor
-                                        (endColorID)),
-                                temp.length() - endText.length(), temp.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                        textView.setText(ssb);
+                    String finalText;
+                    if (ellipsizeStr.length() < originText.length() + endText.length()) {
+                        int length = ellipsizeStr.length();
+                        String temp = ellipsizeStr.subSequence(0, length - 3) + "…" + endText;
+                        finalText = temp;
                     } else {
-                        textView.setText(originText);
+                        finalText = originText + endText;
                     }
+                    SpannableStringBuilder ssb = new SpannableStringBuilder(finalText);
+                    ssb.setSpan(new ForegroundColorSpan(context.getResources().getColor
+                                    (endColorID)),
+                            finalText.length() - endText.length(), finalText.length(),
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+
+                    textView.setText(ssb);
+
                 }
                 textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
