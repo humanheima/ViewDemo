@@ -71,7 +71,7 @@ public class TextViewActivity extends BaseActivity {
 
     private TextView tvTestFont;
 
-    private TextView tv_with_suffix;
+    private TextView tvWithSuffix;
 
     @BindView(R.id.text_view_8)
     TextView textView8;
@@ -147,10 +147,11 @@ public class TextViewActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String charSequence = etInput.getText().toString();
-                //tv_with_suffix.setText(charSequence);
-                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tv_with_suffix, 3,
-                        charSequence,
-                        "  详情", R.color.colorAccent, false);
+                //tvWithSuffix.setText(charSequence);
+                sdtv1.setText(charSequence);
+//                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tvWithSuffix, 3,
+//                        charSequence,
+//                        "  详情", R.color.colorAccent, false);
             }
         });
 
@@ -169,9 +170,9 @@ public class TextViewActivity extends BaseActivity {
 
         setTextViewRegex();
 
-        tv_with_suffix = findViewById(R.id.tv_with_suffix);
+        tvWithSuffix = findViewById(R.id.tv_with_suffix);
 
-        TextViewSpanUtil.toggleEllipsize(this, tv_with_suffix, 3,
+        TextViewSpanUtil.toggleEllipsize(this, tvWithSuffix, 3,
                 "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
                 "  详情", R.color.colorAccent, false);
 
@@ -389,7 +390,7 @@ public class TextViewActivity extends BaseActivity {
 //        //设置ClickableSpan后要加上这行代码
 //        textView3.setMovementMethod(LinkMovementMethod.getInstance());
 
-        String agreementStr = "暗影IV 100 已经开始暴走了 1000 艰难苦恨繁霜鬓";
+        String agreementStr = "暗影IV 100 已经开始暴走了       1000 艰难苦恨繁霜鬓";
         SpannableString spannableString = new SpannableString(agreementStr);
         spannableString.setSpan(new ClickableSpan() {
             @Override

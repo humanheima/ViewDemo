@@ -16,6 +16,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".activity.NinePatchDrawableActivity"
+                android:exported="false" />
+        <activity
                 android:name=".activity.MergeTestActivity"
                 android:exported="false" />
         <activity

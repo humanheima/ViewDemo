@@ -2,24 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="wrap_content">
 
     <TextView
             android:id="@+id/tv_child_tab_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/main_color_666666"
+            android:textColor="@color/white"
             android:textSize="14dp"
             tools:text="豫章故郡，洪都新府2。星分翼轸，地接衡庐3。襟三江而带五湖4，控蛮荆而引瓯越5。物华天宝，龙光射牛斗之墟6；人杰地灵，徐孺下陈蕃之榻7。雄州雾列8，俊采星驰9。台隍枕夷夏之交10，宾主尽东南之美11。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻12。十旬休假13，胜友如云；千里逢迎14，高朋满座。腾蛟起凤，孟学士之词宗15；紫电青霜，王将军之武库16。家君作宰，路出名区；童子何知，躬逢胜饯17。" />
 
     <TextView
             android:layout_alignParentEnd="true"
             android:id="@+id/tv_see_detail"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
+            android:gravity="end"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_child_tab_title"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:textSize="14dp"
             android:text="详情" />
 
