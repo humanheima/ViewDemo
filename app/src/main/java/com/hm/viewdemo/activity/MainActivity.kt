@@ -25,7 +25,9 @@ import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.circleView
+import kotlinx.android.synthetic.main.activity_main.fl_content
+import kotlinx.android.synthetic.main.activity_main.scroll_view_root
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.random.Random
 
@@ -97,9 +99,14 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnNinePatchTest -> {
+                NinePatchDrawableActivity.launch(this)
+            }
+
             R.id.btn_test_merge -> {
                 MergeTestActivity.launch(this)
             }
+
             R.id.btn_test_chip -> {
                 MaterialChipActivity.launch(this)
             }
@@ -107,21 +114,27 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnTestActivityAnim -> {
                 ActivityAnimTestActivity.launch(this)
             }
+
             R.id.btnTestSoftKeyboard -> {
                 TestSoftKeyboardActivity.launch(this)
             }
+
             R.id.btnListenNestedScrollView -> {
                 ListenNestedScrollViewActivity.launch(this)
             }
+
             R.id.btnTestRoundView -> {
                 RoundScrollViewActivity.launch(this)
             }
+
             R.id.btnTestViewDrawOrder -> {
                 MyViewGroupActivity.launch(this)
             }
+
             R.id.btnTestClipBoard -> {
                 ClipBoardActivity.launch(this)
             }
+
             R.id.btn_load_res -> {
                 LoadResActivity.launch(this)
             }
@@ -129,6 +142,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnTestVectorDrawable -> {
                 VectorDrawableMainActivity.launch(this)
             }
+
             R.id.btn_draw_stage_red_packet -> {
                 StageRedPacketActivity.launch(this)
             }
@@ -136,24 +150,31 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnTestSkeletonView -> {
                 SkeletonViewActivity.launch(this)
             }
+
             R.id.btn_test_outline -> {
                 OutlineTestActivity.launch(this)
             }
+
             R.id.btn_myruler_view -> {
                 //MyRuleViewActivity.launch(this)
             }
+
             R.id.btn_rule_view -> {
                 //RuleViewMainActivity.launch(this)
             }
+
             R.id.btn_ruler_view -> {
                 //RulerMainActivity.launch(this)
             }
+
             R.id.btn_ruler_view_money -> {
                 //MoneyScaleMainActivity.launch(this)
             }
+
             R.id.btn_round_progress_view -> {
                 RoundProgressBarActivity.launch(this)
             }
+
             R.id.btnTestColorProgressBar -> {
                 ColorfulProgressBarActivity.launch(this)
             }
@@ -161,21 +182,27 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnTestViewSwitcher -> {
                 ViewSwitcherActivity.launch(this)
             }
+
             R.id.btnTestChildTabView -> {
                 ChildTabTestActivity.launch(this)
             }
+
             R.id.btnTestPadding -> {
                 PaddingTestActivity.launch(this)
             }
+
             R.id.btnTestCircleProgressView -> {
                 RingProgressActivity.launch(this)
             }
+
             R.id.btnTestFontMetrics -> {
                 FontMetricsActivity.launch(this)
             }
+
             R.id.btnTestFontFamily -> {
                 FontFamilyMainActivity.launch(this)
             }
+
             R.id.btnTestRelativeRule -> {
                 RelativeDynamicAddRuleActivity.launch(this)
             }
@@ -183,52 +210,68 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnTestScrollUp -> {
                 TestScrollerUpViewActivity.launch(this)
             }
+
             R.id.btnTestSeekBar -> {
                 SeekBarTestActivity.launch(this)
             }
+
             R.id.btnTestWaveView -> {
                 TestWaveViewActivity.launch(this)
             }
+
             R.id.btnTestScrollFling -> {
                 ScrollFlingTestActivity.launch(this)
             }
+
             R.id.btnCommonPopWindow -> {
                 CommonPopWindowActivity.launch(this)
             }
+
             R.id.btnPickColor -> {
                 ColorTestActivity.launch(this)
             }
+
             R.id.btnPalette -> {
                 PaletteActivity.launch(this)
             }
+
             R.id.btnCanvasSaveRestore -> {
 
                 CanvasSaveRestoreActivity.launch(this)
             }
+
             R.id.btnChangeImageColor -> {
                 ChangeImageColorActivity.launch(this)
             }
+
             R.id.btnAutosizingTextView -> {
                 AutoSizingTextViewActivity.launch(this)
             }
+
             R.id.btnTestTabLayout -> {
                 TabLayoutActivity.launch(this)
             }
+
             R.id.btnListViewFloat -> {
                 ListViewFloatActivity.launch(this)
             }
+
             R.id.btnListViewFloat2 -> {
                 ListViewFloat2Activity.launch(this)
             }
+
             R.id.btn_test_lottie -> {
                 LottieActivity.launch(this)
             }
+
             R.id.btnTextTicker -> {
                 TestTickerActivity.launch(this)
             }
+
             R.id.btnRoundView -> {
                 RoundViewActivity.launch(this)
             }
+
             R.id.btnTextSwitcher -> {
                 TextSwitcherActivity.launch(this)
             }
@@ -236,6 +279,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnListView -> {
                 ListViewActivity.launch(this)
             }
+
             R.id.btnTestCancelEVent -> {
                 TestCancelEventActivity.launch(this)
             }
@@ -251,53 +295,69 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnNestedScroll -> {
                 NestedScrollMainActivity.launch(this)
             }
+
             R.id.btnHandlerTest -> {
                 HandlerActivity.launch(this)
             }
+
             R.id.btnNonMainThreadUpdateUITest -> {
                 NonMainThreadUpdateUIActivity.launch(this)
             }
+
             R.id.btnDialogTest -> {
                 DialogTestActivity.launch(this)
             }
+
             R.id.btnParcelableTest -> {
                 testParcelable()
             }
+
             R.id.btnWebPTest -> {
                 WebpTestActivity.launch(this)
             }
+
             R.id.btnStateBar -> {
                 StatusBarActivity.launch(this)
             }
+
             R.id.btnPopWindow -> {
                 PopWindowWithInputActivity.launch(this)
             }
+
             R.id.btnCustomViewGetStart -> {
                 //打开注释查看anr
                 //Thread.sleep(10000)
                 GetStartAndPracticeActivity.launch(this)
             }
+
             R.id.btnSoftKeyboard -> {
                 SoftKeyboardActivity.launch(this)
             }
+
             R.id.btnTestDrawPath -> {
                 DrawPathActivity.launch(this)
             }
+
             R.id.btnTestCountDownTimer -> {
                 CountDownTimerActivity.launch(this)
             }
+
             R.id.btnTestScreenScrollView -> {
                 TestScreenScrollViewActivity.launch(this)
             }
+
             R.id.btnLifecycleView -> {
                 ViewLifecycleActivity.launch(this)
             }
+
             R.id.btnLollipopView -> {
                 LollipopActivity.launch(this)
             }
+
             R.id.btnAnnouncementView -> {
                 AnnouncementActivity.launch(this)
             }
+
             R.id.btnCoordinateLayout -> {
                 CoordinateLayoutActivity.launch(this)
             }
@@ -305,14 +365,17 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btnImageViewSrcBackground -> {
                 ImageViewSrcBackgroundActivity.launch(this)
             }
+
             R.id.btnDrawingCache -> {
                 TestGetDrawingCachingActivity.launch(this)
             }
+
             R.id.btnLayoutInflater -> {
                 LayoutInflateActivity.launch(this)
                 //scroll_activity_main.isNestedScrollingEnabled=false
                 //fmLayout.isShouldIntercept = true
             }
+
             R.id.btnToast -> ToastActivity.launch(this)
             R.id.useHorizontalScrollView -> HorizontalScrollViewActivity.launch(this)
             R.id.btn_card_view -> CardViewActivity.launch(this)
@@ -327,6 +390,7 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
             R.id.btn_scrollview_recyclerview_activity -> ScrollViewNestRecyclerViewActivity.launch(
                 this
             )
+
             R.id.btn_MaxHeightLayoutActivity -> MaxHeightLayoutActivity.launch(this)
             R.id.btn_bottomSheet -> BottomSheetActivity.launch(this)
             R.id.btn_constraint_layout -> ConstraintActivity.launch(this)

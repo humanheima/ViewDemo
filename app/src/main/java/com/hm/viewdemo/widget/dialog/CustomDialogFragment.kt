@@ -29,7 +29,7 @@ class CustomDialogFragment : androidx.fragment.app.DialogFragment() {
         //点击阴影部分和返回键dialog是否消失
         //isCancelable = false
 
-        dialog.window?.let {
+        dialog?.window?.let {
             it.setGravity(Gravity.BOTTOM)
             //window.setWindowAnimations(R.style.animate_dialog)
 

@@ -1,0 +1,255 @@
+package com.hm.viewdemo.ninepatch
+
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.NinePatchDrawable
+import java.io.File
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+
+/**
+ * Created by p_dmweidu on 2023/10/23
+ * Desc: 9图的构建者
+ * 参考链接：https://juejin.cn/post/7188708254346641465
+ */
+class NinePatchDrawableBuilder {
+
+    var horizontalMirror: Boolean = false // 是否需要做横向的镜像处理
+    var density: Int = 480 // 注意：是densityDpi的值，320、480、640等
+    private var bitmap: Bitmap? = null
+    private var width: Int = 0
+    private var height: Int = 0
+    private var resources: Resources? = null
+
+
+    private var patchRegionHorizontal = mutableListOf<PatchRegionBean>()
+    private var patchRegionVertical = mutableListOf<PatchRegionBean>()
+
+    private var paddingLeft: Float = 0f
+    private var paddingRight: Float = 0f
+    private var paddingTop: Float = 0f
+    private var paddingBottom: Float = 0f
+
+
+    /**
+     * 设置资源文件夹中的图片
+     */
+    fun setResourceData(
+        resources: Resources, resId: Int,
+        horizontalMirror: Boolean = false
+    ): NinePatchDrawableBuilder {
+        val bitmap: Bitmap? = try {
+            BitmapFactory.decodeResource(resources, resId)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            null
+        }
+
+        return setBitmapData(
+            bitmap = bitmap,
+            resources = resources,
+            horizontalMirror = horizontalMirror
+        )
+    }
+
+
+    /**
+     * 设置本地文件夹中的图片
+     */
+    fun setFileData(
+        resources: Resources, file: File,
+        horizontalMirror: Boolean = false
+    ): NinePatchDrawableBuilder {
+        val bitmap: Bitmap? = try {
+            BitmapFactory.decodeFile(file.absolutePath)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            null
+        }
+
+        return setBitmapData(
+            bitmap = bitmap,
+            resources = resources,
+            horizontalMirror = horizontalMirror
+        )
+    }
+
+    /**
+     * 设置assets文件夹中的图片
+     */
+    fun setAssetsData(
+        resources: Resources,
+        assetFilePath: String,
+        horizontalMirror: Boolean = false
+    ): NinePatchDrawableBuilder {
+        var bitmap: Bitmap?
+
+        try {
+            val inputStream = resources.assets.open(assetFilePath)
+            bitmap = BitmapFactory.decodeStream(inputStream)
+            inputStream.close()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            bitmap = null
+        }
+
+        return setBitmapData(
+            bitmap = bitmap,
+            resources = resources,
+            horizontalMirror = horizontalMirror
+        )
+    }
+
+    /**
+     * 直接处理bitmap数据
+     */
+    private fun setBitmapData(
+        bitmap: Bitmap?, resources: Resources,
+        horizontalMirror: Boolean = false
+    ): NinePatchDrawableBuilder {
+        this.bitmap = bitmap
+        this.width = bitmap?.width ?: 0
+        this.height = bitmap?.height ?: 0
+
+        this.resources = resources
+        this.horizontalMirror = horizontalMirror
+        return this
+    }
+
+    private fun buildChunk(): ByteArray {
+        // 横向和竖向端点的数量 = 线段数量 * 2
+        val horizontalEndpointsSize = patchRegionHorizontal.size * 2
+        val verticalEndpointsSize = patchRegionVertical.size * 2
+
+        val NO_COLOR = 0x00000001
+        val COLOR_SIZE = 9 //could change, may be 2 or 6 or 15 - but has no effect on output
+
+        val arraySize = 1 + 2 + 4 + 1 + horizontalEndpointsSize + verticalEndpointsSize + COLOR_SIZE
+        val byteBuffer = ByteBuffer.allocate(arraySize * 4).order(ByteOrder.nativeOrder())
+
+        byteBuffer.put(1.toByte()) //was translated
+        byteBuffer.put(horizontalEndpointsSize.toByte()) //divisions x
+        byteBuffer.put(verticalEndpointsSize.toByte()) //divisions y
+        byteBuffer.put(COLOR_SIZE.toByte()) //color size
+
+        // skip
+        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)
+
+        // padding 设为0，即使设置了数据，padding依旧可能不生效
+        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)
+
+        // skip
+        byteBuffer.putInt(0)
+
+        // regions 控制横向拉伸的线段数据
+        if (horizontalMirror) {
+            //镜像，需要修改横向的拉伸区域
+            patchRegionHorizontal.forEach {
+                byteBuffer.putInt((width * (1f - it.end)).toInt())
+                byteBuffer.putInt((width * (1f - it.start)).toInt())
+            }
+        } else {
+            patchRegionHorizontal.forEach {
+                byteBuffer.putInt((width * it.start).toInt())
+                byteBuffer.putInt((width * it.end).toInt())
+            }
+        }
+
+        // regions 控制竖向拉伸的线段数据
+        patchRegionVertical.forEach {
+            byteBuffer.putInt((height * it.start).toInt())
+            byteBuffer.putInt((height * it.end).toInt())
+        }
+
+        for (i in 0 until COLOR_SIZE) {
+            byteBuffer.putInt(NO_COLOR)
+        }
+
+        return byteBuffer.array()
+    }
+
+    fun setPatchHorizontal(vararg patchRegion: PatchRegionBean): NinePatchDrawableBuilder {
+        patchRegion.forEach {
+            patchRegionHorizontal.add(it)
+        }
+        return this
+    }
+
+    fun setPatchVertical(vararg patchRegion: PatchRegionBean): NinePatchDrawableBuilder {
+        patchRegion.forEach {
+            patchRegionVertical.add(it)
+        }
+        return this
+    }
+
+    fun setPadding(
+        paddingLeft: Float, paddingRight: Float, paddingTop: Float, paddingBottom: Float,
+    ): NinePatchDrawableBuilder {
+        this.paddingLeft = paddingLeft
+        this.paddingRight = paddingRight
+        this.paddingTop = paddingTop
+        this.paddingBottom = paddingBottom
+        return this
+    }
+
+    /**
+     * 控制内容填充的区域
+     * （注意：这里的left，top，right，bottom同xml文件中的padding意思一致，只不过这里是百分比形式）
+     */
+    private fun buildPadding(): Rect {
+        val rect = Rect()
+        rect.left = (width * paddingLeft).toInt()
+        rect.right = (width * paddingRight).toInt()
+
+        rect.top = (height * paddingTop).toInt()
+        rect.bottom = (height * paddingBottom).toInt()
+        return rect
+    }
+
+    /**
+     * 构造bitmap信息
+     * 注意：需要判断是否需要做横向的镜像处理
+     */
+    private fun buildBitmap(): Bitmap? {
+        return if (!horizontalMirror) {
+            bitmap
+        } else {
+            bitmap?.let {
+                val matrix = Matrix()
+                matrix.setScale(-1f, 1f)
+                val newBitmap = Bitmap.createBitmap(
+                    it,
+                    0, 0, it.width, it.height,
+                    matrix, true
+                )
+                it.recycle()
+                newBitmap
+            }
+        }
+    }
+
+    fun build(): Drawable? {
+        return try {
+            val ninePatchDrawable = NinePatchDrawable(
+                resources,
+                buildBitmap(),
+                buildChunk(),
+                buildPadding(),
+                null
+            )
+            ninePatchDrawable
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
+}
