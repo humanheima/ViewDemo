@@ -14,11 +14,15 @@ import java.nio.ByteOrder
 /**
  * Created by p_dmweidu on 2023/10/23
  * Desc: 9图的构建者
- * 参考链接：https://juejin.cn/post/7188708254346641465
+ * 参考链接：
+ * 1. https://juejin.cn/post/7188708254346641465
+ * 2. https://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232105&idx=1&sn=fcc4fa956f329f839f2a04793e7dd3b9&mpshare=1&scene=21&srcid=0719Nyt7J8hsr4iYwOjVPXQE#wechat_redirect
+ * 3. https://android.googlesource.com/platform/frameworks/base/+/56a2301/include/androidfw/ResourceTypes.h
+ *
  */
 class NinePatchDrawableBuilder {
 
-    var horizontalMirror: Boolean = false // 是否需要做横向的镜像处理
+    private var horizontalMirror: Boolean = false // 是否需要做横向的镜像处理
     var density: Int = 480 // 注意：是densityDpi的值，320、480、640等
     private var bitmap: Bitmap? = null
     private var width: Int = 0
@@ -128,28 +132,31 @@ class NinePatchDrawableBuilder {
         val NO_COLOR = 0x00000001
         val COLOR_SIZE = 9 //could change, may be 2 or 6 or 15 - but has no effect on output
 
+        //这里计算的 arraySize 是 int 值，最终占用的字节数是 arraySize * 4
         val arraySize = 1 + 2 + 4 + 1 + horizontalEndpointsSize + verticalEndpointsSize + COLOR_SIZE
+        //这里乘以4，是因为一个int占用4个字节
         val byteBuffer = ByteBuffer.allocate(arraySize * 4).order(ByteOrder.nativeOrder())
 
-        byteBuffer.put(1.toByte()) //was translated
-        byteBuffer.put(horizontalEndpointsSize.toByte()) //divisions x
-        byteBuffer.put(verticalEndpointsSize.toByte()) //divisions y
-        byteBuffer.put(COLOR_SIZE.toByte()) //color size
+        byteBuffer.put(1.toByte()) //第一个字节无意义，不等于0就行
+        byteBuffer.put(horizontalEndpointsSize.toByte()) //mDivX x数组的长度
+        byteBuffer.put(verticalEndpointsSize.toByte()) //mDivY y数组的长度
+        byteBuffer.put(COLOR_SIZE.toByte()) //mColor数组的长度
 
-        // skip
-        byteBuffer.putInt(0)
-        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)//一个int类型的skip，无意义
+        byteBuffer.putInt(0)//一个int类型的skip，无意义
 
+        //Note: 等待进一步研究
         // padding 设为0，即使设置了数据，padding依旧可能不生效
+        //定于与drawNinePatch的右边和下边的黑线
         byteBuffer.putInt(0)
         byteBuffer.putInt(0)
         byteBuffer.putInt(0)
         byteBuffer.putInt(0)
 
-        // skip
-        byteBuffer.putInt(0)
+        byteBuffer.putInt(0)//一个int类型的skip，无意义
 
         // regions 控制横向拉伸的线段数据
+        //mDivX数组
         if (horizontalMirror) {
             //镜像，需要修改横向的拉伸区域
             patchRegionHorizontal.forEach {
@@ -163,12 +170,14 @@ class NinePatchDrawableBuilder {
             }
         }
 
+        //mDivY数组
         // regions 控制竖向拉伸的线段数据
         patchRegionVertical.forEach {
             byteBuffer.putInt((height * it.start).toInt())
             byteBuffer.putInt((height * it.end).toInt())
         }
 
+        //mColor数组
         for (i in 0 until COLOR_SIZE) {
             byteBuffer.putInt(NO_COLOR)
         }

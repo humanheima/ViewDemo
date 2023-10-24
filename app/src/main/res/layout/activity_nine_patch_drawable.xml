@@ -1,31 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".activity.NinePatchDrawableActivity">
+        android:layout_margin="16dp"
+        android:layout_height="match_parent">
 
-
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
-            android:text="原图拉伸"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".activity.NinePatchDrawableActivity">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:background="@drawable/ic_dog"
-            android:layout_height="100dp" />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:text="使用.9图拉伸"
-            android:layout_height="40dp" />
-
-    <ImageView
-            android:id="@+id/iv_ninepatch_1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+        <ImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_bubble1"
+                android:layout_height="100dp" />
 
 
-</LinearLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:text="原图拉伸"
+                android:layout_height="40dp" />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:background="@drawable/ic_bubble1"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:background="@drawable/ic_bubble1"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:text="使用.9图拉伸"
+                android:layout_height="40dp" />
+
+        <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:id="@+id/tv_9_patch1"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:id="@+id/tv_9_patch2"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:id="@+id/tv_9_patch3"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:id="@+id/tv_9_patch4"
+                    android:layout_width="match_parent"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

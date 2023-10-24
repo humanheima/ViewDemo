@@ -1,16 +1,24 @@
 package com.hm.viewdemo.activity
 
 import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.view.View
-import com.airbnb.lottie.*
+import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.LottieCompositionFactory
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.LottieListener
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_lottie.*
+import kotlinx.android.synthetic.main.activity_lottie.btnStartLightAnim
+import kotlinx.android.synthetic.main.activity_lottie.lottieLoadDynamic1
+import kotlinx.android.synthetic.main.activity_lottie.lottieLoadFromUrl
+import kotlinx.android.synthetic.main.activity_lottie.lottieMarquee
+import kotlinx.android.synthetic.main.activity_lottie.lottieMarquee1
+import kotlinx.android.synthetic.main.activity_lottie.lottieUseDrawable
+import kotlinx.android.synthetic.main.activity_lottie.lottieViewLight
+import kotlinx.android.synthetic.main.activity_lottie.lottieViewLoading
 
 /**
  * Created by dumingwei on 2020/4/16
@@ -84,7 +92,7 @@ class LottieActivity : AppCompatActivity() {
     }
 
     private fun dynamicLoad1() {
-        lottieLoadDynamic1.setAnimation("lottie/rotate/anim_3.json")
+        lottieLoadDynamic1.setAnimation("lottie/rotate/anim_rorate_play_stretch_test_1.json")
         lottieLoadDynamic1.repeatMode = LottieDrawable.RESTART
         lottieLoadDynamic1.repeatCount = LottieDrawable.INFINITE
         lottieLoadDynamic1.playAnimation()
@@ -93,8 +101,10 @@ class LottieActivity : AppCompatActivity() {
     private fun useLottieDrawable() {
 
         val drawable = LottieDrawable()
-        LottieCompositionFactory.fromAsset(this,
-                "lottie/loading_1/loading.json").addListener(object : LottieListener<LottieComposition> {
+        LottieCompositionFactory.fromAsset(
+            this,
+            "lottie/loading_1/loading.json"
+        ).addListener(object : LottieListener<LottieComposition> {
             override fun onResult(result: LottieComposition?) {
                 Log.i(TAG, "onResult: $result")
                 result?.let {

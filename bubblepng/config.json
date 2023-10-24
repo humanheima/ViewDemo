@@ -1,0 +1,86 @@
+{
+  "name": "蹦迪小黑猫",
+  "color": "0xFF000000",
+  "link_color": "0xFFf7d77d",
+  "zoom_point": [
+    "60",
+    "52"
+  ],
+  "voice_animation": {
+    "animation": "stc1",
+    "align": "TL",
+    "rect": [
+      "0",
+      "0",
+      "128",
+      "112"
+    ],
+    "count": "12",
+    "time": "100"
+  },
+  "key_animations": [
+    {
+      "key_word": [
+        "画面感觉-可爱",
+        "画面感觉-萌系",
+        "画面感觉-趣味",
+        "主色调-中调-黑",
+        "题材-动物萌宠",
+        "题材-童趣回忆",
+        "题材-鬼畜搞笑",
+        "画面密度-简洁",
+        "情绪表达-正向情绪",
+        "情绪表达-正向情绪-开心快乐",
+        "情绪表达-中性情绪",
+        "目标人群-少儿",
+        "目标人群-青少年",
+        "目标人群-青年",
+        "运营专题-cute"
+      ],
+      "animation": "stc1",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "12",
+      "time": "100"
+    }
+  ],
+  "animations": {
+    "stc1": {
+      "type": "static",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "12",
+      "time": "100",
+      "alpha": "false"
+    }
+  },
+  "bubbleframe_animation": {
+    "animation_set": "bubbleframe_anim"
+  },
+  "animation_sets": {
+    "bubbleframe_anim": {
+      "repeat": "100",
+      "zip_name": "bubbleframe",
+      "count": "12",
+      "time": "100",
+      "zoom_point": [
+        "60",
+        "52"
+      ]
+    }
+  }
+}

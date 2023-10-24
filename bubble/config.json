@@ -1,0 +1,80 @@
+{
+  "name": "星际航游",
+  "color": "0xFF4a5473",
+  "link_color": "0xFFe191f6",
+  "zoom_point": [
+    "61",
+    "55"
+  ],
+  "voice_animation": {
+    "animation": "stc1",
+    "align": "TL",
+    "rect": [
+      "0",
+      "0",
+      "128",
+      "112"
+    ],
+    "count": "16",
+    "time": "100"
+  },
+  "key_animations": [
+    {
+      "key_word": [
+        "画面感觉-可爱",
+        "画面感觉-梦幻",
+        "主色调-多色混合",
+        "题材-童趣回忆",
+        "题材-彩虹云朵",
+        "画面密度-适中",
+        "目标人群-少儿",
+        "目标人群-青少年",
+        "目标人群-青年"
+      ],
+      "animation": "stc1",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "16",
+      "time": "100"
+    }
+  ],
+  "animations": {
+    "stc1": {
+      "type": "static",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "16",
+      "time": "100",
+      "alpha": "false"
+    }
+  },
+  "bubbleframe_animation": {
+    "animation_set": "bubbleframe_anim"
+  },
+  "animation_sets": {
+    "bubbleframe_anim": {
+      "repeat": "100",
+      "zip_name": "bubbleframe",
+      "count": "16",
+      "time": "100",
+      "zoom_point": [
+        "61",
+        "55"
+      ]
+    }
+  }
+}
