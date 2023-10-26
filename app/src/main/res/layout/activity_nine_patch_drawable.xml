@@ -63,6 +63,12 @@
 
         </RelativeLayout>
 
+
+        <TextView
+                android:layout_width="match_parent"
+                android:text="从文件加载的"
+                android:layout_height="match_parent" />
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
@@ -88,13 +94,17 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:id="@+id/rl_9_patch4"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
             <TextView
+                    android:layout_margin="10dp"
+                    android:layout_centerInParent="true"
                     android:id="@+id/tv_9_patch4"
                     android:layout_width="match_parent"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:ellipsize="end"
+                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>

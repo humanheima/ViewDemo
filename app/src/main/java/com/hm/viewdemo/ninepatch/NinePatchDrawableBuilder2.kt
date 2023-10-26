@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
+import android.util.DisplayMetrics
 import android.util.Log
 import java.io.File
 import java.nio.ByteBuffer
@@ -21,7 +22,7 @@ import java.nio.ByteOrder
  * 3. https://android.googlesource.com/platform/frameworks/base/+/56a2301/include/androidfw/ResourceTypes.h
  *
  */
-class NinePatchDrawableBuilder {
+class NinePatchDrawableBuilder2 {
 
 
     companion object {
@@ -29,20 +30,20 @@ class NinePatchDrawableBuilder {
     }
 
     private var horizontalMirror: Boolean = false // 是否需要做横向的镜像处理
-    var density: Int = 480 // 注意：是densityDpi的值，320、480、640等
+    var density: Int = 160 // 注意：是densityDpi的值，320、480、640等
     private var bitmap: Bitmap? = null
     private var width: Int = 0
     private var height: Int = 0
     private var resources: Resources? = null
 
 
-    private var patchRegionHorizontal = mutableListOf<PatchRegionBean>()
-    private var patchRegionVertical = mutableListOf<PatchRegionBean>()
+    private var patchRegionHorizontal = mutableListOf<PatchRegionBean2>()
+    private var patchRegionVertical = mutableListOf<PatchRegionBean2>()
 
-    private var paddingLeft: Float = 0f
-    private var paddingRight: Float = 0f
-    private var paddingTop: Float = 0f
-    private var paddingBottom: Float = 0f
+    private var paddingLeft: Int = 0
+    private var paddingRight: Int = 0
+    private var paddingTop: Int = 0
+    private var paddingBottom: Int = 0
 
 
     /**
@@ -51,7 +52,7 @@ class NinePatchDrawableBuilder {
     fun setResourceData(
         resources: Resources, resId: Int,
         horizontalMirror: Boolean = false
-    ): NinePatchDrawableBuilder {
+    ): NinePatchDrawableBuilder2 {
         val currentTimeMillis = System.currentTimeMillis()
         Log.i(TAG, "setResourceData: resId = $resId start at $currentTimeMillis")
         val bitmap: Bitmap? = try {
@@ -62,8 +63,9 @@ class NinePatchDrawableBuilder {
         }
         Log.i(
             TAG,
-            "setResourceData: resId = $resId end 耗时 = ${System.currentTimeMillis() - currentTimeMillis} ms"
+            "setResourceData: resId = $resId end 耗时 = ${System.currentTimeMillis() - currentTimeMillis} ms  bitmap?.density = ${bitmap?.density}"
         )
+
 
         return setBitmapData(
             bitmap = bitmap,
@@ -79,16 +81,31 @@ class NinePatchDrawableBuilder {
     fun setFileData(
         resources: Resources, file: File,
         horizontalMirror: Boolean = false
-    ): NinePatchDrawableBuilder {
+    ): NinePatchDrawableBuilder2 {
         val bitmap: Bitmap? = try {
             BitmapFactory.decodeFile(file.absolutePath)
         } catch (e: Throwable) {
             e.printStackTrace()
             null
         }
+        Log.i(TAG, "setFileData: density = ${bitmap?.density}")
+
+        val displayMetrics: DisplayMetrics = resources.displayMetrics
+        val density = displayMetrics.density
+        val width = (bitmap!!.width * density).toInt()
+        val height = (bitmap!!.height * density).toInt()
+        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false)
+
+//        val matrix = Matrix()
+//        matrix.postScale(3f, 3f)
+//        val scaledBitmap = Bitmap.createBitmap(
+//            bitmap!!,
+//            0, 0, bitmap.width, bitmap.height,
+//            matrix, true
+//        )
 
         return setBitmapData(
-            bitmap = bitmap,
+            bitmap = scaledBitmap,
             resources = resources,
             horizontalMirror = horizontalMirror
         )
@@ -101,7 +118,7 @@ class NinePatchDrawableBuilder {
         resources: Resources,
         assetFilePath: String,
         horizontalMirror: Boolean = false
-    ): NinePatchDrawableBuilder {
+    ): NinePatchDrawableBuilder2 {
         var bitmap: Bitmap?
 
         try {
@@ -127,7 +144,7 @@ class NinePatchDrawableBuilder {
     public fun setBitmapData(
         bitmap: Bitmap?, resources: Resources,
         horizontalMirror: Boolean = false
-    ): NinePatchDrawableBuilder {
+    ): NinePatchDrawableBuilder2 {
         this.bitmap = bitmap
         this.width = bitmap?.width ?: 0
         this.height = bitmap?.height ?: 0
@@ -173,21 +190,21 @@ class NinePatchDrawableBuilder {
         if (horizontalMirror) {
             //镜像，需要修改横向的拉伸区域
             patchRegionHorizontal.forEach {
-                byteBuffer.putInt((width * (1f - it.end)).toInt())
-                byteBuffer.putInt((width * (1f - it.start)).toInt())
+                byteBuffer.putInt(width - it.end)
+                byteBuffer.putInt(width - it.start)
             }
         } else {
             patchRegionHorizontal.forEach {
-                byteBuffer.putInt((width * it.start).toInt())
-                byteBuffer.putInt((width * it.end).toInt())
+                byteBuffer.putInt(it.start * width / 128)
+                byteBuffer.putInt(it.end * width / 128)
             }
         }
 
         //mDivY数组
         // regions 控制竖向拉伸的线段数据
         patchRegionVertical.forEach {
-            byteBuffer.putInt((height * it.start).toInt())
-            byteBuffer.putInt((height * it.end).toInt())
+            byteBuffer.putInt(it.start * height / 112)
+            byteBuffer.putInt(it.end * height / 112)
         }
 
         //mColor数组
@@ -198,14 +215,14 @@ class NinePatchDrawableBuilder {
         return byteBuffer.array()
     }
 
-    fun setPatchHorizontal(vararg patchRegion: PatchRegionBean): NinePatchDrawableBuilder {
+    fun setPatchHorizontal(vararg patchRegion: PatchRegionBean2): NinePatchDrawableBuilder2 {
         patchRegion.forEach {
             patchRegionHorizontal.add(it)
         }
         return this
     }
 
-    fun setPatchVertical(vararg patchRegion: PatchRegionBean): NinePatchDrawableBuilder {
+    fun setPatchVertical(vararg patchRegion: PatchRegionBean2): NinePatchDrawableBuilder2 {
         patchRegion.forEach {
             patchRegionVertical.add(it)
         }
@@ -213,8 +230,8 @@ class NinePatchDrawableBuilder {
     }
 
     fun setPadding(
-        paddingLeft: Float, paddingRight: Float, paddingTop: Float, paddingBottom: Float,
-    ): NinePatchDrawableBuilder {
+        paddingLeft: Int, paddingRight: Int, paddingTop: Int, paddingBottom: Int,
+    ): NinePatchDrawableBuilder2 {
         this.paddingLeft = paddingLeft
         this.paddingRight = paddingRight
         this.paddingTop = paddingTop
@@ -228,11 +245,11 @@ class NinePatchDrawableBuilder {
      */
     private fun buildPadding(): Rect {
         val rect = Rect()
-        rect.left = (width * paddingLeft).toInt()
-        rect.right = (width * paddingRight).toInt()
+        rect.left = paddingLeft * width / 128
+        rect.right = (128 - paddingRight) * width / 128
 
-        rect.top = (height * paddingTop).toInt()
-        rect.bottom = (height * paddingBottom).toInt()
+        rect.top = paddingTop * height / 112
+        rect.bottom = (112 - paddingBottom) * height / 112
         return rect
     }
 
@@ -258,12 +275,26 @@ class NinePatchDrawableBuilder {
         }
     }
 
+    fun getDensityPostfix(res: Resources): String? {
+        var result: String? = null
+        when (res.displayMetrics.densityDpi) {
+            DisplayMetrics.DENSITY_LOW -> result = "ldpi"
+            DisplayMetrics.DENSITY_MEDIUM -> result = "mdpi"
+            DisplayMetrics.DENSITY_HIGH -> result = "hdpi"
+            DisplayMetrics.DENSITY_XHIGH -> result = "xhdpi"
+            DisplayMetrics.DENSITY_XXHIGH -> result = "xxhdpi"
+            DisplayMetrics.DENSITY_XXXHIGH -> result = "xxxhdpi"
+        }
+        return result
+    }
+
     fun build(): Drawable? {
         return try {
             val buildBitmap = buildBitmap()
             val buildChunk = buildChunk()
             val ninePatchDrawable =
                 NinePatchDrawable(resources, buildBitmap, buildChunk, buildPadding(), null)
+            //ninePatchDrawable.setTargetDensity(density)
             ninePatchDrawable
         } catch (e: Exception) {
             null
