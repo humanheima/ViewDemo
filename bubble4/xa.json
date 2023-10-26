@@ -1,0 +1,187 @@
+{
+  "version": "1.0",
+  "versionCode": 1,
+  "versionMin": 1,
+  "eles": [
+    {
+      "id": 1,
+      "type": "view",
+      "st": {
+        "op": 0,
+        "sx": 3,
+        "sy": 3,
+        "w": 0,
+        "h": 0,
+        "hierarchy": 1,
+        "drawableId": 1001
+      },
+      "tp": {
+        "duration": 2000,
+        "rc": 0,
+        "rm": 1
+      },
+      "tr": [
+        {
+          "type": "text",
+          "monitor": [
+            "$MSG_TEXT",
+            "$MSG_TEXT_FIRST"
+          ],
+          "tp": {
+            "duration": 6000,
+            "rc": 0,
+            "rm": 1
+          },
+          "keywords": [
+            {
+              "status": "physical,default",
+              "keys": [
+                "default"
+              ],
+              "drawableId": 1001,
+              "hierarchy": 1
+            }
+          ],
+          "linkViews": [
+            {
+              "lId": [
+                5
+              ],
+              "parCount": 5,
+              "float": "window",
+              "status": "physical",
+              "runViewAnim": true,
+              "parRules": {
+                "st.bg": "random:./shootAnim/0001.png,./shootAnim/0002.png,./shootAnim/0003.png,./shootAnim/0004.png,./shootAnim/0005.png",
+                "anim.tx": "$ANIM.TX",
+                "anim.ty": "$ANIM.TY",
+                "anim.dirX": "order:4.33,2.5,0,-2.5,-4.33",
+                "anim.dirY": "order:-2.5,-4.33,-5.0,-4.33,-2.5"
+              }
+            }
+          ],
+          "anim": [
+            {
+              "status": "default",
+              "type": "opacity",
+              "duration": 200,
+              "delay": 0,
+              "last": true,
+              "op": 1
+            },
+            {
+              "status": "default",
+              "type": "scale",
+              "duration": 30,
+              "delay": 0,
+              "last": true,
+              "sx": 1,
+              "sy": 1
+            },
+            {
+              "status": "physical",
+              "type": "opacity",
+              "duration": 200,
+              "delay": 30,
+              "last": true,
+              "op": 1
+            },
+            {
+              "status": "physical",
+              "type": "scale",
+              "duration": 30,
+              "delay": 0,
+              "last": true,
+              "sx": 1,
+              "sy": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1001,
+      "type": "drawable",
+      "tp": {
+        "rc": 4,
+        "fps": 8,
+        "single": true,
+        "autoPlay": true
+      },
+      "drawable": {
+        "type": "pngs",
+        "fp": "%04d.9.png",
+        "path": "./bubbleframe"
+      },
+      "rules": {
+        "drawable.root": "$PARENT_ROOT"
+      }
+    },
+    {
+      "id": 1002,
+      "type": "drawable",
+      "tp": {
+        "rc": 4,
+        "fps": 8,
+        "single": true,
+        "autoPlay": true
+      },
+      "drawable": {
+        "type": "pngs",
+        "fp": "%04d.9.png",
+        "path": "./bubbleframe2"
+      },
+      "rules": {
+        "drawable.root": "$PARENT_ROOT"
+      }
+    },
+    {
+      "id": 5,
+      "type": "view",
+      "template": true,
+      "st": {
+        "w": 50,
+        "h": 50,
+        "op": 0
+      },
+      "tp": {
+        "duration": 2030,
+        "rc": 0,
+        "rm": 1,
+        "single": true
+      },
+      "anim": [
+        {
+          "type": "translation",
+          "status": "physical",
+          "duration": 30,
+          "tx": 0,
+          "ty": 0
+        },
+        {
+          "type": "physical",
+          "last": true,
+          "duration": 2000,
+          "delay": 30,
+          "dirX": 0,
+          "dirY": 0
+        },
+        {
+          "type": "opacity",
+          "last": true,
+          "duration": 400,
+          "delay": 1630,
+          "op": 0
+        },
+        {
+          "type": "rotate",
+          "duration": 2000,
+          "last": true,
+          "delay": 30,
+          "rz": 600
+        }
+      ],
+      "rwd": true
+    }
+  ]
+}

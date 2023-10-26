@@ -1,0 +1,83 @@
+{
+  "name": "鲨鲨与三花",
+  "color": "0xFFc89897",
+  "link_color": "0xFFc89897",
+  "zoom_point": [
+    "59",
+    "62"
+  ],
+  "voice_animation": {
+    "animation": "stc1",
+    "align": "TL",
+    "rect": [
+      "0",
+      "0",
+      "128",
+      "112"
+    ],
+    "count": "20",
+    "time": "100"
+  },
+  "key_animations": [
+    {
+      "key_word": [
+        "画面感觉-可爱",
+        "画面感觉-治愈",
+        "画面感觉-萌系",
+        "主色调-冷色-蓝",
+        "题材-动物萌宠",
+        "题材-童趣回忆",
+        "画面密度-适中",
+        "情绪表达-正向情绪-恋爱ing",
+        "情绪表达-正向情绪-开心快乐",
+        "情绪表达-正向情绪-友谊感动",
+        "目标人群-青少年-男生",
+        "目标人群-青少年-女生"
+      ],
+      "animation": "stc1",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "20",
+      "time": "100"
+    }
+  ],
+  "animations": {
+    "stc1": {
+      "type": "static",
+      "cycle_count": "100",
+      "align": "TL",
+      "rect": [
+        "0",
+        "0",
+        "128",
+        "112"
+      ],
+      "zip_name": "voice",
+      "count": "20",
+      "time": "100",
+      "alpha": "false"
+    }
+  },
+  "bubbleframe_animation": {
+    "animation_set": "bubbleframe_anim"
+  },
+  "animation_sets": {
+    "bubbleframe_anim": {
+      "repeat": "100",
+      "zip_name": "bubbleframe",
+      "count": "20",
+      "time": "100",
+      "zoom_point": [
+        "59",
+        "62"
+      ]
+    }
+  }
+}

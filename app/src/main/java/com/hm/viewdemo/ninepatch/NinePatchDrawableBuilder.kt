@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
+import android.util.Log
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -21,6 +22,11 @@ import java.nio.ByteOrder
  *
  */
 class NinePatchDrawableBuilder {
+
+
+    companion object {
+        const val TAG = "NinePatchDrawableBuilde"
+    }
 
     private var horizontalMirror: Boolean = false // 是否需要做横向的镜像处理
     var density: Int = 480 // 注意：是densityDpi的值，320、480、640等
@@ -46,12 +52,18 @@ class NinePatchDrawableBuilder {
         resources: Resources, resId: Int,
         horizontalMirror: Boolean = false
     ): NinePatchDrawableBuilder {
+        val currentTimeMillis = System.currentTimeMillis()
+        Log.i(TAG, "setResourceData: resId = $resId start at $currentTimeMillis")
         val bitmap: Bitmap? = try {
             BitmapFactory.decodeResource(resources, resId)
         } catch (e: Throwable) {
             e.printStackTrace()
             null
         }
+        Log.i(
+            TAG,
+            "setResourceData: resId = $resId end 耗时 = ${System.currentTimeMillis() - currentTimeMillis} ms"
+        )
 
         return setBitmapData(
             bitmap = bitmap,
@@ -111,7 +123,7 @@ class NinePatchDrawableBuilder {
     /**
      * 直接处理bitmap数据
      */
-    private fun setBitmapData(
+    public fun setBitmapData(
         bitmap: Bitmap?, resources: Resources,
         horizontalMirror: Boolean = false
     ): NinePatchDrawableBuilder {

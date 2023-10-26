@@ -92,7 +92,8 @@ class LottieActivity : AppCompatActivity() {
     }
 
     private fun dynamicLoad1() {
-        lottieLoadDynamic1.setAnimation("lottie/rotate/anim_rorate_play_stretch_test_1.json")
+        //lottieLoadDynamic1.setAnimation("lottie/rotate/anim_rorate_play_stretch_test_1.json")
+        lottieLoadDynamic1.setAnimation("lottie/bubble4/xa.json")
         lottieLoadDynamic1.repeatMode = LottieDrawable.RESTART
         lottieLoadDynamic1.repeatCount = LottieDrawable.INFINITE
         lottieLoadDynamic1.playAnimation()
