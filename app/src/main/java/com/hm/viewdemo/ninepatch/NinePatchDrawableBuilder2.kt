@@ -34,6 +34,10 @@ class NinePatchDrawableBuilder2 {
     private var bitmap: Bitmap? = null
     private var width: Int = 0
     private var height: Int = 0
+
+    private var originWidth: Int = 0
+    private var originHeight: Int = 0
+
     private var resources: Resources? = null
 
 
@@ -141,7 +145,7 @@ class NinePatchDrawableBuilder2 {
     /**
      * 直接处理bitmap数据
      */
-    public fun setBitmapData(
+    private fun setBitmapData(
         bitmap: Bitmap?, resources: Resources,
         horizontalMirror: Boolean = false
     ): NinePatchDrawableBuilder2 {
@@ -229,6 +233,16 @@ class NinePatchDrawableBuilder2 {
         return this
     }
 
+
+    /**
+     * 设置原始图片的宽高
+     */
+    fun setOriginSize(originWidth: Int, originHeight: Int): NinePatchDrawableBuilder2 {
+        this.originWidth = originWidth
+        this.originHeight = originHeight
+        return this
+    }
+
     fun setPadding(
         paddingLeft: Int, paddingRight: Int, paddingTop: Int, paddingBottom: Int,
     ): NinePatchDrawableBuilder2 {
@@ -245,11 +259,11 @@ class NinePatchDrawableBuilder2 {
      */
     private fun buildPadding(): Rect {
         val rect = Rect()
-        rect.left = paddingLeft * width / 128
-        rect.right = (128 - paddingRight) * width / 128
+        rect.left = paddingLeft * width / originWidth
+        rect.right = (originHeight - paddingRight) * width / originWidth
 
-        rect.top = paddingTop * height / 112
-        rect.bottom = (112 - paddingBottom) * height / 112
+        rect.top = paddingTop * height / originHeight
+        rect.bottom = (originHeight - paddingBottom) * height / originHeight
         return rect
     }
 

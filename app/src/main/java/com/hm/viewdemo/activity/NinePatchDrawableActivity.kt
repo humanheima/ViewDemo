@@ -143,6 +143,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                     //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
                     //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
                     .setPadding(35, 93, 37, 75)
+                    .setOriginSize(128, 112)
                     .build()
             if (drawable != null) {
                 animationDrawable.addFrame(drawable, 100)
@@ -176,6 +177,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                     //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
                     //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
                     .setPadding(56, 70, 43, 70)
+                    .setOriginSize(128, 112)
                     .build()
             if (drawable != null) {
                 animationDrawable.addFrame(drawable, 100)
@@ -228,6 +230,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                     .setPatchHorizontal(PatchRegionBean2(60, 61))
                     .setPatchVertical(PatchRegionBean2(52, 53))
                     .setPadding(35, 93, 37, 75)
+                    .setOriginSize(128, 112)
                     .build()
             if (ninePatchDrawable != null) {
                 animationDrawable.addFrame(ninePatchDrawable, duration)
