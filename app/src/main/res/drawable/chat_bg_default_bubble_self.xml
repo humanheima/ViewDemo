@@ -9,8 +9,8 @@
                     android:top="12dp"
                     android:left="12dp"
                     android:bottom="12dp"
-                    android:right="23dp" />
-            <solid android:color="#00000000" />
+                    android:right="22dp" />
+            <solid android:color="#ff3344" />
 
         </shape>
 

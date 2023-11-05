@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Rect
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -13,7 +14,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.ninepatch.NinePatchDrawableBuilder2
-import com.hm.viewdemo.ninepatch.PatchRegionBean2
+import com.hm.viewdemo.ninepatch.NinePatchDrawableBuilder4
+import com.hm.viewdemo.ninepatch.PatchStretchBean
 import java.io.File
 
 
@@ -23,8 +25,6 @@ import java.io.File
  */
 class NinePatchDrawableActivity : AppCompatActivity() {
 
-
-    private var tv9Patch1: TextView? = null
     private var tv9Patch2: TextView? = null
     private var tv9Patch3: TextView? = null
     private var tv9Patch4: TextView? = null
@@ -49,27 +49,11 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nine_patch_drawable)
 
-        tv9Patch1 = findViewById(R.id.tv_9_patch1)
         tv9Patch2 = findViewById(R.id.tv_9_patch2)
         tv9Patch3 = findViewById(R.id.tv_9_patch3)
         tv9Patch4 = findViewById(R.id.tv_9_patch4)
 
         rl9Patch4 = findViewById(R.id.rl_9_patch4)
-
-//        val drawable1 =
-//            NinePatchDrawableBuilder().setResourceData(
-//                resources,
-//                R.drawable.bubble_frame1,
-//                false
-//            )
-//                .setPatchHorizontal(PatchRegionBean(0.43f, 0.468f))
-//                .setPatchVertical(PatchRegionBean(0.46f, 0.464f))
-//                //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
-//                //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
-//                .setPadding(0.234f, 0.258f, 0.42f, 0.40f)
-//                .build()
-//        tv9Patch1?.background = drawable1
-
 
 //        val drawable2 =
 //            NinePatchDrawableBuilder().setResourceData(
@@ -112,7 +96,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         }
 
 
-        val background = getBackground(this, "bubble_frame1", 100, true)
+        val background = getBackground(this)
         tv9Patch2?.background = background
         if (background is AnimationDrawable) {
             tv9Patch2?.post {
@@ -138,11 +122,11 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                     it,
                     false
                 )
-                    .setPatchHorizontal(PatchRegionBean2(60, 61))
-                    .setPatchVertical(PatchRegionBean2(52, 53))
+                    .setPatchHorizontal(PatchStretchBean(60, 61))
+                    .setPatchVertical(PatchStretchBean(52, 53))
                     //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
                     //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
-                    .setPadding(35, 93, 37, 75)
+                    .setPadding(35, 90, 37, 75)
                     .setOriginSize(128, 112)
                     .build()
             if (drawable != null) {
@@ -172,8 +156,8 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                     it,
                     false
                 )
-                    .setPatchHorizontal(PatchRegionBean2(59, 60))
-                    .setPatchVertical(PatchRegionBean2(62, 63))
+                    .setPatchHorizontal(PatchStretchBean(59, 60))
+                    .setPatchVertical(PatchStretchBean(62, 63))
                     //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
                     //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
                     .setPadding(56, 70, 43, 70)
@@ -195,23 +179,13 @@ class NinePatchDrawableActivity : AppCompatActivity() {
 
 
     private fun getBackground(
-        context: Context,
-        id: String,
-        duration: Int,
-        isSelf: Boolean
+        context: Context
     ): Drawable? {
-        val file = context.getExternalFilesDir(null)
+        val dir = context.getExternalFilesDir(null)
             ?: return null
 
-        val pngsDir: File = if (isSelf) {
-            File(
-                file.absolutePath + File.separator + "bubblepng" + File.separator + "bubbleframe"
-            )
-        } else {
-            File(
-                file.absolutePath + File.separator + "bubble4" + File.separator + "bubbleframe"
-            )
-        }
+        //val pngsDir: File =  File(file.absolutePath + File.separator + "bubblepng" + File.separator + "bubbleframe")
+        val pngsDir: File = File(dir, "bubblepng/bubbleframe")
         if (!pngsDir.exists()) {
             return null
         }
@@ -219,29 +193,20 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         if (files == null || files.isEmpty()) {
             return null
         }
-        val currentTimeMillis = System.currentTimeMillis()
-        Log.i(
-            TAG, "getBackground start at $currentTimeMillis"
+
+        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawable(
+            context,
+            context.resources,
+            pngsDir,
+            PatchStretchBean(60, 61),
+            PatchStretchBean(52, 53),
+            Rect(31, 37, 92, 75),
+            128,
+            112
         )
-        val animationDrawable = AnimationDrawable()
-        for (png in files) {
-            val ninePatchDrawable: Drawable? =
-                NinePatchDrawableBuilder2().setFileData(context.resources, png, false)
-                    .setPatchHorizontal(PatchRegionBean2(60, 61))
-                    .setPatchVertical(PatchRegionBean2(52, 53))
-                    .setPadding(35, 93, 37, 75)
-                    .setOriginSize(128, 112)
-                    .build()
-            if (ninePatchDrawable != null) {
-                animationDrawable.addFrame(ninePatchDrawable, duration)
-            }
-        }
-        animationDrawable.isOneShot = false
-        Log.i(
-            TAG,
-            "getBackground end at " + System.currentTimeMillis() + " cost " + (System.currentTimeMillis() - currentTimeMillis)
-        )
-        return animationDrawable
+        animationDrawable2?.isOneShot = false
+
+        return animationDrawable2
     }
 
 

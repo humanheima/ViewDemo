@@ -41,8 +41,8 @@ class NinePatchDrawableBuilder2 {
     private var resources: Resources? = null
 
 
-    private var patchRegionHorizontal = mutableListOf<PatchRegionBean2>()
-    private var patchRegionVertical = mutableListOf<PatchRegionBean2>()
+    private var patchRegionHorizontal = mutableListOf<PatchStretchBean>()
+    private var patchRegionVertical = mutableListOf<PatchStretchBean>()
 
     private var paddingLeft: Int = 0
     private var paddingRight: Int = 0
@@ -219,14 +219,14 @@ class NinePatchDrawableBuilder2 {
         return byteBuffer.array()
     }
 
-    fun setPatchHorizontal(vararg patchRegion: PatchRegionBean2): NinePatchDrawableBuilder2 {
+    fun setPatchHorizontal(vararg patchRegion: PatchStretchBean): NinePatchDrawableBuilder2 {
         patchRegion.forEach {
             patchRegionHorizontal.add(it)
         }
         return this
     }
 
-    fun setPatchVertical(vararg patchRegion: PatchRegionBean2): NinePatchDrawableBuilder2 {
+    fun setPatchVertical(vararg patchRegion: PatchStretchBean): NinePatchDrawableBuilder2 {
         patchRegion.forEach {
             patchRegionVertical.add(it)
         }
