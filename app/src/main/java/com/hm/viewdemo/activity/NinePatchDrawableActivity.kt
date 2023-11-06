@@ -26,6 +26,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
     private var tv9Patch2: TextView? = null
     private var tv9Patch3: TextView? = null
     private var tv9Patch4: TextView? = null
+    private var tv9Patch5: TextView? = null
 
     private var rl9Patch4: RelativeLayout? = null
 
@@ -53,6 +54,8 @@ class NinePatchDrawableActivity : AppCompatActivity() {
 
         rl9Patch4 = findViewById(R.id.rl_9_patch4)
 
+        tv9Patch5 = findViewById(R.id.tv_9_patch5)
+
         resIdList.add(R.drawable.bubble_frame1)
         resIdList.add(R.drawable.bubble_frame2)
         resIdList.add(R.drawable.bubble_frame3)
@@ -79,19 +82,11 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         }
 
         getDrawableFromResource()
+        getDrawableFromResource2()
+
         getDrawableFromFile()
         getDrawableFromFile2()
 
-    }
-
-    private fun getDrawableFromFile() {
-        val background = getBackground(this)
-        tv9Patch2?.background = background
-        if (background is AnimationDrawable) {
-            tv9Patch2?.post {
-                background.start()
-            }
-        }
     }
 
     private fun getDrawableFromResource() {
@@ -111,38 +106,7 @@ class NinePatchDrawableActivity : AppCompatActivity() {
 
     }
 
-
-    private fun getBackground(
-        context: Context
-    ): Drawable? {
-        val dir = context.getExternalFilesDir(null)
-            ?: return null
-
-        val pngsDir: File = File(dir, "bubblepng/bubbleframe")
-        if (!pngsDir.exists()) {
-            return null
-        }
-        val files = pngsDir.listFiles()
-        if (files == null || files.isEmpty()) {
-            return null
-        }
-
-        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawableFromFile(
-            context,
-            context.resources,
-            pngsDir,
-            PatchStretchBean(60, 61),
-            PatchStretchBean(52, 53),
-            Rect(31, 37, 90, 75),
-            128,
-            112
-        )
-        animationDrawable2?.isOneShot = false
-
-        return animationDrawable2
-    }
-
-    private fun getDrawableFromFile2() {
+    private fun getDrawableFromResource2() {
         NinePatchDrawableBuilder4().getAnimationDrawableFromResource(
             resources,
             resIdList2,
@@ -157,5 +121,87 @@ class NinePatchDrawableActivity : AppCompatActivity() {
             it.start()
         }
     }
+
+
+    private fun getDrawableFromFile() {
+        val background = getBackground(this, "bubblepng/bubbleframe")
+        tv9Patch2?.background = background
+        if (background is AnimationDrawable) {
+            tv9Patch2?.post {
+                background.start()
+            }
+        }
+    }
+
+    private fun getBackground(
+        context: Context, pngDirName: String
+    ): Drawable? {
+        val dir = context.getExternalFilesDir(null)
+            ?: return null
+        val pngsDir: File = File(dir, pngDirName)
+        if (!pngsDir.exists()) {
+            return null
+        }
+        val files = pngsDir.listFiles()
+        if (files == null || files.isEmpty()) {
+            return null
+        }
+
+        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawableFromFile(
+            context,
+            context.resources,
+            true,
+            pngsDir,
+            PatchStretchBean(60, 61),
+            PatchStretchBean(52, 53),
+            Rect(31, 37, 90, 75),
+            128,
+            112
+        )
+        animationDrawable2?.isOneShot = false
+
+        return animationDrawable2
+    }
+
+    private fun getDrawableFromFile2() {
+        val background = getBackground2(this, "bubble_two")
+        tv9Patch5?.background = background
+        if (background is AnimationDrawable) {
+            tv9Patch5?.post {
+                background.start()
+            }
+        }
+    }
+
+    private fun getBackground2(
+        context: Context, pngDirName: String
+    ): Drawable? {
+        val dir = context.getExternalFilesDir(null)
+            ?: return null
+        val pngsDir: File = File(dir, pngDirName)
+        if (!pngsDir.exists()) {
+            return null
+        }
+        val files = pngsDir.listFiles()
+        if (files == null || files.isEmpty()) {
+            return null
+        }
+
+        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawableFromFile(
+            context,
+            context.resources,
+            false,
+            pngsDir,
+            PatchStretchBean(113, 115),
+            PatchStretchBean(110, 112),
+            Rect(87, 84, 141, 138),
+            228,
+            222
+        )
+        animationDrawable2?.isOneShot = false
+
+        return animationDrawable2
+    }
+
 
 }

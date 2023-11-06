@@ -41,6 +41,8 @@ class NinePatchDrawableBuilder4 {
 
     }
 
+    private var scale = false
+
     private var bitmap: Bitmap? = null
     private var width: Int = 0
     private var height: Int = 0
@@ -91,7 +93,7 @@ class NinePatchDrawableBuilder4 {
         setOriginSize(originWidth, originHeight)
         val animationDrawable = CanStopAnimationDrawable()
         //设置循环10次，就结束
-        animationDrawable.setFinishCount(100)
+        animationDrawable.setFinishCount(10)
 
         resIdList.forEach { resId ->
             val ninePatchDrawable = setResourceData(resources, resId)
@@ -130,22 +132,6 @@ class NinePatchDrawableBuilder4 {
 
             if (bitmap != null) {
                 Log.i(TAG, "setResourceData: width = ${bitmap.width}, height = ${bitmap.height}")
-//                // warning：2023/11/5: 注意，这里从文件里加载的是1倍图，所以要放大一下
-//                //从文件加载，需要处理缩放，如果文件里是1倍图，需要放大一下
-//                val displayMetrics: DisplayMetrics = resources.displayMetrics
-//                val density = displayMetrics.density
-//
-//                val width = (bitmap.width * density).toInt()
-//                val height = (bitmap.height * density).toInt()
-//
-//                Log.i(TAG, "setFileData: width = ${bitmap.width}, height = ${bitmap.height}")
-//                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
-//                Log.i(
-//                    TAG,
-//                    "setFileData: scaledBitmap width = ${scaledBitmap.width}, height = ${scaledBitmap.height}"
-//                )
-//                bitmapLruCache.putBitmap(absolutePath, scaledBitmap)
-//                bitmap = scaledBitmap
                 bitmapLruCache.putBitmap(resIdString, bitmap)
             }
         } else {
@@ -172,10 +158,12 @@ class NinePatchDrawableBuilder4 {
     /**
      * 设置本地文件夹中的图片
      * @param dir 本地文件夹
+     * @param scale 是否需要缩放，如果文件夹中是1倍图，需要缩放，如果就是正常的3倍图，不需要缩放，这块缩放逻辑可以自行调整
      */
     fun getAnimationDrawableFromFile(
         context: Context,
         resources: Resources,
+        scale: Boolean,
         dir: File,
         patchHorizontal: PatchStretchBean,
         patchVertical: PatchStretchBean,
@@ -193,6 +181,7 @@ class NinePatchDrawableBuilder4 {
         if (files.isNullOrEmpty()) {
             return null
         }
+        this.scale = scale
 
         setPatchHorizontal(patchHorizontal)
         setPatchVertical(patchVertical)
@@ -205,17 +194,15 @@ class NinePatchDrawableBuilder4 {
         setOriginSize(originWidth, originHeight)
         val animationDrawable = CanStopAnimationDrawable()
         //设置循环10次，就结束
-        animationDrawable.setFinishCount(100)
+        animationDrawable.setFinishCount(10)
         files.forEach { pngFile ->
-            val ninePatchDrawable = setFileData(context, resources, pngFile)
+            val ninePatchDrawable = setFileData(resources, pngFile)
                 .build()
             if (ninePatchDrawable != null) {
                 animationDrawable.addFrame(ninePatchDrawable, 100)
             }
         }
         animationDrawable.isOneShot = false
-
-
 
         Log.i(
             TAG,
@@ -231,7 +218,6 @@ class NinePatchDrawableBuilder4 {
      * @param file 本地png文件路径
      */
     private fun setFileData(
-        context: Context,
         resources: Resources,
         file: File
     ): NinePatchDrawableBuilder4 {
@@ -247,25 +233,29 @@ class NinePatchDrawableBuilder4 {
                 null
             }
 
-
             if (bitmap != null) {
+                if (scale) {
+                    // warning：2023/11/5: 注意，这里从文件里加载的是1倍图，所以要放大一下
+                    val displayMetrics: DisplayMetrics = resources.displayMetrics
+                    val density = displayMetrics.density
 
-                // warning：2023/11/5: 注意，这里从文件里加载的是1倍图，所以要放大一下
-                //从文件加载，需要处理缩放，如果文件里是1倍图，需要放大一下
-                val displayMetrics: DisplayMetrics = resources.displayMetrics
-                val density = displayMetrics.density
+                    val width = (bitmap.width * density).toInt()
+                    val height = (bitmap.height * density).toInt()
 
-                val width = (bitmap.width * density).toInt()
-                val height = (bitmap.height * density).toInt()
+                    Log.i(TAG, "setFileData: width = ${bitmap.width}, height = ${bitmap.height}")
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
+                    Log.i(
+                        TAG,
+                        "setFileData: scaledBitmap width = ${scaledBitmap.width}, height = ${scaledBitmap.height}"
+                    )
+                    bitmapLruCache.putBitmap(absolutePath, scaledBitmap)
+                    bitmap = scaledBitmap
 
-                Log.i(TAG, "setFileData: width = ${bitmap.width}, height = ${bitmap.height}")
-                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
-                Log.i(
-                    TAG,
-                    "setFileData: scaledBitmap width = ${scaledBitmap.width}, height = ${scaledBitmap.height}"
-                )
-                bitmapLruCache.putBitmap(absolutePath, scaledBitmap)
-                bitmap = scaledBitmap
+                } else {
+                    Log.i(TAG, "setFileData: not scale  width = ${bitmap.width}, height = ${bitmap.height}")
+
+                    bitmapLruCache.putBitmap(absolutePath, bitmap)
+                }
             }
         }
 

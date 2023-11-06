@@ -101,6 +101,21 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/tv_9_patch5"
+                    android:layout_width="wrap_content"
+                    android:ellipsize="end"
+                    android:text="哈哈"
+                    android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
