@@ -65,6 +65,7 @@ class NinePatchDrawableBuilder2 {
             e.printStackTrace()
             null
         }
+        Log.i(TAG, "setResourceData: width = ${bitmap?.width} height = ${bitmap?.height}")
         Log.i(
             TAG,
             "setResourceData: resId = $resId end 耗时 = ${System.currentTimeMillis() - currentTimeMillis} ms  bitmap?.density = ${bitmap?.density}"
@@ -244,11 +245,11 @@ class NinePatchDrawableBuilder2 {
     }
 
     fun setPadding(
-        paddingLeft: Int, paddingRight: Int, paddingTop: Int, paddingBottom: Int,
+        paddingLeft: Int, paddingTop: Int, paddingRight: Int, paddingBottom: Int,
     ): NinePatchDrawableBuilder2 {
         this.paddingLeft = paddingLeft
-        this.paddingRight = paddingRight
         this.paddingTop = paddingTop
+        this.paddingRight = paddingRight
         this.paddingBottom = paddingBottom
         return this
     }
@@ -260,7 +261,7 @@ class NinePatchDrawableBuilder2 {
     private fun buildPadding(): Rect {
         val rect = Rect()
         rect.left = paddingLeft * width / originWidth
-        rect.right = (originHeight - paddingRight) * width / originWidth
+        rect.right = (originWidth - paddingRight) * width / originWidth
 
         rect.top = paddingTop * height / originHeight
         rect.bottom = (originHeight - paddingBottom) * height / originHeight

@@ -29,7 +29,8 @@
             <TextView
                     android:background="@drawable/ic_bubble1"
                     android:layout_width="match_parent"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:ellipsize="end"
+                    android:text="@string/fish_and_bear"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>
@@ -41,7 +42,8 @@
             <TextView
                     android:background="@drawable/ic_bubble1"
                     android:layout_width="match_parent"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:ellipsize="end"
+                    android:text="@string/fish_and_bear"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>
@@ -58,12 +60,14 @@
             <TextView
                     android:id="@+id/tv_9_patch2"
                     android:layout_width="match_parent"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:ellipsize="end"
+                    android:text="@string/fish_and_bear"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>
 
-        <TextView
+        <Button
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:text="下面的两个是从Resource加载的"
                 android:layout_height="match_parent" />
@@ -75,7 +79,8 @@
             <TextView
                     android:id="@+id/tv_9_patch3"
                     android:layout_width="match_parent"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊，舍鱼而取熊掌者也。"
+                    android:text="@string/fish_and_bear"
+                    android:ellipsize="end"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>
@@ -91,7 +96,7 @@
                     android:id="@+id/tv_9_patch4"
                     android:layout_width="match_parent"
                     android:ellipsize="end"
-                    android:text="鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可掌亦我所欲也熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊熊掌亦我所欲也，二舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二舍鱼而取熊，二正不可得兼，舍鱼而取熊掌者也。鱼我所欲也，熊掌亦我所欲也，二正不可得兼，舍鱼而取熊掌者也。"
+                    android:text="@string/fish_and_bear"
                     android:layout_height="match_parent" />
 
         </RelativeLayout>

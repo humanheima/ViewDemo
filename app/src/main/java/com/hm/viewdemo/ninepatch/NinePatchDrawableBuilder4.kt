@@ -24,7 +24,9 @@ import java.nio.ByteOrder
  * 4. 第一次加载图片的时候，从文件解析出Bitmap，然后存储在缓存里，下次再加载的时候，直接从缓存拿
  * @see com.yuewen.dreamer.bubble.BitmapLruCache
  *
- *
+ * 注意：一组图片的宽高必须一致，不然可能会导致未知bug
+ * 注意：一组图片的宽高必须一致，不然可能会导致未知bug
+ * 注意：一组图片的宽高必须一致，不然可能会导致未知bug
  */
 class NinePatchDrawableBuilder4 {
 
@@ -33,6 +35,9 @@ class NinePatchDrawableBuilder4 {
 
         //Note: 把加载过的图片缓存在内存里
         private val bitmapLruCache = BitmapLruCache()
+
+        val NO_COLOR = 0x00000001
+        val COLOR_SIZE = 9
 
     }
 
@@ -57,8 +62,118 @@ class NinePatchDrawableBuilder4 {
     /**
      * 设置本地文件夹中的图片
      * @param dir 本地文件夹
+     * 注意，资源都是一倍图，从资源加载会自动缩放到当前的density。如果是从文件加载，则需要自己处理缩放。
      */
-    fun getAnimationDrawable(
+    fun getAnimationDrawableFromResource(
+        resources: Resources,
+        resIdList: MutableList<Int>,
+        patchHorizontal: PatchStretchBean,
+        patchVertical: PatchStretchBean,
+        paddingRect: Rect,
+        originWidth: Int,
+        originHeight: Int,
+    ): AnimationDrawable? {
+
+        val currentTimeMillis = System.currentTimeMillis()
+
+        if (resIdList.isNullOrEmpty()) {
+            return null
+        }
+
+        setPatchHorizontal(patchHorizontal)
+        setPatchVertical(patchVertical)
+        setPadding(
+            paddingLeft = paddingRect.left,
+            paddingTop = paddingRect.top,
+            paddingRight = paddingRect.right,
+            paddingBottom = paddingRect.bottom
+        )
+        setOriginSize(originWidth, originHeight)
+        val animationDrawable = CanStopAnimationDrawable()
+        //设置循环10次，就结束
+        animationDrawable.setFinishCount(100)
+
+        resIdList.forEach { resId ->
+            val ninePatchDrawable = setResourceData(resources, resId)
+                .build()
+            if (ninePatchDrawable != null) {
+                animationDrawable.addFrame(ninePatchDrawable, 100)
+            }
+        }
+        animationDrawable.isOneShot = false
+
+
+        Log.i(
+            TAG,
+            "getAnimationDrawableFromResource: end 耗时：${System.currentTimeMillis() - currentTimeMillis} ms"
+        )
+        return animationDrawable
+
+    }
+
+
+    /**
+     * 设置资源文件夹中的图片
+     */
+    private fun setResourceData(resources: Resources, resId: Int): NinePatchDrawableBuilder4 {
+        val resIdString = resId.toString()
+        Log.i(TAG, "setResourceData: resId = $resId")
+        var bitmap = bitmapLruCache.getBitmap(resIdString)
+
+        if (bitmap == null) {
+            bitmap = try {
+                BitmapFactory.decodeResource(resources, resId)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                null
+            }
+
+            if (bitmap != null) {
+                Log.i(TAG, "setResourceData: width = ${bitmap.width}, height = ${bitmap.height}")
+//                // warning：2023/11/5: 注意，这里从文件里加载的是1倍图，所以要放大一下
+//                //从文件加载，需要处理缩放，如果文件里是1倍图，需要放大一下
+//                val displayMetrics: DisplayMetrics = resources.displayMetrics
+//                val density = displayMetrics.density
+//
+//                val width = (bitmap.width * density).toInt()
+//                val height = (bitmap.height * density).toInt()
+//
+//                Log.i(TAG, "setFileData: width = ${bitmap.width}, height = ${bitmap.height}")
+//                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
+//                Log.i(
+//                    TAG,
+//                    "setFileData: scaledBitmap width = ${scaledBitmap.width}, height = ${scaledBitmap.height}"
+//                )
+//                bitmapLruCache.putBitmap(absolutePath, scaledBitmap)
+//                bitmap = scaledBitmap
+                bitmapLruCache.putBitmap(resIdString, bitmap)
+            }
+        } else {
+            Log.i(TAG, "setResourceData: 从缓存中获取bitmap != null")
+        }
+
+        // warning：2023/11/5: 注意，这里从文件里加载的是1倍图
+
+//        val matrix = Matrix()
+//        matrix.postScale(3f, 3f)
+//        val scaledBitmap = Bitmap.createBitmap(
+//            bitmap!!,
+//            0, 0, bitmap.width, bitmap.height,
+//            matrix, true
+//        )
+
+        return setBitmapData(
+            bitmap = bitmap,
+            resources = resources
+        )
+    }
+
+
+    /**
+     * 设置本地文件夹中的图片
+     * @param dir 本地文件夹
+     */
+    fun getAnimationDrawableFromFile(
         context: Context,
         resources: Resources,
         dir: File,
@@ -71,7 +186,6 @@ class NinePatchDrawableBuilder4 {
 
         val currentTimeMillis = System.currentTimeMillis()
 
-        Log.i(TAG, "getAnimationDrawable: start at $currentTimeMillis")
         if (!dir.exists()) {
             return null
         }
@@ -105,7 +219,7 @@ class NinePatchDrawableBuilder4 {
 
         Log.i(
             TAG,
-            "getAnimationDrawable: end 耗时：${System.currentTimeMillis() - currentTimeMillis} ms"
+            "getAnimationDrawableFromFile: end 耗时：${System.currentTimeMillis() - currentTimeMillis} ms"
         )
         return animationDrawable
 
@@ -155,7 +269,6 @@ class NinePatchDrawableBuilder4 {
             }
         }
 
-        // warning：2023/11/5: 注意，这里从文件里加载的是1倍图
 
 //        val matrix = Matrix()
 //        matrix.postScale(3f, 3f)
@@ -189,9 +302,6 @@ class NinePatchDrawableBuilder4 {
         val horizontalEndpointsSize = patchRegionHorizontal.size * 2
         val verticalEndpointsSize = patchRegionVertical.size * 2
 
-        val NO_COLOR = 0x00000001
-        val COLOR_SIZE = 9 //could change, may be 2 or 6 or 15 - but has no effect on output
-
         //这里计算的 arraySize 是 int 值，最终占用的字节数是 arraySize * 4
         val arraySize = 1 + 2 + 4 + 1 + horizontalEndpointsSize + verticalEndpointsSize + COLOR_SIZE
         //这里乘以4，是因为一个int占用4个字节
@@ -208,11 +318,11 @@ class NinePatchDrawableBuilder4 {
 
         //Note: 如果这里不加的话，拉伸会有问题。目前还没搞清楚
         //左右padding
-        byteBuffer.putInt(mRect.left)
-        byteBuffer.putInt(mRect.right)
+        byteBuffer.putInt(mRectPadding.left)
+        byteBuffer.putInt(mRectPadding.right)
         //上下padding
-        byteBuffer.putInt(mRect.top)
-        byteBuffer.putInt(mRect.bottom)
+        byteBuffer.putInt(mRectPadding.top)
+        byteBuffer.putInt(mRectPadding.bottom)
 
 //        byteBuffer.putInt(0)
 //        byteBuffer.putInt(0)
@@ -283,20 +393,19 @@ class NinePatchDrawableBuilder4 {
         this.paddingBottom = paddingBottom
     }
 
-    private var mRect = Rect()
+    private var mRectPadding = Rect()
 
     /**
      * 控制内容填充的区域
      * （注意：这里的left，top，right，bottom同xml文件中的padding意思一致，只不过这里是百分比形式）
      */
-    private fun buildPadding(): Rect {
-        mRect.left = ((paddingLeft * width) / originWidth)
-        mRect.right = ((originWidth - paddingRight) * width / originWidth)
-        mRect.top = (paddingTop * height / originHeight)
-        mRect.bottom = ((originHeight - paddingBottom) * height / originHeight)
+    private fun buildPadding() {
+        mRectPadding.left = ((paddingLeft * width) / originWidth)
+        mRectPadding.right = ((originWidth - paddingRight) * width / originWidth)
+        mRectPadding.top = (paddingTop * height / originHeight)
+        mRectPadding.bottom = ((originHeight - paddingBottom) * height / originHeight)
 
-        Log.i(TAG, "buildPadding: rect = $mRect")
-        return mRect
+        Log.i(TAG, "buildPadding: rect = $mRectPadding")
     }
 
     /**
@@ -310,10 +419,12 @@ class NinePatchDrawableBuilder4 {
     private fun build(): Drawable? {
         return try {
             val buildBitmap = buildBitmap()
-            val buildPadding = buildPadding()
+            if (mRectPadding.left == 0 && mRectPadding.right == 0 && mRectPadding.top == 0 && mRectPadding.bottom == 0) {
+                buildPadding()
+            }
             val buildChunk = buildChunk()
             val ninePatchDrawable =
-                NinePatchDrawable(resources, buildBitmap, buildChunk, buildPadding, null)
+                NinePatchDrawable(resources, buildBitmap, buildChunk, mRectPadding, null)
             ninePatchDrawable
         } catch (e: Exception) {
             null

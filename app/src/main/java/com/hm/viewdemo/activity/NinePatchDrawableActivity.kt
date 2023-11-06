@@ -8,12 +8,10 @@ import android.graphics.Rect
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import com.hm.viewdemo.ninepatch.NinePatchDrawableBuilder2
 import com.hm.viewdemo.ninepatch.NinePatchDrawableBuilder4
 import com.hm.viewdemo.ninepatch.PatchStretchBean
 import java.io.File
@@ -55,21 +53,6 @@ class NinePatchDrawableActivity : AppCompatActivity() {
 
         rl9Patch4 = findViewById(R.id.rl_9_patch4)
 
-//        val drawable2 =
-//            NinePatchDrawableBuilder().setResourceData(
-//                resources,
-//                R.drawable.bubble_frame1,
-//                false
-//            )
-//                .setPatchHorizontal(PatchRegionBean(0.43f, 0.47f))
-//                .setPatchVertical(PatchRegionBean(0.46f, 0.5f))
-//                //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
-//                //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
-//                .setPadding(0.234f, 0.258f, 0.42f, 0.40f)
-//                .build()
-//        tv9Patch2?.background = drawable2
-
-
         resIdList.add(R.drawable.bubble_frame1)
         resIdList.add(R.drawable.bubble_frame2)
         resIdList.add(R.drawable.bubble_frame3)
@@ -95,7 +78,13 @@ class NinePatchDrawableActivity : AppCompatActivity() {
             bitmapList.add(BitmapFactory.decodeResource(resources, it))
         }
 
+        getDrawableFromResource()
+        getDrawableFromFile()
+        getDrawableFromFile2()
 
+    }
+
+    private fun getDrawableFromFile() {
         val background = getBackground(this)
         tv9Patch2?.background = background
         if (background is AnimationDrawable) {
@@ -103,78 +92,23 @@ class NinePatchDrawableActivity : AppCompatActivity() {
                 background.start()
             }
         }
-        tv9Patch3Bg()
-        tv9Patch4Bg()
-
-
     }
 
-    private fun tv9Patch3Bg() {
-        val animationDrawable = AnimationDrawable()
-
-        resIdList.forEach {
-
-            //竖向拉伸像素43-51像素
-
-            val drawable =
-                NinePatchDrawableBuilder2().setResourceData(
-                    resources,
-                    it,
-                    false
-                )
-                    .setPatchHorizontal(PatchStretchBean(60, 61))
-                    .setPatchVertical(PatchStretchBean(52, 53))
-                    //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
-                    //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
-                    .setPadding(35, 90, 37, 75)
-                    .setOriginSize(128, 112)
-                    .build()
-            if (drawable != null) {
-                animationDrawable.addFrame(drawable, 100)
-            }
+    private fun getDrawableFromResource() {
+        NinePatchDrawableBuilder4().getAnimationDrawableFromResource(
+            resources,
+            resIdList,
+            PatchStretchBean(60, 61),
+            PatchStretchBean(52, 53),
+            Rect(31, 37, 90, 75),
+            128,
+            112
+        )?.let {
+            it.isOneShot = false
+            tv9Patch3?.background = it
+            it.start()
         }
 
-        animationDrawable.isOneShot = false
-        tv9Patch3?.background = animationDrawable
-        animationDrawable.start()
-
-    }
-
-    private fun tv9Patch4Bg() {
-        val animationDrawable = AnimationDrawable()
-
-        val currentTimeMillis = System.currentTimeMillis()
-
-        Log.i(TAG, "tv9Patch4Bg: start at $currentTimeMillis")
-        resIdList2.forEach {
-
-            //竖向拉伸像素43-51像素
-
-            val drawable =
-                NinePatchDrawableBuilder2().setResourceData(
-                    resources,
-                    it,
-                    false
-                )
-                    .setPatchHorizontal(PatchStretchBean(59, 60))
-                    .setPatchVertical(PatchStretchBean(62, 63))
-                    //注意计算paddingRight的使用，要用宽度减去底部黑线的end坐标，然后除以宽度
-                    //注意计算paddingBottom的使用，要用高度减去右侧黑线的bottom坐标，然后除以高度
-                    .setPadding(56, 70, 43, 70)
-                    .setOriginSize(128, 112)
-                    .build()
-            if (drawable != null) {
-                animationDrawable.addFrame(drawable, 100)
-            }
-        }
-        Log.i(
-            TAG,
-            "tv9Patch4Bg: end 生成帧动画，耗时：${System.currentTimeMillis() - currentTimeMillis} ms"
-        )
-
-        animationDrawable.isOneShot = false
-        rl9Patch4?.background = animationDrawable
-        animationDrawable.start()
     }
 
 
@@ -184,7 +118,6 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         val dir = context.getExternalFilesDir(null)
             ?: return null
 
-        //val pngsDir: File =  File(file.absolutePath + File.separator + "bubblepng" + File.separator + "bubbleframe")
         val pngsDir: File = File(dir, "bubblepng/bubbleframe")
         if (!pngsDir.exists()) {
             return null
@@ -194,13 +127,13 @@ class NinePatchDrawableActivity : AppCompatActivity() {
             return null
         }
 
-        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawable(
+        val animationDrawable2 = NinePatchDrawableBuilder4().getAnimationDrawableFromFile(
             context,
             context.resources,
             pngsDir,
             PatchStretchBean(60, 61),
             PatchStretchBean(52, 53),
-            Rect(31, 37, 92, 75),
+            Rect(31, 37, 90, 75),
             128,
             112
         )
@@ -209,5 +142,20 @@ class NinePatchDrawableActivity : AppCompatActivity() {
         return animationDrawable2
     }
 
+    private fun getDrawableFromFile2() {
+        NinePatchDrawableBuilder4().getAnimationDrawableFromResource(
+            resources,
+            resIdList2,
+            PatchStretchBean(59, 60),
+            PatchStretchBean(62, 63),
+            Rect(56, 43, 70, 70),
+            128,
+            112
+        )?.let {
+            it.isOneShot = false
+            rl9Patch4?.background = it
+            it.start()
+        }
+    }
 
 }
