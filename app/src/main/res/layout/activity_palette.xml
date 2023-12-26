@@ -8,10 +8,9 @@
 
     <ImageView
             android:id="@+id/ivBitmap"
+            android:layout_marginTop="20dp"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:background="@drawable/balloon"
-            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
