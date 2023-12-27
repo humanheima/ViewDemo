@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Debug
 import android.os.Environment
 import android.util.Log
@@ -22,6 +23,7 @@ import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
+import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
@@ -101,6 +103,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         when (view.id) {
             R.id.btnNinePatchTest -> {
                 NinePatchDrawableActivity.launch(this)
+            }
+
+            R.id.btn_test_change_day_night_theme -> {
+                ChangeDayNightThemeActivity.launch(this)
             }
 
             R.id.btn_test_merge -> {
@@ -461,6 +467,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
     }
 
 }

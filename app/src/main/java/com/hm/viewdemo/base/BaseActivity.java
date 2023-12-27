@@ -1,5 +1,6 @@
 package com.hm.viewdemo.base;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 

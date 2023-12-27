@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".day_night.ChangeDayNightThemeActivity">
+
+    <Button
+            android:id="@+id/btn_change_day"
+            android:text="切换日间主题"
+            android:layout_width="match_parent"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_change_night"
+            android:text="切换夜间主题"
+            android:layout_width="match_parent"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/btn_change_follow"
+            android:text="日夜间主题跟随系统"
+            android:layout_width="match_parent"
+            android:onClick="onClick"
+            android:layout_height="wrap_content" />
+
+
+</LinearLayout>
