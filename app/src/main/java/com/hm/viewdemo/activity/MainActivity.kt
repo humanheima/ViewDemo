@@ -3,7 +3,6 @@ package com.hm.viewdemo.activity
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Debug
 import android.os.Environment
 import android.util.Log
@@ -467,10 +466,6 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
     }
 
 }

@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hm.viewdemo.widget.scroll_view.SimpleScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/simple_scroll_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.ScrollFlingTestActivity">
+<com.hm.viewdemo.widget.scroll_view.SimpleOverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/simple_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.ScrollFlingTestActivity">
 
     <com.hm.viewdemo.widget.scroll_view.MyLinearLayout
-        android:id="@+id/ll_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
 
     </com.hm.viewdemo.widget.scroll_view.MyLinearLayout>
 
-</com.hm.viewdemo.widget.scroll_view.SimpleScrollView>
+</com.hm.viewdemo.widget.scroll_view.SimpleOverScrollView>
