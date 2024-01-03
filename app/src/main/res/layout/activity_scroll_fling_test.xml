@@ -42,6 +42,28 @@
                 android:background="@drawable/ic_dog"
                 android:layout_height="200dp" />
 
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="200dp" />
+
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:background="@drawable/ic_dog"
+                android:layout_height="300dp" />
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
     </com.hm.viewdemo.widget.scroll_view.MyLinearLayout>
 
 </com.hm.viewdemo.widget.scroll_view.SimpleOverScrollView>

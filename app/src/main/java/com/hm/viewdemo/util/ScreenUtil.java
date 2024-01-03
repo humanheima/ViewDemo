@@ -3,13 +3,12 @@ package com.hm.viewdemo.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Build;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by dumingwei on 2017/4/20.
@@ -58,19 +57,15 @@ public class ScreenUtil {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         Display defaultDisplay = windowManager.getDefaultDisplay();
 
-        if (Build.VERSION.SDK_INT >= 19) {
-            defaultDisplay.getRealMetrics(displayMetrics);
-        } else {
-            defaultDisplay.getMetrics(displayMetrics);
-        }
+        defaultDisplay.getRealMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
 
-    public static void getDisplayMetricsInfo(Context context) {
+    public static void printDisplayMetricsInfo(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        Log.e(TAG, "getDisplayMetricsInfo: " + displayMetrics.toString() + "densityDpi=" + displayMetrics.densityDpi);
+        Log.e(TAG, "getDisplayMetricsInfo: " + displayMetrics);
     }
 
     public static int getStateBarHeight(Activity activity) {

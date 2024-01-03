@@ -96,6 +96,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
         chatThreeAvatarView = findViewById(R.id.chat_three_avatar_view)
         chatThreeAvatarView?.setAvatarList(avatarList)
+
+        ScreenUtil.printDisplayMetricsInfo(this)
     }
 
     fun onClick(view: View) {

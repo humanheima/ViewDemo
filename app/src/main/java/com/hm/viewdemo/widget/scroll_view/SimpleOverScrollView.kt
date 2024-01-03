@@ -193,10 +193,6 @@ class SimpleOverScrollView @JvmOverloads constructor(
                 TAG,
                 "getScrollRange:  contentHeight = $contentHeight selfHeight = $selfHeight srcollRange = $scrollRange"
             )
-//            Log.i(
-//                TAG,
-//                "getScrollRange: scrollRange = $scrollRange  自身偏移量 = $scrollY $child 的偏移量 = ${child.scrollY}"
-//            )
         }
 
         return scrollRange
