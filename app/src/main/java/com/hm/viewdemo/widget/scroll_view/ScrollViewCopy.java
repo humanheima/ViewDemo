@@ -207,8 +207,7 @@ public class ScrollViewCopy extends FrameLayout {
         mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
         mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
         mOverscrollDistance = configuration.getScaledOverscrollDistance();
-        //mOverflingDistance = configuration.getScaledOverflingDistance();
-        mOverflingDistance = 100;
+        mOverflingDistance = configuration.getScaledOverflingDistance();
         mVerticalScrollFactor = configuration.getScaledVerticalScrollFactor();
     }
 
