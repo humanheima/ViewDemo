@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hm.viewdemo.widget.scroll_view.SimpleOverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hm.viewdemo.widget.scroll_view.ScrollViewCopy xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/simple_scroll_view"
         android:layout_width="match_parent"
@@ -66,4 +66,4 @@
 
     </com.hm.viewdemo.widget.scroll_view.MyLinearLayout>
 
-</com.hm.viewdemo.widget.scroll_view.SimpleOverScrollView>
+</com.hm.viewdemo.widget.scroll_view.ScrollViewCopy>

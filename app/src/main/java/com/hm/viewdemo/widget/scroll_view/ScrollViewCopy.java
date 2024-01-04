@@ -36,6 +36,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EdgeEffect;
 import android.widget.FrameLayout;
 import android.widget.OverScroller;
+import com.hm.viewdemo.R;
 import java.util.List;
 
 public class ScrollViewCopy extends FrameLayout {
@@ -206,7 +207,8 @@ public class ScrollViewCopy extends FrameLayout {
         mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
         mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
         mOverscrollDistance = configuration.getScaledOverscrollDistance();
-        mOverflingDistance = configuration.getScaledOverflingDistance();
+        //mOverflingDistance = configuration.getScaledOverflingDistance();
+        mOverflingDistance = 100;
         mVerticalScrollFactor = configuration.getScaledVerticalScrollFactor();
     }
 
@@ -776,13 +778,17 @@ public class ScrollViewCopy extends FrameLayout {
             setScrollY(scrollY);
             //invalidateParentIfNeeded();
             // TODO: 2024/1/3 这里是否要调用？ 
-            //invalidate();
+            invalidate();
             onScrollChanged(scrollX, scrollY, oldX, oldY);
             if (clampedY) {
                 mScroller.springBack(scrollX, scrollY, 0, 0, 0, getScrollRange());
             }
         } else {
+            // TODO: 2024/1/4 这里应该是没有超过最大限制
             super.scrollTo(scrollX, scrollY);
+            if (clampedY) {
+                mScroller.springBack(scrollX, scrollY, 0, 0, 0, getScrollRange());
+            }
         }
 
         awakenScrollBars();
@@ -1533,7 +1539,10 @@ public class ScrollViewCopy extends FrameLayout {
             if (mEdgeGlowTop == null) {
                 Context context = getContext();
                 mEdgeGlowTop = new EdgeEffect(context);
+                mEdgeGlowTop.setColor(getResources().getColor(R.color.color_dd2211));
+
                 mEdgeGlowBottom = new EdgeEffect(context);
+                mEdgeGlowBottom.setColor(getResources().getColor(R.color.color_dd2211));
             }
         } else {
             mEdgeGlowTop = null;
