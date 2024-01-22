@@ -42,7 +42,7 @@ class BlurMaskFilterView @JvmOverloads constructor(
         }
 
         setLayerType(LAYER_TYPE_SOFTWARE, null)
-        paint.color = Color.BLACK
+        paint.color = Color.BLUE
         paint.maskFilter = BlurMaskFilter(50f, blurStyle)
     }
 

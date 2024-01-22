@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import kotlinx.android.synthetic.main.activity_soft_keyboard.*
+
 
 /**
  * Created by p_dmweidu on 2023/6/1
@@ -77,6 +78,19 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
         //第二个参数传0就行，不必纠结为什么，官方文档也没有说清楚
         im?.showSoftInput(editText, InputMethodManager.SHOW_FORCED)
     }
+
+    private fun isKeyboardShown2(rootView: View): Boolean {
+        val dm = rootView.resources.displayMetrics
+        //设定一个认为是软键盘弹起的阈值
+        val softKeyboardHeight = (100 * dm.density).toInt()
+        //得到屏幕可见区域的大小
+        val r = Rect()
+        rootView.getWindowVisibleDisplayFrame(r)
+        //rootView 的bottom和当前屏幕可见区域bottom的差值
+        val heightDiff = rootView.bottom - r.bottom
+        return heightDiff > softKeyboardHeight
+    }
+
 
     private fun showKeyBoard() {
         im?.toggleSoftInput(0, 0)

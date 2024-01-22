@@ -102,6 +102,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_blur -> {
+                TestBlurActivity.launch(this)
+            }
+
             R.id.btnNinePatchTest -> {
                 NinePatchDrawableActivity.launch(this)
             }

@@ -16,10 +16,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".activity.TestBlurActivity"
+                android:exported="false" />
+        <activity
                 android:name=".day_night.ChangeDayNightThemeActivity"
                 android:exported="false" />
         <activity android:name=".day_night.DarkModeManager" />
-
         <activity
                 android:name=".activity.NinePatchDrawableActivity"
                 android:exported="false" />
