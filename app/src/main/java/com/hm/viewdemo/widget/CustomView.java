@@ -5,12 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
 import com.hm.viewdemo.R;
 
 /**
@@ -59,13 +57,20 @@ public class CustomView extends View {
         fontSize = ta.getDimensionPixelOffset(R.styleable.CustomView_cus_font, 16);
         Log.i(TAG, "getDimensionPixelOffset: fontSize=" + fontSize);
 
+        String type = ta.getString(R.styleable.CustomView_type);
+        Log.i(TAG, "initCustomAttrs: type=" + type);
+
+        int flag = ta.getInt(R.styleable.CustomView_flag, 0);
+
+        Log.i(TAG, "initCustomAttrs:  flag=" + flag);
+
         customText = ta.getString(R.styleable.CustomView_text);
         customColor = ta.getColor(R.styleable.CustomView_color, Color.BLUE);
         textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(customColor);
         textPaint.setTextSize(fontSize);
 
-        int resId = ta.getResourceId(R.styleable.CustomView_bgResId,-1);
+        int resId = ta.getResourceId(R.styleable.CustomView_bgResId, -1);
         setBackground(getResources().getDrawable(resId));
         ta.recycle();
 

@@ -102,6 +102,10 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_slide_delete -> {
+                TestDragDeleteItemActivity.launch(this)
+            }
+
             R.id.btn_test_blur -> {
                 TestBlurActivity.launch(this)
             }

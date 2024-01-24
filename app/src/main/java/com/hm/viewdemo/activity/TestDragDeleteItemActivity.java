@@ -1,10 +1,8 @@
 package com.hm.viewdemo.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.hm.viewdemo.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
+/**
+ * Created by p_dmweidu on 2024/1/23
+ * Desc: 测试策划删除
+ */
 public class TestDragDeleteItemActivity extends AppCompatActivity {
 
     public static final String TAG = TestDragDeleteItemActivity.class.getSimpleName();
@@ -29,6 +31,11 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
     private List<String> stringList;
     private RvAdapter adapter;
     private LinearLayoutManager layoutManager;
+
+    public static void launch(Context context) {
+        Intent starter = new Intent(context, TestDragDeleteItemActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,10 +143,12 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
     }
 
     interface OnItemClickListener {
+
         void onItemClick(View view, int position);
     }
 
     interface OnItemDeleteListener {
+
         void onItemDelete(int position);
     }
 }

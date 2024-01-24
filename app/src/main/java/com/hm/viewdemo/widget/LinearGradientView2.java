@@ -7,11 +7,10 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
+import androidx.annotation.Nullable;
 import com.hm.viewdemo.R;
 
 /**
@@ -20,7 +19,7 @@ import com.hm.viewdemo.R;
  * Desc: 绘制View渐变背景LinearGradient，从左到右水平渐变
  * 可以只传入一个颜色，则不会渐变
  */
-public class LinearGradientView extends View {
+public class LinearGradientView2 extends View {
 
     private static final String TAG = "LinearGradientView";
 
@@ -31,23 +30,26 @@ public class LinearGradientView extends View {
 
     private Color color;
 
-    public LinearGradientView(Context context) {
+    public LinearGradientView2(Context context) {
         this(context, null);
     }
 
-    public LinearGradientView(Context context, @Nullable AttributeSet attrs) {
+    public LinearGradientView2(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LinearGradientView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LinearGradientView2(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LinearGradientView);
-        startColor = ta.getInt(R.styleable.LinearGradientView_start_color, R.color.vip_start_color);
-        endColor = ta.getInt(R.styleable.LinearGradientView_end_color, R.color.vip_end_color);
+        //这里默认颜色，要用 getResources().getColor()，不能直接用 R.color.color_00f1f1
+
+        startColor = ta.getInt(R.styleable.LinearGradientView_start_color,
+                getResources().getColor(R.color.color_00f1f1));
+        endColor = ta.getInt(R.styleable.LinearGradientView_end_color, getResources().getColor(R.color.color_000fff));
         ta.recycle();
     }
 
