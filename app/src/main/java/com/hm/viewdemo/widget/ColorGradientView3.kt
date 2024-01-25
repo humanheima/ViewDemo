@@ -11,7 +11,6 @@ import com.hm.viewdemo.R
  * Created by p_dmweidu on 2024/1/24
  * Desc: 渐变背景View
  * 传入颜色，和渐变方向
- * 感觉没必要，直接用GradientDrawable就可以了
  */
 class ColorGradientView3 @JvmOverloads constructor(
     context: Context,
