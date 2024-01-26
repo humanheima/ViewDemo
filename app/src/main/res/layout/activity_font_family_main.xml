@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.FontFamilyMainActivity">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.FontFamilyMainActivity">
 
     <LinearLayout
-        android:id="@+id/ll_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:id="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <TextView
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:text="@string/use_ttf_in_xml"
+                android:layout_height="wrap_content" />
+
+
+
+        <TextView
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:text="@string/use_ttf_in_xml"
+                android:fontFamily="@font/cus_subfont"
+                android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -67,5 +67,9 @@
         <item>成都</item>
     </string-array>
 
+    <string name="use_ttf_in_xml">
+        在 Android 中，你可以在布局文件中直接使用 ttf 字体文件。首先，你需要将 ttf 文件放在 res/font 目录下。注意，这种方法需要 Android 8.0（API 级别 26）或更高版本。如果你需要在较旧的版本上使用自定义字体，你可能需要使用 Typeface 类在代码中设置字体。
+    </string>
+
 
 </resources>
