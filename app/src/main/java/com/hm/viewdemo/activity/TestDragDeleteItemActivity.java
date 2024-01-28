@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,7 @@ import java.util.List;
 
 /**
  * Created by p_dmweidu on 2024/1/23
- * Desc: 测试策划删除
+ * Desc: 测试侧滑删除
  */
 public class TestDragDeleteItemActivity extends AppCompatActivity {
 
@@ -93,7 +94,7 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(final VH holder, final int position) {
+        public void onBindViewHolder(@NonNull VH holder, int position) {
             if (onItemClickListener != null) {
                 holder.itemLlContent.setOnClickListener(new View.OnClickListener() {
                     @Override

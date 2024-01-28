@@ -12,11 +12,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
         <LinearLayout
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="launchXfermodeTestActivity"
+                    android:text="测试Xfermode"
+                    android:textAllCaps="false" />
 
             <Button
                     android:id="@+id/btn_test_slide_delete"
@@ -385,13 +393,6 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="onClick"
                     android:text="测试圆角的进度条"
-                    android:textAllCaps="false" />
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="launchXfermodeTestActivity"
-                    android:text="测试Xfermode"
                     android:textAllCaps="false" />
 
             <Button
