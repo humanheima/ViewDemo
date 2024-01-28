@@ -9,6 +9,12 @@
         <item name="CustomView_Theme_Style">@style/CustomView_Green_Style</item>
     </style>
 
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <!-- 使用Theme来Activity进入和退出动画 -->
     <style name="ActivityAnimTestTheme" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/ActivityAlphaAnim</item>
@@ -199,6 +205,11 @@
         <attr name="avatar_round_width" format="dimension" />
         <attr name="avatar_border_color" format="color" />
         <attr name="avatar_border_width" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SpecialMaskViewGroup">
+        <attr name="transparent_size" format="dimension" />
+        <attr name="gradient_size" format="dimension" />
     </declare-styleable>
 
 </resources>

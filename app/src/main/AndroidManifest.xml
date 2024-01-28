@@ -139,7 +139,10 @@
         <activity android:name=".activity.AutoWrapTextViewActivity" />
         <activity android:name=".activity.DragSlopLayoutActivity" />
         <activity android:name=".activity.ViewDragHelperActivity" />
-        <activity android:name=".activity.PullToRefreshActivity" />
+        <activity android:name=".activity.PullToRefreshActivity"
+                android:theme="@style/FullScreenTheme">
+
+        </activity>
         <activity android:name=".activity.TextViewActivity" />
         <activity android:name=".activity.MpAndroidChartActivity" />
         <activity android:name=".activity.TestFuDanActivity" />

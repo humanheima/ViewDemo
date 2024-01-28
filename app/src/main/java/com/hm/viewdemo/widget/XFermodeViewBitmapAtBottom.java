@@ -21,7 +21,7 @@ import com.hm.viewdemo.util.ScreenUtil;
 
 /**
  * Crete by dumingwei on 2019-08-14
- * Desc:测试Bitmap渐隐透下去的效果，Bitmap在下面,渐隐图层在上面
+ * Desc:测试Bitmap渐隐透下去的效果，Bitmap在下面，作为目标图像dst,渐隐图层在上面，作为源图像src
  * 使用DstOut效果:
  * 保留目标图像没被源图像覆盖部分的像素。丢弃被源图像像素覆盖部分的目标图像像素。丢弃所有的源图像像素。
  */

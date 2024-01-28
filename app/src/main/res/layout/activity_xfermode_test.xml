@@ -9,6 +9,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+        <com.hm.viewdemo.widget.XFermodeViewBitmapAtTop
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+
+        <com.hm.viewdemo.widget.XFermodeViewBitmapAtBottom
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp" />
+
         <com.hm.viewdemo.widget.ColorPorterDuffXfermodeView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
