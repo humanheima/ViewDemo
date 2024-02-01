@@ -46,7 +46,7 @@ class DrawEveryThingView @JvmOverloads constructor(
         rectF = RectF(100f, 100f, 300f, 300f)
         srcRect = Rect(0, 0, 100, 100)
         dstRect = RectF(100f, 100f, 200f, 200f)
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.avatar)
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_soft_avatar)
         dst = BitmapFactory.decodeResource(resources, R.drawable.composite_dst)
         src = BitmapFactory.decodeResource(resources, R.drawable.composite_src)
         //phase 表示 起始点的偏移量

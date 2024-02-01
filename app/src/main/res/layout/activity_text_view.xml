@@ -10,6 +10,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+        <FrameLayout
+                android:id="@+id/fl_container"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:text="Textview覆盖布局文件，给父布局文件添加点击事件，是否可以相应"
+                    android:layout_height="match_parent" />
+
+        </FrameLayout>
+
         <com.hm.viewdemo.widget.SeeDetailTextStyle1
                 android:id="@+id/sdtv1"
                 android:layout_width="match_parent"

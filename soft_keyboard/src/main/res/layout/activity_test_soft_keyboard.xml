@@ -7,6 +7,15 @@
         android:orientation="vertical"
         tools:context=".TestSoftKeyboardActivity">
 
+    <EditText
+            android:id="@+id/et_test_send"
+            android:layout_margin="40dp"
+            android:layout_width="match_parent"
+            android:hint="测试把软键盘的回车变成发送按钮"
+            android:inputType="text"
+            android:imeOptions="actionSend"
+            android:layout_height="wrap_content" />
+
     <Button
             android:id="@+id/btn_adjustpan"
             android:layout_width="match_parent"

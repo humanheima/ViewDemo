@@ -25,7 +25,7 @@ class CircleAvatarView @JvmOverloads constructor(context: Context, attrs: Attrib
 
     init {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.avatar)
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_soft_avatar)
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         path = Path()
 

@@ -6,12 +6,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:src="@drawable/ic_soft_avatar"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
+
     <Button
             android:textColor="@color/black"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textAllCaps="false"
-            android:text="android:windowSoftInputMode=adjustpan"
+            android:text="全屏 android:windowSoftInputMode=adjustpan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

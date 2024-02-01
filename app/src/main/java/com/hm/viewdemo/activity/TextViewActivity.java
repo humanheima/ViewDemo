@@ -30,8 +30,10 @@ import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
@@ -112,6 +114,8 @@ public class TextViewActivity extends BaseActivity {
 
     private EditText etOne;
 
+    private FrameLayout fl_container;
+
 
     @Override
     protected int bindLayout() {
@@ -120,6 +124,14 @@ public class TextViewActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+        fl_container = findViewById(R.id.fl_container);
+        fl_container.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TextViewActivity.this, "点击了fl_container", Toast.LENGTH_SHORT).show();
+            }
+        });
         sdtv1 = findViewById(R.id.sdtv1);
 
         tvLimitTextLengthResult = findViewById(R.id.tvLimitTextLengthResult);

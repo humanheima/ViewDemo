@@ -39,7 +39,8 @@ class SpecialMaskViewGroup @JvmOverloads constructor(
 ) : FrameLayout(context, attrs) {
 
     companion object {
-        private const val TAG = "YUIMaskView"
+        private const val TAG = "SpecialMaskViewGroup"
+
     }
 
     // 透明画笔

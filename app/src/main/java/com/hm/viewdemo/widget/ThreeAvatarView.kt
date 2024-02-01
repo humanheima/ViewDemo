@@ -56,7 +56,7 @@ class ThreeAvatarView @JvmOverloads constructor(
                 }
                 layoutParams.marginEnd = marginEnd
                 Log.i(TAG, "setData: marginEnd = $marginEnd")
-                imageView.setImageResource(R.drawable.avatar)
+                imageView.setImageResource(R.drawable.ic_soft_avatar)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END)
                 addView(imageView, layoutParams)
                 ImageUtil.loadImage(context, list[index], imageView)
@@ -72,7 +72,7 @@ class ThreeAvatarView @JvmOverloads constructor(
                 }
                 layoutParams.marginStart = marginStart
                 Log.i(TAG, "setData: marginStart = $marginStart")
-                imageView.setImageResource(R.drawable.avatar)
+                imageView.setImageResource(R.drawable.ic_soft_avatar)
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START)
                 addView(imageView, layoutParams)
                 ImageUtil.loadImage(context, s, imageView)

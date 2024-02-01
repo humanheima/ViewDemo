@@ -41,7 +41,7 @@ class ImageViewSrcBackgroundActivity : AppCompatActivity() {
         }
 
         btnChangeBackground.setOnClickListener {
-            ivBackgroundPadding.background = resources.getDrawable(R.drawable.avatar)
+            ivBackgroundPadding.background = resources.getDrawable(R.drawable.ic_soft_avatar)
             ivBackgroundPadding.setPadding(40, 40, 40, 40)
         }
     }

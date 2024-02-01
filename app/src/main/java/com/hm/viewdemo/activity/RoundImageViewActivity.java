@@ -46,7 +46,7 @@ public class RoundImageViewActivity extends AppCompatActivity {
         binding.btnSetSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.roundIvFirst.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+                binding.roundIvFirst.setImageDrawable(getResources().getDrawable(R.drawable.ic_soft_avatar));
 
                 //binding.roundIvFirst.setRotation(45);
                 binding.roundIvBalloon.setAnimation(rotationAnimation);

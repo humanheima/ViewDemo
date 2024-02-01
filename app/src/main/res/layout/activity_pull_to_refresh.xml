@@ -9,7 +9,7 @@
 
     <ImageView
             android:layout_width="match_parent"
-            android:background="@drawable/avatar"
+            android:background="@drawable/ic_soft_avatar"
             android:scaleType="centerCrop"
             android:layout_height="match_parent" />
 

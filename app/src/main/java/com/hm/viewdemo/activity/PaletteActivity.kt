@@ -62,7 +62,7 @@ class PaletteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_palette)
 
         drawableList.add(R.drawable.balloon)
-        drawableList.add(R.drawable.avatar)
+        drawableList.add(R.drawable.ic_soft_avatar)
         drawableList.add(R.drawable.ic_dog)
 
         rvColor.layoutManager = LinearLayoutManager(this)
