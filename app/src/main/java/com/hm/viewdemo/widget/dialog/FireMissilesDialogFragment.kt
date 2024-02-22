@@ -25,7 +25,7 @@ class FireMissilesDialogFragment : androidx.fragment.app.DialogFragment() {
                         Toast.makeText(activity, "cancel", Toast.LENGTH_SHORT).show()
                     }
                     .create()
-            dialog.window.setWindowAnimations(R.style.scale_animate_dialog)
+            dialog.window?.setWindowAnimations(R.style.scale_animate_dialog)
             return dialog
 
         } ?: throw  throw IllegalStateException("Activity cannot be null")

@@ -13,9 +13,11 @@ import android.widget.PopupWindow
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_max_height_layout.*
+import com.hm.viewdemo.databinding.ActivityMaxHeightLayoutBinding
+import kotlinx.android.synthetic.main.activity_max_height_layout.btn_show_much_pop_window
+import kotlinx.android.synthetic.main.activity_max_height_layout.btn_show_pop_window
 
-class MaxHeightLayoutActivity : BaseActivity() {
+class MaxHeightLayoutActivity : BaseActivity<ActivityMaxHeightLayoutBinding>() {
 
     private var popWindow: PopupWindow? = null
     private var muchPopWindow: PopupWindow? = null
@@ -35,8 +37,8 @@ class MaxHeightLayoutActivity : BaseActivity() {
         }
     }
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_max_height_layout
+    override fun createViewBinding(): ActivityMaxHeightLayoutBinding {
+        return ActivityMaxHeightLayoutBinding.inflate(layoutInflater)
     }
 
     override fun initData() {

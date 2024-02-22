@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.view_lollipop.view.*
  * Created by ff.zhang on 16/10/11.
  */
 class LollipopView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var ad: AnimationDrawable? = null
@@ -47,7 +47,7 @@ class LollipopView @JvmOverloads constructor(
         try {
             ivCenterCircle.startAnimation(animation)
         } catch (e: Exception) {
-            Log.e("TargetCenterView", e.message)
+            Log.e("TargetCenterView", e.message ?: "")
         }
 
     }

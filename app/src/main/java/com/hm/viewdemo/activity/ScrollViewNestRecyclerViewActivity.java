@@ -2,21 +2,19 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.TextView;
-
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.CustomRecyclerViewAdapter;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityScrollViewNestRecyclerViewBinding;
 import com.hm.viewdemo.widget.MyNestedScrollView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class ScrollViewNestRecyclerViewActivity extends BaseActivity {
+public class ScrollViewNestRecyclerViewActivity extends BaseActivity<ActivityScrollViewNestRecyclerViewBinding> {
 
     @BindView(R.id.text_title)
     TextView textTitle;
@@ -35,8 +33,8 @@ public class ScrollViewNestRecyclerViewActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_scroll_view_nest_recycler_view;
+    protected ActivityScrollViewNestRecyclerViewBinding createViewBinding() {
+        return ActivityScrollViewNestRecyclerViewBinding.inflate(getLayoutInflater());
     }
 
     @Override

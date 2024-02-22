@@ -2,9 +2,9 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.bean.Info
 
@@ -21,6 +21,7 @@ class ParcelableTestActivity : AppCompatActivity() {
 
         @JvmStatic
         val LIST_EXTRA = "listExtra"
+
         @JvmStatic
         val LIST_EXTRA_TWO = "listExtra_two"
 
@@ -37,7 +38,7 @@ class ParcelableTestActivity : AppCompatActivity() {
 
         val arrayList = intent.getParcelableArrayListExtra<Info>(LIST_EXTRA)
 
-        arrayList.forEach {
+        arrayList?.forEach {
             Log.i(TAG, "onCreate: $it")
         }
         val arrayListTwo = intent.getSerializableExtra(LIST_EXTRA_TWO) as ArrayList<Info>

@@ -31,21 +31,17 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
-import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityTextViewBinding;
 import com.hm.viewdemo.util.FontsUtil;
 import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.util.ScreenUtil;
 import com.hm.viewdemo.util.TextViewSpanUtil;
 import com.hm.viewdemo.widget.MyTypefaceSpan;
-import com.hm.viewdemo.widget.SeeDetailTextStyle1;
 import com.hm.viewdemo.widget.span.SpaceSpan;
 import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
 import java.io.IOException;
@@ -56,7 +52,7 @@ import org.xmlpull.v1.XmlPullParserException;
 /**
  * 测试TextView 设置Span
  */
-public class TextViewActivity extends BaseActivity {
+public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
 
     private final String TAG = getClass().getSimpleName();
 
@@ -65,84 +61,25 @@ public class TextViewActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
-    private SeeDetailTextStyle1 sdtv1;
-
-    private TextView tvLimitTextLengthResult;
-    private Button btnTestLimitTextLength;
-
-
-    private TextView tvTestFont;
-
-    private TextView tvWithSuffix;
-
-    @BindView(R.id.text_view_8)
-    TextView textView8;
-    @BindView(R.id.text_view_9)
-    TextView textView9;
-    @BindView(R.id.text_view_10)
-    TextView textView10;
-    @BindView(R.id.text_view_11)
-    TextView textView11;
-    @BindView(R.id.text_view_1)
-    TextView textView1;
-    @BindView(R.id.text_view_2)
-    TextView textView2;
-    @BindView(R.id.text_view_3)
-    TextView textView3;
-    @BindView(R.id.text_view_4)
-    TextView textView4;
-    @BindView(R.id.text_view_5)
-    TextView textView5;
-    @BindView(R.id.text_view_6)
-    TextView textView6;
-    @BindView(R.id.text_view_7)
-    TextView textView7;
-
-    @BindView(R.id.tvRegex)
-    TextView tvRegex;
-
-    @BindView(R.id.text_view_12)
-    TextView textView12;
-    TextView textView13;
-    TextView textView14;
-
-    TextView textView15;
-
-    private EditText etInput;
-    private TextView tvResult;
-    private Button btnSendInput;
-
-    private EditText etOne;
-
-    private FrameLayout fl_container;
-
-
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_text_view;
+    protected ActivityTextViewBinding createViewBinding() {
+        return ActivityTextViewBinding.inflate(getLayoutInflater());
     }
 
     @Override
     protected void initData() {
-
-        fl_container = findViewById(R.id.fl_container);
-        fl_container.setOnClickListener(new OnClickListener() {
+        binding.flContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(TextViewActivity.this, "点击了fl_container", Toast.LENGTH_SHORT).show();
             }
         });
-        sdtv1 = findViewById(R.id.sdtv1);
-
-        tvLimitTextLengthResult = findViewById(R.id.tvLimitTextLengthResult);
-        btnTestLimitTextLength = findViewById(R.id.btnTestLimitTextLength);
-        tvTestFont = findViewById(R.id.tv_test_font);
 
         Typeface typeface = Typeface.createFromAsset(getResources().getAssets(), "DroidSansMono_1_subfont.ttf");
 
         if (typeface != null) {
             Log.d(TAG, "initData: typeface!=null");
-            tvTestFont.setTypeface(typeface);
+            binding.tvTestFont.setTypeface(typeface);
         }
 
         SpannableStringBuilder builder = new SpannableStringBuilder("1234512345=古今山河");
@@ -152,15 +89,12 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(myTypefaceSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(relativeSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        etInput = findViewById(R.id.etInput);
-        tvResult = findViewById(R.id.tvResult);
-        btnSendInput = findViewById(R.id.btnSendInput);
-        btnSendInput.setOnClickListener(new View.OnClickListener() {
+        binding.btnSendInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String charSequence = etInput.getText().toString();
+                String charSequence = binding.etInput.getText().toString();
                 //tvWithSuffix.setText(charSequence);
-                sdtv1.setText(charSequence);
+                binding.sdtv1.setText(charSequence);
 //                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tvWithSuffix, 3,
 //                        charSequence,
 //                        "  详情", R.color.colorAccent, false);
@@ -182,17 +116,9 @@ public class TextViewActivity extends BaseActivity {
 
         setTextViewRegex();
 
-        tvWithSuffix = findViewById(R.id.tv_with_suffix);
-
-        TextViewSpanUtil.toggleEllipsize(this, tvWithSuffix, 3,
+        TextViewSpanUtil.toggleEllipsize(this, binding.tvWithSuffix, 3,
                 "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
                 "  详情", R.color.colorAccent, false);
-
-        textView12 = findViewById(R.id.text_view_12);
-        textView13 = findViewById(R.id.text_view_13);
-        textView14 = findViewById(R.id.text_view_14);
-
-        textView15 = findViewById(R.id.text_view_15);
 
         Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
 
@@ -200,8 +126,6 @@ public class TextViewActivity extends BaseActivity {
         setTextView13();
         setTextView14();
         setTextView15();
-
-        etOne = findViewById(R.id.et_one);
 
         //setEtOne();
     }
@@ -259,7 +183,7 @@ public class TextViewActivity extends BaseActivity {
         builder.append("\n");
         builder.append(result10);
 
-        tvLimitTextLengthResult.setText(builder.toString());
+        binding.tvLimitTextLengthResult.setText(builder.toString());
 
     }
 
@@ -270,7 +194,7 @@ public class TextViewActivity extends BaseActivity {
                 "fromanything什么情况save6you3fromanything什么情况save6you3fromanything");
         LeadingMarginSpan leadingMarginSpan = new LeadingMarginSpan.Standard(96, 36);
         builder.setSpan(leadingMarginSpan, 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView11.setText(builder);
+        binding.textView11.setText(builder);
     }
 
     private void setTextView10() {
@@ -280,14 +204,14 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(embossMaskFilterSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         MaskFilterSpan blurMaskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2, BlurMaskFilter.Blur.OUTER));
         builder.setSpan(blurMaskFilterSpan, 6, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        textView10.setText(builder);
+        binding.textView10.setText(builder);
     }
 
     private void setTextView9() {
         SpannableStringBuilder builder = new SpannableStringBuilder("save6 you3 from anything");
         ScaleXSpan scaleXSpan = new ScaleXSpan(3.0F);
         builder.setSpan(scaleXSpan, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        textView9.setText(builder);
+        binding.textView9.setText(builder);
     }
 
     private void setTextView8() {
@@ -302,7 +226,7 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         parcel.recycle();
-        textView8.setText(builder);
+        binding.textView8.setText(builder);
     }
 
     private void setTextView8_2() {
@@ -313,7 +237,7 @@ public class TextViewActivity extends BaseActivity {
         SubscriptSpan subscriptSpan = new SubscriptSpan();
         builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        textView8.setText(builder);
+        binding.textView8.setText(builder);
     }
 
     private void setTextView7() {
@@ -326,7 +250,7 @@ public class TextViewActivity extends BaseActivity {
         }
         TabStopSpan tabStopSpan = new TabStopSpan.Standard(26);
         builder.setSpan(tabStopSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        textView7.setText(builder);
+        binding.textView7.setText(builder);
     }
 
     private void setTextView1() {
@@ -343,7 +267,7 @@ public class TextViewActivity extends BaseActivity {
         //spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //SpannableString spannableString1 = new SpannableString(spannableString);
         //spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView1.setText(spannableString);
+        binding.textView1.setText(spannableString);
     }
 
     private void setTextView2() {
@@ -367,7 +291,7 @@ public class TextViewActivity extends BaseActivity {
         builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView2.setText(builder);
+        binding.textView2.setText(builder);
     }
 
     private void setTextView3() {
@@ -421,8 +345,9 @@ public class TextViewActivity extends BaseActivity {
                 ds.setUnderlineText(false);
             }
         }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView3.setText(spannableString);
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+
+        binding.textView3.setText(spannableString);
+        binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setTextView4() {
@@ -444,7 +369,7 @@ public class TextViewActivity extends BaseActivity {
 
         builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView4.setText(builder);
+        binding.textView4.setText(builder);
     }
     /*private void setTextView4() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -465,8 +390,8 @@ public class TextViewActivity extends BaseActivity {
         //MaskFilterSpan maskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2.0F, BlurMaskFilter.Blur.NORMAL));
         builder.setSpan(urlSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         // 在单击链接时凡是有要执行的动作，都必须设置MovementMethod对象
-        textView5.setMovementMethod(LinkMovementMethod.getInstance());
-        textView5.setText(builder);
+        binding.textView5.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.textView5.setText(builder);
     }
 
     private void setTextView6() {
@@ -485,7 +410,7 @@ public class TextViewActivity extends BaseActivity {
         // TextAppearanceSpan textAppearanceSpan1 = new TextAppearanceSpan(this, R.style.MyTextViewStyle);
         builder.setSpan(textAppearanceSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(textAppearanceSpan, 6, 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView6.setText(builder);
+        binding.textView6.setText(builder);
     }
 
     private void setTextViewRegex() {
@@ -557,7 +482,7 @@ public class TextViewActivity extends BaseActivity {
         //builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvRegex.setText(builder);
+        binding.tvRegex.setText(builder);
     }
 
     private void setTextView12() {
@@ -569,7 +494,7 @@ public class TextViewActivity extends BaseActivity {
         SubscriptSpan subscriptSpan = new SubscriptSpan();
         builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        textView12.setText(builder);
+        binding.textView12.setText(builder);
     }
 
     private void setTextView13() {
@@ -582,7 +507,7 @@ public class TextViewActivity extends BaseActivity {
         RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(2.0f);
         builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        textView13.setText(builder);
+        binding.textView13.setText(builder);
     }
 
     private void setTextView14() {
@@ -595,7 +520,7 @@ public class TextViewActivity extends BaseActivity {
         VerticalAlignTextSpan verticalAlignTextSpan = new VerticalAlignTextSpan(ScreenUtil.spToPx(this, 24));
         builder.setSpan(verticalAlignTextSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-        textView14.setText(builder);
+        binding.textView14.setText(builder);
     }
 
     private void setTextView15() {
@@ -626,7 +551,7 @@ public class TextViewActivity extends BaseActivity {
         //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable
         // .SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView15.setText(builder);
+        binding.textView15.setText(builder);
     }
 
     /**
@@ -637,8 +562,8 @@ public class TextViewActivity extends BaseActivity {
         if (text.length() > 12) {
             text = text.substring(0, 12);
         }
-        etOne.setText(text);
-        etOne.setSelection(text.length());
+        binding.etOne.setText(text);
+        binding.etOne.setSelection(text.length());
 
     }
 

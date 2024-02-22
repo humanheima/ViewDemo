@@ -1,7 +1,13 @@
 package com.hm.viewdemo.custom_view.chapter7.widget
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -13,9 +19,9 @@ import com.hm.viewdemo.R
  * Desc:
  */
 class TelescopeView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     companion object {
@@ -77,10 +83,12 @@ class TelescopeView @JvmOverloads constructor(
                 mDy = event.y
                 return true
             }
+
             MotionEvent.ACTION_MOVE -> {
                 mDx = event.x
                 mDy = event.y
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 mDx = -1f
                 mDy = -1f
@@ -97,7 +105,7 @@ class TelescopeView @JvmOverloads constructor(
         Log.i(TAG, "onSizeChanged: $w,$h")
         if (bitmapBG == null && w > 0 && h > 0) {
             bitmapBG = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            val canvasBg = Canvas(bitmapBG)
+            val canvasBg = Canvas(bitmapBG!!)
             rect.set(0, 0, width, height)
             canvasBg.drawBitmap(bitmap, null, rect, paint)
         }
@@ -109,7 +117,7 @@ class TelescopeView @JvmOverloads constructor(
 
     private fun draw1(canvas: Canvas) {
         if (mDx > -1f && mDy > -1f) {
-            paint.shader = BitmapShader(bitmapBG, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
+            paint.shader = BitmapShader(bitmapBG!!, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
             canvas.drawCircle(mDx, mDy, 150f, paint)
         }
     }
@@ -117,12 +125,12 @@ class TelescopeView @JvmOverloads constructor(
     private fun draw2(canvas: Canvas) {
         if (bitmapBG == null) {
             bitmapBG = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            val canvasBg = Canvas(bitmapBG)
+            val canvasBg = Canvas(bitmapBG!!)
             rect.set(0, 0, width, height)
             canvasBg.drawBitmap(bitmap, null, rect, paint)
         }
         if (mDx > -1f && mDy > -1f) {
-            paint.shader = BitmapShader(bitmapBG, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
+            paint.shader = BitmapShader(bitmapBG!!, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
             canvas.drawCircle(mDx, mDy, 150f, paint)
         }
     }

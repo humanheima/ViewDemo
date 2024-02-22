@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import androidx.viewbinding.ViewBinding;
 import androidx.viewpager.widget.ViewPager;
 import androidx.core.widget.NestedScrollView;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.AlbumAdapter;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityDragSlopLayoutBinding;
 import com.hm.viewdemo.util.Images;
 import com.hm.viewdemo.widget.DragSlopLayout;
 
@@ -24,7 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class DragSlopLayoutActivity extends BaseActivity {
+public class DragSlopLayoutActivity extends BaseActivity<ActivityDragSlopLayoutBinding> {
 
     private static final String TAG = "DragSlopLayoutActivity";
 
@@ -82,8 +84,8 @@ public class DragSlopLayoutActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_drag_slop_layout;
+    protected ActivityDragSlopLayoutBinding createViewBinding() {
+        return ActivityDragSlopLayoutBinding.inflate(getLayoutInflater());
     }
 
     @Override

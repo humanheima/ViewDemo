@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
-
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.CustomExpandableListAdapter;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityExpandableListViewBinding;
 
-import butterknife.BindView;
-
-public class ExpandableListViewActivity extends BaseActivity {
+public class ExpandableListViewActivity extends BaseActivity<ActivityExpandableListViewBinding> {
 
     private String[] groupStrings = {"西游记", "水浒传", "三国演义", "红楼梦"};
     private String[][] childStrings = {
@@ -32,8 +31,8 @@ public class ExpandableListViewActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_expandable_list_view;
+    protected ActivityExpandableListViewBinding createViewBinding() {
+        return ActivityExpandableListViewBinding.inflate(getLayoutInflater());
     }
 
     @Override
@@ -50,19 +49,23 @@ public class ExpandableListViewActivity extends BaseActivity {
         expandableListview.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "合并", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "合并",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         expandableListview.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "展开", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "展开",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         expandableListview.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(ExpandableListViewActivity.this, childStrings[groupPosition][childPosition], Toast.LENGTH_SHORT).show();
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition,
+                    long id) {
+                Toast.makeText(ExpandableListViewActivity.this, childStrings[groupPosition][childPosition],
+                        Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

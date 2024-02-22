@@ -7,17 +7,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityVerticalVerticalBinding;
 import com.hm.viewdemo.widget.StickyLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class VerticalVerticalActivity extends BaseActivity {
+public class VerticalVerticalActivity extends BaseActivity<ActivityVerticalVerticalBinding> {
 
     @BindView(R.id.sticky_header)
     TextView stickyHeader;
@@ -35,8 +33,8 @@ public class VerticalVerticalActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_vertical_vertical;
+    protected ActivityVerticalVerticalBinding createViewBinding() {
+        return ActivityVerticalVerticalBinding.inflate(getLayoutInflater());
     }
 
     @Override

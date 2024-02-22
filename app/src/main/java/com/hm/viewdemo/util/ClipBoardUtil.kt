@@ -21,7 +21,7 @@ class ClipBoardUtil {
             val clipBoardManager =
                 context.getSystemService(BaseActivity.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText(label, text)
-            clipBoardManager.primaryClip = clip
+            clipBoardManager.setPrimaryClip(clip)
         }
 
         @JvmStatic
@@ -41,7 +41,7 @@ class ClipBoardUtil {
             }
             val clipBoardManager =
                 context.getSystemService(BaseActivity.CLIPBOARD_SERVICE) as ClipboardManager
-            clipBoardManager.primaryClip = ClipData.newPlainText("", "")
+            clipBoardManager.setPrimaryClip(ClipData.newPlainText("", ""))
         }
 
 

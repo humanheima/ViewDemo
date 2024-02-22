@@ -13,7 +13,7 @@ import kotlin.concurrent.thread
  * Desc:
  */
 class DoubleBufferingTextView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr) {
 
     private var paint = Paint()
@@ -22,10 +22,16 @@ class DoubleBufferingTextView @JvmOverloads constructor(
         paint.color = Color.RED
         paint.textSize = 30f
         holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
             }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
+            override fun surfaceChanged(
+                holder: SurfaceHolder,
+                format: Int,
+                width: Int,
+                height: Int
+            ) {
             }
 
             override fun surfaceCreated(holder: SurfaceHolder) {

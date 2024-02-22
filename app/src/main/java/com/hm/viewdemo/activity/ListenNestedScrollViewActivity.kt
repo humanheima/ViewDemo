@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityListenNestedScrollViewBinding
 import com.hm.viewdemo.widget.NewNestedScrollView
-import java.util.*
 
 
 /**
  * Created by p_dmweidu on 2023/2/2
  * Desc: 测试监听NestedScrollView滑动停止
  */
-class ListenNestedScrollViewActivity : BaseActivity() {
+class ListenNestedScrollViewActivity : BaseActivity<ActivityListenNestedScrollViewBinding>() {
 
     private var dataList: MutableList<String> = arrayListOf()
 
@@ -40,8 +40,8 @@ class ListenNestedScrollViewActivity : BaseActivity() {
         }
     }
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_listen_nested_scroll_view
+    override fun createViewBinding(): ActivityListenNestedScrollViewBinding {
+        return ActivityListenNestedScrollViewBinding.inflate(layoutInflater)
     }
 
     override fun initData() {
@@ -78,9 +78,11 @@ class ListenNestedScrollViewActivity : BaseActivity() {
                     NewNestedScrollView.ScrollState.DRAG -> {
                         //Log.i(TAG, "onScrollState: DRAG")
                     }
+
                     NewNestedScrollView.ScrollState.SCROLLING -> {
                         //Log.i(TAG, "onScrollState: SCROLLING")
                     }
+
                     NewNestedScrollView.ScrollState.IDLE -> {
                         val displayRect = Rect()
 
@@ -122,7 +124,7 @@ class ListenNestedScrollViewActivity : BaseActivity() {
                                 "onScrollState: firstPos = $firstPos lastPos = $lastPos childCount = $childCount"
                             )
                             if (childCount > 0 && firstPos >= 0 && firstPos < childCount && firstPos <= lastPos && lastPos < childCount) {
-                                for (index in firstPos until lastPos ){
+                                for (index in firstPos until lastPos) {
                                     val childAt = layoutManager.getChildAt(index)
                                     val b = childAt?.getGlobalVisibleRect(displayRect) ?: false
                                     val viewLastGetGlobalVisibleRect =
@@ -141,9 +143,15 @@ class ListenNestedScrollViewActivity : BaseActivity() {
                                                 "onScrollState: View 上次不可见，需要曝光 IDLE b =$b displayRect = ${displayRect.toString()} position = $index childCount = ${childAt.hashCode()} "
                                             )
                                         }
-                                        childAt?.setTag(R.string.view_last_get_global_visible_rect, true)
+                                        childAt?.setTag(
+                                            R.string.view_last_get_global_visible_rect,
+                                            true
+                                        )
                                     } else {
-                                        childAt?.setTag(R.string.view_last_get_global_visible_rect, false)
+                                        childAt?.setTag(
+                                            R.string.view_last_get_global_visible_rect,
+                                            false
+                                        )
                                     }
                                 }
                             }

@@ -14,7 +14,8 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            >
         <activity
                 android:name=".activity.TestBlurActivity"
                 android:exported="false" />
@@ -116,6 +117,7 @@
         <activity
                 android:name=".activity.MainActivity"
                 android:configChanges="fontScale"
+                android:exported="true"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -159,7 +161,7 @@
         <activity android:name=".activity.SupportLibraryActivity" />
         <activity android:name=".activity.ScreenSupportActivity" />
         <activity android:name=".activity.ConstraintActivity" />
-        <activity android:name=".activity.QrCodeScanActivity">
+        <activity android:name=".activity.QrCodeScanActivity" android:exported="false">
             <intent-filter>
                 <action android:name="com.hm.viewdemo.QrCodeScan" />
 

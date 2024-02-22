@@ -1,6 +1,13 @@
 package com.hm.viewdemo.custom_view.chapter_10
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 
 /**
@@ -36,9 +43,12 @@ class RoundImgDrawable(var bitmap: Bitmap) : Drawable() {
 
     override fun setBounds(left: Int, top: Int, right: Int, bottom: Int) {
         super.setBounds(left, top, right, bottom)
-        bitmapShader = BitmapShader(Bitmap.createScaledBitmap(
-                bitmap, right - left, bottom - top, true),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        bitmapShader = BitmapShader(
+            Bitmap.createScaledBitmap(
+                bitmap, right - left, bottom - top, true
+            ),
+            Shader.TileMode.CLAMP, Shader.TileMode.CLAMP
+        )
 
         paint.shader = bitmapShader
 

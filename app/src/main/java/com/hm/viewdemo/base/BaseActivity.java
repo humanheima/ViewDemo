@@ -1,31 +1,33 @@
 package com.hm.viewdemo.base;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.hm.viewdemo.widget.LoadingDialog;
-
+import androidx.viewbinding.ViewBinding;
 import butterknife.ButterKnife;
+import com.hm.viewdemo.widget.LoadingDialog;
 
 /**
  * Created by dumingwei on 2017/2/26.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActivity {
 
     protected final String TAG = getClass().getSimpleName();
     private LoadingDialog loadingDialog;
 
+    protected T binding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(bindLayout());
+        binding = createViewBinding();
+        setContentView(binding.getRoot());
         ButterKnife.bind(this);
         initData();
         bindEvent();
     }
 
-    protected abstract int bindLayout();
+
+    protected abstract T createViewBinding();
 
     protected abstract void initData();
 

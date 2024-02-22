@@ -11,17 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityHorizontalVerticalConflictBinding;
 import com.hm.viewdemo.util.MyUtils;
 import com.hm.viewdemo.widget.HorizontalScrollViewEx;
-
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
-public class HorizontalVerticalConflictActivity extends BaseActivity {
+public class HorizontalVerticalConflictActivity extends BaseActivity<ActivityHorizontalVerticalConflictBinding> {
 
     private final String TAG = getClass().getSimpleName();
 
@@ -34,8 +32,8 @@ public class HorizontalVerticalConflictActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_horizontal_vertical_conflict;
+    protected ActivityHorizontalVerticalConflictBinding createViewBinding() {
+        return ActivityHorizontalVerticalConflictBinding.inflate(getLayoutInflater());
     }
 
     @Override

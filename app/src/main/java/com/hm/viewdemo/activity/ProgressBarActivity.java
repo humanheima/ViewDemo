@@ -9,13 +9,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
-
+import com.hm.viewdemo.databinding.ActivityProgressBarBinding;
 import java.lang.ref.WeakReference;
-
-import butterknife.BindView;
 
 /**
  * Created by dumingwei on 2020/4/15
@@ -23,7 +21,7 @@ import butterknife.BindView;
  * Desc: 测试loading dialog progress等
  * 参考链接：https://blog.csdn.net/mad1989/article/details/38042875
  */
-public class ProgressBarActivity extends BaseActivity {
+public class ProgressBarActivity extends BaseActivity<ActivityProgressBarBinding> {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -43,8 +41,8 @@ public class ProgressBarActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_progress_bar;
+    protected ActivityProgressBarBinding createViewBinding() {
+        return ActivityProgressBarBinding.inflate(getLayoutInflater());
     }
 
     @Override

@@ -9,9 +9,10 @@ import androidx.transition.TransitionManager
 import android.widget.ImageView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityConstraintAnotherBinding
 import kotlinx.android.synthetic.main.activity_constraint_another.*
 
-class ConstraintActivity : BaseActivity() {
+class ConstraintActivity : BaseActivity<ActivityConstraintAnotherBinding>() {
 
     companion object {
 
@@ -21,9 +22,16 @@ class ConstraintActivity : BaseActivity() {
         }
     }
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_constraint_another
+
+//    fun initBinding(): Int {
+//        return R.layout.activity_constraint_another
+//    }
+
+    override fun createViewBinding(): ActivityConstraintAnotherBinding {
+        return ActivityConstraintAnotherBinding.inflate(layoutInflater)
     }
+
+
 
     override fun initData() {
         buttonChangeConstraint.setOnClickListener {

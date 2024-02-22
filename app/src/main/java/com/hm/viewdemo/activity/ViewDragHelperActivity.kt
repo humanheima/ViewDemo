@@ -2,21 +2,11 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-
-import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityViewDragHelperBinding
 
-class ViewDragHelperActivity : BaseActivity() {
+class ViewDragHelperActivity : BaseActivity<ActivityViewDragHelperBinding>() {
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_view_drag_helper
-    }
-
-    override fun initData() {
-
-    }
-
-    override fun bindEvent() {}
 
     companion object {
 
@@ -25,4 +15,13 @@ class ViewDragHelperActivity : BaseActivity() {
             context.startActivity(starter)
         }
     }
+
+    override fun createViewBinding() = ActivityViewDragHelperBinding.inflate(layoutInflater)
+
+    override fun initData() {
+
+    }
+
+    override fun bindEvent() {}
+
 }

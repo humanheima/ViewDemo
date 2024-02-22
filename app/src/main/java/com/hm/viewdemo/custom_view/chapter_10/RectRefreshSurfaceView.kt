@@ -16,7 +16,7 @@ import kotlin.concurrent.thread
  * Desc:
  */
 class RectRefreshSurfaceView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr) {
 
     private val TAG = "RectRefreshSurfaceView"
@@ -29,11 +29,16 @@ class RectRefreshSurfaceView @JvmOverloads constructor(
         paint.textSize = 30f
 
         holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+            override fun surfaceChanged(
+                holder: SurfaceHolder,
+                format: Int,
+                width: Int,
+                height: Int
+            ) {
 
             }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
             }
 
             override fun surfaceCreated(holder: SurfaceHolder) {
@@ -104,7 +109,10 @@ class RectRefreshSurfaceView @JvmOverloads constructor(
     private fun dumpCanvasRect(canvas: Canvas?) {
         if (canvas != null) {
             val rect = canvas.clipBounds
-            Log.i(TAG, "left:" + rect.left + "  top:" + rect.top + "  right:" + rect.right + "  bottom:" + rect.bottom)
+            Log.i(
+                TAG,
+                "left:" + rect.left + "  top:" + rect.top + "  right:" + rect.right + "  bottom:" + rect.bottom
+            )
         }
     }
 

@@ -16,13 +16,15 @@ import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.base.CommonAdapter;
 import com.hm.viewdemo.base.CommonViewHolder;
+import com.hm.viewdemo.databinding.ActivityPullToRefreshBinding;
 import com.hm.viewdemo.util.ScreenUtil;
 import com.hm.viewdemo.widget.SimpleFlowLayout;
 import com.hm.viewdemo.widget.xfermode.SpecialMaskViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PullToRefreshActivity extends BaseActivity implements ViewTreeObserver.OnGlobalLayoutListener {
+public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBinding> implements
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = "PullToRefreshActivity";
     @BindView(R.id.pr_recycler_view)
@@ -44,8 +46,8 @@ public class PullToRefreshActivity extends BaseActivity implements ViewTreeObser
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_pull_to_refresh;
+    protected ActivityPullToRefreshBinding createViewBinding() {
+        return ActivityPullToRefreshBinding.inflate(getLayoutInflater());
     }
 
     @Override

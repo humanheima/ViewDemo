@@ -1,7 +1,11 @@
 package com.hm.viewdemo.custom_view.chapter_10
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -12,7 +16,7 @@ import com.hm.viewdemo.R
  * Desc:
  */
 class AnimationSurfaceView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr) {
 
     private var surfaceHolder: SurfaceHolder? = null
@@ -43,7 +47,12 @@ class AnimationSurfaceView @JvmOverloads constructor(
     init {
         surfaceHolder = holder
         surfaceHolder?.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+            override fun surfaceChanged(
+                holder: SurfaceHolder,
+                format: Int,
+                width: Int,
+                height: Int
+            ) {
                 //do nothing
 
             }
@@ -64,6 +73,7 @@ class AnimationSurfaceView @JvmOverloads constructor(
         mSurfaceHeight = height
 
         val mWidth = mSurfaceWidth * 3 / 2
+
         /***
          * 将图片缩放到屏幕的3/2倍.
          */
@@ -86,13 +96,14 @@ class AnimationSurfaceView @JvmOverloads constructor(
         mCanvas?.let {
             it.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
             if (bitmapBg != null) {
-                it.drawBitmap(bitmapBg, mBitmapPosX, 0f, null)
+                it.drawBitmap(bitmapBg!!, mBitmapPosX, 0f, null)
             }
             when (state) {
 
                 State.LEFT -> {
                     mBitmapPosX -= BITMAP_STEP
                 }
+
                 State.RIGHT -> {
                     mBitmapPosX += BITMAP_STEP
                 }

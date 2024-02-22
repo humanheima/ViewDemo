@@ -22,6 +22,7 @@ import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
+import com.hm.viewdemo.databinding.ActivityMainBinding
 import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
@@ -37,7 +38,7 @@ import kotlin.random.Random
  * Desc:
  * 测试Switch 的用法： https://juejin.cn/post/6970959897575817224
  */
-class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
+class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.PermissionCallbacks {
 
     var perms = arrayOf(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 
@@ -48,8 +49,8 @@ class MainActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     private var chatThreeAvatarView: ChatThreeAvatarView? = null
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_main
+    override fun createViewBinding(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
     }
 
     override fun initData() {

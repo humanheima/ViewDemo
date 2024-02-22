@@ -8,13 +8,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityEventDispatchBinding;
 import com.hm.viewdemo.widget.EventDispatchButton;
 import com.hm.viewdemo.widget.MyImageView;
 
-public class EventDispatchActivity extends BaseActivity {
+public class EventDispatchActivity extends BaseActivity<ActivityEventDispatchBinding> {
 
     private static final String TAG = "EventDispatchActivity";
 
@@ -28,8 +28,8 @@ public class EventDispatchActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_event_dispatch;
+    protected ActivityEventDispatchBinding createViewBinding() {
+        return ActivityEventDispatchBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -108,7 +108,7 @@ public class EventDispatchActivity extends BaseActivity {
                 action = "ACTION_MOVE";
                 break;
             case MotionEvent.ACTION_UP:
-               // Log.e(TAG, "dispatchTouchEvent ACTION_UP");
+                // Log.e(TAG, "dispatchTouchEvent ACTION_UP");
                 action = "ACTION_UP";
                 break;
         }
@@ -131,7 +131,7 @@ public class EventDispatchActivity extends BaseActivity {
                 action = "ACTION_MOVE";
                 break;
             case MotionEvent.ACTION_UP:
-               //Log.e(TAG, "onTouchEvent ACTION_UP");
+                //Log.e(TAG, "onTouchEvent ACTION_UP");
                 action = "ACTION_UP";
                 break;
         }

@@ -6,19 +6,17 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
+import com.hm.viewdemo.databinding.ActivityTestFuDanBinding;
 import com.hm.viewdemo.widget.NewsListView;
 import com.hm.viewdemo.widget.NoConsumeScrollView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class TestFuDanActivity extends BaseActivity {
+public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
 
     private static final String TAG = "TestFuDanActivity";
     @BindView(R.id.ll_news_list)
@@ -36,8 +34,8 @@ public class TestFuDanActivity extends BaseActivity {
     }
 
     @Override
-    protected int bindLayout() {
-        return R.layout.activity_test_fu_dan;
+    protected ActivityTestFuDanBinding createViewBinding() {
+        return ActivityTestFuDanBinding.inflate(getLayoutInflater());
     }
 
     @Override
@@ -64,7 +62,8 @@ public class TestFuDanActivity extends BaseActivity {
         llNewsList.post(new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "llNewsList height=" + llNewsList.getHeight() + ",scrollView height=" + scrollViewNews.getHeight());
+                Log.e(TAG, "llNewsList height=" + llNewsList.getHeight() + ",scrollView height="
+                        + scrollViewNews.getHeight());
                 int scrollViewHeight = scrollViewNews.getHeight();
                 int llNewsListHeight = llNewsList.getHeight();
                 if (llNewsListHeight > scrollViewHeight) {

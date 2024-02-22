@@ -17,7 +17,7 @@ class DrawPathView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private var mPaint: Paint? = null
+    private lateinit var mPaint: Paint
     private var mWidth = 0
     private var mHeight = 0
     private var currentValue = 0f // 用于纪录当前的位置,取值范围[0,1]映射Path的整个长度
@@ -62,6 +62,23 @@ class DrawPathView @JvmOverloads constructor(
         mCardBounds[bounds.left + mRawMaxShadowSize, bounds.top + verticalOffset, bounds.right - mRawMaxShadowSize] =
             bounds.bottom - verticalOffset
         //buildShadowCorners();
+    }
+
+    init {
+        initPaint()
+        primaryColor = resources.getColor(R.color.colorPrimary)
+        accentColor = resources.getColor(R.color.colorAccent)
+        mBitmap = BitmapFactory.decodeResource(resources, R.drawable.arrow)
+        mMatrix = Matrix()
+        tempWidth = dp2px(278f)
+        tempHeight = dp2px(150f)
+        mInsetShadow = dp2px(1f).toFloat()
+        mCornerRadius = dp2px(12f).toFloat()
+        mRawShadowSize = dp2px(16f).toFloat()
+        mRawMaxShadowSize = dp2px(16f).toFloat()
+        mShadowSize = SHADOW_MULTIPLIER * mRawMaxShadowSize + mInsetShadow + 0.5f
+        horizontalOffset = mRawMaxShadowSize
+        verticalOffset = mRawMaxShadowSize * SHADOW_MULTIPLIER
     }
 
     private fun initPaint() {
@@ -551,20 +568,4 @@ class DrawPathView @JvmOverloads constructor(
         private const val SHADOW_MULTIPLIER = 1.5f
     }
 
-    init {
-        initPaint()
-        primaryColor = resources.getColor(R.color.colorPrimary)
-        accentColor = resources.getColor(R.color.colorAccent)
-        mBitmap = BitmapFactory.decodeResource(resources, R.drawable.arrow)
-        mMatrix = Matrix()
-        tempWidth = dp2px(278f)
-        tempHeight = dp2px(150f)
-        mInsetShadow = dp2px(1f).toFloat()
-        mCornerRadius = dp2px(12f).toFloat()
-        mRawShadowSize = dp2px(16f).toFloat()
-        mRawMaxShadowSize = dp2px(16f).toFloat()
-        mShadowSize = SHADOW_MULTIPLIER * mRawMaxShadowSize + mInsetShadow + 0.5f
-        horizontalOffset = mRawMaxShadowSize
-        verticalOffset = mRawMaxShadowSize * SHADOW_MULTIPLIER
-    }
 }
