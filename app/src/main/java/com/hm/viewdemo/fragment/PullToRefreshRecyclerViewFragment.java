@@ -1,24 +1,18 @@
 package com.hm.viewdemo.fragment;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.brotherd.pullrefresh.PullToRefreshBase;
 import com.brotherd.pullrefresh.PullToRefreshRecyclerView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.RecycleViewAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class PullToRefreshRecyclerViewFragment extends Fragment {
 
@@ -26,9 +20,7 @@ public class PullToRefreshRecyclerViewFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.pr_recycler_view)
     PullToRefreshRecyclerView prRecyclerView;
-    Unbinder unbinder;
 
     private RecyclerView recyclerView;
     private RecycleViewAdapter adapter;
@@ -46,9 +38,9 @@ public class PullToRefreshRecyclerViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pull_to_refresh_recycler_view, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        prRecyclerView = (PullToRefreshRecyclerView) view.findViewById(R.id.pr_recycler_view);
         recyclerView = prRecyclerView.getRefreshableView();
         loadAllView = inflater.inflate(R.layout.item_load_all, null);
         dataList = new ArrayList<>();
@@ -63,8 +55,9 @@ public class PullToRefreshRecyclerViewFragment extends Fragment {
                     @Override
                     public void run() {
                         prRecyclerView.onRefreshComplete();
-                        if (adapter != null)
+                        if (adapter != null) {
                             adapter.removeFooterView();
+                        }
                         prRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
                         page = 1;
                         dataList.clear();
@@ -106,9 +99,4 @@ public class PullToRefreshRecyclerViewFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

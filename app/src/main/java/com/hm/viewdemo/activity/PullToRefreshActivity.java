@@ -10,7 +10,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import com.brotherd.pullrefresh.PullToRefreshBase;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
@@ -27,8 +26,6 @@ public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBin
         ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = "PullToRefreshActivity";
-    @BindView(R.id.pr_recycler_view)
-    com.brotherd.pullrefresh.PullToRefreshRecyclerView prRecyclerView;
     private RecyclerView recyclerView;
     //private RecycleViewAdapter adapter;
     private List<String> dataList;
@@ -52,7 +49,7 @@ public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBin
 
     @Override
     protected void initData() {
-        recyclerView = prRecyclerView.getRefreshableView();
+        recyclerView = binding.prRecyclerView.getRefreshableView();
         loadAllView = getLayoutInflater().inflate(R.layout.item_load_all, null);
         dataList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -100,17 +97,17 @@ public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBin
 
     @Override
     protected void bindEvent() {
-        prRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
+        binding.prRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                prRecyclerView.postDelayed(new Runnable() {
+                binding.prRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        prRecyclerView.onRefreshComplete();
+                        binding.prRecyclerView.onRefreshComplete();
                         if (adapter1 != null) {
                             adapter1.removeFooterView();
                         }
-                        prRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
+                        binding.prRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
                         page = 1;
                         dataList.clear();
                         for (int i = 0; i < 20; i++) {
@@ -123,10 +120,10 @@ public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBin
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                prRecyclerView.postDelayed(new Runnable() {
+                binding.prRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        prRecyclerView.onRefreshComplete();
+                        binding.prRecyclerView.onRefreshComplete();
                         if (page < 3) {
                             for (int i = 0; i < 12; i++) {
                                 dataList.add("string" + i);
@@ -134,17 +131,17 @@ public class PullToRefreshActivity extends BaseActivity<ActivityPullToRefreshBin
                             page++;
                             adapter1.notifyDataSetChanged();
                         } else {
-                            prRecyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                            binding.prRecyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                             adapter1.addFooterView(loadAllView);
                         }
                     }
                 }, 2000);
             }
         });
-        prRecyclerView.postDelayed(new Runnable() {
+        binding.prRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                prRecyclerView.setRefreshing();
+                binding.prRecyclerView.setRefreshing();
             }
         }, 300);
     }

@@ -11,20 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.BindView;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.databinding.ActivityHorizontalVerticalConflictBinding;
 import com.hm.viewdemo.util.MyUtils;
-import com.hm.viewdemo.widget.HorizontalScrollViewEx;
 import java.util.ArrayList;
 
 public class HorizontalVerticalConflictActivity extends BaseActivity<ActivityHorizontalVerticalConflictBinding> {
 
     private final String TAG = getClass().getSimpleName();
-
-    @BindView(R.id.horizontalScrollViewEx)
-    HorizontalScrollViewEx horizontalScrollViewEx;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, HorizontalVerticalConflictActivity.class);
@@ -42,13 +37,13 @@ public class HorizontalVerticalConflictActivity extends BaseActivity<ActivityHor
         int screenHeight = MyUtils.getScreenMetrics(this).heightPixels;
         for (int i = 0; i < 3; i++) {
             ViewGroup layout = (ViewGroup) LayoutInflater.from(this)
-                    .inflate(R.layout.content_layout, horizontalScrollViewEx, false);
+                    .inflate(R.layout.content_layout, binding.horizontalScrollViewEx, false);
             layout.getLayoutParams().width = screenWidth;
             layout.setBackgroundColor(Color.rgb(255 / (i + 1), 255 / (i + 1), 0));
             TextView textView = layout.findViewById(R.id.title);
             textView.setText("page" + (i + 1));
             createList(layout);
-            horizontalScrollViewEx.addView(layout);
+            binding.horizontalScrollViewEx.addView(layout);
         }
     }
 

@@ -1,19 +1,14 @@
 package com.hm.viewdemo.adapter;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.hm.viewdemo.R;
+import androidx.recyclerview.widget.RecyclerView;
+import com.hm.viewdemo.databinding.ItemDragSlopBinding;
 import com.hm.viewdemo.inter.OnItemClickListener;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by dumingwei on 2017/3/12.
@@ -38,8 +33,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        if (footerView != null)
+        if (footerView != null) {
             return dataList.size() + 1;
+        }
         return dataList.size();
     }
 
@@ -56,8 +52,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (viewType == FOOT_VIEW_TYPE) {
             return new SpecialHolder(footerView);
         } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_drag_slop, parent, false);
-            return new VH(view);
+            ItemDragSlopBinding binding = ItemDragSlopBinding.inflate(LayoutInflater.from(context), parent, false);
+            return new VH(binding);
         }
     }
 
@@ -107,12 +103,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class VH extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_text_book_name)
         TextView text1;
 
-        public VH(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        public VH(ItemDragSlopBinding itemDragSlopBinding) {
+            super(itemDragSlopBinding.getRoot());
+            text1 = itemDragSlopBinding.itemTextBookName;
+
         }
     }
 

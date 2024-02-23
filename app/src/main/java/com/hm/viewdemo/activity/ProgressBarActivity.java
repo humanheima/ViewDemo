@@ -5,12 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import butterknife.BindView;
-import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.databinding.ActivityProgressBarBinding;
 import java.lang.ref.WeakReference;
@@ -23,17 +17,7 @@ import java.lang.ref.WeakReference;
  */
 public class ProgressBarActivity extends BaseActivity<ActivityProgressBarBinding> {
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-    @BindView(R.id.text_progress)
-    TextView textProgress;
-
     private MyHandler handler;
-
-    private RatingBar ratingBar;
-
-    private Button btnChangeRating;
-
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, ProgressBarActivity.class);
@@ -66,13 +50,10 @@ public class ProgressBarActivity extends BaseActivity<ActivityProgressBarBinding
             }
         }).start();
 
-        ratingBar = findViewById(R.id.rating_bar);
-        btnChangeRating = findViewById(R.id.btn_change_rate);
-
-        btnChangeRating.setOnClickListener(new View.OnClickListener() {
+        binding.btnChangeRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ratingBar.setRating(3.5f);
+                binding.ratingBar.setRating(3.5f);
             }
         });
     }
@@ -89,8 +70,8 @@ public class ProgressBarActivity extends BaseActivity<ActivityProgressBarBinding
         public void handleMessage(Message msg) {
             ProgressBarActivity activity = ((ProgressBarActivity) weakActivity.get());
             if (activity != null) {
-                activity.progressBar.setProgress(msg.arg1);
-                activity.textProgress.setText(msg.arg1 + "%");
+                activity.binding.progressBar.setProgress(msg.arg1);
+                activity.binding.textProgress.setText(msg.arg1 + "%");
             }
         }
     }

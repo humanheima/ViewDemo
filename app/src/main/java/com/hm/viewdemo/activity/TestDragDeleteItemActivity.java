@@ -15,9 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.hm.viewdemo.R;
+import com.hm.viewdemo.databinding.ItemDragDeleteBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,8 +88,8 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_drag_delete, parent, false);
-            return new VH(view);
+            ItemDragDeleteBinding binding = ItemDragDeleteBinding.inflate(LayoutInflater.from(context), parent, false);
+            return new VH(binding);
         }
 
         @Override
@@ -123,22 +122,17 @@ public class TestDragDeleteItemActivity extends AppCompatActivity {
 
         class VH extends RecyclerView.ViewHolder {
 
-            @BindView(R.id.item_image_book)
             ImageView itemImageBook;
-            @BindView(R.id.item_text_book_name)
-            TextView itemTextBookName;
-            @BindView(R.id.item_text_book_isbn)
             TextView itemTextBookIsbn;
-            @BindView(R.id.item_rl_book_top)
-            RelativeLayout itemRlBookTop;
-            @BindView(R.id.item_ll_content)
             RelativeLayout itemLlContent;
-            @BindView(R.id.item_text_remove)
             TextView itemTextRemove;
 
-            public VH(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
+            public VH(ItemDragDeleteBinding binding) {
+                super(binding.getRoot());
+                itemImageBook = binding.itemImageBook;
+                itemTextBookIsbn = binding.itemTextBookIsbn;
+                itemLlContent = binding.itemLlContent;
+                itemTextRemove = binding.itemTextRemove;
             }
         }
     }

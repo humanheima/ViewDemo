@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
-import butterknife.BindView;
-import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.CustomExpandableListAdapter;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.databinding.ActivityExpandableListViewBinding;
@@ -21,8 +19,6 @@ public class ExpandableListViewActivity extends BaseActivity<ActivityExpandableL
             {"贾宝玉", "林黛玉", "薛宝钗", "王熙凤"}
     };
 
-    @BindView(R.id.expandable_listview)
-    ExpandableListView expandableListview;
     private CustomExpandableListAdapter adapter;
 
     public static void launch(Context context) {
@@ -38,7 +34,7 @@ public class ExpandableListViewActivity extends BaseActivity<ActivityExpandableL
     @Override
     protected void initData() {
         adapter = new CustomExpandableListAdapter(this, groupStrings, childStrings);
-        expandableListview.setAdapter(adapter);
+        binding.expandableListview.setAdapter(adapter);
        /* expandableListview.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
@@ -46,21 +42,21 @@ public class ExpandableListViewActivity extends BaseActivity<ActivityExpandableL
                 return false;
             }
         });*/
-        expandableListview.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+        binding.expandableListview.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "合并",
                         Toast.LENGTH_SHORT).show();
             }
         });
-        expandableListview.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        binding.expandableListview.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
                 Toast.makeText(ExpandableListViewActivity.this, groupStrings[groupPosition] + "展开",
                         Toast.LENGTH_SHORT).show();
             }
         });
-        expandableListview.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        binding.expandableListview.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition,
                     long id) {

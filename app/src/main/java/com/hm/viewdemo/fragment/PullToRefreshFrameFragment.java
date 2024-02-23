@@ -1,37 +1,29 @@
 package com.hm.viewdemo.fragment;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.brotherd.pullrefresh.OnCheckCanDoRefreshListener;
 import com.brotherd.pullrefresh.PullToRefreshBase;
 import com.brotherd.pullrefresh.PullToRefreshFrameLayout;
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.adapter.RecycleViewAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class PullToRefreshFrameFragment extends Fragment {
 
     private static final String TAG = "PullToRefreshFrameFragm";
 
-    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.pull_to_refresh_frame_layout)
     PullToRefreshFrameLayout prLayout;
-    Unbinder unbinder;
 
     private RecycleViewAdapter adapter;
     private List<String> dataList;
@@ -53,9 +45,10 @@ public class PullToRefreshFrameFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pull_to_refresh_frame, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        prLayout = view.findViewById(R.id.pull_to_refresh_frame_layout);
+        recyclerView = view.findViewById(R.id.recycler_view);
         loadAllView = inflater.inflate(R.layout.item_load_all, null);
         dataList = new ArrayList<>();
         l = new LinearLayoutManager(getActivity());
@@ -90,8 +83,9 @@ public class PullToRefreshFrameFragment extends Fragment {
         prLayout.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<FrameLayout>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<FrameLayout> refreshView) {
-                if (adapter != null)
+                if (adapter != null) {
                     adapter.removeFooterView();
+                }
                 page = 1;
                 dataList.clear();
                 for (int i = 0; i < 20; i++) {
@@ -169,15 +163,7 @@ public class PullToRefreshFrameFragment extends Fragment {
             }
         }, 200);
 //        prLayout.setRefreshing();
-
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        prLayout.onRefreshComplete();
-        unbinder.unbind();
     }
 
 }

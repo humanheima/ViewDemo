@@ -1,13 +1,11 @@
 package com.hm.viewdemo.activity.design
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.frag_tablayout.*
+import kotlinx.android.synthetic.main.frag_tablayout.text_fragment
 
 /**
  * Created by dumingwei on 2020/4/28
@@ -36,9 +34,7 @@ class TabLayoutFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments!!.getString(ARG_PARAM1)
-        }
+        mParam1 = arguments?.getString(ARG_PARAM1)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,10 +42,11 @@ class TabLayoutFragment : androidx.fragment.app.Fragment() {
         text_fragment.text = mParam1
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.frag_tablayout, container, false)
-        ButterKnife.bind(this, view)
         return view
     }
 

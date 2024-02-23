@@ -37,4 +37,5 @@ ext {
     minSdkVersion = 23
     targetSdkVersion = 31
     bufferKnifeVersion = "8.5.1"
+    glideVersion = "4.16.0"
 }

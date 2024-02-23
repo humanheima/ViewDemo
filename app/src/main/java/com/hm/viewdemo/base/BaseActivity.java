@@ -3,7 +3,6 @@ package com.hm.viewdemo.base;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewbinding.ViewBinding;
-import butterknife.ButterKnife;
 import com.hm.viewdemo.widget.LoadingDialog;
 
 /**
@@ -21,7 +20,6 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         super.onCreate(savedInstanceState);
         binding = createViewBinding();
         setContentView(binding.getRoot());
-        ButterKnife.bind(this);
         initData();
         bindEvent();
     }

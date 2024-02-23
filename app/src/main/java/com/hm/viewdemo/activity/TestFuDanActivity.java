@@ -5,24 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.OnClick;
-import com.hm.viewdemo.R;
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.databinding.ActivityTestFuDanBinding;
 import com.hm.viewdemo.widget.NewsListView;
-import com.hm.viewdemo.widget.NoConsumeScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
 
     private static final String TAG = "TestFuDanActivity";
-    @BindView(R.id.ll_news_list)
-    LinearLayout llNewsList;
-    @BindView(R.id.scroll_view_news)
-    NoConsumeScrollView scrollViewNews;
     private List<String> newsList;
     private ObjectAnimator newsListAnimator;
 
@@ -40,8 +31,8 @@ public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
 
     @Override
     protected void initData() {
-        scrollViewNews.setFocusable(false);
-        scrollViewNews.setEnabled(false);
+        binding.scrollViewNews.setFocusable(false);
+        binding.scrollViewNews.setEnabled(false);
         newsList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             if (i % 2 == 0) {
@@ -50,6 +41,10 @@ public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
                 newsList.add("Abnormal");
             }
         }
+        binding.btnReset.setOnClickListener(v -> {
+                    back();
+                }
+        );
         initRightNews();
     }
 
@@ -57,19 +52,19 @@ public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
         for (String news : newsList) {
             NewsListView view = new NewsListView(this);
             view.setData(news, news);
-            llNewsList.addView(view);
+            binding.llNewsList.addView(view);
         }
-        llNewsList.post(new Runnable() {
+        binding.llNewsList.post(new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "llNewsList height=" + llNewsList.getHeight() + ",scrollView height="
-                        + scrollViewNews.getHeight());
-                int scrollViewHeight = scrollViewNews.getHeight();
-                int llNewsListHeight = llNewsList.getHeight();
+                Log.e(TAG, "llNewsList height=" + binding.llNewsList.getHeight() + ",scrollView height="
+                        + binding.scrollViewNews.getHeight());
+                int scrollViewHeight = binding.scrollViewNews.getHeight();
+                int llNewsListHeight = binding.llNewsList.getHeight();
                 if (llNewsListHeight > scrollViewHeight) {
                     int multiple = llNewsListHeight / scrollViewHeight;
                     int diff = llNewsListHeight - scrollViewHeight;
-                    newsListAnimator = ObjectAnimator.ofFloat(llNewsList, "translationY", 0, -diff);
+                    newsListAnimator = ObjectAnimator.ofFloat(binding.llNewsList, "translationY", 0, -diff);
                     //newsListAnimator.setDuration(multiple * CHANGE_RIGHT_NEWS_DELAY);
                     newsListAnimator.setDuration(3000);
                     //newsListAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -86,10 +81,9 @@ public class TestFuDanActivity extends BaseActivity<ActivityTestFuDanBinding> {
         });
     }
 
-    @OnClick(R.id.btn_reset)
     void back() {
-        llNewsList.removeAllViews();
-        llNewsList.invalidate();
+        binding.llNewsList.removeAllViews();
+        binding.llNewsList.invalidate();
         //initRightNews();
     }
 
