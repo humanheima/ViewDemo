@@ -3,12 +3,10 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,7 +17,9 @@ import com.bumptech.glide.request.transition.Transition
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
-import kotlinx.android.synthetic.main.activity_palette.*
+import kotlinx.android.synthetic.main.activity_palette.btnChangeIv
+import kotlinx.android.synthetic.main.activity_palette.ivBitmap
+import kotlinx.android.synthetic.main.activity_palette.rvColor
 
 /**
  * Created by dumingwei on 2020/6/18
@@ -61,6 +61,8 @@ class PaletteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_palette)
 
+        drawableList.add(R.drawable.test_palette)
+        drawableList.add(R.drawable.test_palette2)
         drawableList.add(R.drawable.balloon)
         drawableList.add(R.drawable.ic_soft_avatar)
         drawableList.add(R.drawable.ic_dog)
@@ -68,7 +70,7 @@ class PaletteActivity : AppCompatActivity() {
         rvColor.layoutManager = LinearLayoutManager(this)
         rvColor.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         rvColor.adapter = baseRvAdapter
-        changeImage(R.drawable.balloon)
+        changeImage(R.drawable.test_palette)
 
         btnChangeIv.setOnClickListener {
             var tempIndex = ++index
@@ -86,74 +88,126 @@ class PaletteActivity : AppCompatActivity() {
                 list.clear()
                 Palette.from(resource).generate {
 
-                    it?.swatches?.forEach { swatch ->
-                        list.add(swatch.rgb)
-                        val hsl = swatch.hsl
-                        list.add(adapterC1Color(hsl))
-                        list.add(adapterC2Color(hsl))
-                        list.add(adapterC3Color(hsl))
-                        list.add(swatch.bodyTextColor)
-                        list.add(swatch.titleTextColor)
+                    it?.mutedSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
+                    it?.darkMutedSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
                     }
 
-                    val color1 = it?.getDarkMutedColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color2 = it?.getDarkVibrantColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color3 = it?.getDominantColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color4 = it?.getLightMutedColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color5 = it?.getLightVibrantColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color6 = it?.getMutedColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
-                    val color7 = it?.getVibrantColor(
-                        ContextCompat.getColor(
-                            this@PaletteActivity,
-                            R.color.colorPrimary
-                        )
-                    ) ?: Color.RED
+                    it?.lightMutedSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
+
+                    it?.vibrantSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
+
+                    it?.darkVibrantSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
+
+                    it?.lightVibrantSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
+
+                    it?.dominantSwatch?.let { swatch ->
+                        val color = convertToBgColor(swatch.hsl)
+                        list.add(color)
+                    }
 
 
-
-                    list.add(color1)
-                    list.add(color2)
-                    list.add(color3)
-                    list.add(color4)
-                    list.add(color5)
-                    list.add(color6)
-                    list.add(color7)
+//                    it?.swatches?.forEach { swatch ->
+//                        list.add(swatch.rgb)
+//                        val hsl = swatch.hsl
+//                        list.add(adapterC1Color(hsl))
+//                        list.add(adapterC2Color(hsl))
+//                        list.add(adapterC3Color(hsl))
+//                        list.add(swatch.bodyTextColor)
+//                        list.add(swatch.titleTextColor)
+//                    }
+//
+//                    val color1 = it?.getDarkMutedColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color2 = it?.getDarkVibrantColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color3 = it?.getDominantColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color4 = it?.getLightMutedColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color5 = it?.getLightVibrantColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color6 = it?.getMutedColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//                    val color7 = it?.getVibrantColor(
+//                        ContextCompat.getColor(
+//                            this@PaletteActivity,
+//                            R.color.colorPrimary
+//                        )
+//                    ) ?: Color.RED
+//
+//
+//
+//                    list.add(color1)
+//                    list.add(color2)
+//                    list.add(color3)
+//                    list.add(color4)
+//                    list.add(color5)
+//                    list.add(color6)
+//                    list.add(color7)
 
                     baseRvAdapter.notifyDataSetChanged()
 
                 }
             }
         })
+    }
+
+
+    /**
+     * 转换的颜色做背景色使用
+     *
+     * @param hsl
+     * @return
+     */
+    private fun convertToBgColor(hsl: FloatArray): Int {
+        val h = hsl[0]
+        var s = hsl[1]
+        var l = hsl[2]
+        Log.i(TAG, "convertToBgColor: h = $h, s = $s, l = $l")
+        s = 0.52f
+        l = 0.32f
+        return ColorUtils.HSLToColor(floatArrayOf(h, s, l))
     }
 
 
@@ -167,6 +221,7 @@ class PaletteActivity : AppCompatActivity() {
             s >= 0.2f -> {
                 0.2f
             }
+
             else -> {
                 s
             }
@@ -175,6 +230,7 @@ class PaletteActivity : AppCompatActivity() {
             l >= 0.4f -> {
                 0.4f
             }
+
             else -> {
                 l
             }
@@ -192,6 +248,7 @@ class PaletteActivity : AppCompatActivity() {
             l <= 0.9f -> {
                 0.9f
             }
+
             else -> {
                 l
             }
@@ -209,6 +266,7 @@ class PaletteActivity : AppCompatActivity() {
             s >= 0.12f -> {
                 0.12f
             }
+
             else -> {
                 s
             }
