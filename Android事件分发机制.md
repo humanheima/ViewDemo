@@ -1,15 +1,59 @@
-1.点击事件发生后，事件先传到Activity、再传到ViewGroup、最终再传到 View。要想充分理解Android分发机制，本质上是要理解： 
+结论：
+
+事件发生后，事件先传到Activity、再传到ViewGroup、最终再传到 View。要想充分理解Android分发机制，本质上是要理解：
 
 * Activity对点击事件的分发机制
 * ViewGroup对点击事件的分发机制
 * View对点击事件的分发机制
+
+* ViewGroup默认是不拦截事件的。如果想拦截事件，可以重写 ViewGroup 的 onInterceptTouchEvent方法拦截需要的事件，如下所示：
+
+```kotlin
+override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+    when (ev.action) {
+        //拦截你想拦截的事件。
+        MotionEvent.ACTION_DOWN -> return true
+        //MotionEvent.ACTION_MOVE -> return true
+        //MotionEvent.ACTION_UP -> return true
+    }
+    val onInterceptTouchEvent = super.onInterceptTouchEvent(ev)
+    return onInterceptTouchEvent
+}
+```
+
+**注意**：如果你拦截了事件，那么要记得在 onTouchEvent 方法中，把你拦截的事件消费掉。例如消费ACTION_DOWN 事件。
+```
+override fun onTouchEvent(event: MotionEvent): Boolean {
+    when (event.action) {
+        MotionEvent.ACTION_DOWN -> {
+            Log.i(TAG, "onTouchEvent: ACTION_DOWN")
+            return true
+        }
+    }
+    return super.onTouchEvent(event)
+}
+```
+* 子View可以重写 dispatchTouchEvent 方法，或者 onTouch 方法，请求父控件不给父控件的 `mGroupFlags` 添加 `FLAG_DISALLOW_INTERCEPT` 来让父控件不要拦截事件，如下所示：
+
+```kotlin
+override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        getParent().requestDisallowInterceptTouchEvent(true);
+    }
+    return super.dispatchTouchEvent(event)
+}
+```
+
+**但是要注意一点：**对于ACTION_DOWN事件，父View会先清除这个标记位，父控件的 `onInterceptTouchEvent` 方法总是会被调用。onInterceptTouchEvent被调用不等于拦截事件，具体看onInterceptTouchEvent方法里是否做了拦截事件的逻辑。
+
+
 
 ### Activity的事件分发机制
 当一个点击事件发生时，事件最先传到 ```Activity``` 的 ```dispatchTouchEvent()``` 进行事件分发
 
 Activity的dispatchTouchEvent方法
 
-```java
+```
 public boolean dispatchTouchEvent(MotionEvent ev) {
     //注释1 ，先调用Window的superDispatchTouchEvent方法
     if (getWindow().superDispatchTouchEvent(ev)) {
@@ -25,7 +69,7 @@ Activity首先将事件交给Window进行分发，如果返回true，那么这�
 注释1处，获取当前Activity的window对象，Window类是抽象类，其唯一实现类是PhoneWindow类；
 
 PhoneWindow类的superDispatchTouchEvent()方法
-```java
+```
 @Override
 public boolean superDispatchTouchEvent(MotionEvent event) {
     //调用DecorView的superDispatchTouchEvent方法
@@ -35,7 +79,7 @@ public boolean superDispatchTouchEvent(MotionEvent event) {
 ```
 DecorView的superDispatchTouchEvent方法
 
-```java
+```
 /**
  * 
  * a. DecorView类是PhoneWindow类的一个内部类
@@ -49,7 +93,7 @@ public boolean superDispatchTouchEvent(MotionEvent event) {
 
 ```
 
-```java
+```
 private final class DecorView extends FrameLayout implements RootViewSurfaceTaker {
     
 }
@@ -61,16 +105,16 @@ FrameLayout并没有覆盖ViewGroup的dispatchTouchEvent()方法，所以这个�
 ### ViewGroup的事件分发机制
 
 点击事件到达ViewGroup以后，会调用ViewGroup的dispatchTouchEvent方法，然后逻辑是这样的：
-1. 如果顶级ViewGroup拦截事件，即onInterceptTouchEvent方法返回true，那么事件就由ViewGroup处理。注意，ViewGroup的`onInterceptTouchEvent`方法默认是返回false的。
+1. 如果顶级ViewGroup拦截事件，即onInterceptTouchEvent方法返回true，那么事件就由ViewGroup处理。注意，ViewGroup的onInterceptTouchEvent方法默认是返回false的。
 2. 如果ViewGroup设置了OnTouchListener，则OnTouchListener的onTouch回调方法会被调用。如果OnTouchListener的onTouch回调方法返回true，事件分发结束。如果OnTouchListener的onTouch回调方法返回false，那么ViewGroup的onTouchEvent方法会被调用。
 3. 如果ViewGroup设置了OnClickListener，在ViewGroup的onTouchEvent方法中，OnClickListener的onClick回调会被调用。
 
 4. 如果ViewGroup不拦截事件，则事件会传递给它的子View，这时子View
-的dispatchTouchEvent方法会被调用。如果子View是一个View的时候，这个时候事件分发就到View了。
+   的dispatchTouchEvent方法会被调用。如果子View是一个View的时候，这个时候事件分发就到View了。
 
 下面我们看一下ViewGroup的dispatchTouchEvent方法的部分代码逻辑
 
-```java
+```
 @Override
 public boolean dispatchTouchEvent(MotionEvent ev) {
        
@@ -194,7 +238,7 @@ public boolean dispatchTouchEvent(MotionEvent ev) {
 ```
 
 注释2处，调用了resetTouchState方法
-```java
+```
 private void resetTouchState() {
     clearTouchTargets();
     resetCancelNextUpFlag(this);
@@ -203,13 +247,13 @@ private void resetTouchState() {
     mNestedScrollAxes = SCROLL_AXIS_NONE;
 }
 ```
-在每次down事件到来的时候，都会调用该方法，重置所有的状态准备新一轮的触摸事件分发。ViewGroup的是否允许拦截的标志也会被重新置为允许拦截。也就是说如果是down事件，ViewGroup总是会调用onInterceptTouchEvent方法。但是ViewGroup的`onInterceptTouchEvent`方法默认是返回false的。
+在每次down事件到来的时候，都会调用该方法，重置所有的状态准备新一轮的触摸事件分发。ViewGroup的是否允许拦截的标志也会被重新置为允许拦截。也就是说如果是down事件，ViewGroup总是会调用onInterceptTouchEvent方法。但是ViewGroup的onInterceptTouchEvent方法默认是返回false的。
 
 注释3处，ViewGroup会在`actionMasked == MotionEvent.ACTION_DOWN || mFirstTouchTarget != null`的情况下判断是否要拦截事件。`mFirstTouchTarget != null`是什么意思呢？当事件由ViewGroup的子元素成功处理时，mFirstTouchTarget会被赋值并指向该子元素。
 
 我们看一下这段代码
 
-```java
+```
  if (actionMasked == MotionEvent.ACTION_DOWN || mFirstTouchTarget != null) {
     //检查是否不允许拦截事件
     final boolean disallowIntercept = (mGroupFlags & FLAG_DISALLOW_INTERCEPT) != 0;
@@ -223,7 +267,7 @@ private void resetTouchState() {
 ```
 如果子View通过调用ViewGroup的requestDisallowInterceptTouchEvent方法，将是否允许ViewGroup拦截事件的标记置为FLAG_DISALLOW_INTERCEPT，那么说明此时子View想要处理事件，ViewGroup将不会拦截事件(down事件也不会拦截)，而是将事件交给子View处理。
 
-```java
+```
 @Override
 public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
@@ -246,30 +290,32 @@ public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
 ```
 
-如果 `mFirstTouchTarget != null` 条件满足，move，up，事件到来，如果没有将ViewGroup拦截事件的标记置为FLAG_DISALLOW_INTERCEPT，那么还是允许ViewGroup拦截事件的，即还会走到onInterceptTouchEvent方法里。我们看看这个方法做了什么。
+如果mFirstTouchTarget != null条件满足，move，up，事件到来，如果没有将ViewGroup拦截事件的标记置为FLAG_DISALLOW_INTERCEPT，那么还是允许ViewGroup拦截事件的，即还会走到onInterceptTouchEvent方法里。我们看看这个方法做了什么。
 
-```java
+```
 public boolean onInterceptTouchEvent(MotionEvent ev) {
     if (ev.isFromSource(InputDevice.SOURCE_MOUSE)
             && ev.getAction() == MotionEvent.ACTION_DOWN
             && ev.isButtonPressed(MotionEvent.BUTTON_PRIMARY)
             && isOnScrollbarThumb(ev.getX(), ev.getY())) {
+        //默认是不会返回true的。
         return true;
     }
     return false;
 }
 ```
 这里我们注意：
-* onInterceptTouchEvent方法并没有处理move和up事件的逻辑，这里也说明了一点：ViewGroup默认是不拦截move和up事件的。
-* 默认情况下，即使是down事件，这个方法返回的也是false。
+* onInterceptTouchEvent方法并没有处理move和up事件的逻辑，这里也说明ViewGroup默认是不拦截move和up事件的。
+* 默认情况下，即使是down事件，这个方法返回的也是false，这点要格外注意。
 * 如果ViewGroup想要拦截事件的话需要重写这方法，比如`RecyclerView`。
+
 
 注释6 处开始遍历子View，查找是否有子View可以接收事件。
 注释7处，如果子View不能接收事件，就continue。
 注释8处，获取处理者，如果已经存在处理者，就跳出循环。
 注释9处，调用dispatchTransformedTouchEvent方法，将事件交给子View处理，传入的第三个参数child不为null。
 
-```java
+```
 private boolean dispatchTransformedTouchEvent(MotionEvent event, boolean cancel,
             View child, int desiredPointerIdBits) {
     //...
@@ -311,63 +357,29 @@ private TouchTarget addTouchTarget(View child, int pointerIdBits) {
 ### View的事件分发机制
 ```java
 public boolean dispatchTouchEvent(MotionEvent event) {
-        
-        boolean result = false;
-        //...
-
-        if (onFilterTouchEventForSecurity(event)) {
-            if ((mViewFlags & ENABLED_MASK) == ENABLED && handleScrollBarDragging(event)) {
-                result = true;
-            }
-            //noinspection SimplifiableIfStatement
-            ListenerInfo li = mListenerInfo;
-            //注释1处，调用mOnTouchListener的onTouch
-            if (li != null && li.mOnTouchListener != null
-                    && (mViewFlags & ENABLED_MASK) == ENABLED
-                    && li.mOnTouchListener.onTouch(this, event)) {
-                result = true;
-            }
-            //注释2处
-            if (!result && onTouchEvent(event)) {
-                result = true;
-            }
+    boolean result = false;
+    //...
+    if(onFilterTouchEventForSecurity(event)) {
+        if((mViewFlags & ENABLED_MASK) == ENABLED && handleScrollBarDragging(event)) {
+            result = true;
         }
-        //...
-        return result;
+        //noinspection SimplifiableIfStatement
+        ListenerInfo li = mListenerInfo;
+        //注释1处，调用mOnTouchListener的onTouch
+        if(li != null && li.mOnTouchListener != null && (mViewFlags & ENABLED_MASK) == ENABLED && li.mOnTouchListener
+            .onTouch(this, event)) {
+            result = true;
+        }
+        //注释2处
+        if(!result && onTouchEvent(event)) {
+            result = true;
+        }
     }
-
+    //...
+    return result;
+}
 ```
 注释1处，如果View设置了OnTouchListener，则OnTouchListener的onTouch回调方法会被调用。如果OnTouchListener的onTouch回调方法返回true，事件分发结束。如果OnTouchListener的onTouch回调方法返回false，那么View的onTouchEvent方法会被调用。
 
-注释2处，调用onTouchEvent方法。
-
-```java
-@Override
-public boolean onTouchEvent(MotionEvent event) {
-    String action = "";
-    switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            Log.i(TAG, "onTouchEvent ACTION_DOWN");
-            action = "ACTION_DOWN";
-            break;
-        case MotionEvent.ACTION_MOVE:
-            Log.i(TAG, "onTouchEvent ACTION_MOVE");
-            action = "ACTION_MOVE";
-            break;
-        case MotionEvent.ACTION_UP:
-            Log.i(TAG, "onTouchEvent ACTION_UP");
-            action = "ACTION_UP";
-            break;
-    }
-    //注释1处
-    boolean handled = super.onTouchEvent(event);
-    Log.i(TAG, "onTouchEvent: action = " + action + " handled = " + handled);
-    return handled;
-}
-```
-
-注释1处，`super.onTouchEvent(event)`默认是返回false。当`ACTION_DOWN`的时候，如果我们返回了false，后续是不会收到`ACTION_MOVE`和`ACTION_UP`事件的。
-
-
-
-如果View设置了OnClickListener，在View的onTouchEvent方法中，OnClickListener的onClick回调会被调用。
+注释2处，调用onTouchEvent方法。如果View设置了OnClickListener，在View的onTouchEvent方法中在 case
+MotionEvent.ACTION_UP:的时候，OnClickListener的onClick回调会被调用。

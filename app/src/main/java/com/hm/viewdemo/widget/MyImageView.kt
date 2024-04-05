@@ -8,6 +8,11 @@ import android.widget.ImageView
 
 class MyImageView : ImageView {
 
+    companion object {
+
+        private val TAG = "MyImageView"
+    }
+
     constructor(context: Context) : super(context) {}
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
@@ -20,11 +25,6 @@ class MyImageView : ImageView {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         Log.i(TAG, "onTouchEvent: ${event.action}")
         return true
-    }
-
-    companion object {
-
-        private val TAG = "MyImageView"
     }
 
 }
