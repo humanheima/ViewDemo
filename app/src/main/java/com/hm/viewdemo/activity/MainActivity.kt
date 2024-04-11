@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
+import android.content.res.AssetManager
 import android.os.Debug
 import android.os.Environment
 import android.util.Log
@@ -99,6 +100,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
         chatThreeAvatarView?.setAvatarList(avatarList)
 
         ScreenUtil.printDisplayMetricsInfo(this)
+
+        val string:String?=null
+        string?.let {
+
+        }
+
     }
 
     fun onClick(view: View) {
@@ -297,6 +304,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
 
             R.id.btnTestCancelEVent -> {
+
+                val assetManager = AssetManager::class.java.newInstance()
                 TestCancelEventActivity.launch(this)
             }
 
