@@ -3,16 +3,18 @@ package com.hm.viewdemo.activity.design
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_tab_layout.*
+import kotlinx.android.synthetic.main.activity_tab_layout.tabLayout
+import kotlinx.android.synthetic.main.activity_tab_layout.viewPager2
 
 
 /**
@@ -22,10 +24,15 @@ import kotlinx.android.synthetic.main.activity_tab_layout.*
  */
 class TabLayoutActivity : AppCompatActivity() {
 
-    private val fragments: ArrayList<androidx.fragment.app.Fragment> = arrayListOf()
+    private val fragments: ArrayList<Fragment> = arrayListOf()
 
     private val datas: ArrayList<MockData> = arrayListOf()
 
+    private var tabLayoutMediator: TabLayoutMediator? = null
+
+    private var btnChangeDataset: Button? = null
+
+    private var adapter: FragmentStateAdapter? = null
 
     companion object {
 
@@ -60,47 +67,97 @@ class TabLayoutActivity : AppCompatActivity() {
             tabLayout.addTab(tab)
         }
 
-        viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
-            override fun getItem(position: Int): androidx.fragment.app.Fragment {
+        adapter = object : FragmentStateAdapter(this) {
+
+            override fun getItemCount(): Int {
+                return fragments.size
+            }
+
+            override fun createFragment(position: Int): Fragment {
                 return fragments[position]
             }
 
-            override fun getCount(): Int {
-                return fragments.size
-            }
+
         }
 
+        viewPager2.adapter = adapter
+
+
+        tabLayoutMediator = TabLayoutMediator(
+            tabLayout,
+            viewPager2,
+            object : TabLayoutMediator.TabConfigurationStrategy {
+                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                    val mockData = datas[position]
+                    if (mockData.resId == -1) {
+                        val view = LayoutInflater.from(this@TabLayoutActivity)
+                            .inflate(R.layout.custom_tablayout_text, null)
+                        view.findViewById<TextView>(R.id.tvText).setText(mockData.text)
+                        tab.setCustomView(view)
+                        view.background = getDrawable(R.drawable.bg_f96300_radius_23)
+
+                    } else {
+                        val view = LayoutInflater.from(this@TabLayoutActivity)
+                            .inflate(R.layout.custom_tablayout_image, null)
+                        view.findViewById<ImageView>(R.id.ivImage).setImageResource(mockData.resId)
+                        tab.setCustomView(view)
+                    }
+                }
+
+            })
+
+        tabLayoutMediator?.attach()
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-            override fun onTabReselected(p0: TabLayout.Tab?) {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
                 //do nothing
+
             }
 
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
                 //do nothing
+                val view = tab?.customView
+                if (view is TextView) {
+                    view.textSize = 14f
+                    view.setTextColor(resources.getColor(R.color.colorPrimary))
+                }
+                view?.background = getDrawable(R.drawable.bg_f96300_radius_23)
             }
 
-            override fun onTabSelected(tab: TabLayout.Tab) {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
                 //得到当前选中的tab的位置，切换相应的fragment
-                val nowPosition: Int = tab.position
-                viewPager.currentItem = nowPosition
+                //val nowPosition: Int = tab.position
+                //viewPager.currentItem = nowPosition
+
+                val view = tab?.customView
+                if (view is TextView) {
+                    view.textSize = 20f
+                    view.setTextColor(resources.getColor(R.color.colorAccent))
+                }
+                view?.background = getDrawable(R.drawable.bg_gradient_ffea90_fcbe2d_radius_23)
             }
+
 
         })
-        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-                //do nothing
+
+        tabLayout.selectTab(null)
+
+
+        btnChangeDataset = findViewById(R.id.btn_change_dataset)
+
+        btnChangeDataset?.setOnClickListener {
+            datas.clear()
+            fragments.clear()
+            for (i in 0 until 3) {
+                datas.add(MockData("标题$i"))
+                fragments.add(TabLayoutFragment.newInstance("第${i}个fragment"))
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-                //do nothing
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                tabLayout.getTabAt(position)?.select()
-            }
-        })
+            adapter?.notifyDataSetChanged()
+            tabLayoutMediator?.detach()
+            tabLayoutMediator?.attach()
+            tabLayout.selectTab(null)
+        }
 
     }
 
