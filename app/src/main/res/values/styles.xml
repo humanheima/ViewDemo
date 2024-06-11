@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="CustomView_Theme_Style">@style/CustomView_Green_Style</item>
+
     </style>
 
     <style name="FullScreenTheme" parent="AppTheme">

@@ -14,8 +14,12 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            >
+            android:theme="@style/AppTheme">
+
+        <activity
+                android:name=".activity.EditTextActivity"
+                android:exported="false" />
+
         <activity
                 android:name=".activity.TestBlurActivity"
                 android:exported="false" />
@@ -140,7 +144,8 @@
         <activity android:name=".activity.AutoWrapTextViewActivity" />
         <activity android:name=".activity.DragSlopLayoutActivity" />
         <activity android:name=".activity.ViewDragHelperActivity" />
-        <activity android:name=".activity.PullToRefreshActivity"
+        <activity
+                android:name=".activity.PullToRefreshActivity"
                 android:theme="@style/FullScreenTheme">
 
         </activity>
@@ -160,7 +165,9 @@
         <activity android:name=".activity.SupportLibraryActivity" />
         <activity android:name=".activity.ScreenSupportActivity" />
         <activity android:name=".activity.ConstraintActivity" />
-        <activity android:name=".activity.QrCodeScanActivity" android:exported="false">
+        <activity
+                android:name=".activity.QrCodeScanActivity"
+                android:exported="false">
             <intent-filter>
                 <action android:name="com.hm.viewdemo.QrCodeScan" />
 

@@ -13,4 +13,9 @@
 
     <item name="cl_root" type="id" />
 
+
+    <item name="copy" type="id" />
+    <item name="paste" type="id" />
+    <item name="insert_a_new_line" type="id" />
+
 </resources>

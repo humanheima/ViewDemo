@@ -101,7 +101,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
         ScreenUtil.printDisplayMetricsInfo(this)
 
-        val string:String?=null
+        val string: String? = null
         string?.let {
 
         }
@@ -110,6 +110,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestEditTextCustomAction -> {
+                EditTextActivity.launch(this)
+            }
+
             R.id.btn_test_slide_delete -> {
                 TestDragDeleteItemActivity.launch(this)
             }
