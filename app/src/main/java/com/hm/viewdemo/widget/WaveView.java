@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import com.hm.viewdemo.R;
 import com.hm.viewdemo.util.ScreenUtil;
 
 import java.util.ArrayList;
@@ -70,10 +71,12 @@ public class WaveView extends View {
         dp16 = ScreenUtil.dpToPx(context, 16);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.parseColor("#0DFFFFFF"));
+
+        mPaint.setColor(context.getColor(R.color.colorAccent));
 
         mRimPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mRimPaint.setStyle(Paint.Style.STROKE);
+        //绘制最外层的边框，1像素
         mRimPaint.setColor(Color.parseColor("#66FFFFFF"));
         mRimPaint.setStrokeWidth(1);
     }
@@ -166,12 +169,12 @@ public class WaveView extends View {
         //左半圆从-90度(第3象限到底4象限)开始，扫过的角度是180度
         path.arcTo(rectF, -90, -180);
         //一条直线
-        //path.lineTo(width - mRadius, height - offset);
+        path.lineTo(width - mRadius, height - offset);
         //右半圆
         RectF rectF2 = new RectF(width - mRadius - radius, offset, width - offset, height - offset);
-        //path.arcTo(rectF2, 90, -180);
+        path.arcTo(rectF2, 90, -180);
         //封闭从而构成一个直线。
-        //path.close();
+        path.close();
         canvas.drawPath(path, mPaint);
         canvas.drawPath(path, mRimPaint);
     }
