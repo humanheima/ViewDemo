@@ -25,6 +25,7 @@ import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.databinding.ActivityMainBinding
 import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
+import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
@@ -183,19 +184,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
 
             R.id.btn_myruler_view -> {
-                //MyRuleViewActivity.launch(this)
+                MyRuleViewActivity.launch(this)
             }
 
             R.id.btn_rule_view -> {
-                //RuleViewMainActivity.launch(this)
+                RuleViewMainActivity.launch(this)
             }
 
             R.id.btn_ruler_view -> {
-                //RulerMainActivity.launch(this)
+                RulerMainActivity.launch(this)
             }
 
             R.id.btn_ruler_view_money -> {
-                //MoneyScaleMainActivity.launch(this)
+                MoneyScaleMainActivity.launch(this)
             }
 
             R.id.btn_round_progress_view -> {

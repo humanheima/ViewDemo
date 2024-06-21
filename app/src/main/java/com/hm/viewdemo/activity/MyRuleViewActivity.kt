@@ -1,13 +1,10 @@
 package com.hm.viewdemo.activity
 
-import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.widget.MyRulerView
@@ -29,9 +26,6 @@ class MyRuleViewActivity : AppCompatActivity() {
     private lateinit var myRulerViewOddNumber: MyRulerView
     private lateinit var myRulerViewEvenNumber: MyRulerView
 
-
-    private lateinit var vb: Vibrator
-
     companion object {
 
         @JvmStatic
@@ -44,10 +38,6 @@ class MyRuleViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_rule_view)
-
-        vb = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
-
-
 
         myRulerViewPractice = findViewById(R.id.my_ruler_view_practice)
 
@@ -76,15 +66,12 @@ class MyRuleViewActivity : AppCompatActivity() {
         myRulerViewPractice.onNumSelectListener = object : MyRulerViewPractice.OnNumSelectListener {
             override fun onNumSelect(selectedNum: Float) {
                 Log.i(TAG, "onNumSelect: $selectedNum")
-                vb.cancel()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vb.vibrate(VibrationEffect.createOneShot(30L,255))
-                } else {
-                    vb.vibrate(30)
-                }
+                //这个震动效果比较强烈
+                //myRulerViewPractice.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                //这个震动效果比较轻微
+                myRulerViewPractice.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
         }
-
 
         myRulerViewOddNumber.setInitialValue(1f, 40f, 10f, 1f)
 
