@@ -1,47 +1,49 @@
 apply plugin: 'com.android.library'
 
 ext {
-  bintrayRepo = 'maven'
-  bintrayName = 'dot-progress-bar'
+    bintrayRepo = 'maven'
+    bintrayName = 'dot-progress-bar'
 
-  PUBLISH_GROUP_ID = 'com.github.silvestrpredko'
-  libraryName = 'DotProgressBar'
-  PUBLISH_ARTIFACT_ID = 'dot-progress-bar'
+    PUBLISH_GROUP_ID = 'com.github.silvestrpredko'
+    libraryName = 'DotProgressBar'
+    PUBLISH_ARTIFACT_ID = 'dot-progress-bar'
 
-  libraryDescription = 'simple progress bar'
+    libraryDescription = 'simple progress bar'
 
-  siteUrl = 'https://github.com/silvestrpredko/DotProgressBarExample'
-  gitUrl = 'https://github.com/silvestrpredko/DotProgressBarExample.git'
+    siteUrl = 'https://github.com/silvestrpredko/DotProgressBarExample'
+    gitUrl = 'https://github.com/silvestrpredko/DotProgressBarExample.git'
 
-  PUBLISH_VERSION = '1.1'
+    PUBLISH_VERSION = '1.1'
 
-  developerId = 'silvestr1994'
-  developerName = 'Silvestr Predko'
-  developerEmail = 'Silvestr1994@gmail.com'
+    developerId = 'silvestr1994'
+    developerName = 'Silvestr Predko'
+    developerEmail = 'Silvestr1994@gmail.com'
 
-  licenseName = 'The Apache Software License, Version 2.0'
-  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-  allLicenses = ["Apache-2.0"]
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 android {
-  compileSdkVersion 25
 
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    
     defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-  }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
 

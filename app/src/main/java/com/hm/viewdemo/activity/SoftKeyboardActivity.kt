@@ -20,6 +20,17 @@ import kotlinx.android.synthetic.main.activity_soft_keyboard.*
  */
 class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutListener {
 
+
+    companion object {
+
+        private val TAG = "SoftKeyboardActivity"
+
+        fun launch(context: Context) {
+            val intent = Intent(context, SoftKeyboardActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
     private var activityRootView: View? = null
 
     //设定一个认为是软键盘弹起的阈值
@@ -106,13 +117,4 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
         activityRootView?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
     }
 
-    companion object {
-
-        private val TAG = "SoftKeyboardActivity"
-
-        fun launch(context: Context) {
-            val intent = Intent(context, SoftKeyboardActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
 }

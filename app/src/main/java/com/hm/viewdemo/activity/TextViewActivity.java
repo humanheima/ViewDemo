@@ -7,6 +7,7 @@ import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -17,7 +18,9 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ClickableSpan;
+import android.text.style.DynamicDrawableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.MaskFilterSpan;
 import android.text.style.RelativeSizeSpan;
@@ -295,59 +298,59 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
     }
 
     private void setTextView3() {
-//        SpannableStringBuilder builder = new SpannableStringBuilder();
-//        builder.append("11hello暗影IV");
-//        builder.append("已经开始暴走了");
-//        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        //builder.append("11hello暗影IV");
+        builder.append("已经开始暴走了");
+        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
 //        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
 //        StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
 //        UnderlineSpan underlineSpan = new UnderlineSpan();
-//        //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
-//        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
-//        drawable.setBounds(0, 0, 150, 150);
-//        //图片和文字基线对齐
-//        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
-//
-//        SpannableString spannableString = new SpannableString(builder);
-//
+        //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        //drawable.setBounds(0, 0, 42, 42);
+        //图片和文字基线对齐
+        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
+
+        SpannableString spannableString = new SpannableString(builder);
+
 //        ClickableSpan clickableSpan = new ClickableSpan() {
 //            @Override
 //            public void onClick(View widget) {
 //                Toast.makeText(TextViewActivity.this, "HAAHH 点击TextView", Toast.LENGTH_SHORT).show();
 //            }
 //        };
-//        spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-//        spannableString.setSpan(clickableSpan, 9, 19, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-//        //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-//        textView3.setText(spannableString);
-//
-//        //设置ClickableSpan后要加上这行代码
-//        textView3.setMovementMethod(LinkMovementMethod.getInstance());
-
-        String agreementStr = "暗影IV 100 已经开始暴走了       1000 艰难苦恨繁霜鬓";
-        SpannableString spannableString = new SpannableString(agreementStr);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(android.view.View widget) {//
-                //这里的判断是为了去掉在点击后字体出现的背景色
-                if (widget instanceof TextView) {
-                    ((TextView) widget).setHighlightColor(Color.TRANSPARENT);
-                }
-
-                Toast.makeText(TextViewActivity.this, "haha", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ContextCompat.getColor(TextViewActivity.this, R.color.colorPrimary));
-                ds.setUnderlineText(false);
-            }
-        }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-
+        //spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        //spannableString.setSpan(clickableSpan, 9, 19, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         binding.textView3.setText(spannableString);
-        binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
+
+        //设置ClickableSpan后要加上这行代码
+        //binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
+
+//        String agreementStr = "暗影IV 100 已经开始暴走了       1000 艰难苦恨繁霜鬓";
+//        SpannableString spannableString = new SpannableString(agreementStr);
+//        spannableString.setSpan(new ClickableSpan() {
+//            @Override
+//            public void onClick(android.view.View widget) {//
+//                //这里的判断是为了去掉在点击后字体出现的背景色
+//                if (widget instanceof TextView) {
+//                    ((TextView) widget).setHighlightColor(Color.TRANSPARENT);
+//                }
+//
+//                Toast.makeText(TextViewActivity.this, "haha", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void updateDrawState(TextPaint ds) {
+//                ds.setColor(ContextCompat.getColor(TextViewActivity.this, R.color.colorPrimary));
+//                ds.setUnderlineText(false);
+//            }
+//        }, 6, agreementStr.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+//
+//        binding.textView3.setText(spannableString);
+//        binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setTextView4() {
