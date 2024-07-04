@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewbinding.ViewBinding;
 import com.hm.viewdemo.widget.LoadingDialog;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by dumingwei on 2017/2/26.
  */
@@ -13,6 +15,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     protected final String TAG = getClass().getSimpleName();
     private LoadingDialog loadingDialog;
 
+    @NotNull
     protected T binding;
 
     @Override

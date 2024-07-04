@@ -44,7 +44,7 @@
         android:text="button1"
         app:layout_constraintBottom_toTopOf="@+id/btn0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="invisible" />
 
 
     <Button

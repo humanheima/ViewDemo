@@ -83,6 +83,7 @@
                     android:indeterminate="true" />
 
             <ProgressBar
+                android:id="@+id/progressBar2"
                     style="@style/My_Circle_ProgressBar_Large"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

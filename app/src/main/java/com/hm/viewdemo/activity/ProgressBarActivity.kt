@@ -1,79 +1,70 @@
-package com.hm.viewdemo.activity;
+package com.hm.viewdemo.activity
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import com.hm.viewdemo.base.BaseActivity;
-import com.hm.viewdemo.databinding.ActivityProgressBarBinding;
-import java.lang.ref.WeakReference;
+import android.content.Context
+import android.content.Intent
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.os.Handler
+import android.os.Message
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityProgressBarBinding
+import java.lang.ref.WeakReference
 
 /**
  * Created by dumingwei on 2020/4/15
- * <p>
+ *
+ *
  * Desc: 测试loading dialog progress等
  * 参考链接：https://blog.csdn.net/mad1989/article/details/38042875
  */
-public class ProgressBarActivity extends BaseActivity<ActivityProgressBarBinding> {
-
-    private MyHandler handler;
-
-    public static void launch(Context context) {
-        Intent starter = new Intent(context, ProgressBarActivity.class);
-        context.startActivity(starter);
+class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding?>() {
+    private var handler: MyHandler? = null
+    override fun createViewBinding(): ActivityProgressBarBinding {
+        return ActivityProgressBarBinding.inflate(layoutInflater)
     }
 
-    @Override
-    protected ActivityProgressBarBinding createViewBinding() {
-        return ActivityProgressBarBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
-    protected void initData() {
-        handler = new MyHandler(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    for (int i = 0; i <= 100; i++) {
-                        try {
-                            Thread.sleep(50);
-                            Message msg = handler.obtainMessage();
-                            msg.arg1 = i;
-                            handler.sendMessage(msg);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+    override fun initData() {
+        handler = MyHandler(this)
+        Thread {
+            while (true) {
+                for (i in 0..100) {
+                    try {
+                        Thread.sleep(50)
+                        val msg = handler!!.obtainMessage()
+                        msg.arg1 = i
+                        handler!!.sendMessage(msg)
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
                     }
                 }
             }
-        }).start();
-
-        binding.btnChangeRate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.ratingBar.setRating(3.5f);
-            }
-        });
+        }.start()
+        binding!!.btnChangeRate.setOnClickListener { binding!!.ratingBar.rating = 3.5f }
+//        val drawable = binding.progressBar2.progressDrawable
+//        if (drawable is AnimatedVectorDrawable){
+//            drawable.setduration(1000)
+//        }
     }
 
-    private static class MyHandler extends Handler {
+    private class MyHandler(baseActivity: BaseActivity<*>) : Handler() {
+        private val weakActivity: WeakReference<BaseActivity<*>>
 
-        private WeakReference<BaseActivity> weakActivity;
-
-        public MyHandler(BaseActivity baseActivity) {
-            this.weakActivity = new WeakReference<>(baseActivity);
+        init {
+            weakActivity = WeakReference(baseActivity)
         }
 
-        @Override
-        public void handleMessage(Message msg) {
-            ProgressBarActivity activity = ((ProgressBarActivity) weakActivity.get());
+        override fun handleMessage(msg: Message) {
+            val activity = weakActivity.get() as ProgressBarActivity?
             if (activity != null) {
-                activity.binding.progressBar.setProgress(msg.arg1);
-                activity.binding.textProgress.setText(msg.arg1 + "%");
+                activity.binding!!.progressBar.progress = msg.arg1
+                activity.binding!!.textProgress.text = msg.arg1.toString() + "%"
             }
         }
     }
 
+    companion object {
+        fun launch(context: Context) {
+            val starter = Intent(context, ProgressBarActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
 }
