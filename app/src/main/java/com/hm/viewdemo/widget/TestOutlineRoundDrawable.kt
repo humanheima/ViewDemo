@@ -25,12 +25,12 @@ class TestOutlineRoundDrawable : Drawable() {
         paint.color=Color.CYAN
     }
 
-    override fun onBoundsChange(bounds: Rect?) {
-        bounds?.let {
+    override fun onBoundsChange(bounds: Rect) {
+        bounds.let {
             mBoundsF.set(it)
             mBoundsI.set(it)
         }
-        Log.i(TAG, "onBoundsChange: ${bounds?.toString()}")
+        Log.i(TAG, "onBoundsChange: ${bounds.toString()}")
     }
 
     /**

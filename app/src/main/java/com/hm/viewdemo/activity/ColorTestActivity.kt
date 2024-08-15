@@ -4,15 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.FloatRange
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.View
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
-import kotlinx.android.synthetic.main.activity_color_test.*
+import com.hm.viewdemo.databinding.ActivityColorTestBinding
 
 /**
  * Created by dumingwei on 2020/7/7
@@ -28,6 +26,8 @@ class ColorTestActivity : AppCompatActivity() {
 
 
     private val list = arrayListOf<FloatArray>()
+
+    private lateinit var binding: ActivityColorTestBinding
 
     companion object {
 
@@ -52,10 +52,16 @@ class ColorTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_color_test)
-        rvColor.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        rvColor.addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL))
-        rvColor.adapter = baseRvAdapter
+        binding = ActivityColorTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.rvColor.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvColor.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                this,
+                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+            )
+        )
+        binding.rvColor.adapter = baseRvAdapter
         changeHsv()
     }
 
@@ -64,6 +70,7 @@ class ColorTestActivity : AppCompatActivity() {
             R.id.btnChangeHsv -> {
                 changeHsv()
             }
+
             R.id.btnChangeHSL -> {
                 changeHsl()
             }
@@ -81,9 +88,9 @@ class ColorTestActivity : AppCompatActivity() {
      * 改变hsv
      */
     private fun changeHsv() {
-        val hue = etHue.text.toString().toFloatOrNull()
-        val saturation = etSaturation.text.toString().toFloatOrNull()
-        val value = etValue.text.toString().toFloatOrNull()
+        val hue = binding.etHue.text.toString().toFloatOrNull()
+        val saturation = binding.etSaturation.text.toString().toFloatOrNull()
+        val value = binding.etValue.text.toString().toFloatOrNull()
 
         if (hue != null && saturation != null && value != null) {
             val hsv = FloatArray(3)
@@ -102,9 +109,9 @@ class ColorTestActivity : AppCompatActivity() {
      * 改变hsl
      */
     private fun changeHsl() {
-        val hue = etHue2.text.toString().toFloatOrNull()
-        val saturation = etSaturation2.text.toString().toFloatOrNull()
-        val light = etLight.text.toString().toFloatOrNull()
+        val hue = binding.etHue2.text.toString().toFloatOrNull()
+        val saturation = binding.etSaturation2.text.toString().toFloatOrNull()
+        val light = binding.etLight.text.toString().toFloatOrNull()
 
         if (hue != null && saturation != null && light != null) {
             val hsl = FloatArray(3)
@@ -122,8 +129,10 @@ class ColorTestActivity : AppCompatActivity() {
     /**
      * 改变饱和度
      */
-    private fun changeSaturation(@FloatRange(from = 0.0, to = 360.0) hue: Float,
-                                 @FloatRange(from = 0.0, to = 1.0) value: Float) {
+    private fun changeSaturation(
+        @FloatRange(from = 0.0, to = 360.0) hue: Float,
+        @FloatRange(from = 0.0, to = 1.0) value: Float
+    ) {
         list.clear()
         val step = 0.1f
         var saturation = 0f
@@ -141,8 +150,10 @@ class ColorTestActivity : AppCompatActivity() {
     /**
      * 改变明度
      */
-    private fun changeValue(@FloatRange(from = 0.0, to = 360.0) hue: Float,
-                            @FloatRange(from = 0.0, to = 1.0) saturation: Float) {
+    private fun changeValue(
+        @FloatRange(from = 0.0, to = 360.0) hue: Float,
+        @FloatRange(from = 0.0, to = 1.0) saturation: Float
+    ) {
         list.clear()
         val step = 0.1f
         var value = 0f

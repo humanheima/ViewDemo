@@ -2,12 +2,12 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.hm.viewdemo.R
 
 /**
@@ -32,6 +32,11 @@ class LoadResActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        super.attachBaseContext(newBase)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_res)
@@ -54,6 +59,11 @@ class LoadResActivity : AppCompatActivity() {
 //            Log.i(TAG, "onCreate: ${iv4.background}")
 //        }
         resources.getColor(R.color.xx_color_6699a1fd)
+
+        iv1.setOnClickListener {
+            val color = resources.getColor(R.color.color_list)
+            Log.i(TAG, "onCreate: color = $color")
+        }
     }
 
     fun testColorType() {

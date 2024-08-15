@@ -3,7 +3,7 @@ package com.hm.viewdemo.util
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import com.hm.viewdemo.base.BaseActivity
+import android.content.Context.CLIPBOARD_SERVICE
 
 /**
  * Created by p_dmweidu on 2022/9/5
@@ -19,7 +19,7 @@ class ClipBoardUtil {
                 return
             }
             val clipBoardManager =
-                context.getSystemService(BaseActivity.CLIPBOARD_SERVICE) as ClipboardManager
+                context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText(label, text)
             clipBoardManager.setPrimaryClip(clip)
         }
@@ -30,7 +30,7 @@ class ClipBoardUtil {
                 return null
             }
             val clipBoardManager =
-                context.getSystemService(BaseActivity.CLIPBOARD_SERVICE) as ClipboardManager
+                context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             return clipBoardManager.primaryClip
         }
 
@@ -40,7 +40,7 @@ class ClipBoardUtil {
                 return
             }
             val clipBoardManager =
-                context.getSystemService(BaseActivity.CLIPBOARD_SERVICE) as ClipboardManager
+                context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             clipBoardManager.setPrimaryClip(ClipData.newPlainText("", ""))
         }
 

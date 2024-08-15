@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_round_view.*
+import androidx.appcompat.app.AppCompatActivity
+import com.hm.viewdemo.databinding.ActivityRoundViewBinding
 import java.lang.ref.WeakReference
 
 /**
@@ -21,6 +21,8 @@ class RoundViewActivity : AppCompatActivity() {
     private val TAG = "RoundViewActivity"
 
     private lateinit var handler: MyHandler
+
+    private lateinit var binding: ActivityRoundViewBinding
 
     companion object {
 
@@ -36,21 +38,22 @@ class RoundViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_round_view)
+        binding = ActivityRoundViewBinding.inflate(layoutInflater)
 
+        setContentView(binding.root)
         handler = MyHandler(this)
 
-        btnStartCountdown.setOnClickListener {
-            roundView.setInitialTimes(stageTime, timeToArriveThisStage)
+        binding.btnStartCountdown.setOnClickListener {
+            binding.roundView.setInitialTimes(stageTime, timeToArriveThisStage)
             startCountdown()
         }
     }
 
     private fun startCountdown() {
-        if (!roundView.finished()) {
+        if (!binding.roundView.finished()) {
             timeToArriveThisStage -= 1000
             //roundView.countDown(timeToArriveThisStage)
-            roundView.setInitialTimes(stageTime, timeToArriveThisStage)
+            binding.roundView.setInitialTimes(stageTime, timeToArriveThisStage)
             Log.i(TAG, "sendEmptyMessageDelayed")
             handler.sendEmptyMessageDelayed(1, 100)
         }

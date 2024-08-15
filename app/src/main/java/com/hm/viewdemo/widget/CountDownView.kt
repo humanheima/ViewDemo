@@ -6,16 +6,16 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.count_down_view.view.*
+import com.hm.viewdemo.databinding.CountDownViewBinding
 
 /**
  * Created by dumingwei on 2019-07-31.
  * Desc:
  */
 class CountDownView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val TAG = "CountDownView"
@@ -32,9 +32,14 @@ class CountDownView @JvmOverloads constructor(
 
         const val HOUR = 3600
         const val MINUTE = 60
+
         //倒计时时间1秒
         const val INTERVAL = 1000L
 
+    }
+
+    private val binding: CountDownViewBinding by lazy {
+        CountDownViewBinding.bind(this)
     }
 
     init {
@@ -54,9 +59,9 @@ class CountDownView @JvmOverloads constructor(
     fun start() {
         if (millisInFuture < interval) {
             //如果剩余时间小于间隔时间
-            tvHour.text = String.format("%02d", 0)
-            tvMinute.text = String.format("%02d", 0)
-            tvSecond.text = String.format("%02d", 0)
+            binding.tvHour.text = String.format("%02d", 0)
+            binding.tvMinute.text = String.format("%02d", 0)
+            binding.tvSecond.text = String.format("%02d", 0)
             countDownFinishAction?.invoke()
         } else {
             countDownTimer?.cancel()
@@ -70,16 +75,16 @@ class CountDownView @JvmOverloads constructor(
                     val minute = second % HOUR / MINUTE
                     val s = second % 60
 
-                    tvHour.text = String.format("%02d", hour)
-                    tvMinute.text = String.format("%02d", minute)
-                    tvSecond.text = String.format("%02d", s)
+                    binding.tvHour.text = String.format("%02d", hour)
+                    binding.tvMinute.text = String.format("%02d", minute)
+                    binding.tvSecond.text = String.format("%02d", s)
 
                 }
 
                 override fun onFinish() {
-                    tvHour.text = String.format("%02d", 0)
-                    tvMinute.text = String.format("%02d", 0)
-                    tvSecond.text = String.format("%02d", 0)
+                    binding.tvHour.text = String.format("%02d", 0)
+                    binding.tvMinute.text = String.format("%02d", 0)
+                    binding.tvSecond.text = String.format("%02d", 0)
                     countDownFinishAction?.invoke()
                 }
             }
@@ -88,7 +93,7 @@ class CountDownView @JvmOverloads constructor(
 
     }
 
-    fun cancel(){
+    fun cancel() {
         countDownTimer?.cancel()
     }
 }

@@ -2,11 +2,9 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityNonMainThreadUpdateUiBinding
-import kotlinx.android.synthetic.main.activity_non_main_thread_update_ui.tvText
 import kotlin.concurrent.thread
 
 /**
@@ -14,7 +12,7 @@ import kotlin.concurrent.thread
  * Desc: 测试在非UI线程更新UI
  *
  */
-class NonMainThreadUpdateUIActivity : AppCompatActivity() {
+class NonMainThreadUpdateUIActivity : BaseActivity<ActivityNonMainThreadUpdateUiBinding>() {
 
     companion object {
 
@@ -26,13 +24,12 @@ class NonMainThreadUpdateUIActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding: ActivityNonMainThreadUpdateUiBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNonMainThreadUpdateUiBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+    override fun createViewBinding(): ActivityNonMainThreadUpdateUiBinding {
+        return ActivityNonMainThreadUpdateUiBinding.inflate(layoutInflater)
+    }
 
+    override fun initData() {
         thread(true) {
             binding.tvText.text = "在子线程更新UI"
 
@@ -42,7 +39,7 @@ class NonMainThreadUpdateUIActivity : AppCompatActivity() {
         binding.btnUpdateUI.setOnClickListener {
             thread(true) {
                 Log.i(TAG, "onCreate: current thread is ${Thread.currentThread().name}")
-                tvText.text = "在子线程更新UI" +
+                binding.tvText.text = "在子线程更新UI" +
                         "\n了已经OnResume已经OnResume 了，" +
                         "\n了已经OnResume已经OnResume 了，" +
                         "\n了已经OnResume已经OnResume 了，" +
@@ -65,6 +62,7 @@ class NonMainThreadUpdateUIActivity : AppCompatActivity() {
                         "\n了已经OnResume 了在子线程更新UI2"
             }
         }
+
     }
 
 }

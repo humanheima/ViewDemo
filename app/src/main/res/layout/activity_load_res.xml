@@ -11,7 +11,7 @@
             android:id="@+id/iv_1"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary"
-            android:layout_height="40dp" />
+            android:layout_height="140dp" />
 
     <ImageView
             android:background="@color/color_list"

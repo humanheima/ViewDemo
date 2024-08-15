@@ -13,9 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
+import com.hm.viewdemo.databinding.ActivityBottomSheetBinding
 import com.hm.viewdemo.fragment.FullSheetDialogFragment
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_bottom_sheet.*
 
 
 /**
@@ -46,22 +46,27 @@ class BottomSheetActivity : AppCompatActivity() {
         const val MAX_ALPHA: Int = 255 * 3 / 5
     }
 
+    private lateinit var binding: ActivityBottomSheetBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bottom_sheet)
-        behavior = BottomSheetBehavior.from(scroll_bottom_sheet)
+        binding = ActivityBottomSheetBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        behavior = BottomSheetBehavior.from(binding.scrollBottomSheet)
+
         val layoutParams =
-            scroll_bottom_sheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
+            binding.scrollBottomSheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 
         val stringList = ArrayList<String>()
         for (i in 0 until 15) {
             stringList.add("string$i")
         }
-        recycler_view.itemAnimator = DefaultItemAnimator()
-        recycler_view.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = RecycleViewAdapter(stringList, this)
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
         if (stringList.size > 4) {
             layoutParams.height = ScreenUtil.dpToPx(this, 400)
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
@@ -70,7 +75,7 @@ class BottomSheetActivity : AppCompatActivity() {
                 androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.WRAP_CONTENT
             behavior.peekHeight = ScreenUtil.dpToPx(this, 100)
         }
-        scroll_bottom_sheet.layoutParams = layoutParams
+        binding.scrollBottomSheet.layoutParams = layoutParams
         behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 Log.e(TAG, "onStateChanged$newState")
@@ -88,14 +93,14 @@ class BottomSheetActivity : AppCompatActivity() {
                  * 否则透明度的计算公式为： 最大透明度*（滑动偏移量和最大偏移量的比例）
                  */
                 if (onSlide > MAX_OFFSET) {
-                    coordinatorLayout.setBackgroundColor(
+                    binding.coordinatorLayout.setBackgroundColor(
                         Color.argb(
                             (MAX_ALPHA),
                             0, 0, 0
                         )
                     )
                 } else {
-                    coordinatorLayout.setBackgroundColor(
+                    binding.coordinatorLayout.setBackgroundColor(
                         Color.argb((MAX_ALPHA * (onSlide / MAX_OFFSET)).toInt(), 0, 0, 0)
                     )
                 }

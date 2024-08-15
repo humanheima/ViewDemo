@@ -2,15 +2,19 @@ package com.hm.viewdemo.custom_view.chapter_10
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.*
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BlurMaskFilter
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.Log
 import com.hm.viewdemo.R
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityChapter10Binding
 import com.hm.viewdemo.util.ImageUtil
-import kotlinx.android.synthetic.main.activity_chapter10.*
 
-class Chapter10Activity : AppCompatActivity() {
+class Chapter10Activity : BaseActivity<ActivityChapter10Binding>() {
 
     companion object {
 
@@ -20,15 +24,12 @@ class Chapter10Activity : AppCompatActivity() {
         }
     }
 
-    private val TAG = "Chapter10Activity"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chapter10)
+    override fun createViewBinding(): ActivityChapter10Binding {
+        return ActivityChapter10Binding.inflate(layoutInflater)
+    }
 
-        //extractAlpha()
-        //advanceExtractAlpha()
-        //testWaterMark()
+    override fun initData() {
 
     }
 
@@ -45,7 +46,7 @@ class Chapter10Activity : AppCompatActivity() {
         paint.color = Color.CYAN
         canvas.drawBitmap(srcBmp.extractAlpha(), 0f, 0f, paint)
 
-        iv.setImageBitmap(bitmap)
+        binding.iv.setImageBitmap(bitmap)
 
         srcBmp.recycle()
     }
@@ -65,7 +66,8 @@ class Chapter10Activity : AppCompatActivity() {
         val alphaBitmap = srcBmp.extractAlpha(alphaPaint, offsetXY)
         Log.i(TAG, "advanceExtractAlpha: ${offsetXY[0]},${offsetXY[1]}")
 
-        val bitmap = Bitmap.createBitmap(alphaBitmap.width, alphaBitmap.height, Bitmap.Config.ARGB_8888)
+        val bitmap =
+            Bitmap.createBitmap(alphaBitmap.width, alphaBitmap.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
         val paint = Paint()
@@ -74,7 +76,7 @@ class Chapter10Activity : AppCompatActivity() {
 
         canvas.drawBitmap(srcBmp, -offsetXY[0].toFloat(), -offsetXY[1].toFloat(), null)
 
-        iv.setImageBitmap(bitmap)
+        binding.iv.setImageBitmap(bitmap)
 
         srcBmp.recycle()
     }
@@ -83,7 +85,7 @@ class Chapter10Activity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.cat_dog)
         val watermark = BitmapFactory.decodeResource(resources, R.drawable.watermark)
         val result = ImageUtil.createBitmap(bitmap, watermark)
-        iv.setImageBitmap(result)
+        binding.iv.setImageBitmap(result)
     }
 
 }

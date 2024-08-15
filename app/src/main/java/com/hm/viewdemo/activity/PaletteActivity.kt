@@ -3,10 +3,8 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Bundle
 import android.util.Log
 import androidx.annotation.DrawableRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,16 +15,15 @@ import com.bumptech.glide.request.transition.Transition
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
-import kotlinx.android.synthetic.main.activity_palette.btnChangeIv
-import kotlinx.android.synthetic.main.activity_palette.ivBitmap
-import kotlinx.android.synthetic.main.activity_palette.rvColor
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityPaletteBinding
 
 /**
  * Created by dumingwei on 2020/6/18
  *
  * Desc: 测试 Palete 和从图片中取色，并对取出的颜色做转换
  */
-class PaletteActivity : AppCompatActivity() {
+class PaletteActivity : BaseActivity<ActivityPaletteBinding>() {
 
     companion object {
 
@@ -39,7 +36,6 @@ class PaletteActivity : AppCompatActivity() {
     private val list = arrayListOf<Int>()
     private val drawableList = arrayListOf<Int>()
 
-    private val TAG: String = "PaletteActivity"
 
     private var index = 0
 
@@ -57,22 +53,23 @@ class PaletteActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_palette)
+    override fun createViewBinding(): ActivityPaletteBinding {
+        return ActivityPaletteBinding.inflate(layoutInflater)
+    }
 
+    override fun initData() {
         drawableList.add(R.drawable.test_palette)
         drawableList.add(R.drawable.test_palette2)
         drawableList.add(R.drawable.balloon)
         drawableList.add(R.drawable.ic_soft_avatar)
         drawableList.add(R.drawable.ic_dog)
 
-        rvColor.layoutManager = LinearLayoutManager(this)
-        rvColor.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-        rvColor.adapter = baseRvAdapter
+        binding.rvColor.layoutManager = LinearLayoutManager(this)
+        binding.rvColor.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        binding.rvColor.adapter = baseRvAdapter
         changeImage(R.drawable.test_palette)
 
-        btnChangeIv.setOnClickListener {
+        binding.btnChangeIv.setOnClickListener {
             var tempIndex = ++index
             tempIndex %= drawableList.size
             changeImage(drawableList[tempIndex])
@@ -84,7 +81,7 @@ class PaletteActivity : AppCompatActivity() {
         Glide.with(this).asBitmap().load(resId).into(object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 Log.i(TAG, "onResourceReady: ")
-                ivBitmap.setImageBitmap(resource)
+                binding.ivBitmap.setImageBitmap(resource)
                 list.clear()
                 Palette.from(resource).generate {
 

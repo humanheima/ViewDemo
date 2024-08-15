@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.view_lollipop.view.*
+import com.hm.viewdemo.databinding.ViewLollipopBinding
 
 /**
  * Created by ff.zhang on 16/10/11.
@@ -32,12 +32,16 @@ class LollipopView @JvmOverloads constructor(
 
     }
 
+    private val binding: ViewLollipopBinding by lazy {
+        ViewLollipopBinding.bind(this)
+    }
+
     fun addTopView(view: View) {
-        flTop.addView(view)
+        binding.flTop.addView(view)
     }
 
     fun startAnim() {
-        ivCenterCircle.setImageResource(R.drawable.ic_refresh_loading)
+        binding.ivCenterCircle.setImageResource(R.drawable.ic_refresh_loading)
         val animation = AnimationUtils.loadAnimation(context, R.anim.anim_image_rotate)
         if (animation != null) {
             val lin = LinearInterpolator()
@@ -45,7 +49,7 @@ class LollipopView @JvmOverloads constructor(
         }
 
         try {
-            ivCenterCircle.startAnimation(animation)
+            binding.ivCenterCircle.startAnimation(animation)
         } catch (e: Exception) {
             Log.e("TargetCenterView", e.message ?: "")
         }
@@ -53,29 +57,29 @@ class LollipopView @JvmOverloads constructor(
     }
 
     fun stopAnim() {
-        ivCenterCircle.clearAnimation()
+        binding.ivCenterCircle.clearAnimation()
         initCloseAnim()
     }
 
     private fun initCloseAnim() {
-        llCircle.visibility = View.GONE
-        ivLine.setImageResource(R.drawable.anim_target)
+        binding.llCircle.visibility = View.GONE
+        binding.ivLine.setImageResource(R.drawable.anim_target)
         if (ad != null && ad?.isRunning == true) {
             ad?.stop()
         }
-        ad = ivLine.drawable as AnimationDrawable
+        ad = binding.ivLine.drawable as AnimationDrawable
         if (ad != null) {
             ad!!.start()
         }
         mHandler.postDelayed({
-            ivCenterCircle.setImageResource(R.drawable.ic_refresh_circle_white)
-            ivLine!!.setImageResource(R.drawable.ic_refresh_line)
-            llCircle.visibility = View.VISIBLE
+            binding.ivCenterCircle.setImageResource(R.drawable.ic_refresh_circle_white)
+            binding.ivLine.setImageResource(R.drawable.ic_refresh_line)
+            binding.llCircle.visibility = View.VISIBLE
         }, 300)
     }
 
     fun destroy() {
-        ivCenterCircle.clearAnimation()
+        binding.ivCenterCircle.clearAnimation()
     }
 
 }

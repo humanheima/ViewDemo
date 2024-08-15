@@ -2,18 +2,21 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AbsListView
+import android.widget.ImageView
+import android.widget.SimpleAdapter
+import android.widget.TextView
+import android.widget.Toast
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
+import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.MyBean
+import com.hm.viewdemo.databinding.ActivityListViewBinding
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_list_view.*
 
 /**
  * Created by dumingwei on 2020/4/1
@@ -22,10 +25,8 @@ import kotlinx.android.synthetic.main.activity_list_view.*
  *
  * 参考链接：https://www.jianshu.com/p/08e6c83ff2b7
  */
-class ListViewActivity : AppCompatActivity() {
+class ListViewActivity : BaseActivity<ActivityListViewBinding>() {
 
-
-    private val TAG: String = "ListViewActivity"
 
     private lateinit var list: ArrayList<MyBean>
     private lateinit var adapter: ListViewAdapter
@@ -42,10 +43,12 @@ class ListViewActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view)
+    override fun createViewBinding(): ActivityListViewBinding {
 
+        return ActivityListViewBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         sparseArray.put(4, "4")
         sparseArray.put(0, "0")
         sparseArray.put(2, "2")
@@ -55,18 +58,23 @@ class ListViewActivity : AppCompatActivity() {
             Log.i(TAG, "onCreate: ${sparseArray[i]}")
         }
 
-        listView.setOnItemClickListener { parent, view, position, id ->
+        binding.listView.setOnItemClickListener { parent, view, position, id ->
 
             Toast.makeText(this, "position = $position", Toast.LENGTH_SHORT).show()
         }
 
-        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+        binding.listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 
             // 创建一个稀疏数组，用于存储Item的高度和mTop
             private val recordSp: SparseArray<ItemRecord> = SparseArray()
             private var mCurrentFirstVisibleItem = 0
 
-            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+            override fun onScroll(
+                view: AbsListView,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) {
                 Log.i(TAG, "onScroll: ${view.scrollY}")
                 //do nothing
                 mCurrentFirstVisibleItem = firstVisibleItem
@@ -91,7 +99,7 @@ class ListViewActivity : AppCompatActivity() {
                     Log.i(TAG, "onScroll: scrollY =  $currentScrollY")
 
                     if (currentScrollY > 0) {
-                        adsorbView.setSuction(true)
+                        binding.adsorbView.setSuction(true)
                     }
                 }
             }
@@ -129,14 +137,18 @@ class ListViewActivity : AppCompatActivity() {
                     AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> {
                         //Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_TOUCH_SCROLL ${getScrollY()}")
                     }
+
                     AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
                         //Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_IDLE")
-                        adsorbView.setSuction(false)
+                        binding.adsorbView.setSuction(false)
 
-                        val view = listView.getChildAt(listView.childCount - 1)
+                        val view = binding.listView.getChildAt(binding.listView.childCount - 1)
 
                         Log.i(TAG, "onScrollStateChanged: view.bottom = ${view.bottom}")
-                        Log.i(TAG, "onScrollStateChanged: listView.height = ${listView.height}")
+                        Log.i(
+                            TAG,
+                            "onScrollStateChanged: listView.height = ${binding.listView.height}"
+                        )
                     }
                 }
             }
@@ -147,20 +159,21 @@ class ListViewActivity : AppCompatActivity() {
 
         useArrayAdapter()
         //useSimpleAdapter()
+
     }
 
     private fun useSimpleAdapter() {
 
         val images = arrayOf(
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog
         )
 
         val mSimpleList = ArrayList<Map<String, *>>()
@@ -182,10 +195,12 @@ class ListViewActivity : AppCompatActivity() {
          *
          * **/
 
-        val adapter = SimpleAdapter(this, mSimpleList, R.layout.item_simple_adapter,
-                arrayOf("img", "text"), intArrayOf(R.id.img, R.id.tv))
+        val adapter = SimpleAdapter(
+            this, mSimpleList, R.layout.item_simple_adapter,
+            arrayOf("img", "text"), intArrayOf(R.id.img, R.id.tv)
+        )
         // 将适配器中的数据添加到控件中
-        listView.adapter = adapter
+        binding.listView.adapter = adapter
     }
 
     private fun useArrayAdapter() {
@@ -196,7 +211,7 @@ class ListViewActivity : AppCompatActivity() {
         }
         adapter = ListViewAdapter(this, R.layout.item_list_view, list)
 
-        listView.adapter = adapter
+        binding.listView.adapter = adapter
 
         adapter.notifyDataSetChanged()
     }
@@ -204,22 +219,26 @@ class ListViewActivity : AppCompatActivity() {
 
     private fun addHeadAndFoot() {
         val head = ImageView(this)
-        head.layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ScreenUtil.dpToPx(this, 200))
+        head.layoutParams = AbsListView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ScreenUtil.dpToPx(this, 200)
+        )
         head.scaleType = ImageView.ScaleType.CENTER_CROP
         head.setImageResource(R.drawable.balloon)
 
-        listView.addHeaderView(head)
+        binding.listView.addHeaderView(head)
 
 
         val foot = TextView(this)
-        foot.layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ScreenUtil.dpToPx(this, 48))
+        foot.layoutParams = AbsListView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ScreenUtil.dpToPx(this, 48)
+        )
         foot.textSize = 16f
 
         foot.gravity = Gravity.CENTER
         foot.text = "Foot View"
-        listView.addFooterView(foot)
+        binding.listView.addFooterView(foot)
     }
 }
 

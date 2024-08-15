@@ -13,9 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_tab_layout.tabLayout
-import kotlinx.android.synthetic.main.activity_tab_layout.viewPager2
-
+import com.hm.viewdemo.databinding.ActivityTabLayoutBinding
 
 /**
  * Created by dumingwei on 2020/4/28
@@ -33,6 +31,8 @@ class TabLayoutActivity : AppCompatActivity() {
     private var btnChangeDataset: Button? = null
 
     private var adapter: FragmentStateAdapter? = null
+
+    private lateinit var binding: ActivityTabLayoutBinding
 
     companion object {
 
@@ -58,13 +58,13 @@ class TabLayoutActivity : AppCompatActivity() {
             if (mockData.resId == -1) {
                 val view = LayoutInflater.from(this).inflate(R.layout.custom_tablayout_text, null)
                 view.findViewById<TextView>(R.id.tvText).setText(mockData.text)
-                tab = tabLayout.newTab().setCustomView(view)
+                tab = binding.tabLayout.newTab().setCustomView(view)
             } else {
                 val view = LayoutInflater.from(this).inflate(R.layout.custom_tablayout_image, null)
                 view.findViewById<ImageView>(R.id.ivImage).setImageResource(mockData.resId)
-                tab = tabLayout.newTab().setCustomView(view)
+                tab = binding.tabLayout.newTab().setCustomView(view)
             }
-            tabLayout.addTab(tab)
+            binding.tabLayout.addTab(tab)
         }
 
         adapter = object : FragmentStateAdapter(this) {
@@ -80,12 +80,12 @@ class TabLayoutActivity : AppCompatActivity() {
 
         }
 
-        viewPager2.adapter = adapter
+        binding.viewPager2.adapter = adapter
 
 
         tabLayoutMediator = TabLayoutMediator(
-            tabLayout,
-            viewPager2,
+            binding.tabLayout,
+            binding.viewPager2,
             object : TabLayoutMediator.TabConfigurationStrategy {
                 override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
                     val mockData = datas[position]
@@ -107,7 +107,7 @@ class TabLayoutActivity : AppCompatActivity() {
             })
 
         tabLayoutMediator?.attach()
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 //do nothing
@@ -140,7 +140,7 @@ class TabLayoutActivity : AppCompatActivity() {
 
         })
 
-        tabLayout.selectTab(null)
+        binding.tabLayout.selectTab(null)
 
 
         btnChangeDataset = findViewById(R.id.btn_change_dataset)
@@ -156,7 +156,7 @@ class TabLayoutActivity : AppCompatActivity() {
             adapter?.notifyDataSetChanged()
             tabLayoutMediator?.detach()
             tabLayoutMediator?.attach()
-            tabLayout.selectTab(null)
+            binding.tabLayout.selectTab(null)
         }
 
     }

@@ -2,18 +2,16 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_toast.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityToastBinding
 
-class ToastActivity : AppCompatActivity() {
+class ToastActivity : BaseActivity<ActivityToastBinding>() {
 
-    private val TAG = javaClass.simpleName
 
     companion object {
         fun launch(context: Context) {
@@ -22,21 +20,30 @@ class ToastActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_toast)
-        btnShowToast.setOnClickListener {
+    override fun createViewBinding(): ActivityToastBinding {
+        return ActivityToastBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
+        binding.btnShowToast.setOnClickListener {
             Toast.makeText(this, "Hello world", Toast.LENGTH_SHORT).show()
         }
-        btnShowCustomToast.setOnClickListener { showCustomToast("Hello custom world") }
+        binding.btnShowCustomToast.setOnClickListener { showCustomToast("Hello custom world") }
 
     }
 
     override fun onResume() {
         super.onResume()
-        Thread(Runnable { runOnUiThread { Log.i(TAG, "runOnUiThread: btnShowToast.height=${btnShowToast.height}") } }).start()
-        btnShowToast.post {
-            Log.i(TAG, "view post: btnShowToast.height=${btnShowToast.height}")
+        Thread(Runnable {
+            runOnUiThread {
+                Log.i(
+                    TAG,
+                    "runOnUiThread: btnShowToast.height=${binding.btnShowToast.height}"
+                )
+            }
+        }).start()
+        binding.btnShowToast.post {
+            Log.i(TAG, "view post: btnShowToast.height=${binding.btnShowToast.height}")
         }
     }
 
@@ -50,4 +57,5 @@ class ToastActivity : AppCompatActivity() {
         toast.view = view
         toast.show()
     }
+
 }

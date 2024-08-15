@@ -2,19 +2,17 @@ package com.hm.viewdemo.nested_scroll
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.appcompat.app.AppCompatActivity
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_nested_scroll_version_one.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityNestedScrollVersionOneBinding
 
 /**
  * Crete by dumingwei on 2020-02-15
  * Desc: 学习嵌套滑动
  *
  */
-class NestedScrollVersionOneActivity : AppCompatActivity() {
+class NestedScrollVersionOneActivity : BaseActivity<ActivityNestedScrollVersionOneBinding>() {
 
     private val mTitles = arrayOf("简介", "评价", "相关")
     private var mAdapter: FragmentPagerAdapter? = null
@@ -29,9 +27,11 @@ class NestedScrollVersionOneActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nested_scroll_version_one)
+    override fun createViewBinding(): ActivityNestedScrollVersionOneBinding {
+        return ActivityNestedScrollVersionOneBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         initDatas()
         val intent = Intent("")
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
@@ -56,8 +56,8 @@ class NestedScrollVersionOneActivity : AppCompatActivity() {
             }
 
         }
-        stickyNavLayoutViewpager.adapter = mAdapter
-        stickyNavLayoutIndicator.setupWithViewPager(stickyNavLayoutViewpager)
+        binding.stickyNavLayoutViewpager.adapter = mAdapter
+        binding.stickyNavLayoutIndicator.setupWithViewPager(binding.stickyNavLayoutViewpager)
     }
 
 }

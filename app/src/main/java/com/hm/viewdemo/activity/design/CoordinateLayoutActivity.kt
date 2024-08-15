@@ -4,16 +4,13 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_coordinate_layout.*
-import kotlinx.android.synthetic.main.item_news_list.view.*
-
+import androidx.appcompat.app.AppCompatActivity
+import com.hm.viewdemo.databinding.ActivityCoordinateLayoutBinding
+import com.hm.viewdemo.databinding.ItemNewsListBinding
 
 class CoordinateLayoutActivity : AppCompatActivity() {
 
@@ -28,25 +25,30 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityCoordinateLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.hm.viewdemo.R.layout.activity_coordinate_layout)
-        img_top.setOnClickListener {
-            val curTranslationY = app_bar.translationY
+        binding = ActivityCoordinateLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.imgTop.setOnClickListener {
+            val curTranslationY = binding.appBar.translationY
             Log.i(TAG, "curTranslationY: $curTranslationY")
-            val oa = ObjectAnimator.ofFloat(app_bar, "translationY", curTranslationY, 300f)
+            val oa = ObjectAnimator.ofFloat(binding.appBar, "translationY", curTranslationY, 300f)
             oa.duration = 2000
             oa.start()
         }
         val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        recycler_view.layoutManager = layoutManager
-        recycler_view.adapter = RvAdapter()
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = RvAdapter()
     }
 
-
     class RvAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<RvAdapter.VH>() {
+
+
         override fun onCreateViewHolder(parent: ViewGroup, position: Int): VH {
-            val view = LayoutInflater.from(parent.context).inflate(com.hm.viewdemo.R.layout.item_news_list, parent, false)
+            val view = LayoutInflater.from(parent.context)
+                .inflate(com.hm.viewdemo.R.layout.item_news_list, parent, false)
             return VH(view)
         }
 
@@ -55,11 +57,16 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: VH, position: Int) {
-            holder.itemView.text_news.text = "hello world$position"
+            //holder.itemView.text_news.text = "hello world$position"
+            holder.binding.textNews.text = "hello world$position"
         }
 
 
-        class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
+        class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+
+            val binding = ItemNewsListBinding.bind(itemView)
+
+        }
     }
 
 }

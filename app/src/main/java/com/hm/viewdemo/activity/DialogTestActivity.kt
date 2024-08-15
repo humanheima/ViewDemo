@@ -10,13 +10,11 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.hm.viewdemo.R
+import com.hm.viewdemo.databinding.ActivityDialogTestBinding
 import com.hm.viewdemo.util.ImageUtil
-import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
 import com.hm.viewdemo.widget.dialog.FireMissilesDialogFragment
 import com.hm.viewdemo.widget.hongyang.RoundImageView
-import kotlinx.android.synthetic.main.activity_dialog_test.*
 import kotlin.random.Random
 
 /**
@@ -36,6 +34,8 @@ class DialogTestActivity : AppCompatActivity() {
 
     private var alertDialog: AlertDialog? = null
 
+    private lateinit var binding: ActivityDialogTestBinding
+
     companion object {
 
         @JvmStatic
@@ -47,17 +47,21 @@ class DialogTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dialog_test)
-        btnShowDialog.setOnClickListener {
+
+        binding = ActivityDialogTestBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        binding.btnShowDialog.setOnClickListener {
             showDialog()
         }
-        btnShowDialog1.setOnClickListener {
+        binding.btnShowDialog1.setOnClickListener {
             showCustomDialog()
         }
-        btnShowDialog2.setOnClickListener {
+        binding.btnShowDialog2.setOnClickListener {
             showDialog2()
         }
-        btnShowDialog4.setOnClickListener {
+        binding.btnShowDialog4.setOnClickListener {
             //showDialog2()
             if (Random.nextBoolean()) {
                 arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/7F2B7CCCC90CFD154497A93A7CA147FC.jpg")
@@ -65,7 +69,7 @@ class DialogTestActivity : AppCompatActivity() {
                 arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")
             }
         }
-        btnShowDialog3.setOnClickListener {
+        binding.btnShowDialog3.setOnClickListener {
             showCustomDialog()
         }
         arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")

@@ -7,14 +7,17 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AbsListView
+import android.widget.ImageView
+import android.widget.SimpleAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.ListViewAdapter
 import com.hm.viewdemo.bean.MyBean
+import com.hm.viewdemo.databinding.ActivityListViewFloatBinding
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_list_view_float.*
-import kotlinx.android.synthetic.main.view_float_layout.*
 
 /**
  * Created by dumingwei on 2020/4/1
@@ -28,6 +31,8 @@ class ListViewFloatActivity : AppCompatActivity() {
 
     private val TAG: String? = "ListViewFloatActivity"
 
+    private lateinit var binding: ActivityListViewFloatBinding
+
     companion object {
 
         fun launch(context: Context) {
@@ -38,31 +43,37 @@ class ListViewFloatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view_float)
-        listView.setOnItemClickListener { parent, view, position, id ->
+        binding = ActivityListViewFloatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.listView.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this, "ListView中item点击$position", Toast.LENGTH_SHORT).show()
         }
 
         addHeadAndFoot()
         //addHeadAndFoot()
 
-        ivFloatImage.setOnClickListener {
+
+        binding.includeViewFloatLayout.ivFloatImage.setOnClickListener {
             Toast.makeText(this, "我是include布局文件中的控件", Toast.LENGTH_SHORT).show()
-            listView.smoothScrollToPosition(1)
+            binding.listView.smoothScrollToPosition(1)
         }
         addFloatView()
 
         useArrayAdapter()
 
-
-
-        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+        binding.listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScroll(
+                view: AbsListView,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) {
                 Log.i(TAG, "onScroll: firstVisibleItem = $firstVisibleItem")
                 if (firstVisibleItem >= 1) {
-                    includeViewFloatLayout.visibility = View.VISIBLE
+                    binding.includeViewFloatLayout.root.visibility = View.VISIBLE
                 } else {
-                    includeViewFloatLayout.visibility = View.GONE
+                    binding.includeViewFloatLayout.root.visibility = View.GONE
                 }
             }
 
@@ -79,21 +90,21 @@ class ListViewFloatActivity : AppCompatActivity() {
             Toast.makeText(this, "做为ListView的item中的控件", Toast.LENGTH_SHORT).show()
         }
 
-        listView.addHeaderView(floatView)
+        binding.listView.addHeaderView(floatView)
     }
 
     private fun useSimpleAdapter() {
 
         val images = arrayOf(
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog,
-                R.mipmap.ic_launcher,
-                R.drawable.ic_dog
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog,
+            R.mipmap.ic_launcher,
+            R.drawable.ic_dog
         )
 
         val mSimpleList = ArrayList<Map<String, *>>()
@@ -115,10 +126,12 @@ class ListViewFloatActivity : AppCompatActivity() {
          *
          * **/
 
-        val adapter = SimpleAdapter(this, mSimpleList, R.layout.item_simple_adapter,
-                arrayOf("img", "text"), intArrayOf(R.id.img, R.id.tv))
+        val adapter = SimpleAdapter(
+            this, mSimpleList, R.layout.item_simple_adapter,
+            arrayOf("img", "text"), intArrayOf(R.id.img, R.id.tv)
+        )
         // 将适配器中的数据添加到控件中
-        listView.adapter = adapter;
+        binding.listView.adapter = adapter;
     }
 
     private fun useArrayAdapter() {
@@ -129,28 +142,32 @@ class ListViewFloatActivity : AppCompatActivity() {
         }
         adapter = ListViewAdapter(this, R.layout.item_list_view, list)
 
-        listView.adapter = adapter
+        binding.listView.adapter = adapter
     }
 
 
     private fun addHeadAndFoot() {
         val head = ImageView(this)
-        head.layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ScreenUtil.dpToPx(this, 200))
+        head.layoutParams = AbsListView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ScreenUtil.dpToPx(this, 200)
+        )
         head.scaleType = ImageView.ScaleType.CENTER_CROP
         head.setImageResource(R.drawable.balloon)
 
-        listView.addHeaderView(head)
+        binding.listView.addHeaderView(head)
 
 
         val foot = TextView(this)
-        foot.layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ScreenUtil.dpToPx(this, 48))
+        foot.layoutParams = AbsListView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ScreenUtil.dpToPx(this, 48)
+        )
         foot.textSize = 16f
 
         foot.gravity = Gravity.CENTER
         foot.text = "Foot View"
-        listView.addFooterView(foot)
+        binding.listView.addFooterView(foot)
     }
 
 

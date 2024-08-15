@@ -3,10 +3,9 @@ package com.hm.viewdemo.custom_view.chapter7
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_gradient_drawable.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityGradientDrawableBinding
 
 /**
  * Created by dumingwei on 2020/5/22
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_gradient_drawable.*
  * Desc: GradientDrawable的使用
  *
  */
-class GradientDrawableActivity : AppCompatActivity() {
+class GradientDrawableActivity : BaseActivity<ActivityGradientDrawableBinding>() {
 
 
     companion object {
@@ -25,9 +24,12 @@ class GradientDrawableActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gradient_drawable)
+    override fun createViewBinding(): ActivityGradientDrawableBinding {
+        return ActivityGradientDrawableBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
+
 
 //        val background = GradientDrawable(
 //            GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
@@ -50,7 +52,7 @@ class GradientDrawableActivity : AppCompatActivity() {
             )
         )
 
-        ivFirst.background = background
+        binding.ivFirst.background = background
 
         val background1 = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
@@ -64,9 +66,6 @@ class GradientDrawableActivity : AppCompatActivity() {
                 )
             )
         )
-
-        ivSecond.background = background1
-
-
+        binding.ivSecond.background = background1
     }
 }

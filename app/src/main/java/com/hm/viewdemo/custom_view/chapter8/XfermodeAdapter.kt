@@ -2,18 +2,17 @@ package com.hm.viewdemo.custom_view.chapter8
 
 import android.content.Context
 import android.graphics.PorterDuff
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.item_xfermode.view.*
+import com.hm.viewdemo.databinding.ItemXfermodeBinding
 
 /**
  * Created by dumingwei on 2017/3/5.
  */
-class XfermodeAdapter(private val context: Context, private val dataList: List<PorterDuff.Mode>)
-    : androidx.recyclerview.widget.RecyclerView.Adapter<XfermodeAdapter.VH>() {
+class XfermodeAdapter(private val context: Context, private val dataList: List<PorterDuff.Mode>) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<XfermodeAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(context).inflate(R.layout.item_xfermode, parent, false)
@@ -23,13 +22,16 @@ class XfermodeAdapter(private val context: Context, private val dataList: List<P
     override fun onBindViewHolder(holder: VH, position: Int) {
         val model = dataList[position]
         //holder.itemView.xfermodeView.setXfermode(model)
-        holder.itemView.tvMode.text = model.name
+        holder.binding.tvMode.text = model.name
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
+    class VH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+
+        val binding = ItemXfermodeBinding.bind(itemView)
+    }
 }
 

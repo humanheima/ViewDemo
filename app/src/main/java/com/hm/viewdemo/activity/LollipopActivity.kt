@@ -2,19 +2,18 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
-import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_lollipop.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityLollipopBinding
 
 /**
  * Crete by dumingwei on 2019-06-06
  * Desc:
  *
  */
-class LollipopActivity : AppCompatActivity() {
+class LollipopActivity : BaseActivity<ActivityLollipopBinding>() {
 
 
     companion object {
@@ -26,28 +25,30 @@ class LollipopActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lollipop)
-        btnStartAnim.setOnClickListener {
-            lollipop.startAnim()
+    override fun createViewBinding(): ActivityLollipopBinding {
+        return ActivityLollipopBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
+        binding.btnStartAnim.setOnClickListener {
+            binding.lollipop.startAnim()
         }
 
-        btnCancelAnim.setOnClickListener {
-            lollipop.stopAnim()
+        binding.btnCancelAnim.setOnClickListener {
+            binding.lollipop.stopAnim()
         }
 
-        btnChangeConstraint.setOnClickListener {
+        binding.btnChangeConstraint.setOnClickListener {
             changeConstraint()
         }
-
     }
+
 
     private fun changeConstraint() {
         val set = ConstraintSet()
-        set.clone(clRoot)
+        set.clone(binding.clRoot)
         set.setGuidelinePercent(R.id.guideLine, 0.4f)
-        set.applyTo(clRoot)
-        TransitionManager.beginDelayedTransition(clRoot)
+        set.applyTo(binding.clRoot)
+        TransitionManager.beginDelayedTransition(binding.clRoot)
     }
 }

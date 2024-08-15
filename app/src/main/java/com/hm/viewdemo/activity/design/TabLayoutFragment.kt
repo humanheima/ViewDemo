@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.frag_tablayout.text_fragment
+import com.hm.viewdemo.databinding.FragTablayoutBinding
 
 /**
  * Created by dumingwei on 2020/4/28
@@ -32,22 +31,30 @@ class TabLayoutFragment : androidx.fragment.app.Fragment() {
 
     private var mParam1: String? = null
 
+    private var _binding: FragTablayoutBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mParam1 = arguments?.getString(ARG_PARAM1)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        text_fragment.text = mParam1
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.frag_tablayout, container, false)
+        _binding = FragTablayoutBinding.inflate(inflater, container, false)
+        val view = binding.root
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.textFragment.text = mParam1
     }
 
 }

@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
+import com.hm.viewdemo.databinding.ActivityCommonPopWindowBinding
 import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_common_pop_window.*
 
 /**
  * Created by dumingwei on 2020/11/13
@@ -33,6 +33,8 @@ class CommonPopWindowActivity : AppCompatActivity() {
     private var bottomPopWindowWidth = 0
     private var bottomPopWindowHeight = 0
 
+    private lateinit var binding: ActivityCommonPopWindowBinding
+
     companion object {
 
         @JvmStatic
@@ -44,45 +46,54 @@ class CommonPopWindowActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_common_pop_window)
+
+        binding = ActivityCommonPopWindowBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         initTopPopWindow()
 
         initBottomPopWindow()
-        btnShowPopTop.setOnClickListener {
+        binding.btnShowPopTop.setOnClickListener {
             if (!topPopWindow.isShowing) {
 
                 val anchorPosition = IntArray(2)
 
                 val screenWidth = ScreenUtil.getScreenWidth(this)
 
-                btn_anchor.getLocationInWindow(anchorPosition)
+                binding.btnAnchor.getLocationInWindow(anchorPosition)
                 Log.i(TAG, "onCreate: height = ${anchorPosition[1]}")
-                btn_anchor.getLocationOnScreen(anchorPosition)
+                binding.btnAnchor.getLocationOnScreen(anchorPosition)
 
-                val widthAxis: Int = anchorPosition[0] + btn_anchor.measuredWidth / 2 - topPopWindowWidth / 2
+                val widthAxis: Int =
+                    anchorPosition[0] + binding.btnAnchor.measuredWidth / 2 - topPopWindowWidth / 2
                 val heightAxis: Int = anchorPosition[1] - topPopWindowHeight
 
-                topPopWindow.showAtLocation(btn_anchor, Gravity.TOP or Gravity.START, widthAxis, heightAxis)
+                topPopWindow.showAtLocation(
+                    binding.btnAnchor,
+                    Gravity.TOP or Gravity.START,
+                    widthAxis,
+                    heightAxis
+                )
 
                 //使用showAsDropDown设置偏移量的方法让popwindow出现在控件上方
-                //val anchorHeight = btn_anchor.measuredHeight
+                //val anchorHeight =binding.btnAnchor.measuredHeight
                 //popWindow.showAsDropDown(btn_anchor, 0, -anchorHeight - popWindowHeight)
             }
         }
 
-        btnShowPopBottom.setOnClickListener {
+        binding.btnShowPopBottom.setOnClickListener {
             if (!bottomPopWindow.isShowing) {
 
                 val anchorPosition = IntArray(2)
 
                 val screenWidth = ScreenUtil.getScreenWidth(this)
 
-                btn_anchor.getLocationInWindow(anchorPosition)
+                binding.btnAnchor.getLocationInWindow(anchorPosition)
                 Log.i(TAG, "onCreate: height = ${anchorPosition[1]}")
-                btn_anchor.getLocationOnScreen(anchorPosition)
+                binding.btnAnchor.getLocationOnScreen(anchorPosition)
 
-                //val widthAxis: Int = anchorPosition[0] + btn_anchor.measuredWidth / 2 - bottomPopWindowWidth / 2
-                val widthAxis: Int = bottomPopWindowWidth / 2 - btn_anchor.measuredWidth / 2
+                //val widthAxis: Int = anchorPosition[0] +binding.btnAnchor.measuredWidth / 2 - bottomPopWindowWidth / 2
+                val widthAxis: Int = bottomPopWindowWidth / 2 - binding.btnAnchor.measuredWidth / 2
                 Log.d(TAG, "onCreate: widthAxis = $widthAxis")
                 val heightAxis: Int = anchorPosition[1] - bottomPopWindowHeight
                 //使用showAsDropDown方法
@@ -99,7 +110,7 @@ class CommonPopWindowActivity : AppCompatActivity() {
                  *
                  *
                  */
-                bottomPopWindow.showAsDropDown(btn_anchor, -widthAxis, 0)
+                bottomPopWindow.showAsDropDown(binding.btnAnchor, -widthAxis, 0)
             }
         }
     }
@@ -110,8 +121,15 @@ class CommonPopWindowActivity : AppCompatActivity() {
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         topPopWindowWidth = view.measuredWidth
         topPopWindowHeight = view.measuredHeight
-        Log.i(TAG, "initPopWindow: popWindowWidth = $topPopWindowWidth popWindowHeight = $topPopWindowHeight")
-        topPopWindow = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        Log.i(
+            TAG,
+            "initPopWindow: popWindowWidth = $topPopWindowWidth popWindowHeight = $topPopWindowHeight"
+        )
+        topPopWindow = PopupWindow(
+            view,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         topPopWindow.isFocusable = true
         topPopWindow.isOutsideTouchable = true
         topPopWindow.setBackgroundDrawable(ColorDrawable(0x00000000))
@@ -123,7 +141,11 @@ class CommonPopWindowActivity : AppCompatActivity() {
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         bottomPopWindowWidth = view.measuredWidth
         bottomPopWindowHeight = view.measuredHeight
-        bottomPopWindow = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        bottomPopWindow = PopupWindow(
+            view,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         bottomPopWindow.isFocusable = true
         bottomPopWindow.isOutsideTouchable = true
         bottomPopWindow.setBackgroundDrawable(ColorDrawable(0x00000000))

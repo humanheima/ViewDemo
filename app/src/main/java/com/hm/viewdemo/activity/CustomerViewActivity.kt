@@ -2,15 +2,11 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_custome_view.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityCustomeViewBinding
 
-class CustomerViewActivity : AppCompatActivity() {
-
-    private val TAG = javaClass.simpleName
+class CustomerViewActivity : BaseActivity<ActivityCustomeViewBinding>() {
 
 
     companion object {
@@ -20,13 +16,14 @@ class CustomerViewActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_custome_view)
+    override fun createViewBinding(): ActivityCustomeViewBinding {
+        return ActivityCustomeViewBinding.inflate(layoutInflater)
+    }
 
-        ivHeight.post {
-            Log.i(TAG, "onCreate: ${ivHeight.measuredHeight}")
-            Log.i(TAG, "onCreate: ${ivHeight.measuredWidth}")
+    override fun initData() {
+        binding.ivHeight.post {
+            Log.i(TAG, "onCreate: ${binding.ivHeight.measuredHeight}")
+            Log.i(TAG, "onCreate: ${binding.ivHeight.measuredWidth}")
         }
     }
 

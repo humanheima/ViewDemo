@@ -4,16 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_pop_window_with_input.*
+import com.hm.viewdemo.databinding.ActivityPopWindowWithInputBinding
 
 /**
  * Created by dumingwei on 2020/11/13
@@ -50,12 +56,14 @@ class PopWindowWithInputActivity : AppCompatActivity() {
 
     private lateinit var handler: Handler
 
+    private lateinit var binding: ActivityPopWindowWithInputBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pop_window_with_input)
+        binding = ActivityPopWindowWithInputBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        handler = object : Handler() {
+        handler = object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 Log.i(TAG, "handleMessage: ${msg.what}")
@@ -124,7 +132,7 @@ class PopWindowWithInputActivity : AppCompatActivity() {
             )
             popupStyle1?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         }
-        popupStyle1?.showAtLocation(btnStyle1, Gravity.BOTTOM, 0, 0)
+        popupStyle1?.showAtLocation(binding.btnStyle1, Gravity.BOTTOM, 0, 0)
         handler.postDelayed({
             showKeyBoard()
         }, 200)
@@ -132,13 +140,11 @@ class PopWindowWithInputActivity : AppCompatActivity() {
     }
 
     private fun showKeyBoard() {
-        im?.let {
-            it.toggleSoftInput(0, InputMethodManager.SHOW_FORCED)
-        }
+        im?.toggleSoftInput(0, InputMethodManager.SHOW_FORCED)
     }
 
     private fun hideKeyBoard() {
-        im?.hideSoftInputFromWindow(btnStyle1.windowToken, 0)
+        im?.hideSoftInputFromWindow(binding.btnStyle1.windowToken, 0)
     }
 
     override fun onStop() {

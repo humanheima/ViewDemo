@@ -6,13 +6,13 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_change_image_color.*
+import com.hm.viewdemo.databinding.ActivityChangeImageColorBinding
 
 class ChangeImageColorActivity : AppCompatActivity() {
 
@@ -27,6 +27,8 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
     private var llRoot: LinearLayout? = null
 
+    private lateinit var binding: ActivityChangeImageColorBinding
+
     companion object {
 
         fun launch(context: Context) {
@@ -37,13 +39,13 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_image_color)
 
-        llRoot =findViewById(R.id.ll_root)
+        binding = ActivityChangeImageColorBinding.inflate(layoutInflater)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            llRoot?.backgroundTintList =ColorStateList.valueOf(getColor(R.color.colorAccent))
-        }
+        setContentView(binding.root)
+        llRoot = findViewById(R.id.ll_root)
+
+        llRoot?.backgroundTintList = ColorStateList.valueOf(getColor(R.color.colorAccent))
 
         colorList.add(ContextCompat.getColor(this, R.color.white))
         colorList.add(ContextCompat.getColor(this, R.color.colorPrimaryDark))
@@ -54,31 +56,31 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
         //tintIvColor(ivPng, R.drawable.bookshelf_icon_edit, getColor(R.color.white))
 
-        btnChangeSvgColor.setOnClickListener {
+        binding.btnChangeSvgColor.setOnClickListener {
 
             if (svgIndex == colorList.size) {
                 svgIndex = 0
             }
             val color = colorList[svgIndex]
 
-            tintIvColor(ivSvg, R.drawable.ic_android_black_24dp, color)
+            tintIvColor(binding.ivSvg, R.drawable.ic_android_black_24dp, color)
             //ivSvg.setColorFilter(color)
             svgIndex++
         }
 
-        btnChangePngColor.setOnClickListener {
+        binding.btnChangePngColor.setOnClickListener {
             if (pngIndex == colorList.size) {
                 pngIndex = 0
             }
             val color = colorList[pngIndex]
 
             //tintIvColor(ivPng, R.drawable.main_ic_back_white, color)
-            ivPng.setColorFilter(color)
+            binding.ivPng.setColorFilter(color)
             pngIndex++
 
         }
 
-        btnLaunchActivity.setOnClickListener {
+        binding.btnLaunchActivity.setOnClickListener {
             AutoSizingTextViewActivity.launch(this)
 
         }

@@ -2,13 +2,12 @@ package com.hm.viewdemo.custom_view.chapter7
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_shadow_layer_view.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityShadowLayerViewBinding
 
-class ShadowLayerViewActivity : AppCompatActivity() {
+class ShadowLayerViewActivity : BaseActivity<ActivityShadowLayerViewBinding>() {
 
 
     companion object {
@@ -20,37 +19,47 @@ class ShadowLayerViewActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shadow_layer_view)
+    override fun createViewBinding(): ActivityShadowLayerViewBinding {
+        return ActivityShadowLayerViewBinding.inflate(layoutInflater)
     }
+
+    override fun initData() {
+
+    }
+
 
     fun onClick(view: View) {
         when (view.id) {
             R.id.btnAddX -> {
-                shadowLayerView.addDx()
+                binding.shadowLayerView.addDx()
             }
+
             R.id.btnSubtractX -> {
-                shadowLayerView.subtractDx()
+                binding.shadowLayerView.subtractDx()
             }
+
             R.id.btnAddY -> {
-                shadowLayerView.addDy()
+                binding.shadowLayerView.addDy()
             }
+
             R.id.btnSubtractY -> {
-                shadowLayerView.subtractDy()
+                binding.shadowLayerView.subtractDy()
             }
 
             R.id.btnAddRadius -> {
-                shadowLayerView.addRadius()
+                binding.shadowLayerView.addRadius()
             }
+
             R.id.btnSubtractRadius -> {
-                shadowLayerView.subtractRadius()
+                binding.shadowLayerView.subtractRadius()
             }
+
             R.id.btnShowShadow -> {
-                shadowLayerView.setShadow(true)
+                binding.shadowLayerView.setShadow(true)
             }
+
             R.id.btnClearShadow -> {
-                shadowLayerView.setShadow(false)
+                binding.shadowLayerView.setShadow(false)
             }
         }
     }

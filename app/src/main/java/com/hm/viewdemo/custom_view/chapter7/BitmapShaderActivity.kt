@@ -2,13 +2,11 @@ package com.hm.viewdemo.custom_view.chapter7
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_bitmap_shader.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityBitmapShaderBinding
 
-class BitmapShaderActivity : AppCompatActivity() {
+class BitmapShaderActivity : BaseActivity<ActivityBitmapShaderBinding>() {
 
     companion object {
 
@@ -19,13 +17,13 @@ class BitmapShaderActivity : AppCompatActivity() {
         }
     }
 
-    private val TAG = "BitmapShaderActivity"
+    override fun createViewBinding(): ActivityBitmapShaderBinding {
+        return ActivityBitmapShaderBinding.inflate(layoutInflater)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bitmap_shader)
-        view5.post {
-            Log.i(TAG, "onCreate:${view5.width}, ${view5.height}")
+    override fun initData() {
+        binding.view5.post {
+            Log.i(TAG, "onCreate:${binding.view5.width}, ${binding.view5.height}")
         }
     }
 }

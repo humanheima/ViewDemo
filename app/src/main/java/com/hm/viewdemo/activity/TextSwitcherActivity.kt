@@ -19,7 +19,6 @@ import android.widget.ViewSwitcher
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityTextSwitcherBinding
-import kotlinx.android.synthetic.main.activity_text_switcher.*
 
 /**
  * Created by dumingwei on 2020/4/2
@@ -102,11 +101,11 @@ class TextSwitcherActivity : AppCompatActivity() {
             }
         }
 
-        btnStart.setOnClickListener {
-            textSwitcher3.setCurrentText("0")
-            textSwitcher2.setCurrentText("0")
-            textSwitcher1.setCurrentText("0")
-            textSwitcher0.setCurrentText("0")
+        binding.btnStart.setOnClickListener {
+            binding.textSwitcher3.setCurrentText("0")
+            binding.textSwitcher2.setCurrentText("0")
+            binding.textSwitcher1.setCurrentText("0")
+            binding.textSwitcher0.setCurrentText("0")
             startAnimation(3)
         }
 
@@ -117,10 +116,10 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     private fun initTextSwitcher() {
 
-        textSwitcherList.add(textSwitcher0)
-        textSwitcherList.add(textSwitcher1)
-        textSwitcherList.add(textSwitcher2)
-        textSwitcherList.add(textSwitcher3)
+        textSwitcherList.add(binding.textSwitcher0)
+        textSwitcherList.add(binding.textSwitcher1)
+        textSwitcherList.add(binding.textSwitcher2)
+        textSwitcherList.add(binding.textSwitcher3)
 
         val inAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_in_from_bottom)
         val outAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.text_switcher_slide_out_to_top)
@@ -260,21 +259,21 @@ class TextSwitcherActivity : AppCompatActivity() {
 
     private fun next0() {
         if (index0Start < strs0.size) {
-            textSwitcher0.setText(strs0[index0Start++])
+            binding.textSwitcher0.setText(strs0[index0Start++])
             handler.sendEmptyMessageDelayed(0, 50)
         }
     }
 
     private fun next1() {
         if (index1Start < strs1.size) {
-            textSwitcher1.setText(strs1[index1Start++])
+            binding.textSwitcher1.setText(strs1[index1Start++])
             handler.sendEmptyMessageDelayed(1, 50)
         }
     }
 
     private fun next2() {
         if (index2Start < strs2.size) {
-            textSwitcher2.setText(strs2[index2Start++])
+            binding.textSwitcher2.setText(strs2[index2Start++])
             handler.sendEmptyMessageDelayed(2, 50)
         }
     }
@@ -282,7 +281,7 @@ class TextSwitcherActivity : AppCompatActivity() {
     private fun next3() {
         if (index3Start < strs3.size) {
             Log.i(TAG, "next3: ")
-            textSwitcher3.setText(strs3[index3Start++])
+            binding.textSwitcher3.setText(strs3[index3Start++])
             handler.sendEmptyMessageDelayed(3, 50)
         }
     }

@@ -95,13 +95,13 @@ class AnimatedGradientDrawable : GradientDrawable() {
         }
     }
 
-    override fun onBoundsChange(r: Rect?) {
+    override fun onBoundsChange(r: Rect) {
         super.onBoundsChange(r)
         linearGradient =
             LinearGradient(
                 0f,
                 0f,
-                r?.width()?.toFloat() ?: 0f,
+                r.width().toFloat() ?: 0f,
                 0f,
                 gradientColors,
                 positions,

@@ -29,9 +29,6 @@ import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
-import kotlinx.android.synthetic.main.activity_main.circleView
-import kotlinx.android.synthetic.main.activity_main.fl_content
-import kotlinx.android.synthetic.main.activity_main.scroll_view_root
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.random.Random
 
@@ -72,12 +69,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
         btnRoundProgressView = findViewById(R.id.btn_round_progress_view);
         btnRoundProgressView.scrollX = 100
 
-        scroll_view_root.post {
+        binding.scrollViewRoot.post {
             Log.e(
                 TAG,
-                "initData: scroll_view_root.measuredHeight = ${scroll_view_root.measuredHeight}"
+                "initData: scroll_view_root.measuredHeight = ${binding.scrollViewRoot.measuredHeight}"
             )
-            Log.e(TAG, "initData: fl_content.measuredHeight = ${fl_content.measuredHeight}")
+            Log.e(TAG, "initData: fl_content.measuredHeight = ${binding.flContent.measuredHeight}")
         }
 
         val list = listOf(1, 2, 3, 4, 5)
@@ -316,9 +313,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btnChangeCircleViewColor -> {
                 if (Random.nextBoolean()) {
-                    circleView.setColor(R.color.colorPrimary)
+                    binding.circleView.setColor(R.color.colorPrimary)
                 } else {
-                    circleView.setColor(R.color.colorAccent)
+                    binding.circleView.setColor(R.color.colorAccent)
                 }
             }
 

@@ -2,15 +2,10 @@ package com.hm.viewdemo.nested_scroll
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.appcompat.app.AppCompatActivity
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_nested_scroll_version_two.*
-import java.util.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityNestedScrollVersionTwoBinding
 
-class NestedScrollVersion2Activity : AppCompatActivity() {
+class NestedScrollVersion2Activity : BaseActivity<ActivityNestedScrollVersionTwoBinding>() {
 
     private val mTitles = arrayOf("简介", "评价", "相关")
     private var mAdapter: androidx.fragment.app.FragmentPagerAdapter? = null
@@ -26,10 +21,12 @@ class NestedScrollVersion2Activity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nested_scroll_version_two)
 
+    override fun createViewBinding(): ActivityNestedScrollVersionTwoBinding {
+        return ActivityNestedScrollVersionTwoBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         initDatas()
 
         val intent = Intent("")
@@ -55,8 +52,8 @@ class NestedScrollVersion2Activity : AppCompatActivity() {
             }
 
         }
-        stickyNavLayoutViewpager.adapter = mAdapter
-        stickyNavLayoutIndicator.setupWithViewPager(stickyNavLayoutViewpager)
+        binding.stickyNavLayoutViewpager.adapter = mAdapter
+        binding.stickyNavLayoutIndicator.setupWithViewPager(binding.stickyNavLayoutViewpager)
     }
 
 }

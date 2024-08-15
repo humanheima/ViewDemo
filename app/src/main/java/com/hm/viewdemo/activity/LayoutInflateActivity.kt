@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_layout_inflate.*
 
 /**
  * LayoutInflater源码分析

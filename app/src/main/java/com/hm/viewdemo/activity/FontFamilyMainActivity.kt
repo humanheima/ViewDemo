@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_font_family_main.*
+import com.hm.viewdemo.databinding.ActivityFontFamilyMainBinding
 
 /**
  * Created by dumingwei on 2021/1/13
@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_font_family_main.*
  * Desc: 测试TextView字体相关
  */
 class FontFamilyMainActivity : AppCompatActivity() {
-
 
     companion object {
 
@@ -25,8 +24,11 @@ class FontFamilyMainActivity : AppCompatActivity() {
         }
     }
 
-    val text = "豫章故郡，洪都新府"
-    val list = arrayListOf<String>()
+    private val text = "豫章故郡，洪都新府"
+    private val list = arrayListOf<String>()
+
+    private lateinit var binding: ActivityFontFamilyMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_font_family_main)
@@ -48,12 +50,13 @@ class FontFamilyMainActivity : AppCompatActivity() {
             val textViewNormal = TextView(this)
             textViewNormal.paint.typeface = Typeface.create(it, Typeface.NORMAL)
             textViewNormal.text = text
-            ll_container.addView(textViewNormal)
+            binding.llContainer.addView(textViewNormal)
 
             val textViewItalic = TextView(this)
             textViewItalic.paint.typeface = Typeface.create(it, Typeface.ITALIC)
             textViewItalic.text = text
-            ll_container.addView(textViewItalic)
+            binding.llContainer.addView(textViewItalic)
+
         }
     }
 }

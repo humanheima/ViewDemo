@@ -14,8 +14,6 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityMaxHeightLayoutBinding
-import kotlinx.android.synthetic.main.activity_max_height_layout.btn_show_much_pop_window
-import kotlinx.android.synthetic.main.activity_max_height_layout.btn_show_pop_window
 
 class MaxHeightLayoutActivity : BaseActivity<ActivityMaxHeightLayoutBinding>() {
 
@@ -53,11 +51,11 @@ class MaxHeightLayoutActivity : BaseActivity<ActivityMaxHeightLayoutBinding>() {
         lessAdapter = RecycleViewAdapter(lessDataList, this)
         muchAdapter = RecycleViewAdapter(muchDataList, this)
         btnTwo = findViewById(R.id.btn_show_much_pop_window)
-        btn_show_pop_window.post {
-            val location = IntArray(2)
-            btn_show_pop_window.getLocationOnScreen(location)
-            Log.i(TAG, "initData: ${location[1]}")
 
+        binding.btnShowPopWindow.post {
+            val location = IntArray(2)
+            binding.btnShowPopWindow.getLocationOnScreen(location)
+            Log.i(TAG, "initData: ${location[1]}")
         }
 
     }
@@ -83,10 +81,10 @@ class MaxHeightLayoutActivity : BaseActivity<ActivityMaxHeightLayoutBinding>() {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 true
             )
-            popWindow!!.setBackgroundDrawable(ColorDrawable())
-            popWindow!!.showAsDropDown(btn_show_pop_window, 0, 100, Gravity.BOTTOM)
+            popWindow?.setBackgroundDrawable(ColorDrawable())
+            popWindow?.showAsDropDown(binding.btnShowPopWindow, 0, 100, Gravity.BOTTOM)
         } else {
-            popWindow!!.showAsDropDown(btn_show_pop_window, 0, 100, Gravity.BOTTOM)
+            popWindow?.showAsDropDown(binding.btnShowPopWindow, 0, 100, Gravity.BOTTOM)
         }
     }
 
@@ -104,17 +102,17 @@ class MaxHeightLayoutActivity : BaseActivity<ActivityMaxHeightLayoutBinding>() {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 true
             )
-            muchPopWindow!!.isFocusable = true
-            muchPopWindow!!.setBackgroundDrawable(ColorDrawable())
-            muchPopWindow!!.showAtLocation(
-                btn_show_much_pop_window,
+            muchPopWindow?.isFocusable = true
+            muchPopWindow?.setBackgroundDrawable(ColorDrawable())
+            muchPopWindow?.showAtLocation(
+                binding.btnShowMuchPopWindow,
                 Gravity.BOTTOM,
                 0,
                 btnTwo.height
             )
         } else {
-            muchPopWindow!!.showAtLocation(
-                btn_show_much_pop_window,
+            muchPopWindow?.showAtLocation(
+                binding.btnShowMuchPopWindow,
                 Gravity.BOTTOM,
                 0,
                 btnTwo.height

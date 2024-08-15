@@ -4,13 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
-import android.view.LayoutInflater
-import android.widget.LinearLayout
-import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityPaddingTestBinding
-import com.hm.viewdemo.util.ScreenUtil
-import kotlinx.android.synthetic.main.activity_vertical_vertical.view.*
 
 /**
  * Created by dumingwei on 2021/3/18

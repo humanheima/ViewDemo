@@ -3,22 +3,21 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_soft_keyboard.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivitySoftKeyboardBinding
 
 
 /**
  * Created by p_dmweidu on 2023/6/1
  * Desc: 监听软键盘的弹起和关闭
  */
-class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayoutListener {
+class SoftKeyboardActivity : BaseActivity<ActivitySoftKeyboardBinding>(),
+    ViewTreeObserver.OnGlobalLayoutListener {
 
 
     companion object {
@@ -39,10 +38,12 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
 
     private var im: InputMethodManager? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_soft_keyboard)
 
+    override fun createViewBinding(): ActivitySoftKeyboardBinding {
+        return ActivitySoftKeyboardBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         val dm = resources.displayMetrics
         //设定一个认为是软键盘弹起的阈值
         softKeyboardHeight = (100 * dm.density).toInt()
@@ -57,15 +58,16 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
         activityRootView = window.decorView.findViewById(android.R.id.content)
         activityRootView?.viewTreeObserver?.addOnGlobalLayoutListener(this)
 
-        tvOpenKeyBoard.setOnClickListener {
-            showKeyBoard(editText)
+        binding.tvOpenKeyBoard.setOnClickListener {
+            showKeyBoard(binding.editText)
             //showKeyBoard()
         }
 
-        tvCloseKeyBoard.setOnClickListener {
+        binding.tvCloseKeyBoard.setOnClickListener {
             hideKeyBoard()
         }
     }
+
 
     override fun onGlobalLayout() {
         activityRootView?.let {
@@ -108,8 +110,10 @@ class SoftKeyboardActivity : AppCompatActivity(), ViewTreeObserver.OnGlobalLayou
     }
 
     private fun hideKeyBoard() {
-        im?.hideSoftInputFromWindow(tvOpenKeyBoard.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-
+        im?.hideSoftInputFromWindow(
+            binding.tvOpenKeyBoard.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
     }
 
     override fun onDestroy() {

@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_handler.*
+import androidx.appcompat.app.AppCompatActivity
+import com.hm.viewdemo.databinding.ActivityHandlerBinding
 
 /**
  * Crete by dumingwei on 2020-01-08
@@ -23,6 +23,8 @@ class HandlerActivity : AppCompatActivity() {
     private lateinit var handler: Handler
 
 
+    private lateinit var binding: ActivityHandlerBinding
+
     companion object {
 
         fun launch(context: Context) {
@@ -33,7 +35,9 @@ class HandlerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_handler)
+        binding = ActivityHandlerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
 
         /*Looper.myQueue().addIdleHandler {
@@ -46,14 +50,14 @@ class HandlerActivity : AppCompatActivity() {
             Log.i(TAG, "onCreate: Printer $str")
         }*/
 
-        btnSendMessage.setOnClickListener {
+        binding.btnSendMessage.setOnClickListener {
             handler.post {
                 prepare()
             }
 
         }
 
-        handler = object : Handler() {
+        handler = object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 Log.i(TAG, "handleMessage: ")

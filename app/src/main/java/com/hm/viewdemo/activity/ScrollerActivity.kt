@@ -2,21 +2,17 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_scroller.*
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityScrollerBinding
 
 /**
  * Created by dumingwei on 2020/4/13
  *
  * Desc:
  */
-class ScrollerActivity : AppCompatActivity() {
+class ScrollerActivity : BaseActivity<ActivityScrollerBinding>() {
 
-
-    private val TAG: String = "ScrollerActivity"
 
     companion object {
 
@@ -26,19 +22,20 @@ class ScrollerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scroller)
-        btnStartScroll.setOnClickListener {
-            //向右下方向滚动100像素
-            //smoothScrollView.smoothScrollTo(-100, -100)
-            smoothScrollView.smoothScrollTo(100, 100)
-        }
-
-        btnScroll.setOnClickListener {
-            Log.i(TAG, "onCreate: ${smoothScrollView.scrollY}")
-        }
+    override fun createViewBinding(): ActivityScrollerBinding {
+        return ActivityScrollerBinding.inflate(layoutInflater)
     }
 
+    override fun initData() {
+        binding.btnStartScroll.setOnClickListener {
+            //向右下方向滚动100像素
+            //smoothScrollView.smoothScrollTo(-100, -100)
+            binding.smoothScrollView.smoothScrollTo(100, 100)
+        }
+
+        binding.btnScroll.setOnClickListener {
+            Log.i(TAG, "onCreate: ${binding.smoothScrollView.scrollY}")
+        }
+    }
 
 }

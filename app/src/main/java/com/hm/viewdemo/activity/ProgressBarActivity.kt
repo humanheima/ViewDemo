@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference
  * Desc: 测试loading dialog progress等
  * 参考链接：https://blog.csdn.net/mad1989/article/details/38042875
  */
-class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding?>() {
+class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding>() {
     private var handler: MyHandler? = null
     override fun createViewBinding(): ActivityProgressBarBinding {
         return ActivityProgressBarBinding.inflate(layoutInflater)

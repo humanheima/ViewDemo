@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.core.widget.TextViewCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.util.TypedValue
 import android.widget.TextView
-import com.hm.viewdemo.R
-import kotlinx.android.synthetic.main.activity_auto_sizing_text_view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.TextViewCompat
+import com.hm.viewdemo.databinding.ActivityAutoSizingTextViewBinding
 
 /**
  * Created by dumingwei on 2020/5/26
@@ -28,9 +27,13 @@ class AutoSizingTextViewActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityAutoSizingTextViewBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auto_sizing_text_view)
+
+        binding = ActivityAutoSizingTextViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //sdk版本大于等于26
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -57,24 +60,25 @@ class AutoSizingTextViewActivity : AppCompatActivity() {
         val intArray = intArrayOf(10, 12, 13, 15, 16, 20, 22, 24)
         //sdk版本大于等于26
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            tvDynamicSet.setAutoSizeTextTypeUniformWithPresetSizes(intArray, TypedValue.COMPLEX_UNIT_SP
+            binding.tvDynamicSet.setAutoSizeTextTypeUniformWithPresetSizes(
+                intArray, TypedValue.COMPLEX_UNIT_SP
             )
         } else {
             TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(
-                    tvDynamicSet, intArray, TypedValue.COMPLEX_UNIT_SP
+                binding.tvDynamicSet, intArray, TypedValue.COMPLEX_UNIT_SP
             )
         }
 
-        btnAdd.setOnClickListener {
-            addText(tvDynamicSet)
-            addText(acTvXml)
-            addText(tvPreSet)
+        binding.btnAdd.setOnClickListener {
+            addText(binding.tvDynamicSet)
+            addText(binding.acTvXml)
+            addText(binding.tvPreSet)
         }
 
-        btnMinus.setOnClickListener {
-            minusText(tvDynamicSet)
-            minusText(acTvXml)
-            minusText(tvPreSet)
+        binding.btnMinus.setOnClickListener {
+            minusText(binding.tvDynamicSet)
+            minusText(binding.acTvXml)
+            minusText(binding.tvPreSet)
         }
     }
 
