@@ -67,7 +67,7 @@ class MyViewGroup @JvmOverloads constructor(
         return super.getChildDrawingOrder(childCount, i)
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
+    override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
     }
 }

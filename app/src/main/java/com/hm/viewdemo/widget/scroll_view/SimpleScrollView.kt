@@ -4,7 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
-import android.view.*
+import android.view.MotionEvent
+import android.view.VelocityTracker
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Scroller
 import kotlin.math.abs
@@ -15,7 +19,7 @@ import kotlin.math.abs
  * Desc:
  */
 class SimpleScrollView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val TAG: String = "SimpleScrollView"
@@ -47,32 +51,48 @@ class SimpleScrollView @JvmOverloads constructor(
     /**
      * 要重写此方法，使用MeasureSpec.UNSPECIFIED的方式测量子View
      */
-    override fun measureChild(child: View, parentWidthMeasureSpec: Int, parentHeightMeasureSpec: Int) {
+    override fun measureChild(
+        child: View,
+        parentWidthMeasureSpec: Int,
+        parentHeightMeasureSpec: Int
+    ) {
         val lp = child.layoutParams
         val childWidthMeasureSpec: Int
         val childHeightMeasureSpec: Int
-        childWidthMeasureSpec = ViewGroup.getChildMeasureSpec(parentWidthMeasureSpec, paddingLeft
-                + paddingRight, lp.width)
+        childWidthMeasureSpec = ViewGroup.getChildMeasureSpec(
+            parentWidthMeasureSpec, paddingLeft
+                    + paddingRight, lp.width
+        )
         val verticalPadding = paddingTop + paddingBottom
         childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                Math.max(0, MeasureSpec.getSize(parentHeightMeasureSpec) - verticalPadding),
-                MeasureSpec.UNSPECIFIED)
+            Math.max(0, MeasureSpec.getSize(parentHeightMeasureSpec) - verticalPadding),
+            MeasureSpec.UNSPECIFIED
+        )
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec)
     }
 
     /**
      * 要重写此方法，使用MeasureSpec.UNSPECIFIED的方式测量子View
      */
-    override fun measureChildWithMargins(child: View, parentWidthMeasureSpec: Int, widthUsed: Int, parentHeightMeasureSpec: Int, heightUsed: Int) {
+    override fun measureChildWithMargins(
+        child: View,
+        parentWidthMeasureSpec: Int,
+        widthUsed: Int,
+        parentHeightMeasureSpec: Int,
+        heightUsed: Int
+    ) {
         val lp = child.layoutParams as MarginLayoutParams
-        val childWidthMeasureSpec = ViewGroup.getChildMeasureSpec(parentWidthMeasureSpec,
-                paddingLeft + paddingRight + lp.leftMargin + lp.rightMargin
-                        + widthUsed, lp.width)
+        val childWidthMeasureSpec = ViewGroup.getChildMeasureSpec(
+            parentWidthMeasureSpec,
+            paddingLeft + paddingRight + lp.leftMargin + lp.rightMargin
+                    + widthUsed, lp.width
+        )
         val usedTotal = paddingTop + paddingBottom + lp.topMargin + lp.bottomMargin +
                 heightUsed
         val childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                Math.max(0, MeasureSpec.getSize(parentHeightMeasureSpec) - usedTotal),
-                MeasureSpec.UNSPECIFIED)
+            Math.max(0, MeasureSpec.getSize(parentHeightMeasureSpec) - usedTotal),
+            MeasureSpec.UNSPECIFIED
+        )
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec)
     }
 
@@ -89,12 +109,14 @@ class SimpleScrollView @JvmOverloads constructor(
                     intercepted = true
                 }
             }
+
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = x - mLastXIntercept
                 val deltaY = y - mLastYIntercept
                 Log.i(TAG, "Math.abs(deltaX)=" + abs(deltaX) + ",Math.abs(deltaY)=" + abs(deltaY))
                 intercepted = abs(deltaY) > abs(deltaX)
             }
+
             MotionEvent.ACTION_UP -> intercepted = false
         }
         Log.i(TAG, "intercepted=$intercepted")
@@ -113,12 +135,14 @@ class SimpleScrollView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> if (!scroller.isFinished) {
                 scroller.abortAnimation()
             }
+
             MotionEvent.ACTION_MOVE -> {
                 val deltaY = mLastY - y
                 Log.e(TAG, "onTouchEvent: scrollY = $scrollY deltaY = $deltaY  height = $height")
                 scrollTo(0, scrollY + deltaY)
                 //invalidate()
             }
+
             MotionEvent.ACTION_UP -> {
                 mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity * 1.0f)
                 val initialVelocity = mVelocityTracker.yVelocity.toInt()
@@ -130,6 +154,7 @@ class SimpleScrollView @JvmOverloads constructor(
                 }
                 mVelocityTracker.clear()
             }
+
             else -> {
             }
         }
@@ -139,9 +164,9 @@ class SimpleScrollView @JvmOverloads constructor(
     }
 
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        Log.i(TAG, "onDraw: ${canvas?.height} ${canvas?.hashCode()}")
+        Log.i(TAG, "onDraw: ${canvas.height} ${canvas.hashCode()}")
     }
 
     private fun fling(velocityY: Int) {
@@ -163,10 +188,11 @@ class SimpleScrollView @JvmOverloads constructor(
         super.scrollTo(x, newScrollY)
     }
 
-    override fun draw(canvas: Canvas?) {
+    override fun draw(canvas: Canvas) {
         Log.i(TAG, "draw: ")
         super.draw(canvas)
     }
+
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
             val y = scroller.currY
@@ -181,7 +207,10 @@ class SimpleScrollView @JvmOverloads constructor(
         if (childCount > 0) {
             val child = getChildAt(0)
             scrollRange = 0.coerceAtLeast(child.height - (height - paddingBottom - paddingTop))
-            Log.i(TAG, "getScrollRange: scrollRange = $scrollRange  自身偏移量 = $scrollY $child 的偏移量 = ${child.scrollY}")
+            Log.i(
+                TAG,
+                "getScrollRange: scrollRange = $scrollRange  自身偏移量 = $scrollY $child 的偏移量 = ${child.scrollY}"
+            )
         }
         Log.i(TAG, "getScrollRange: scrollRange = $scrollRange")
 

@@ -155,7 +155,7 @@ class StickyNavLayout @JvmOverloads constructor(
         super.onLayout(changed, l, t, r, b)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         Log.i(TAG, "onDraw: ")
         super.onDraw(canvas)
     }

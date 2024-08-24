@@ -39,7 +39,7 @@ class MyButton : Button {
         return super.onTouchEvent(event)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         Log.i(TAG, "onDraw: canvas = ${canvas.hashCode()}")
         super.onDraw(canvas)
     }

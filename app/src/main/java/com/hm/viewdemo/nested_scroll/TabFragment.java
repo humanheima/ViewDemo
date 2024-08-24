@@ -1,16 +1,16 @@
 package com.hm.viewdemo.nested_scroll;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.hm.viewdemo.R;
-import com.zhy.base.adapter.ViewHolder;
-import com.zhy.base.adapter.recyclerview.CommonAdapter;
+import com.hm.viewdemo.base.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +51,29 @@ public class TabFragment extends Fragment {
         for (int i = 0; i < 50; i++) {
             mDatas.add(mTitle + " -> " + i);
         }
-        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.nested_rv_item, mDatas) {
+//        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.nested_rv_item, mDatas) {
+//            @Override
+//            public void convert(ViewHolder holder, String o) {
+//                holder.setText(R.id.id_info, o);
+//            }
+//        });
+
+        mRecyclerView.setAdapter(new BaseAdapter() {
             @Override
-            public void convert(ViewHolder holder, String o) {
-                holder.setText(R.id.id_info, o);
+            protected int getCount() {
+                return 0;
+            }
+
+            @Override
+            protected RecyclerView.ViewHolder onCreateView(ViewGroup parent, int viewType) {
+                return null;
+            }
+
+            @Override
+            protected void onBindView(RecyclerView.ViewHolder holder, int position) {
+
             }
         });
-
         return view;
 
     }

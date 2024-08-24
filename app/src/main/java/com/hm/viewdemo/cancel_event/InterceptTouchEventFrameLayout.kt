@@ -12,7 +12,7 @@ import android.widget.FrameLayout
  * Desc:
  */
 class InterceptTouchEventFrameLayout @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val TAG = "InterceptTouchEventFram"
@@ -27,7 +27,7 @@ class InterceptTouchEventFrameLayout @JvmOverloads constructor(
         return super.onInterceptTouchEvent(ev)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         Log.i(TAG, "onDraw: canvas = ${canvas.hashCode()}")
         super.onDraw(canvas)
 

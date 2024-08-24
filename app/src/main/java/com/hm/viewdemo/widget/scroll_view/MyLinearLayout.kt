@@ -23,12 +23,12 @@ class MyLinearLayout @JvmOverloads constructor(
         Log.i(TAG, "onMeasure: measuredHeight = $measuredHeight")
     }
 
-    override fun drawChild(canvas: Canvas?, child: View?, drawingTime: Long): Boolean {
+    override fun drawChild(canvas: Canvas, child: View?, drawingTime: Long): Boolean {
         Log.i(TAG, "drawChild: ${canvas?.height} ${canvas?.hashCode()} $translationY")
         return super.drawChild(canvas, child, drawingTime)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         Log.i(TAG, "onDraw: ${canvas?.height} ${canvas?.hashCode()}")
     }

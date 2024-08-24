@@ -68,7 +68,7 @@ class TestLifecycleTextView @JvmOverloads constructor(
         Log.i(TAG, "onLayout: ")
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         Log.i(TAG, "onDraw: ")
     }

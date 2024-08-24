@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:background="@drawable/scan_round_rect"
         android:gravity="center"
-        android:text="@string/hello_world"
+        android:text="hello_world"
         android:textColor="@color/white" />
 
 </FrameLayout>

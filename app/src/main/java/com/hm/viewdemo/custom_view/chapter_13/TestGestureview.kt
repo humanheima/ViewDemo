@@ -15,7 +15,7 @@ import android.view.View
  *
  */
 class TestGestureview @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
 
@@ -30,46 +30,62 @@ class TestGestureview @JvmOverloads constructor(
     }
 
 
-    private var gestureDetector: GestureDetector = GestureDetector(object : GestureDetector.OnGestureListener {
-        override fun onShowPress(e: MotionEvent) {
-            Log.i(TAG, "onShowPress: ${getActionName(e.action)}")
-        }
-
-        override fun onSingleTapUp(e: MotionEvent): Boolean {
-            Log.i(TAG, "onSingleTapUp: ${getActionName(e.action)}")
-            return true
-        }
-
-        override fun onDown(e: MotionEvent): Boolean {
-            Log.i(TAG, "onDown: ${getActionName(e.action)}")
-            return true
-        }
-
-        /**
-         * 向右滑动velocityX是为正值
-         * 向左滑动velocityX是为负值
-         */
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            Log.i(TAG, "onFling: ${getActionName(e1.action)},${getActionName(e2.action)}")
-            Log.e(TAG, "onFling: e1.x=${e1.x}, e2.x=${e2.x}, velocityX=$velocityX, velocityY=$velocityY")
-            if (e1.x - e2.x > FLING_MIN_DISTANCE && Math.abs(velocityX) >= FLING_MIN_VELOCITY) {
-                //向左滑
-                Log.e(TAG, "onFling: left")
-            } else if (e2.x - e1.x > FLING_MIN_DISTANCE && Math.abs(velocityX) >= FLING_MIN_VELOCITY) {
-                Log.e(TAG, "onFling: right")
+    private var gestureDetector: GestureDetector =
+        GestureDetector(object : GestureDetector.OnGestureListener {
+            override fun onShowPress(e: MotionEvent) {
+                Log.i(TAG, "onShowPress: ${getActionName(e.action)}")
             }
-            return true
-        }
 
-        override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            Log.i(TAG, "onScroll: ${getActionName(e1.action)},${getActionName(e2.action)}")
-            return true
-        }
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                Log.i(TAG, "onSingleTapUp: ${getActionName(e.action)}")
+                return true
+            }
 
-        override fun onLongPress(e: MotionEvent) {
-            Log.i(TAG, "onLongPress: ${getActionName(e.action)}")
-        }
-    })
+            override fun onDown(e: MotionEvent): Boolean {
+                Log.i(TAG, "onDown: ${getActionName(e.action)}")
+                return true
+            }
+
+            /**
+             * 向右滑动velocityX是为正值
+             * 向左滑动velocityX是为负值
+             */
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if (e1 == null) return false
+                Log.i(TAG, "onFling: ${getActionName(e1.action)},${getActionName(e2.action)}")
+                Log.e(
+                    TAG,
+                    "onFling: e1.x=${e1.x}, e2.x=${e2.x}, velocityX=$velocityX, velocityY=$velocityY"
+                )
+                if (e1.x - e2.x > FLING_MIN_DISTANCE && Math.abs(velocityX) >= FLING_MIN_VELOCITY) {
+                    //向左滑
+                    Log.e(TAG, "onFling: left")
+                } else if (e2.x - e1.x > FLING_MIN_DISTANCE && Math.abs(velocityX) >= FLING_MIN_VELOCITY) {
+                    Log.e(TAG, "onFling: right")
+                }
+                return true
+            }
+
+            override fun onScroll(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                distanceX: Float,
+                distanceY: Float
+            ): Boolean {
+
+                Log.i(TAG, "onScroll: ${getActionName(e1?.action)},${getActionName(e2.action)}")
+                return true
+            }
+
+            override fun onLongPress(e: MotionEvent) {
+                Log.i(TAG, "onLongPress: ${getActionName(e.action)}")
+            }
+        })
 
     init {
         gestureDetector.setOnDoubleTapListener(object : GestureDetector.OnDoubleTapListener {
@@ -116,20 +132,24 @@ class TestGestureview @JvmOverloads constructor(
         canvas.drawColor(Color.BLUE)
     }
 
-    private fun getActionName(action: Int): String {
+    private fun getActionName(action: Int?): String {
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 return "ACTION_DOWN"
             }
+
             MotionEvent.ACTION_MOVE -> {
                 return "ACTION_MOVE"
             }
+
             MotionEvent.ACTION_UP -> {
                 return "ACTION_UP"
             }
+
             MotionEvent.ACTION_CANCEL -> {
                 return "ACTION_CANCEL"
             }
+
             else -> {
                 return "UNKNOWN"
             }
