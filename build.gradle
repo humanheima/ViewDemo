@@ -38,4 +38,7 @@ ext {
     targetSdkVersion = 33
     bufferKnifeVersion = "8.5.1"
     glideVersion = "4.16.0"
+
+    appcompatVersion = '1.6.1'
+
 }
