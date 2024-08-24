@@ -10,6 +10,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
@@ -77,18 +82,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             Log.e(TAG, "initData: fl_content.measuredHeight = ${binding.flContent.measuredHeight}")
         }
 
-        val list = listOf(1, 2, 3, 4, 5)
-        val list2 = listOf(1, 2, 3, 4, 5)
-        val iterator = list.iterator()
-        outLooper@
-        while (iterator.hasNext()) {
-            Log.i(TAG, "initData: next = ${iterator.next()}")
-            val iterator2 = list2.iterator()
-            while (iterator2.hasNext()) {
-                Log.i(TAG, "initData: next2 = ${iterator2.next()}")
-                break@outLooper
-            }
-        }
 
         avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/7F2B7CCCC90CFD154497A93A7CA147FC.jpg")
         avatarList.add("https://xxvirtualcharactercdn.rongshuxia.com/2482F0C14C5823AB3F43424FFEEEFFA1.jpg")
@@ -99,11 +92,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
         ScreenUtil.printDisplayMetricsInfo(this)
 
-        val string: String? = null
-        string?.let {
+        binding.composeView.setContent {
+
+            MaterialTheme {
+                Surface {
+                    composeButton()
+                }
+            }
 
         }
+    }
 
+    @Composable
+    fun composeButton() {
+        Button(onClick = {
+            Toast.makeText(this, "这个是ComposeView", Toast.LENGTH_SHORT).show()
+            LoadResActivity.launch(this)
+        }) {
+            Text(text = "Hello, Compose View!")
+        }
     }
 
     fun onClick(view: View) {

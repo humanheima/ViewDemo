@@ -26,6 +26,11 @@
                 android:text="测试资源加载"
                 android:textAllCaps="false" />
 
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/btn_test_change_day_night_theme"
                 android:layout_width="match_parent"
