@@ -2,17 +2,16 @@ package com.hm.viewdemo.activity.design
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hm.viewdemo.R
+import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityTabLayoutBinding
 
 /**
@@ -20,7 +19,7 @@ import com.hm.viewdemo.databinding.ActivityTabLayoutBinding
  *
  * Desc: TabLayout使用
  */
-class TabLayoutActivity : AppCompatActivity() {
+class TabLayoutActivity : BaseActivity<ActivityTabLayoutBinding>() {
 
     private val fragments: ArrayList<Fragment> = arrayListOf()
 
@@ -32,7 +31,6 @@ class TabLayoutActivity : AppCompatActivity() {
 
     private var adapter: FragmentStateAdapter? = null
 
-    private lateinit var binding: ActivityTabLayoutBinding
 
     companion object {
 
@@ -42,10 +40,12 @@ class TabLayoutActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tab_layout)
 
+    override fun createViewBinding(): ActivityTabLayoutBinding {
+        return ActivityTabLayoutBinding.inflate(layoutInflater)
+    }
+
+    override fun initData() {
         for (i in 0 until 10) {
             datas.add(MockData("标题$i"))
             fragments.add(TabLayoutFragment.newInstance("第${i}个fragment"))
@@ -158,8 +158,8 @@ class TabLayoutActivity : AppCompatActivity() {
             tabLayoutMediator?.attach()
             binding.tabLayout.selectTab(null)
         }
-
     }
+
 
     class MockData @JvmOverloads constructor(var text: String, var resId: Int = -1)
 }
