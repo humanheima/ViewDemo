@@ -72,7 +72,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':pullrefresh')
     implementation project(':dot-progress-bar')
-    implementation 'pub.devrel:easypermissions:1.1.3'
+    implementation "pub.devrel:easypermissions:$rootProject.ext.easypermissionsVersion"
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompatVersion}"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

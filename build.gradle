@@ -39,6 +39,9 @@ ext {
     bufferKnifeVersion = "8.5.1"
     glideVersion = "4.16.0"
 
+    //权限申请
+    easypermissionsVersion = '3.0.0'
+
     appcompatVersion = '1.6.1'
 
 }
