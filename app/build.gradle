@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 //apply plugin: 'walle'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
+
+
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
@@ -91,6 +95,7 @@ dependencies {
     //implementation 'com.hm.kof97:slidedeletelayout:1.0'
     implementation project(path: ':colorfulprogressbar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.robinhood.ticker:ticker:2.0.2'
     //implementation 'com.zhy:base-adapter:2.0.0'
@@ -112,7 +117,10 @@ dependencies {
     implementation "com.github.zjupure:webpdecoder:2.6.${rootProject.ext.glideVersion}"
     // glide 4.10.0+
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVersion}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"
+    implementation 'androidx.activity:activity:1.9.1'
+    implementation 'androidx.navigation:navigation-compose:2.7.7'
+    implementation 'androidx.navigation:navigation-fragment:2.7.7'
+    kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"
 
     //blur用的吗？
     implementation 'jp.wasabeef:blurry:4.0.1'
@@ -132,6 +140,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.6.8'
 
     // compose 结束
 

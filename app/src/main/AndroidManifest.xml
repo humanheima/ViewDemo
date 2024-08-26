@@ -9,36 +9,37 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-                android:name=".activity.EditTextActivity"
-                android:exported="false" />
-
+            android:name=".activity.compose.WidgetsActivity"
+            android:exported="false" />
         <activity
-                android:name=".activity.TestBlurActivity"
-                android:exported="false" />
+            android:name=".activity.EditTextActivity"
+            android:exported="false" />
         <activity
-                android:name=".day_night.ChangeDayNightThemeActivity"
-                android:exported="false" />
+            android:name=".activity.TestBlurActivity"
+            android:exported="false" />
+        <activity
+            android:name=".day_night.ChangeDayNightThemeActivity"
+            android:exported="false" />
         <activity android:name=".day_night.DarkModeManager" />
         <activity
-                android:name=".activity.NinePatchDrawableActivity"
-                android:exported="false" />
+            android:name=".activity.NinePatchDrawableActivity"
+            android:exported="false" />
         <activity
-                android:name=".activity.MergeTestActivity"
-                android:exported="false" />
+            android:name=".activity.MergeTestActivity"
+            android:exported="false" />
         <activity
-                android:name=".activity.MaterialChipActivity"
-                android:exported="false"
-                android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:name=".activity.MaterialChipActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
-                android:name=".activity.MatrixTestActivity"
-                android:exported="false" />
+            android:name=".activity.MatrixTestActivity"
+            android:exported="false" />
         <activity android:name=".activity.TestDrawableStateActivity" />
         <activity android:name=".activity.ListenNestedScrollViewActivity" />
         <activity android:name=".activity.RoundScrollViewActivity" />
@@ -46,8 +47,8 @@
         <activity android:name=".activity.MyViewGroupActivity" />
         <activity android:name=".activity.ClipBoardActivity" />
         <activity
-                android:name=".activity.VectorDrawableMainActivity"
-                android:exported="false" />
+            android:name=".activity.VectorDrawableMainActivity"
+            android:exported="false" />
         <activity android:name=".activity.LoadResActivity" />
         <activity android:name=".activity.StageRedPacketActivity" />
         <activity android:name=".activity.SkeletonViewActivity" />
@@ -105,8 +106,8 @@
         <activity android:name=".custom_view.GetStartAndPracticeActivity" />
         <activity android:name=".custom_view.chapter7.ShadowLayerViewActivity" />
         <activity
-                android:name=".activity.SoftKeyboardActivity"
-                android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:name=".activity.SoftKeyboardActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name=".activity.DrawPathActivity" />
         <activity android:name=".activity.CountDownTimerActivity" />
         <activity android:name=".TestScreenScrollViewActivity" />
@@ -118,9 +119,9 @@
         <activity android:name=".activity.ImageViewSrcBackgroundActivity" />
         <activity android:name=".activity.LayoutInflateActivity" />
         <activity
-                android:name=".activity.MainActivity"
-                android:configChanges="fontScale"
-                android:exported="true">
+            android:name=".activity.MainActivity"
+            android:configChanges="fontScale"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -128,8 +129,8 @@
             </intent-filter>
 
             <meta-data
-                    android:name="android.app.shortcuts"
-                    android:resource="@xml/shortcuts" />
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity android:name=".activity.HorizontalVerticalConflictActivity" />
         <activity android:name=".activity.CustomerViewActivity" />
@@ -144,10 +145,8 @@
         <activity android:name=".activity.DragSlopLayoutActivity" />
         <activity android:name=".activity.ViewDragHelperActivity" />
         <activity
-                android:name=".activity.PullToRefreshActivity"
-                android:theme="@style/FullScreenTheme">
-
-        </activity>
+            android:name=".activity.PullToRefreshActivity"
+            android:theme="@style/FullScreenTheme"></activity>
         <activity android:name=".activity.TextViewActivity" />
         <activity android:name=".activity.MpAndroidChartActivity" />
         <activity android:name=".activity.TestFuDanActivity" />
@@ -165,8 +164,8 @@
         <activity android:name=".activity.ScreenSupportActivity" />
         <activity android:name=".activity.ConstraintActivity" />
         <activity
-                android:name=".activity.QrCodeScanActivity"
-                android:exported="false">
+            android:name=".activity.QrCodeScanActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.hm.viewdemo.QrCodeScan" />
 
@@ -185,8 +184,8 @@
         <activity android:name=".activity.RulerMainActivity" />
         <activity android:name=".activity.RuleViewMainActivity" />
         <activity
-                android:name=".animtest.ActivityAnimTestActivity"
-                android:theme="@style/ActivityAnimTestTheme" />
+            android:name=".animtest.ActivityAnimTestActivity"
+            android:theme="@style/ActivityAnimTestTheme" />
     </application>
 
 </manifest>

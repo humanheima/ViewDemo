@@ -19,6 +19,7 @@ import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
+import com.hm.viewdemo.activity.compose.WidgetsActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.design.TabLayoutActivity
 import com.hm.viewdemo.activity.textview.FontMetricsActivity
@@ -106,10 +107,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
     @Composable
     fun composeButton() {
         Button(onClick = {
-            Toast.makeText(this, "这个是ComposeView", Toast.LENGTH_SHORT).show()
-            LoadResActivity.launch(this)
+            WidgetsActivity.launch(this)
         }) {
-            Text(text = "Hello, Compose View!")
+            Text(text = "测试Compose Widget")
         }
     }
 
