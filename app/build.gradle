@@ -118,6 +118,7 @@ dependencies {
     // glide 4.10.0+
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVersion}"
     implementation 'androidx.activity:activity:1.9.1'
+    //导航组件
     implementation 'androidx.navigation:navigation-compose:2.7.7'
     implementation 'androidx.navigation:navigation-fragment:2.7.7'
     kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"

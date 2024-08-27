@@ -50,4 +50,7 @@ java.lang.IllegalStateException: ViewTreeLifecycleOwner not found from android.w
 
 升级到1.6.1版本可以正常使用。
 
+### Compose 与 Kotlin 的兼容性对应关系
+* [Compose 与 Kotlin 的兼容性对应关系 ](https://developer.android.com/jetpack/androidx/releases/compose-kotlin?hl=zh-cn)
+
 
