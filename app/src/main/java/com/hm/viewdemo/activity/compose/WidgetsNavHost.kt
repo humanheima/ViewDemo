@@ -135,7 +135,9 @@ fun WidgetsNavHost(
             val accountType = it.arguments?.getString(WidgetsNavRoute.accountTypeArg)
                 ?: WidgetsNavRoute.widgetsEnter
             WidgetsPractice(accountType, modifier, onBackClick = {
-                navController.popBackStack()
+                //解决快速点击返回，会出现一个白屏界面的问题
+                navController.popBackStack(WidgetsNavRoute.widgetsEnter, inclusive = false)
+                //navController.popBackStack()
             })
         }
     }
