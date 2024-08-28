@@ -83,7 +83,7 @@ private fun ElevatedCardExample() {
 
 
 @Composable
-fun OutlinedCardExample() {
+private fun OutlinedCardExample() {
     OutlinedCard(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,

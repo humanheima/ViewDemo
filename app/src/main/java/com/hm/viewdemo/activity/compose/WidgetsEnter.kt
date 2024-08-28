@@ -15,8 +15,7 @@ import androidx.compose.ui.unit.dp
 fun WidgetsEnter(
     modifier: Modifier,
     itemList: List<Item>,
-    onBackClick: () -> Unit,
-    onAccountClick: (String) -> Unit = {}
+    onBackClick: () -> Unit
 ) {
 
     Scaffold(
