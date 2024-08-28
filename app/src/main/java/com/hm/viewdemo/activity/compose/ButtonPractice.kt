@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ButtonPractice(
@@ -49,4 +50,11 @@ fun ButtonPractice(
         }
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+
+private fun ButtonPreview() {
+    ButtonPractice(Modifier)
 }

@@ -102,26 +102,3 @@ private fun BottomAppBarPreview() {
     BottomAppBarExample()
 }
 
-@Composable
-private fun CustomItemList(itemList: List<Item>) {
-    LazyColumn {
-        items(itemList) { item ->
-            CustomItem(item)
-        }
-    }
-}
-
-@Composable
-private fun CustomItem(item: Item) {
-    Button(
-        onClick = {
-            item.onclick()
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
-    ) {
-        Text(text = item.text)
-    }
-}
-
-data class Item(val text: String, val onclick: () -> Unit)
