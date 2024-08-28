@@ -37,6 +37,10 @@ object WidgetsNavRoute {
 
     const val progressIndicatorPractice = "Progress Indicator Practice"
 
+    const val sliderPractice = "Slider Practice"
+
+    const val switchPractice = "Switch Practice"
+
 
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
@@ -98,6 +102,20 @@ fun WidgetsNavHost(
                 }
             ),
 
+            Item(
+                text = WidgetsNavRoute.sliderPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.sliderPractice)
+                }
+            ),
+
+            Item(
+                text = WidgetsNavRoute.switchPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.switchPractice)
+                }
+            ),
+
             )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
@@ -139,6 +157,10 @@ private fun WidgetsPractice(
             modifier,
             onBackClick
         )
+
+        WidgetsNavRoute.sliderPractice -> SliderPractice(modifier, onBackClick)
+
+        WidgetsNavRoute.switchPractice -> SwitchPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
