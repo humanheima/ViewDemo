@@ -41,10 +41,16 @@ object WidgetsNavRoute {
 
     const val switchPractice = "Switch Practice"
 
+    const val checkboxPractice = "Checkbox Practice"
+
+    const val radioGroupPractice = "Radio Group Practice"
+
+    const val BadgesPractice = "Badges Practice"
 
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
     const val routeWithArgs = "${route}/{${accountTypeArg}}"
+
     val arguments = listOf(
         navArgument(accountTypeArg) { type = NavType.StringType }
     )
@@ -116,6 +122,20 @@ fun WidgetsNavHost(
                 }
             ),
 
+            Item(
+                text = WidgetsNavRoute.checkboxPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.checkboxPractice)
+                }
+            ),
+
+            Item(
+                text = WidgetsNavRoute.BadgesPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.BadgesPractice)
+                }
+            ),
+
             )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
@@ -163,6 +183,10 @@ private fun WidgetsPractice(
         WidgetsNavRoute.sliderPractice -> SliderPractice(modifier, onBackClick)
 
         WidgetsNavRoute.switchPractice -> SwitchPractice(modifier, onBackClick)
+
+        WidgetsNavRoute.checkboxPractice -> CheckboxPractice(modifier, onBackClick)
+
+        WidgetsNavRoute.BadgesPractice -> BadgesPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
