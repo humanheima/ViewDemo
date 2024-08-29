@@ -1,19 +1,27 @@
 package com.hm.viewdemo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.hm.viewdemo.databinding.ItemDragSlopBinding;
 import com.hm.viewdemo.inter.OnItemClickListener;
+import com.hm.viewdemo.widget.TestHandlerView;
+
 import java.util.List;
 
 /**
  * Created by dumingwei on 2017/3/12.
  */
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final String TAG = "RecycleViewAdapter";
 
     private List<String> dataList;
     private Context context;
@@ -72,6 +80,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        if (holder instanceof VH) {
+            ((VH) holder).testHandlerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "run: ");
+                }
+            });
+        }
+    }
+
     /**
      * 添加底部
      *
@@ -104,10 +126,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     static class VH extends RecyclerView.ViewHolder {
 
         TextView text1;
+        TestHandlerView testHandlerView;
 
         public VH(ItemDragSlopBinding itemDragSlopBinding) {
             super(itemDragSlopBinding.getRoot());
             text1 = itemDragSlopBinding.itemTextBookName;
+            testHandlerView = itemDragSlopBinding.itemTextBookIsbn;
+
 
         }
     }

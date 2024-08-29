@@ -47,6 +47,8 @@ object WidgetsNavRoute {
 
     const val BadgesPractice = "Badges Practice"
 
+    const val bottomSheetPractice = "Bottom Sheet Practice"
+
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
     const val routeWithArgs = "${route}/{${accountTypeArg}}"
@@ -136,6 +138,13 @@ fun WidgetsNavHost(
                 }
             ),
 
+            Item(
+                text = WidgetsNavRoute.bottomSheetPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.bottomSheetPractice)
+                }
+            ),
+
             )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
@@ -187,6 +196,8 @@ private fun WidgetsPractice(
         WidgetsNavRoute.checkboxPractice -> CheckboxPractice(modifier, onBackClick)
 
         WidgetsNavRoute.BadgesPractice -> BadgesPractice(modifier, onBackClick)
+
+        WidgetsNavRoute.bottomSheetPractice -> BottomSheetPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }

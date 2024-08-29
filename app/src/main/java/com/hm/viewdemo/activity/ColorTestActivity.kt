@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.FloatRange
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
@@ -24,6 +26,8 @@ import com.hm.viewdemo.databinding.ActivityColorTestBinding
  */
 class ColorTestActivity : AppCompatActivity() {
 
+
+    private val TAG = "ColorTestActivity"
 
     private val list = arrayListOf<FloatArray>()
 
@@ -47,6 +51,14 @@ class ColorTestActivity : AppCompatActivity() {
 
         override fun getHolderType(position: Int, hsv: FloatArray): Int {
             return R.layout.item_palette_color
+        }
+
+        override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+            super.onViewRecycled(holder)
+            Log.d(TAG, "onViewRecycled: ")
+            holder.itemView.post {
+                Log.d(TAG, "After delay onViewRecycled: ")
+            }
         }
     }
 
