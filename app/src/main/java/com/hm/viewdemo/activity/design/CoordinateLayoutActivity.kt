@@ -33,7 +33,8 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Glide.with(this)
-            .load("https://xxvirtualcharactercdn.xxsypro.com/8B0C6E618460014119F1537BBBEFEA18.jpg")
+            //.load("https://xxvirtualcharactercdn.xxsypro.com/8B0C6E618460014119F1537BBBEFEA18.jpg")
+            .load("https://imgservices-1252317822.image.myqcloud.com/coco/s11152023/bf3b4a97.jzoi4c.jpg")
             .into(binding.ivBg)
 
 
@@ -43,7 +44,17 @@ class CoordinateLayoutActivity : AppCompatActivity() {
 
         Log.i(TAG, "onCreate:  initialTopMargin = $initialTopMargin")
 
-        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        binding.appBarLayout.post {
+
+            val appBarLp =
+                binding.appBarLayout.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
+
+            val behavior =
+                appBarLp.behavior as? com.google.android.material.appbar.AppBarLayout.Behavior?
+            Log.i(TAG, "onCreate: behavior = $behavior")
+        }
+
+        binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             Log.i(TAG, "verticalOffset: $verticalOffset")
             lp.topMargin = initialTopMargin + verticalOffset
 
@@ -58,9 +69,9 @@ class CoordinateLayoutActivity : AppCompatActivity() {
 //            oa.start()
 //        }
 
-        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RvAdapter()
+//        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+//        binding.recyclerView.layoutManager = layoutManager
+//        binding.recyclerView.adapter = RvAdapter()
     }
 
     class RvAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<RvAdapter.VH>() {

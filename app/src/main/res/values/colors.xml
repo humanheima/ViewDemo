@@ -52,6 +52,7 @@
     <color name="xx_color_66e0bad0">#66E0BAD0</color>
     <color name="xx_color_6600e4cdac">#00e4cdac</color>
     <color name="xx_color_e2e2e2">#E2E2E2</color>
+    <color name="transparent">#00000000</color>
 
     <array name="myColorArray">
         <item>@color/main_color_ffffcc44</item>
