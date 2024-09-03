@@ -37,58 +37,19 @@
 
         </FrameLayout>
 
-
         <com.hm.viewdemo.widget.draw.DrawEveryThingView
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_margin="10dp" />
 
 
-        <!--<com.hm.viewdemo.widget.ClipRegionView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
+<!--        <com.hm.viewdemo.widget.ClipRegionView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
 
         <!--<com.hm.viewdemo.widget.CircleAvatarView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />-->
-
-
-        <com.hm.viewdemo.widget.RoundStageAwardView
-            android:id="@+id/stageAwardView0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <Button
-            android:id="@+id/btnUpdateStage3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="更新第四阶段" />
-
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <com.hm.viewdemo.widget.RoundStageAwardView
-            android:id="@+id/stageAwardView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
-        <Button
-            android:id="@+id/btnUpdateStage6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="更新第七阶段" />
 
         <!--<com.hm.viewdemo.widget.SpiderView
             android:layout_width="match_parent"

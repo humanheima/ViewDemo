@@ -1,6 +1,7 @@
 package com.hm.viewdemo.extension
 
 import android.view.MotionEvent
+import com.hm.viewdemo.util.ScreenUtil
 
 fun String?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()

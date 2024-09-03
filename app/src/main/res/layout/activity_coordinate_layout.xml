@@ -1,28 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ImageView
+        android:id="@+id/iv_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="446dp"
+        android:scaleType="centerCrop"
+        tools:background="@drawable/balloon" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="446dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_bg_mask"
+                android:layout_width="match_parent"
+                android:layout_height="446dp"
+                android:layout_marginTop="175dp"
+                android:background="@drawable/bg_gradient_vertical"
+                android:scaleType="centerCrop" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="446dp"
+        android:paddingBottom="36dp">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
-            android:background="#00000000">
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            app:elevation="0dp">
 
-            <ImageView
-                android:id="@+id/img_top"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/balloon"
-                app:layout_scrollFlags="scroll" />
+                android:layout_height="175dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="108dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="吸顶区域"
+                    android:textColor="@color/white" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/img_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_scrollFlags="scroll" />
+
+            </RelativeLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!--        <androidx.core.widget.NestedScrollView-->
+        <!--            android:id="@+id/nested_scroll_view"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+        <!--            &lt;!&ndash;android:text="@string/TomHardy"&ndash;&gt;-->
+        <!--            &lt;!&ndash;&ndash;&gt;-->
+        <!--            &lt;!&ndash;- android:text="豫章故郡，洪都新府，星分翼轸，地接衡庐，襟三江而带五湖，控蛮荆而引瓯越，物华天宝，龙光射牛斗之墟，人杰地灵，徐孺下陈蕃之榻"-->
+        <!--            &ndash;&gt;-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/tv_text_content"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="@string/TomHardy"-->
+        <!--                android:textColor="@color/white" />-->
+
+        <!--        </androidx.core.widget.NestedScrollView>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -31,6 +110,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </RelativeLayout>
 
 

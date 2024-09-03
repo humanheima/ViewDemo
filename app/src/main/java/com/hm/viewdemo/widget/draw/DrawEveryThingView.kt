@@ -122,7 +122,7 @@ class DrawEveryThingView @JvmOverloads constructor(
         //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas)
 
-        //testDrawLine(canvas)
+        testDrawLine(canvas)
 
     }
 
@@ -388,7 +388,8 @@ class DrawEveryThingView @JvmOverloads constructor(
     private fun testPathArcTo(canvas: Canvas) {
         canvas.drawColor(Color.GRAY)
         //移动到屏幕中间
-        mPaint.color = Color.BLACK
+        mPaint.color = Color.RED
+        mPaint.setStrokeWidth(20f)
         val path = Path()
 
         var oval = RectF(0f, 0f, 80f, 80f)
@@ -407,9 +408,11 @@ class DrawEveryThingView @JvmOverloads constructor(
         path.arcTo(oval, 90f, 90f)
 
         path.close()
-        //canvas.drawPath(path, mPaint)
-        canvas.clipPath(path)
+        canvas.drawPath(path, mPaint)
+        //canvas.clipPath(path)
 
+
+        mPaint.strokeWidth = 5f
         mPaint.color = Color.GREEN
         canvas.drawRect(RectF(0f, 0f, measuredWidth * 1.0f, measuredHeight * 1.0f), mPaint)
 

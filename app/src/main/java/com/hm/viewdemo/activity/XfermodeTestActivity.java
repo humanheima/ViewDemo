@@ -20,7 +20,6 @@ public class XfermodeTestActivity extends AppCompatActivity {
         Intent intent = new Intent(context, XfermodeTestActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

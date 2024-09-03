@@ -1,6 +1,5 @@
 package com.hm.viewdemo.activity.design
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.hm.viewdemo.databinding.ActivityCoordinateLayoutBinding
 import com.hm.viewdemo.databinding.ItemNewsListBinding
 
@@ -31,13 +31,33 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCoordinateLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.imgTop.setOnClickListener {
-            val curTranslationY = binding.appBar.translationY
-            Log.i(TAG, "curTranslationY: $curTranslationY")
-            val oa = ObjectAnimator.ofFloat(binding.appBar, "translationY", curTranslationY, 300f)
-            oa.duration = 2000
-            oa.start()
+
+        Glide.with(this)
+            .load("https://xxvirtualcharactercdn.xxsypro.com/8B0C6E618460014119F1537BBBEFEA18.jpg")
+            .into(binding.ivBg)
+
+
+        val lp = binding.ivBgMask.layoutParams as ViewGroup.MarginLayoutParams
+
+        val initialTopMargin = lp.topMargin
+
+        Log.i(TAG, "onCreate:  initialTopMargin = $initialTopMargin")
+
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            Log.i(TAG, "verticalOffset: $verticalOffset")
+            lp.topMargin = initialTopMargin + verticalOffset
+
+            binding.ivBgMask.layoutParams = lp
+
         }
+//        binding.imgTop.setOnClickListener {
+//            val curTranslationY = binding.appBar.translationY
+//            Log.i(TAG, "curTranslationY: $curTranslationY")
+//            val oa = ObjectAnimator.ofFloat(binding.appBar, "translationY", curTranslationY, 300f)
+//            oa.duration = 2000
+//            oa.start()
+//        }
+
         val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = RvAdapter()

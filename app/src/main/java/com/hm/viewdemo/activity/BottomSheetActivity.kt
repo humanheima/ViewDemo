@@ -60,7 +60,7 @@ class BottomSheetActivity : AppCompatActivity() {
             binding.scrollBottomSheet.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 
         val stringList = ArrayList<String>()
-        for (i in 0 until 15) {
+        for (i in 0 until 3) {
             stringList.add("string$i")
         }
         binding.recyclerView.itemAnimator = DefaultItemAnimator()

@@ -1,7 +1,18 @@
 package com.hm.viewdemo.widget.draw
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PathMeasure
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -83,9 +94,9 @@ class DrawPathView @JvmOverloads constructor(
 
     private fun initPaint() {
         mPaint = Paint()
-        mPaint!!.color = Color.BLACK // 画笔颜色 - 黑色
-        mPaint!!.style = Paint.Style.FILL
-        mPaint!!.textSize = sp2px(14).toFloat()
+        mPaint.color = Color.BLACK // 画笔颜色 - 黑色
+        mPaint.style = Paint.Style.FILL
+        mPaint.textSize = sp2px(14).toFloat()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -115,7 +126,7 @@ class DrawPathView @JvmOverloads constructor(
 
         //testPathLineTo(canvas);
         //testPathAddRect(canvas);
-        pathAddRoundRect(canvas)
+        //pathAddRoundRect(canvas)
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
         //testPathArcTo(canvas);
@@ -134,6 +145,8 @@ class DrawPathView @JvmOverloads constructor(
         //testArcTo1(canvas);
         //testPathAddRect(canvas);
         //testArcTo2(canvas);
+
+        testSpecialShape(canvas)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -172,8 +185,8 @@ class DrawPathView @JvmOverloads constructor(
      * @param canvas
      */
     private fun testArcTo2(canvas: Canvas) {
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = 5f
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 5f
 
         //第一条路径逆向生成
         val cCWRectPth = Path()
@@ -530,6 +543,28 @@ class DrawPathView @JvmOverloads constructor(
         val oval = RectF(0f, 0f, 300f, 300f)
         path.addArc(oval, 0f, 270f)
         canvas.drawPath(path, mPaint)
+    }
+
+
+    /**
+     * 合并path
+     *
+     * @param canvas
+     */
+    private fun testSpecialShape(canvas: Canvas) {
+        //移动到屏幕中间
+        mPaint.color = Color.BLACK
+
+        val rectF2 = RectF(0f, 20f, width.toFloat(), height.toFloat())
+        canvas.drawRoundRect(rectF2, 16f, 16f, mPaint)
+
+//        canvas.translate(mWidth / 2.0f, mHeight / 2.0f)
+//        val path = Path()
+//        val src = Path()
+//        path.addRect(-200f, -200f, 200f, 200f, Path.Direction.CW)
+//        src.addCircle(0f, 0f, 100f, Path.Direction.CW)
+//        path.addPath(src, 0f, 200f)
+//        canvas.drawPath(path, mPaint)
     }
 
     /**
