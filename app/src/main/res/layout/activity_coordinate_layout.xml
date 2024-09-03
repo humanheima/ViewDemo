@@ -95,7 +95,7 @@
                 android:id="@+id/tv_text_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/TomHardy"
+                android:text="千山茶客原创古风小说《重生之将门毒后》中的男主角。明齐临安侯府的小侯爷，字景行。明齐临安侯府的小侯爷，真实身份为大凉.千山茶客原创古风小说《重生之将门毒后》中的男主角。明齐临安侯府的小侯爷，字景行。明齐临安侯府的小侯爷，真实身份为大凉..."
                 android:textColor="@color/white" />
 
         </androidx.core.widget.NestedScrollView>
