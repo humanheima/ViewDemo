@@ -1,62 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/rl_root"
+    android:paddingHorizontal="16dp">
 
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="446dp"
-        android:scaleType="centerCrop"
-        tools:background="@drawable/balloon" />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
+        android:id="@+id/ll_mask_container"
         android:layout_width="match_parent"
         android:layout_height="446dp"
         android:orientation="vertical">
-
-        <!--        <RelativeLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content">-->
 
         <ImageView
             android:id="@+id/iv_bg_mask"
             android:layout_width="match_parent"
             android:layout_height="446dp"
-            android:layout_marginTop="175dp"
+            android:layout_marginTop="196dp"
             android:background="@drawable/bg_gradient_vertical"
             android:scaleType="centerCrop" />
 
-        <!--        </RelativeLayout>-->
-
     </LinearLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
+    <com.hm.viewdemo.widget.MyNestedScrollView2
+        android:id="@+id/scroll_view2"
         android:layout_width="match_parent"
-        android:layout_height="446dp"
-        android:paddingBottom="36dp">
+        android:layout_height="320dp"
+        android:layout_marginTop="85dp">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            app:elevation="0dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                android:layout_height="198dp"
+                android:background="#ff3344" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="108dp">
+                android:layout_marginHorizontal="16dp">
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -66,48 +56,32 @@
                     android:text="吸顶区域"
                     android:textColor="@color/white" />
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/img_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    app:layout_scrollFlags="scroll" />
-
             </RelativeLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
 
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-            <TextView
-                android:id="@+id/tv_text_content"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="千山茶客原创古风小说《重生之将门毒后》中的男主角。明齐临安侯府的小侯爷，字景行。明齐临安侯府的小侯爷，真实身份为大凉.千山茶客原创古风小说《重生之将门毒后》中的男主角。明齐临安侯府的小侯爷，字景行。明齐临安侯府的小侯爷，真实身份为大凉..."
-                android:textColor="@color/white" />
+                android:orientation="vertical">
 
-        </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/tv_text_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:maxHeight="254dp"
+                    android:text="@string/long_text"
+                    android:textColor="@color/white" />
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/recycler_view"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+            </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+        </LinearLayout>
+    </com.hm.viewdemo.widget.MyNestedScrollView2>
 
 </RelativeLayout>
 
