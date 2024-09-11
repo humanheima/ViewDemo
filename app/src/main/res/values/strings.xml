@@ -79,6 +79,7 @@
     </string>
 
 
-    <string name="long_text1">long_text1</string>
+    <string name="long_text1">long_text1\nlong_text2\nlong_text3\nlong_text4
+    </string>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.hm.viewdemo.activity.compose
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -22,30 +26,43 @@ fun ButtonPractice(
     Scaffold(modifier,
         topBar = { SimpleTopAppBarExample("测试Compose Button", onBackClick) }
     ) { padding ->
+        //获取Context
+        val context = LocalContext.current
 
         Column(modifier = modifier.padding(padding)) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { }) {
-                Text(text = "测试Compose Button")
+                onClick = {
+                    Log.i("ButtonPractice", "ButtonPractice: ")
+                    Toast.makeText(context, "获取Context hello world", Toast.LENGTH_SHORT).show()
+                }) {
+                Text(text = "测试Compose Button"
+                    , fontFamily = FontFamily.Default
+                )
             }
             FilledTonalButton(onClick = { }) {
-                Text("Tonal")
+                Text("Tonal"
+                    , fontFamily = FontFamily.SansSerif
+                )
             }
 
             OutlinedButton(onClick = { }) {
-                Text("Outlined")
+                Text("Outlined",
+                    fontFamily = FontFamily.Serif
+                    )
             }
 
             ElevatedButton(onClick = { }) {
-                Text("Elevated")
+                Text("Elevated",
+                    fontFamily = FontFamily.Monospace)
             }
 
             //文本按钮
             TextButton(
                 onClick = { }
             ) {
-                Text("Text Button")
+                Text("Text Button",
+                    fontFamily = FontFamily.Cursive)
             }
         }
     }

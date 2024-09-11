@@ -31,14 +31,12 @@ class RoundScrollView @JvmOverloads constructor(
         ta.recycle()
         Log.i(TAG, "radius = $radius")
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            clipToOutline = true
-            outlineProvider = object : ViewOutlineProvider() {
+        clipToOutline = true
+        outlineProvider = object : ViewOutlineProvider() {
 
-                override fun getOutline(view: View?, outline: Outline?) {
-                    if (view != null && outline != null) {
-                        outline.setRoundRect(0,0,view.width,view.height,radius)
-                    }
+            override fun getOutline(view: View?, outline: Outline?) {
+                if (view != null && outline != null) {
+                    outline.setRoundRect(0,0,view.width,view.height,radius)
                 }
             }
         }

@@ -20,10 +20,15 @@ public class MyNestedScrollView2 extends NestedScrollView {
 
     private int mLastY = 0;
 
+    // warning：2024/9/4: 这个值可能有点误差
     /**
      * 向上可以滚动的最大距离，当滚动距离 >= maxScrollY时，不再拦截并且手指从下向上滚动的时候，不再拦截事件。
      */
-    private int maxScrollY = 540;
+    int maxScrollY = 540;
+
+    public void setMaxScrollY(int maxScrollY) {
+        this.maxScrollY = maxScrollY;
+    }
 
     private View innerView;
 
