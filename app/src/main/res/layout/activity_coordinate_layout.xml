@@ -39,27 +39,36 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <FrameLayout
+                android:id="@+id/fl_float_container"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="198dp">
 
-                <TextView
-                    android:id="@+id/tv_name"
+                <RelativeLayout
+                    android:id="@+id/rl_dynamic_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="吸顶区域"
-                    android:textColor="@color/white" />
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/indigo_A100">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_tags"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="吸顶区域"
+                        android:textColor="@color/white" />
 
-            </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_name" />
 
+                </RelativeLayout>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:maxHeight="254dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/long_text"
                     android:textColor="@color/white" />
 
@@ -79,6 +88,12 @@
 
         </LinearLayout>
     </com.hm.viewdemo.widget.MyNestedScrollView2>
+
+    <FrameLayout
+        android:id="@+id/fl_pin_container"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="85dp" />
 
 </RelativeLayout>
 

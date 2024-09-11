@@ -2,7 +2,6 @@ package com.hm.viewdemo.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -57,53 +56,40 @@ public class MyNestedScrollView2 extends NestedScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        int moveY = (int) ev.getRawY();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                downX = (int) ev.getRawX();
-                downY = (int) ev.getRawY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.i(TAG, "onInterceptTouchEvent: getScrollY() = " + getScrollY());
-
-                int deltaY = moveY - mLastY;
-                Log.i(TAG, "onInterceptTouchEvent: deltaY = " + deltaY);
-
-                /**
-                 * 1. 当滑动距离 >= maxScrollY时 && 并且手指从下向上滚动的时候，不再拦截事件。
-                 */
-//                if (getScrollY() >= maxScrollY) {
-//                    if (deltaY < 0) {
+//        int action = ev.getAction();
+//        int moveY = (int) ev.getRawY();
+//        switch (action) {
+//            case MotionEvent.ACTION_DOWN:
+//                downX = (int) ev.getRawX();
+//                downY = (int) ev.getRawY();
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.i(TAG, "onInterceptTouchEvent: getScrollY() = " + getScrollY());
+//
+//                int deltaY = moveY - mLastY;
+//                Log.i(TAG, "onInterceptTouchEvent: deltaY = " + deltaY);
+//                /**
+//                 * 手指从下向上滚动的时候，如果滑动距离 >= maxScrollY时，不再拦截事件，让内部的控件处理
+//                 */
+//                if (deltaY < 0) {
+//                    if (getScrollY() >= maxScrollY) {
 //                        return false;
-//                    } else if (deltaY > 0) {
+//                    }
+//                } else if (deltaY > 0) {
+//                    /**
+//                     * 手指从上向下滚动，这个时候，如果内部的TextView getTop() >= 0 时，不再拦截，先让内部的TextView 回到顶部
+//                     */
+//                    if (interceptCallback != null && interceptCallback.dontIntercept()) {
 //                        return false;
 //                    }
 //
 //                }
-
-                /**
-                 * 手指从下向上滚动的时候，如果滑动距离 >= maxScrollY时，不再拦截事件，让内部的控件处理
-                 */
-                if (deltaY < 0) {
-                    if (getScrollY() >= maxScrollY) {
-                        return false;
-                    }
-                } else if (deltaY > 0) {
-                    /**
-                     * 手指从上向下滚动，这个时候，如果内部的TextView getTop() >= 0 时，不再拦截，先让内部的TextView 回到顶部
-                     */
-                    if (interceptCallback != null && interceptCallback.dontIntercept()) {
-                        return false;
-                    }
-
-                }
-
-                break;
-            default:
-                break;
-        }
-        mLastY = moveY;
+//
+//                break;
+//            default:
+//                break;
+//        }
+//        mLastY = moveY;
         return super.onInterceptTouchEvent(ev);
     }
 

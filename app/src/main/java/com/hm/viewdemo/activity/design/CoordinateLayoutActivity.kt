@@ -3,11 +3,15 @@ package com.hm.viewdemo.activity.design
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.hm.viewdemo.R
+import com.hm.viewdemo.adapter.BaseRvAdapter
+import com.hm.viewdemo.adapter.BaseViewHolder
 import com.hm.viewdemo.databinding.ActivityCoordinateLayoutBinding
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.MyNestedScrollView2
@@ -39,35 +43,80 @@ class CoordinateLayoutActivity : AppCompatActivity() {
         binding = ActivityCoordinateLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.rvTags.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvTags.adapter = baseRvAdapter
+
         val lp = binding.ivBgMask.layoutParams as ViewGroup.MarginLayoutParams
 
         val initialTopMargin = lp.topMargin
 
         Log.i(TAG, "onCreate:  initialTopMargin = $initialTopMargin")
 
-        binding.scrollView2.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        var maxScrollY = 0
+
+        var maskHeight = 0
+        binding.scrollView2.setOnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
             Log.i(
                 TAG,
                 "onScrollChange:   scrollY = $scrollY oldScrollY = $oldScrollY"
             )
 
-            lp.topMargin = initialTopMargin - scrollY
-            binding.ivBgMask.layoutParams = lp
+            if (scrollY < maxScrollY) {
+                lp.topMargin = initialTopMargin - scrollY
+                binding.ivBgMask.layoutParams = lp
+            }
+            if (scrollY >= maxScrollY) {
+                //把吸顶布局摘出来
+                Log.d(
+                    TAG,
+                    "onCreate: scrollY>= maxScrollY scrollY = $scrollY maxScrollY = $maxScrollY"
+                )
+                if (binding.flPinContainer.childCount == 0) {
+                    binding.flFloatContainer.removeView(binding.rlDynamicContent)
+                    val lp = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    val dp16 = ScreenUtil.dpToPx(this, 16)
+                    lp.leftMargin = dp16
+                    lp.rightMargin = dp16
+                    binding.flPinContainer.addView(binding.rlDynamicContent, lp)
+                }
 
+            } else {
+                //把吸顶布局添加回来
+                if (binding.flPinContainer.childCount == 1) {
+                    binding.flPinContainer.removeView(binding.rlDynamicContent)
+                    val lp = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    val dp16 = ScreenUtil.dpToPx(this, 16)
+                    lp.leftMargin = dp16
+                    lp.rightMargin = dp16
+                    binding.flFloatContainer.addView(binding.rlDynamicContent, lp)
+                }
+            }
         }
         binding.scrollView2.post {
             val selfHeight = binding.scrollView2.height
             val scrollContentHeight = binding.llScrollContent.height
-            Log.d(
-                TAG,
-                "onCreate: selfHeight = $selfHeight scrollContentHeight = $scrollContentHeight"
-            )
 
-            var maxScrollY = scrollContentHeight - selfHeight
+
+            //maxScrollY = scrollContentHeight - selfHeight
+            maxScrollY = ScreenUtil.dpToPx(this, 198)
             if (maxScrollY < 0) {
                 maxScrollY = 0
             }
+            maskHeight = binding.llMaskContainer.height
 
+            Log.d(
+                TAG,
+                "onCreate: selfHeight = $selfHeight scrollContentHeight = $scrollContentHeight maxScrollY = $maxScrollY maskHeight = $maskHeight"
+            )
+
+            if (maxScrollY >= maskHeight) {
+                maxScrollY = maskHeight
+            }
             binding.scrollView2.setMaxScrollY(maxScrollY)
 
 
@@ -93,7 +142,27 @@ class CoordinateLayoutActivity : AppCompatActivity() {
             .load("https://imgservices-1252317822.image.myqcloud.com/coco/s11152023/bf3b4a97.jzoi4c.jpg")
             .transform(RoundedCornersTransformation(ScreenUtil.dpToPx(this, 23), 0))
             .into(binding.ivBg)
-        binding.tvTextContent.movementMethod = ScrollingMovementMethod.getInstance()
+        //binding.tvTextContent.movementMethod = ScrollingMovementMethod.getInstance()
+    }
+
+    val list = mutableListOf<String>().apply {
+
+        repeat(20) {
+            add("Tag $it")
+        }
+    }
+
+    private val baseRvAdapter = object : BaseRvAdapter<String>(this, list) {
+
+        override fun getHolderType(position: Int, t: String): Int {
+            return R.layout.item_tag
+        }
+
+        override fun bindViewHolder(holder: BaseViewHolder?, t: String, position: Int) {
+
+            holder?.setTextViewText(R.id.tv_tag, t)
+
+        }
     }
 
 }
