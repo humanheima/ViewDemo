@@ -193,4 +193,11 @@
         <attr name="radius" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="CutCornerImageView">
+        <attr name="corner_radius" format="dimension" />
+        <attr name="cut_radius" format="dimension" />
+        <attr name="cut_width" format="dimension" />
+        <attr name="cut_height" format="dimension" />
+    </declare-styleable>
+
 </resources>

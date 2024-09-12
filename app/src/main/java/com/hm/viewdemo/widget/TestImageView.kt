@@ -11,7 +11,11 @@ import com.hm.viewdemo.extension.dp2pxFloat
 
 /**
  * Created by p_dmweidu on 2024/9/12
- * Desc:
+ * Desc: 绘制异形ImageView，使用arcTo 比较复杂，参考 CutCornerImageView的实现，比较简单
+ *
+ * 使用arcTo 最后一个参数 forceMoveTo 不要传 true
+ *
+ *
  */
 class TestImageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -29,7 +33,7 @@ class TestImageView @JvmOverloads constructor(
     private var dp20 = 0f
     private var dp40 = 0f
     private var dp60 = 0f
-    private var dp80 = 0f
+    private var horizontalLine = 0f
     private var dp120 = 0f
 
     private var radius = 0f
@@ -45,7 +49,7 @@ class TestImageView @JvmOverloads constructor(
 
         dp60 = 60.dp2pxFloat(context)
 
-        dp80 = 80.dp2pxFloat(context)
+        horizontalLine = 80.dp2pxFloat(context)
         dp120 = 120.dp2pxFloat(context)
         paint.setColor(resources.getColor(R.color.pink_500))
         paint.style = Paint.Style.FILL
@@ -60,6 +64,7 @@ class TestImageView @JvmOverloads constructor(
         path.lineTo(w.toFloat(), 0f)
 
 
+        //起点坐标
         var right = w.toFloat()
         //向下120dp
         var startY = height - dp120 - dp20
@@ -77,37 +82,36 @@ class TestImageView @JvmOverloads constructor(
             false
         )
 
-        //这时候，路径的终点是 (right - radius, startY + radius)
-
         //减去直径，再减去横向向左的距离，得到第二个线的点
-        right = right - radius - dp60 - radius
+        right = right - radius - horizontalLine - radius
 
-        //第二个线的点
-        path.lineTo(right, startY + radius)
-
-
-        var left = right - radius
-
-        var top = startY + radius
-
+        startY += radius
+//        //第二个线的点
+        path.lineTo(right, startY)
+        val left = right - radius
+        val top = startY
         path.arcTo(left, top, left + radius * 2, top + radius * 2, -90f, -90f, false)
 
-        path.lineTo(left, top + radius + dp20)
+        val endLinePos = top + radius + dp20
+        path.lineTo(left, endLinePos)
 
-        path.arcTo(left - radius * 2, top + dp20, left, top + radius * 2 + dp20, 0f, 90f, false)
-
+        path.arcTo(
+            left - radius * 2,
+            endLinePos - radius,
+            left,
+            endLinePos + radius,
+            0f,
+            90f,
+            false
+        )
         path.lineTo(0f, height.toFloat())
-
         path.lineTo(0f, 0f)
-
         path.close()
-
     }
 
     override fun onDraw(canvas: Canvas) {
         canvas.clipPath(path)
         super.onDraw(canvas)
-        //canvas.drawPath(path, paint)
     }
 
 }

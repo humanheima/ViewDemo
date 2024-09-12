@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clRoot"
     android:layout_width="match_parent"
@@ -10,7 +11,7 @@
     <com.hm.viewdemo.widget.draw.DrawPathView
         android:id="@+id/drawEverythingView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:layout_marginTop="20dp" />
 
 
@@ -18,16 +19,25 @@
         android:id="@+id/iv_animator_gradient_drawable"
         android:layout_width="match_parent"
         android:layout_height="@dimen/text_size_20dp"
-        android:layout_margin="8dp"
-        android:visibility="invisible" />
+        android:layout_margin="8dp" />
 
 
     <com.hm.viewdemo.widget.TestImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/balloon"
         android:background="@color/indigo_400"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/balloon" />
+
+    <com.hm.viewdemo.widget.CutCornerImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/balloon"
+        app:corner_radius="12dp"
+        android:scaleType="centerCrop"
+        app:cut_height="60dp"
+        app:cut_radius="20dp"
+        app:cut_width="100dp" />
 
 
 </LinearLayout>
