@@ -108,6 +108,7 @@ class DrawPathView @JvmOverloads constructor(
     private val rectF = RectF()
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        canvas.drawColor(Color.DKGRAY)
         //绘制坐标系
         //mPaint.setColor(Color.RED);
         //mPaint.setStyle(Paint.Style.STROKE);
@@ -129,7 +130,7 @@ class DrawPathView @JvmOverloads constructor(
         //pathAddRoundRect(canvas)
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
-        //testPathArcTo(canvas);
+        testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
@@ -146,7 +147,7 @@ class DrawPathView @JvmOverloads constructor(
         //testPathAddRect(canvas);
         //testArcTo2(canvas);
 
-        testSpecialShape(canvas)
+        //testSpecialShape(canvas)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -394,11 +395,11 @@ class DrawPathView @JvmOverloads constructor(
      */
     private fun testPathLineTo(canvas: Canvas) {
         //移动到屏幕中间
-        canvas.translate(mWidth / 2.0f, mHeight / 2.0f)
+        //canvas.translate(mWidth / 2.0f, mHeight / 2.0f)
         mPaint!!.color = Color.BLACK
         val path = Path()
         path.lineTo(200f, 200f)
-        //path.setLastPoint(200,100);//该方法会影响之前和之后的操作，去掉这行代码对比一下，就看出来了
+        //path.setLastPoint(200f,100f)//该方法会影响之前和之后的操作，去掉这行代码对比一下，就看出来了
         path.lineTo(200f, 0f)
         path.close()
         canvas.drawPath(path, mPaint)
@@ -411,7 +412,7 @@ class DrawPathView @JvmOverloads constructor(
      */
     private fun testPathAddRect(canvas: Canvas) {
         //移动到屏幕中间
-        mPaint!!.color = Color.BLACK
+        mPaint.color = Color.BLACK
         canvas.translate(mWidth / 2.0f, mHeight / 2.0f)
         val path = Path()
         path.addRect(-200f, -200f, 200f, 200f, Path.Direction.CW)
@@ -426,11 +427,11 @@ class DrawPathView @JvmOverloads constructor(
     private fun pathAddRoundRect(canvas: Canvas) {
         path.reset()
         //mPaint.setColor(primaryColor);
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = 10f
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 10f
         //mPaint?.style = Paint.Style.FILL
 
-        mPaint!!.shader = mPathLinearGradient
+        mPaint.shader = mPathLinearGradient
 
         val rectF2 = RectF(0f, 20f, width.toFloat(), 200f)
         val raddi = floatArrayOf(40f, 40f, 40f, 40f, 40f, 40f, 40f, 40f)
@@ -515,16 +516,16 @@ class DrawPathView @JvmOverloads constructor(
      * @param canvas
      */
     private fun testPathArcTo(canvas: Canvas) {
-        mPaint!!.color = Color.BLACK
-        mPaint!!.style = Paint.Style.STROKE
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
         //移动到屏幕中间
         canvas.translate(mWidth / 2.0f, mHeight / 2.0f)
         val path = Path()
         path.moveTo(10f, 10f)
         val oval = RectF(100f, 10f, 200f, 100f)
         //对比一下下面两行代码的区别
-        //path.arcTo(oval, 0, 90);
-        path.arcTo(oval, 0f, 90f, true)
+        path.arcTo(oval, 0f, 90f);
+        //path.arcTo(oval, 0f, 90f, true)
         canvas.drawPath(path, mPaint)
     }
 
@@ -546,6 +547,7 @@ class DrawPathView @JvmOverloads constructor(
     }
 
 
+    val specialPath = Path()
     /**
      * 合并path
      *

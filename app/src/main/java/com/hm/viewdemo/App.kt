@@ -9,9 +9,18 @@ import android.os.Debug
  */
 class App : Application() {
 
+
+    companion object {
+
+        var instance: App? = null
+
+    }
+
     override fun onCreate() {
         super.onCreate()
-
+        if (instance == null) {
+            instance = this
+        }
         Debug.startMethodTracing()
     }
 }

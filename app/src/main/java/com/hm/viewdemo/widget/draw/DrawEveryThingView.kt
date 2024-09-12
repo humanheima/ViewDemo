@@ -1,7 +1,18 @@
 package com.hm.viewdemo.widget.draw
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PathEffect
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -18,9 +29,9 @@ import com.hm.viewdemo.R
  */
 
 class DrawEveryThingView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private lateinit var mPaint: Paint
@@ -70,7 +81,7 @@ class DrawEveryThingView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        testDrawOval(canvas)
+        //testDrawOval(canvas)
         //canvas.drawColor(Color.parseColor("#FF009688"))
         //绘制坐标系
         //mPaint.setColor(Color.RED);
@@ -119,10 +130,10 @@ class DrawEveryThingView @JvmOverloads constructor(
 
         //testCanvasSaveRestore2(canvas)
 
-        //testPathArcTo(canvas);
+        testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas)
 
-        testDrawLine(canvas)
+        //testDrawLine(canvas)
 
     }
 
@@ -139,7 +150,8 @@ class DrawEveryThingView @JvmOverloads constructor(
         canvas.drawLine(halfWidth, 0f, halfWidth + 1, measuredHeight.toFloat(), mPaint)
         val radius = 150
 
-        val oval = RectF(halfWidth - radius, halfHeight - radius, halfWidth + radius, halfHeight + radius)
+        val oval =
+            RectF(halfWidth - radius, halfHeight - radius, halfWidth + radius, halfHeight + radius)
 
         val path = Path()
         path.addArc(oval, 107f, -20f)
@@ -209,8 +221,10 @@ class DrawEveryThingView @JvmOverloads constructor(
         paint.strokeWidth = 3f
         paint.color = Color.BLACK
         //画出水平中间的分割线
-        canvas.drawLine(centerX * 1.0f, 0f, centerX * 1.0f,
-                measuredHeight * 1.0f, paint)
+        canvas.drawLine(
+            centerX * 1.0f, 0f, centerX * 1.0f,
+            measuredHeight * 1.0f, paint
+        )
 
         paint.color = Color.RED
         paint.strokeWidth = 5f
@@ -390,31 +404,52 @@ class DrawEveryThingView @JvmOverloads constructor(
         //移动到屏幕中间
         mPaint.color = Color.RED
         mPaint.setStrokeWidth(20f)
+        //val path = Path()
+
+//        var oval = RectF(0f, 0f, 80f, 80f)
+//        path.arcTo(oval, -180f, 90f)
+
         val path = Path()
 
-        var oval = RectF(0f, 0f, 80f, 80f)
-        path.arcTo(oval, -180f, 90f)
+        val diameter= 300f
+        val rectf = RectF(0f, 0f, diameter, diameter)
+        val oval = rectf
+        mPaint.color = Color.BLUE
 
-        path.lineTo(measuredWidth - 80f, 0f)
-        oval = RectF(measuredWidth - 80f, 0f, measuredWidth * 1.0f, 80f)
-        path.arcTo(oval, -90f, 90f)
+        canvas.drawRect(rectf, mPaint)
 
-        path.lineTo(measuredWidth * 1.0f, measuredHeight - 80f)
-        oval = RectF(measuredWidth - 80f, measuredHeight - 80f, measuredWidth * 1.0f, measuredHeight * 1.0f)
-        path.arcTo(oval, 0f, 90f)
+        mPaint.color = Color.RED
 
-        path.lineTo(80f, measuredHeight * 1.0f)
-        oval = RectF(0f, measuredHeight - 80f, 80f, measuredHeight * 1.0f)
-        path.arcTo(oval, 90f, 90f)
+//        val startAngle = 0f // 从3点钟方向开始
+//        val sweepAngle = 90f // 绘制90度的弧
+//
+//        path.arcTo(oval, startAngle, sweepAngle)
 
-        path.close()
+
+        val startAngle = -90f // 从3点钟方向开始
+        val sweepAngle = -90f // 绘制90度的弧
+
+        path.arcTo(oval, startAngle, sweepAngle)
+
+//        path.lineTo(measuredWidth - 80f, 0f)
+//        oval = RectF(measuredWidth - 80f, 0f, measuredWidth * 1.0f, 80f)
+//        path.arcTo(oval, -90f, 90f)
+//
+//        path.lineTo(measuredWidth * 1.0f, measuredHeight - 80f)
+//        oval = RectF(measuredWidth - 80f, measuredHeight - 80f, measuredWidth * 1.0f, measuredHeight * 1.0f)
+//        path.arcTo(oval, 0f, 90f)
+//
+//        path.lineTo(80f, measuredHeight * 1.0f)
+//        oval = RectF(0f, measuredHeight - 80f, 80f, measuredHeight * 1.0f)
+//        path.arcTo(oval, 90f, 90f)
+
+        //path.close()
         canvas.drawPath(path, mPaint)
-        //canvas.clipPath(path)
+        canvas.clipPath(path)
 
-
-        mPaint.strokeWidth = 5f
-        mPaint.color = Color.GREEN
-        canvas.drawRect(RectF(0f, 0f, measuredWidth * 1.0f, measuredHeight * 1.0f), mPaint)
+        //mPaint.strokeWidth = 5f
+        //mPaint.color = Color.GREEN
+        //canvas.drawRect(RectF(0f, 0f, measuredWidth * 1.0f, measuredHeight * 1.0f), mPaint)
 
     }
 
@@ -467,12 +502,16 @@ class DrawEveryThingView @JvmOverloads constructor(
     }
 
     fun dp2px(dpVal: Int): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal.toFloat(), resources.displayMetrics)
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dpVal.toFloat(), resources.displayMetrics
+        )
     }
 
     fun sp2px(dpVal: Int): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                dpVal.toFloat(), resources.displayMetrics)
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP,
+            dpVal.toFloat(), resources.displayMetrics
+        )
     }
 }

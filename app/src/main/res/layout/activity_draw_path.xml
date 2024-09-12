@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/clRoot"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activity.DrawPathActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.DrawPathActivity">
 
     <com.hm.viewdemo.widget.draw.DrawPathView
-            android:layout_marginTop="20dp"
-            android:id="@+id/drawEverythingView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
+        android:id="@+id/drawEverythingView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp" />
 
 
     <ImageView
-            android:id="@+id/iv_animator_gradient_drawable"
-            android:layout_width="match_parent"
-            android:layout_margin="8dp"
-            android:layout_height="@dimen/text_size_20dp" />
+        android:id="@+id/iv_animator_gradient_drawable"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_size_20dp"
+        android:layout_margin="8dp"
+        android:visibility="invisible" />
+
+
+    <com.hm.viewdemo.widget.TestImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/balloon"
+        android:background="@color/indigo_400"
+        android:scaleType="centerCrop" />
+
 
 </LinearLayout>

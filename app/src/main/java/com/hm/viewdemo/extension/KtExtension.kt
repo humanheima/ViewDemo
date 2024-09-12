@@ -1,5 +1,6 @@
 package com.hm.viewdemo.extension
 
+import android.content.Context
 import android.view.MotionEvent
 import com.hm.viewdemo.util.ScreenUtil
 
@@ -16,3 +17,12 @@ fun getActionName(action: MotionEvent): String {
         else -> "Other"
     }
 }
+
+fun Int.dp2px(context: Context): Int {
+    return ScreenUtil.dpToPx(context, this)
+}
+
+fun Int.dp2pxFloat(context: Context): Float {
+    return ScreenUtil.dpToPxFloat(context, this)
+}
+
