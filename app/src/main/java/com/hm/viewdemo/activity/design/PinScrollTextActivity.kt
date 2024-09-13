@@ -12,37 +12,37 @@ import com.bumptech.glide.Glide
 import com.hm.viewdemo.R
 import com.hm.viewdemo.adapter.BaseRvAdapter
 import com.hm.viewdemo.adapter.BaseViewHolder
-import com.hm.viewdemo.databinding.ActivityCoordinateLayoutBinding
+import com.hm.viewdemo.databinding.ActivityPinScrollTextBinding
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.MyNestedScrollView2
 import com.hm.viewdemo.widget.RoundedCornersTransformation
 
 /**
  * Created by p_dmweidu on 2024/9/11
- * Desc:
- * 1. 两个NestedScrollView，其中一个嵌套在另一个上，外层滑动到最大距离以后，继续向上滑，把吸顶区域 View 摘出来。
+ * Desc: 吸顶 + 文字区域滑动 实现
+ * 1. NestedScrollView 滑动到最大距离以后，继续向上滑，把吸顶区域 View 摘出来。
  * 2. 向下滑的时候，等于最大距离的时候， 再把吸顶区域 View add进来
  */
-class CoordinateLayoutActivity : AppCompatActivity() {
-
+class PinScrollTextActivity : AppCompatActivity() {
 
     private val TAG = "CoordinateLayoutActivit"
 
     companion object {
 
         fun launch(context: Context) {
-            val intent = Intent(context, CoordinateLayoutActivity::class.java)
+            val intent = Intent(context, PinScrollTextActivity::class.java)
             context.startActivity(intent)
         }
     }
 
-    private lateinit var binding: ActivityCoordinateLayoutBinding
+    private lateinit var binding: ActivityPinScrollTextBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCoordinateLayoutBinding.inflate(layoutInflater)
+        binding = ActivityPinScrollTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.simpleMaskViewGroup.setGradientEnabled(false)
         binding.rvTags.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvTags.adapter = baseRvAdapter
@@ -67,6 +67,10 @@ class CoordinateLayoutActivity : AppCompatActivity() {
                 binding.ivBgMask.layoutParams = lp
             }
             if (scrollY >= maxScrollY) {
+                //这个时候，，透明区域要逐渐变化
+                binding.simpleMaskViewGroup.setTransparentSize(scrollY - maxScrollY)
+                binding.simpleMaskViewGroup.setGradientEnabled(true)
+
                 //把吸顶布局摘出来
                 Log.d(
                     TAG,
@@ -85,6 +89,7 @@ class CoordinateLayoutActivity : AppCompatActivity() {
 
             } else {
                 //把吸顶布局添加回来
+                binding.simpleMaskViewGroup.setGradientEnabled(false)
                 if (binding.flPinContainer.childCount == 1) {
                     binding.flPinContainer.removeView(binding.rlDynamicContent)
                     val lp = FrameLayout.LayoutParams(

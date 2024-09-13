@@ -3,12 +3,10 @@ package com.hm.viewdemo.widget.xfermode
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
-import android.graphics.Shader
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.hm.viewdemo.R
@@ -34,7 +32,7 @@ import com.hm.viewdemo.util.ScreenUtil
  *               C_out     = (1 - alpha_src) * C_dst
  *
  */
-class SpecialMaskViewGroup @JvmOverloads constructor(
+class SimpleMaskViewGroup @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
@@ -58,14 +56,11 @@ class SpecialMaskViewGroup @JvmOverloads constructor(
     private var gradientSize = ScreenUtil.dpToPx(getContext(), 0).toFloat()
     private var enabled = true
     private var mTransparentRectF = RectF()
-    private var mGradientRectF = RectF()
-    private var mLinearGradient: LinearGradient? = null
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.SpecialMaskViewGroup)
         transparentSize =
             a.getDimension(R.styleable.SpecialMaskViewGroup_transparent_size, transparentSize)
-        gradientSize = a.getDimension(R.styleable.SpecialMaskViewGroup_gradient_size, gradientSize)
         a.recycle()
     }
 
@@ -96,30 +91,12 @@ class SpecialMaskViewGroup @JvmOverloads constructor(
         mTransparentPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
         // 绘制透明蒙层
         canvas.drawRect(mTransparentRectF, mTransparentPaint)
-
-        //给画笔设置渐变
-        mLinearGradient?.let { mGradientPaint.shader = it }
-        mGradientPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
-        // 绘制渐变蒙层
-        canvas.drawRect(mGradientRectF, mGradientPaint)
         canvas.restoreToCount(layerSave)
     }
 
     private fun sizeChanged() {
         mTransparentRectF = RectF(0f, 0f, width.toFloat(), transparentSize)
 
-        val gradientTop = transparentSize
-        val gradientBottom = transparentSize + gradientSize
-        mGradientRectF = RectF(0f, gradientTop, width.toFloat(), gradientBottom)
-
-        mLinearGradient = LinearGradient(
-            0f,
-            gradientTop,
-            0f,
-            gradientBottom,
-            mGradientColors,
-            null, Shader.TileMode.CLAMP
-        )
     }
 
     fun setTransparentSize(transparentSize: Int) {

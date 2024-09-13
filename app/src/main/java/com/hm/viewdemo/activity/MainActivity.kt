@@ -20,7 +20,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
-import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
+import com.hm.viewdemo.activity.design.PinScrollTextActivity
 import com.hm.viewdemo.activity.design.TabLayoutActivity
 import com.hm.viewdemo.activity.textview.FontMetricsActivity
 import com.hm.viewdemo.animtest.ActivityAnimTestActivity
@@ -392,8 +392,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 AnnouncementActivity.launch(this)
             }
 
-            R.id.btnCoordinateLayout -> {
-                CoordinateLayoutActivity.launch(this)
+            R.id.btnPinScrollText -> {
+                PinScrollTextActivity.launch(this)
             }
 
             R.id.btnImageViewSrcBackground -> {

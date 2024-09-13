@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp">
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    tools:context=".activity.design.PinScrollTextActivity">
 
     <ImageView
         android:id="@+id/iv_bg"
@@ -43,14 +47,14 @@
                 android:id="@+id/fl_float_container"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="198dp">
+                android:layout_marginTop="198dp"
+                app:transparent_size="198dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_dynamic_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@color/indigo_A100">
+                    android:layout_marginHorizontal="16dp">
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -70,7 +74,8 @@
 
             </FrameLayout>
 
-            <LinearLayout
+            <com.hm.viewdemo.widget.xfermode.SimpleMaskViewGroup
+                android:id="@+id/simple_mask_view_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -84,9 +89,10 @@
                     android:text="@string/long_text"
                     android:textColor="@color/white" />
 
-            </LinearLayout>
+            </com.hm.viewdemo.widget.xfermode.SimpleMaskViewGroup>
 
         </LinearLayout>
+
     </com.hm.viewdemo.widget.MyNestedScrollView2>
 
     <FrameLayout

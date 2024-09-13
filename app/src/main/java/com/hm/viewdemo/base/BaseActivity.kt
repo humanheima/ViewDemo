@@ -20,6 +20,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         binding = createViewBinding()
         setContentView(binding.root)
         initData()
+        bindEvent()
     }
 
     protected abstract fun createViewBinding(): T

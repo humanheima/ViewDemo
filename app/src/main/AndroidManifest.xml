@@ -117,7 +117,7 @@
         <activity android:name=".activity.ViewLifecycleActivity" />
         <activity android:name=".activity.LollipopActivity" />
         <activity android:name=".activity.AnnouncementActivity" />
-        <activity android:name=".activity.design.CoordinateLayoutActivity" />
+        <activity android:name=".activity.design.PinScrollTextActivity" />
         <activity android:name=".activity.TestGetDrawingCachingActivity" />
         <activity android:name=".activity.ImageViewSrcBackgroundActivity" />
         <activity android:name=".activity.LayoutInflateActivity" />
