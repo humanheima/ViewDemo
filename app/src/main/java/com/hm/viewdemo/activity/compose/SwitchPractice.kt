@@ -104,8 +104,9 @@ private fun SwitchWithCustomColors() {
     )
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 private fun SwitchPreview() {
+    //组件
     SwitchPractice(Modifier)
 }
