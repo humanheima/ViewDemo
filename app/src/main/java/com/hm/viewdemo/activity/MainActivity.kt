@@ -20,6 +20,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
+import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.design.PinScrollTextActivity
 import com.hm.viewdemo.activity.design.TabLayoutActivity
 import com.hm.viewdemo.activity.textview.FontMetricsActivity
@@ -115,6 +116,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnCoordinateLayout -> {
+                CoordinateLayoutActivity.launch(this)
+            }
+
             R.id.btnTestEditTextCustomAction -> {
                 EditTextActivity.launch(this)
             }

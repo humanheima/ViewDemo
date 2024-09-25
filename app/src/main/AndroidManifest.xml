@@ -14,11 +14,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".activity.design.CoordinateLayoutActivity"
+            android:exported="false" />
         <activity android:name=".activity.OutlineTestActivity" />
-
         <activity android:name=".activity.ColorTestActivity" />
-
         <activity
             android:name=".activity.compose.WidgetsActivity"
             android:exported="false" />
@@ -149,7 +149,7 @@
         <activity android:name=".activity.ViewDragHelperActivity" />
         <activity
             android:name=".activity.PullToRefreshActivity"
-            android:theme="@style/FullScreenTheme"></activity>
+            android:theme="@style/FullScreenTheme" />
         <activity android:name=".activity.TextViewActivity" />
         <activity android:name=".activity.MpAndroidChartActivity" />
         <activity android:name=".activity.TestFuDanActivity" />
