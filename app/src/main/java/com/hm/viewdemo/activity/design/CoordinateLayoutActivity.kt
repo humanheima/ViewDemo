@@ -36,10 +36,10 @@ class CoordinateLayoutActivity : BaseActivity<ActivityCoordinateLayoutBinding>()
             stringList.add("string$i")
         }
 
-        binding.recyclerView.itemAnimator = DefaultItemAnimator()
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = RecycleViewAdapter(stringList, this)
-        binding.recyclerView.adapter = adapter
+//        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        val adapter = RecycleViewAdapter(stringList, this)
+//        binding.recyclerView.adapter = adapter
     }
 
 }
