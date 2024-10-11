@@ -2,11 +2,15 @@ package com.hm.viewdemo.activity.design
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import com.hm.viewdemo.adapter.RecycleViewAdapter
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityCoordinateLayoutBinding
+
 
 /**
  * Created by p_dmweidu on 2024/9/25
@@ -28,6 +32,26 @@ class CoordinateLayoutActivity : BaseActivity<ActivityCoordinateLayoutBinding>()
 
     override fun initData() {
         setRvAdapter()
+
+        val appBarLayout = binding.appbarLayout
+
+        val behavior: AppBarLayout.Behavior = TestScrollBehavior()
+        val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
+        params.behavior = behavior
+        appBarLayout.layoutParams = params
+
+        binding.recyclerView.postDelayed({
+
+            val appBarLp = binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+
+            Log.d(TAG, "appBarLp behavior = ${appBarLp.behavior}")
+
+            val lp = binding.recyclerView.layoutParams as CoordinatorLayout.LayoutParams
+
+            Log.d(TAG, "initData: behavior = ${lp.behavior}")
+            Log.d(TAG, "initData: binding.recyclerView height = ${binding.recyclerView.height}")
+        }, 100)
+
     }
 
     private fun setRvAdapter() {
@@ -35,11 +59,12 @@ class CoordinateLayoutActivity : BaseActivity<ActivityCoordinateLayoutBinding>()
         for (i in 0 until 30) {
             stringList.add("string$i")
         }
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = RecycleViewAdapter(stringList, this)
+        binding.recyclerView.adapter = adapter
 
-//        binding.recyclerView.itemAnimator = DefaultItemAnimator()
-//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        val adapter = RecycleViewAdapter(stringList, this)
-//        binding.recyclerView.adapter = adapter
+
     }
 
 }

@@ -5,15 +5,16 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:background="#222222"
             android:gravity="center"
-            android:text="该区域可折叠"
+            android:text="AppBar 区域"
             android:textColor="@android:color/white"
             android:textSize="30sp"
             app:layout_scrollFlags="scroll" />
@@ -29,25 +30,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/rv_demo1_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior=".activity.design.TestScrollingViewBehavior" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00ff00"
-            android:text="这是一个滚动布局"
-            android:textSize="200sp" />
-    </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_gravity="bottom"
-        android:background="#ff00ff"
-        app:layout_behavior=".activity.design.Demo1Behavior" />
-
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
