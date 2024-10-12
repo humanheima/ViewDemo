@@ -4,9 +4,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.hm.viewdemo.alarm.YourBroadcastReceiver
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityAlarmManagerBinding
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledFuture
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -28,10 +32,10 @@ class AlarmManagerActivity : BaseActivity<ActivityAlarmManagerBinding>() {
         return ActivityAlarmManagerBinding.inflate(layoutInflater)
     }
 
-    val requestCode = 10086
+    private val requestCode = 10086
 
     override fun initData() {
-        binding.btnStart.setOnClickListener() {
+        binding.btnStart.setOnClickListener {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
             val intent = Intent(this, YourBroadcastReceiver::class.java)
@@ -45,6 +49,7 @@ class AlarmManagerActivity : BaseActivity<ActivityAlarmManagerBinding>() {
             val triggerTime = System.currentTimeMillis() + 10
             alarmManager.set(AlarmManager.RTC, triggerTime, pendingIntent)
             startService(intent)
+
         }
 
         binding.btnCancel.setOnClickListener {
@@ -59,7 +64,25 @@ class AlarmManagerActivity : BaseActivity<ActivityAlarmManagerBinding>() {
             alarmManager.cancel(pendingIntent)
 
         }
+
+        binding.btnStartScheduleThreadPool.setOnClickListener {
+            startScheduledThreadPool()
+        }
+
+        binding.btnCancelScheduleThreadPool.setOnClickListener {
+            stopScheduledThreadPool()
+        }
     }
 
+    private var scheduledFuture: ScheduledFuture<*>? = null
+    private fun startScheduledThreadPool() {
+        scheduledFuture = Executors.newScheduledThreadPool(1).schedule({
+            Log.i(TAG, "testExecutors: current thread is ${Thread.currentThread().name}")
+        }, 5, TimeUnit.SECONDS)
+    }
+
+    private fun stopScheduledThreadPool() {
+        scheduledFuture?.cancel(false)
+    }
 
 }

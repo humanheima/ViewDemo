@@ -11,12 +11,29 @@
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="启动" />
+        android:text="使用AlarmManager开始延迟任务"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="取消" />
+        android:text="取消AlarmManager的延迟任务"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_start_schedule_thread_pool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用 ScheduledThreadPoolExecutor 开始延迟任务"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_cancel_schedule_thread_pool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消 ScheduledThreadPoolExecutor 的延迟任务"
+        android:textAllCaps="false" />
+
 
 </LinearLayout>
