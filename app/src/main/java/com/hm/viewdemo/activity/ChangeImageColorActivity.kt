@@ -87,15 +87,6 @@ class ChangeImageColorActivity : AppCompatActivity() {
     }
 
     private fun tintIvColor(iv: ImageView, resId: Int, color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            iv.imageTintList = ColorStateList.valueOf(color)
-        } else {
-            val drawable = ContextCompat.getDrawable(this, resId)
-            if (drawable != null) {
-                val wrappedDrawable = DrawableCompat.wrap(drawable).mutate()
-                DrawableCompat.setTint(wrappedDrawable, color)
-                iv.setImageDrawable(wrappedDrawable)
-            }
-        }
+        iv.imageTintList = ColorStateList.valueOf(color)
     }
 }
