@@ -120,6 +120,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 CoordinateLayoutActivity.launch(this)
             }
 
+            R.id.btn_test_alarm_manager -> {
+                AlarmManagerActivity.launch(this)
+            }
+
             R.id.btnTestEditTextCustomAction -> {
                 EditTextActivity.launch(this)
             }
