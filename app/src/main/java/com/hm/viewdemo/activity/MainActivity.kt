@@ -28,6 +28,7 @@ import com.hm.viewdemo.animtest.ActivityAnimTestActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
 import com.hm.viewdemo.bean.Person
+import com.hm.viewdemo.calendar.CalendarTestActivity
 import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.databinding.ActivityMainBinding
@@ -116,6 +117,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnCalendar -> {
+                CalendarTestActivity.launch(this)
+            }
+
             R.id.btnCoordinateLayout -> {
                 CoordinateLayoutActivity.launch(this)
             }

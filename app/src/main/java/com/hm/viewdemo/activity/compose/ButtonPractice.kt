@@ -75,3 +75,30 @@ fun ButtonPractice(
 private fun ButtonPreview() {
     ButtonPractice(Modifier)
 }
+
+
+@Preview(showBackground = true)
+@Composable
+private fun ButtonPreview2() {
+    test()
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun ButtonPreview3() {
+    test()
+}
+
+@Composable
+private fun test(){
+    Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            Log.i("ButtonPractice", "ButtonPractice: ")
+        }) {
+        Text(text = "测试Compose Button"
+            , fontFamily = FontFamily.Default
+        )
+    }
+}
