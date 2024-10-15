@@ -5,6 +5,9 @@ import android.content.Intent
 import android.util.Log
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityCalendarTestBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * Created by p_dmweidu on 2024/10/12
@@ -28,9 +31,11 @@ class CalendarTestActivity : BaseActivity<ActivityCalendarTestBinding>() {
     override fun initData() {
 
         binding.btnCheckRange.setOnClickListener {
-            method1()
-            Log.d(TAG, "分割线")
-            method2()
+//            method1()
+//            Log.d(TAG, "分割线")
+//            method2()
+
+            testYear()
         }
     }
 
@@ -87,6 +92,23 @@ class CalendarTestActivity : BaseActivity<ActivityCalendarTestBinding>() {
         val inRange3 = DateTimeHelper.isCurrentTimeInRange(20, 0, 0, twentyMinutes)
         Log.i(TAG, "isCurrentTimeInRange: $inRange3")
 
+    }
+
+    private fun testYear() {
+        // 设置到当前年份的最后一天
+        val current = Calendar.getInstance().apply {
+            set(Calendar.MONTH, Calendar.DECEMBER) // 12月
+            set(Calendar.DAY_OF_MONTH, 31) // 31日
+        }
+
+        val df = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        Log.i(TAG, "testYear: 当前时间  ${current.time}  ${df.format(current.time)}")
+
+        // 增加一天
+        current.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR) + 1)
+
+        Log.i(TAG, "testYear: 增加一天后的时间  ${current.time}  ${df.format(current.time)}")
     }
 
 
