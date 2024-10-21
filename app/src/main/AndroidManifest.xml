@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.compose.UseViewInComposeActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.compose.UseComposeInFragmentActivity"
             android:exported="false" />
         <activity
