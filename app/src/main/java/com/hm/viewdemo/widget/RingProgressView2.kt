@@ -3,9 +3,11 @@ package com.hm.viewdemo.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.SweepGradient
 import android.util.AttributeSet
 import android.view.View
@@ -55,6 +57,8 @@ class RingProgressView2 @JvmOverloads constructor(
     //颜色渐变器
     private var sg: SweepGradient? = null
 
+    private var linearGradient: LinearGradient? = null
+
     //private val colors = intArrayOf(Color.RED, Color.GREEN, Color.BLUE)
     private val colors = intArrayOf(Color.BLUE, Color.GREEN)
 
@@ -102,9 +106,9 @@ class RingProgressView2 @JvmOverloads constructor(
         // 2. 画圆环
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = ringWidth.toFloat()
-        //paint.setStrokeCap(Paint.Cap.ROUND) // 设置笔头为圆形
+        paint.strokeCap = Paint.Cap.ROUND // 设置笔头为圆形
         paint.color = ringColor
-        canvas.drawCircle(centerX, centerY, radius, paint)
+        //canvas.drawCircle(centerX, centerY, radius, paint)
 
 
         // 3. 画圆弧
@@ -115,17 +119,24 @@ class RingProgressView2 @JvmOverloads constructor(
         rectF.right = width - ringWidth / 2f
         rectF.bottom = height - ringWidth / 2f
 
+        //paint.color = ringProgressColor
 
-        paint.color = ringProgressColor
+        canvas.drawArc(rectF, 150f, 240f, false, paint)
 
-        //canvas.drawArc(rectF, 150f, 240f, false, paint)
+//        if (sg == null) {
+//            sg = SweepGradient(centerX, centerY, colors, null)
+//            val matrix: Matrix = Matrix()
+//            matrix.setRotate(150f, centerX, centerY) // 旋转矩阵
+//            sg?.setLocalMatrix(matrix)
+//            paint.shader = sg
+//
+//        }
 
-        if (sg == null) {
-            sg = SweepGradient(centerX, centerY, colors, null)
-            val matrix: Matrix = Matrix()
-            matrix.setRotate(150f, centerX, centerY) // 旋转矩阵
-            sg?.setLocalMatrix(matrix)
-            paint.shader = sg
+        if (linearGradient == null) {
+            linearGradient = LinearGradient(0f, 0f, width.toFloat(), 0f, colors, null, Shader.TileMode.CLAMP)
+            //linearGradient = LinearGradient(0f, 0f, 100f, 0f, colors, null, Shader.TileMode.CLAMP)
+            paint.shader = linearGradient
+
         }
 
         canvas.drawArc(rectF, 150f, currentProgress * 240f / maxProgress, false, paint)
