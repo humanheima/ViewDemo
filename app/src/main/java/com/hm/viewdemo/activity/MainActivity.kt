@@ -19,6 +19,7 @@ import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
+import com.hm.viewdemo.activity.compose.UseComposeInFragmentActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
 import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.design.PinScrollTextActivity
@@ -117,6 +118,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_use_compose_in_fragment -> {
+                UseComposeInFragmentActivity.launch(this)
+            }
+
             R.id.btnCalendar -> {
                 CalendarTestActivity.launch(this)
             }
