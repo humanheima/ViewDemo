@@ -70,7 +70,7 @@ class SweepGradientView @JvmOverloads constructor(
     }
 
     /**
-     * 多个颜色渐变
+     * 多个颜色渐变，注意：多个颜色渐变，颜色数组长度 要和 positions 长度相等
      */
     private fun manyColorGradient(w: Int, h: Int) {
         radius = min(w, h) / 2

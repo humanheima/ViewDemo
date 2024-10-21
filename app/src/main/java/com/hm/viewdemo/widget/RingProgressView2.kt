@@ -7,7 +7,6 @@ import android.graphics.LinearGradient
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
-import android.graphics.Shader
 import android.graphics.SweepGradient
 import android.util.AttributeSet
 import android.view.View
@@ -60,7 +59,11 @@ class RingProgressView2 @JvmOverloads constructor(
     private var linearGradient: LinearGradient? = null
 
     //private val colors = intArrayOf(Color.RED, Color.GREEN, Color.BLUE)
-    private val colors = intArrayOf(Color.BLUE, Color.GREEN)
+    private val colors = intArrayOf(Color.BLUE, Color.GREEN, Color.BLUE)
+
+    //0 240 360
+    //0 2, 3
+    private val positions = floatArrayOf(0f, 0.7f, 1f)
 
     // 默认的构造方法，一般取这3个就够用了
     init {
@@ -93,6 +96,8 @@ class RingProgressView2 @JvmOverloads constructor(
         width = measuredWidth
     }
 
+    private val sweepAngel = 240f
+
     // 绘制
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -121,25 +126,22 @@ class RingProgressView2 @JvmOverloads constructor(
 
         //paint.color = ringProgressColor
 
-        canvas.drawArc(rectF, 150f, 240f, false, paint)
+        canvas.drawArc(rectF, 150f, sweepAngel, false, paint)
 
-//        if (sg == null) {
-//            sg = SweepGradient(centerX, centerY, colors, null)
-//            val matrix: Matrix = Matrix()
-//            matrix.setRotate(150f, centerX, centerY) // 旋转矩阵
-//            sg?.setLocalMatrix(matrix)
-//            paint.shader = sg
-//
-//        }
-
-        if (linearGradient == null) {
-            linearGradient = LinearGradient(0f, 0f, width.toFloat(), 0f, colors, null, Shader.TileMode.CLAMP)
-            //linearGradient = LinearGradient(0f, 0f, 100f, 0f, colors, null, Shader.TileMode.CLAMP)
-            paint.shader = linearGradient
-
+        if (sg == null) {
+            sg = SweepGradient(centerX, centerY, colors, positions)
+            val matrix: Matrix = Matrix()
+            matrix.setRotate(150f, centerX, centerY) // 旋转矩阵
+            sg?.setLocalMatrix(matrix)
+            paint.shader = sg
         }
 
-        canvas.drawArc(rectF, 150f, currentProgress * 240f / maxProgress, false, paint)
+//        if (linearGradient == null) {
+//            linearGradient = LinearGradient(0f, 0f, width.toFloat(), 0f, colors, null, Shader.TileMode.CLAMP)
+//            paint.shader = linearGradient
+//        }
+
+        canvas.drawArc(rectF, 150f, currentProgress * sweepAngel / maxProgress, false, paint)
 
     }
 

@@ -41,7 +41,7 @@
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:layout_gravity="center_horizontal"
-        app:currentProgress="80"
+        app:currentProgress="100"
         app:maxProgress="100"
         app:ringColor="#FFEACE"
         app:ringProgressColor="#FF6000"
