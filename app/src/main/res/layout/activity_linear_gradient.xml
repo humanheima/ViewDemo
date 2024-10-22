@@ -1,63 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".custom_view.chapter7.LinearGradientActivity">
 
-    <com.hm.viewdemo.custom_view.chapter7.widget.LinearGradientView
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_1"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从左到右渐变" />-->
+
+
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_2"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从右到左渐变" />-->
+
+
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_3"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从上到下渐变" />-->
+
+
+        <TextView
+            android:id="@+id/tv_gradient_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变" />
+
+
+        <com.hm.viewdemo.widget.GradientTextView
+            android:id="@+id/tv_gradient_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变"
+            android:textSize="20sp" />
+
+
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_6"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从右上到左下渐变" />-->
+
+
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_7"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从左下到右上渐变" />-->
+
+        <!--        <com.hm.viewdemo.widget.GradientTextView-->
+        <!--            android:id="@+id/tv_gradient_8"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="从右下到左上渐变" />-->
+
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.LinearGradientView
             android:id="@+id/lg_view_1"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp" />
 
 
-    <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
+        <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
             android:id="@+id/play_page_bg_view1"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
             android:visibility="visible" />
 
-    <com.hm.viewdemo.widget.LinearGradientView2
+        <com.hm.viewdemo.widget.LinearGradientView2
             android:id="@+id/lg_view_2"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 
-    <com.hm.viewdemo.widget.ColorGradientView3
+        <com.hm.viewdemo.widget.ColorGradientView3
             android:id="@+id/lg_view_3"
-            app:start_color="@color/colorAccent"
-            app:gradient_orientation="TL_BR"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:center_color="@color/colorPrimary"
             app:end_color="@color/main_color_ffffcc44"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            app:gradient_orientation="TL_BR"
+            app:start_color="@color/colorAccent" />
 
 
-    <com.hm.viewdemo.widget.ColorGradientView3
+        <com.hm.viewdemo.widget.ColorGradientView3
             android:id="@+id/lg_view_4"
             android:layout_width="100dp"
-            app:start_color="@color/colorAccent"
-            app:gradient_orientation="BL_TR"
+            android:layout_height="100dp"
             app:end_color="@color/color_000fff"
-            android:layout_height="100dp" />
+            app:gradient_orientation="BL_TR"
+            app:start_color="@color/colorAccent" />
 
 
-    <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
+        <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
             android:id="@+id/play_page_bg_view2"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
 
-    <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
+        <com.hm.viewdemo.custom_view.chapter7.widget.PlayPageBackgroundView
             android:id="@+id/play_page_bg_view3"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:visibility="gone"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>
