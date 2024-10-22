@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.RoundImageViewActivity"
+    android:layout_width="match_parent"
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        tools:context=".activity.RoundImageViewActivity">
-
-        <LinearLayout
+        <Button
+            android:id="@+id/btnSetSrc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/dynamic_set_drawable"
+            android:textAllCaps="false" />
 
-            <Button
-                android:id="@+id/btnSetSrc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dynamic_set_drawable"
-                android:textAllCaps="false" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageView
+            android:id="@+id/roundIvFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:id="@+id/roundIvFirst"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageView
+            android:id="@+id/roundIvBalloon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/bg_circle_light" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:id="@+id/roundIvBalloon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/bg_circle_light" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageView
+            android:id="@+id/roundIv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_soft_avatar" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:id="@+id/roundIv"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_soft_avatar" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="使用XFermode实现圆角图片" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="使用XFermode实现圆角图片" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/icon" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon"
+            app:imageType="round" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageViewByXfermodeCopy
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/icon"
-                app:imageType="round" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon"
+            app:borderRadius="40dp"
+            app:imageType="round" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/icon"
-                app:borderRadius="40dp"
-                app:imageType="round" />
+        <com.hm.viewdemo.widget.hongyang.RoundImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/balloon"
+            app:borderRadius="60dp"
+            app:imageType="round" />
 
-            <com.hm.viewdemo.widget.hongyang.RoundImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/balloon"
-                app:borderRadius="60dp"
-                app:imageType="round" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-</layout>
+</androidx.core.widget.NestedScrollView>
 

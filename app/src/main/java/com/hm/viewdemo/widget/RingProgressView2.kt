@@ -96,7 +96,8 @@ class RingProgressView2 @JvmOverloads constructor(
         width = measuredWidth
     }
 
-    private val sweepAngel = 240f
+    private val sweepAngel = 230f
+    private val startAngel = 155f
 
     // 绘制
     override fun onDraw(canvas: Canvas) {
@@ -126,12 +127,12 @@ class RingProgressView2 @JvmOverloads constructor(
 
         //paint.color = ringProgressColor
 
-        canvas.drawArc(rectF, 150f, sweepAngel, false, paint)
+        canvas.drawArc(rectF, startAngel, sweepAngel, false, paint)
 
         if (sg == null) {
             sg = SweepGradient(centerX, centerY, colors, positions)
             val matrix: Matrix = Matrix()
-            matrix.setRotate(150f, centerX, centerY) // 旋转矩阵
+            matrix.setRotate(startAngel, centerX, centerY) // 旋转矩阵
             sg?.setLocalMatrix(matrix)
             paint.shader = sg
         }
@@ -141,7 +142,7 @@ class RingProgressView2 @JvmOverloads constructor(
 //            paint.shader = linearGradient
 //        }
 
-        canvas.drawArc(rectF, 150f, currentProgress * sweepAngel / maxProgress, false, paint)
+        canvas.drawArc(rectF, startAngel, currentProgress * sweepAngel / maxProgress, false, paint)
 
     }
 

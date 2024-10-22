@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <com.zhy.view.RoundImageViewByXfermode
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/balloon" />
 
-            <com.zhy.view.RoundImageViewByXfermode
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/balloon" />
+        <com.zhy.view.RoundImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_soft_avatar"
+            app:borderRadius="30dp"
+            app:imageType="round" />
 
-            <com.zhy.view.RoundImageViewByXfermode
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_soft_avatar"
-                app:borderRadius="30dp"
-                app:imageType="round" />
+        <com.zhy.view.RoundImageViewByXfermode
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_soft_avatar"
+            app:imageType="circle" />
 
-            <com.zhy.view.RoundImageViewByXfermode
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_soft_avatar"
-                app:imageType="circle" />
+        <com.zhy.view.RoundImageViewByXfermode
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_soft_avatar"
+            app:imageType="circle" />
 
-            <com.zhy.view.RoundImageViewByXfermode
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_soft_avatar"
-                app:imageType="circle" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-</layout>
+</androidx.core.widget.NestedScrollView>
 

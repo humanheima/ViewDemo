@@ -119,6 +119,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_custom_view -> {
+                CustomViewActivity.launch(this)
+            }
+
             R.id.btn_compose_use_system_view -> {
                 UseViewInComposeActivity.launch(this)
             }

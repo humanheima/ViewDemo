@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_height="68dp"
+    tools:layout_width="168dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/iv_top_bg"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/balloon" />
+
+    <com.hm.viewdemo.widget.RingProgressView2
+        android:id="@+id/ring_progress_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        app:currentProgress="80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxProgress="100"
+        app:ringColor="#FF6000"
+        app:ringProgressColor="#002FFF"
+        app:ringWidth="3dp" />
+
+    <TextView
+        android:id="@+id/tv_center_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="1000"
+        android:textColor="#B2A0FD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_bottom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/iv_bottom_right_angle"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_top_bg"
+        tools:text="心跳事件"
+        tools:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/iv_bottom_right_angle"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_bottom_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_bottom_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_bottom_title" />
+
+</merge>

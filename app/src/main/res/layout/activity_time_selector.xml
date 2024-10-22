@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".activity.TimeSelectorActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <TextView
+        android:id="@+id/tv_ymd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_show_ymd_time_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showYmdTimeSelector"
+        android:text="年月日时间选择器"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/tv_ymd_ms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".activity.TimeSelectorActivity">
+        android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/tv_ymd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_show_ymdms_time_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showYmdmsTimeSelector"
+        android:text="年月日时分秒时间选择器"
+        android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btn_show_ymd_time_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showYmdTimeSelector"
-            android:text="年月日时间选择器"
-            android:textAllCaps="false" />
+    <TextView
+        android:id="@+id/tvWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/tv_ymd_ms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/btnWeekTimeSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showWeekTimeSelector"
+        android:text="一周之内的时间选择器"
+        android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btn_show_ymdms_time_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showYmdmsTimeSelector"
-            android:text="年月日时分秒时间选择器"
-            android:textAllCaps="false" />
+</LinearLayout>
 
-        <TextView
-            android:id="@+id/tvWeek"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <Button
-            android:id="@+id/btnWeekTimeSelector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showWeekTimeSelector"
-            android:text="一周之内的时间选择器"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
-
-</layout>

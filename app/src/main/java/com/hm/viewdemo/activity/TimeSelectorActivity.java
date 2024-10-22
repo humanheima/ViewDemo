@@ -2,13 +2,13 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.databinding.ActivityTimeSelectorBinding;
@@ -46,7 +46,7 @@ public class TimeSelectorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_time_selector);
+        binding = ActivityTimeSelectorBinding.bind(getLayoutInflater().inflate(R.layout.activity_time_selector, null));
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
         endCalendar.add(Calendar.YEAR, 20);

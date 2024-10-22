@@ -2,7 +2,6 @@ package com.hm.viewdemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,8 +37,7 @@ public class RoundImageViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_round_image_view);
-
+        binding = ActivityRoundImageViewBinding.inflate(getLayoutInflater());
         rotationAnimation = AnimationUtils.loadAnimation(this
                 , R.anim.anim_image_rotate_two);
 
