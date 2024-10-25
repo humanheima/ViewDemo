@@ -27,18 +27,18 @@ class CustomViewActivity : AppCompatActivity() {
         binding = ActivityCustomViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.heartBeatEventView.setText("心动事件")
-        binding.heartBeatEventView.setProgress(100, 50)
+//        binding.heartBeatEventView.setText("心动事件")
+//        binding.heartBeatEventView.setProgress(100, 50)
 
-        binding.heartBeatEventView2.setText("心动事件")
-        binding.heartBeatEventView2.setProgress(100, 100)
-
-
-        binding.dailyBindView.setText("每日牵绊")
-        binding.dailyBindView.setProgress(10, 5)
-
-        binding.dailyBindView2.setText("每日牵绊")
-        binding.dailyBindView2.setProgress(1, 1)
+//        binding.heartBeatEventView2.setText("心动事件")
+//        binding.heartBeatEventView2.setProgress(100, 100)
+//
+//
+//        binding.dailyBindView.setText("每日牵绊")
+//        binding.dailyBindView.setProgress(10, 5)
+//
+//        binding.dailyBindView2.setText("每日牵绊")
+//        binding.dailyBindView2.setProgress(1, 1)
 
     }
 }
