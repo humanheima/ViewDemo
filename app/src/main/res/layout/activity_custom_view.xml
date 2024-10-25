@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".activity.CustomViewActivity">
 
+    <com.hm.viewdemo.widget.DiagonalLineView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal" />
+
+    <com.hm.viewdemo.widget.DiagonalLineView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_gravity="center_horizontal" />
+
     <com.hm.viewdemo.widget.HeartBeatEventView
         android:id="@+id/heart_beat_event_view"
         android:layout_width="68dp"
