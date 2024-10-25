@@ -1,7 +1,11 @@
 package com.hm.viewdemo.custom_view.chapter7.widget
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Shader
+import android.graphics.SweepGradient
 import android.util.AttributeSet
 import android.view.View
 import kotlin.math.min
@@ -11,9 +15,9 @@ import kotlin.math.min
  * Desc:
  */
 class SweepGradientView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     companion object {
@@ -74,8 +78,14 @@ class SweepGradientView @JvmOverloads constructor(
      */
     private fun manyColorGradient(w: Int, h: Int) {
         radius = min(w, h) / 2
-        val colors = intArrayOf(Color.RED, Color.GREEN, Color.BLUE)
-        val positions = floatArrayOf(0f, 0.7f, 1f)
+//        val colors = intArrayOf(Color.RED, Color.GREEN, Color.BLUE)
+//        val positions = floatArrayOf(0f, 0.7f, 1f)
+
+
+        val colors = intArrayOf(Color.RED, Color.GREEN)
+
+        //分别代表对应位置上的颜色的起始位置。
+        val positions = floatArrayOf(0f, 0.5f)
 
         radialGradient = SweepGradient(w / 2f, h / 2f, colors, positions)
 

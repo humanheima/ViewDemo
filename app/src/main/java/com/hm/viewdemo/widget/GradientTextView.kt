@@ -1,11 +1,11 @@
 package com.hm.viewdemo.widget
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.Log
-import android.widget.TextView
 
 /**
  * Created by p_dmweidu on 2024/10/22
@@ -124,6 +124,7 @@ class GradientTextView @JvmOverloads constructor(
             )
         }
 
+        paint.color = Color.TRANSPARENT
         paint.shader = linearGradient
         //invalidate() // 刷新视图以应用新的渐变
     }

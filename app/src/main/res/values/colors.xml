@@ -15,6 +15,7 @@
 
     <color name="color_dd2211">#dd2211</color>
     <color name="color_2211dd">#2211dd</color>
+    <color name="color_4d2211dd">#4D2211DD</color>
 
 
     <color name="color_dd2233">#dd2233</color>
@@ -32,7 +33,9 @@
 
 
     <color name="main_color_272727">#272727</color>
+
     <color name="main_color_666666">#666666</color>
+    <color name="main_color_33666666">#33666666</color>
 
     <color name="main_color_ffffcc44">#FFFFCC44</color>
     <color name="main_color_ff66aaff">#FF66AAFF</color>
