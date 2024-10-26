@@ -27,5 +27,8 @@ class CustomViewActivity : AppCompatActivity() {
         binding = ActivityCustomViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ringProgressView.useLinearGradient = false
+        binding.ringProgressView2.useLinearGradient = true
+
     }
 }

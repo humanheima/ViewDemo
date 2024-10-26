@@ -1,6 +1,7 @@
 # Paint 设置 shader 的相关
 
 
+demo 使用 GradientRingProgressView
 
 
 1. Paint 必须得设置颜色。Paint 默认颜色是黑色。如果是一个透明的颜色，Shader 不起作用。自定义View的时候，好像是这样的。 TextView没有问题。

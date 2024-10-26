@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical"
     tools:context=".activity.CustomViewActivity">
 
-    <com.hm.viewdemo.widget.RingProgressView2
-        android:id="@+id/ring_progress_view"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center_horizontal"
-        app:ringWidth="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.hm.viewdemo.widget.GradientRingProgressView
+            android:id="@+id/ring_progress_view"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            app:ringWidth="10dp" />
+
+        <com.hm.viewdemo.widget.GradientRingProgressView
+            android:id="@+id/ring_progress_view2"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            app:currentProgress="60"
+            app:maxProgress="100"
+            app:ringWidth="10dp" />
+
+        <com.hm.viewdemo.widget.GradientRingProgressView
+            android:id="@+id/ring_progress_view3"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            app:currentProgress="1000"
+            app:maxProgress="100"
+            app:ringWidth="10dp" />
 
 
-    <com.hm.viewdemo.widget.RingProgressView2
-        android:id="@+id/ring_progress_view2"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center_horizontal"
-        app:currentProgress="60"
-        app:maxProgress="100"
-        app:ringWidth="10dp" />
+        <com.hm.viewdemo.widget.GradientTextView
+            android:id="@+id/tv_gradient_5"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/long_text_poem"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-
-    <com.hm.viewdemo.widget.RingProgressView2
-        android:id="@+id/ring_progress_view3"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center_horizontal"
-        app:currentProgress="1000"
-        app:maxProgress="100"
-        app:ringWidth="10dp" />
-
-    <!--    <com.hm.viewdemo.widget.HeartBeatEventView-->
-    <!--        android:id="@+id/heart_beat_event_view"-->
-    <!--        android:layout_width="168dp"-->
-    <!--        android:layout_height="168dp"-->
-    <!--        android:layout_gravity="center_horizontal" />-->
-
-    <!--    <com.hm.viewdemo.widget.HeartBeatEventView-->
-    <!--        android:id="@+id/heart_beat_event_view2"-->
-    <!--        android:layout_width="168dp"-->
-    <!--        android:layout_height="168dp"-->
-    <!--        android:layout_gravity="center_horizontal"-->
-    <!--        android:visibility="gone" />-->
-
-</LinearLayout>
+</ScrollView>

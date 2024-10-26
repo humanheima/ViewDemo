@@ -36,7 +36,7 @@
         android:onClick="onClick"
         android:text="停止动画" />
 
-    <com.hm.viewdemo.widget.RingProgressView2
+    <com.hm.viewdemo.widget.GradientRingProgressView
         android:id="@+id/ringProgress2"
         android:layout_width="280dp"
         android:layout_height="280dp"

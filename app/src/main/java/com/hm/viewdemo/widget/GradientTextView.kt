@@ -12,8 +12,8 @@ import android.util.Log
  * Desc: 指定渐变颜色和渐变方向的TextView
  */
 class GradientTextView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : androidx.appcompat.widget.AppCompatTextView(context, attrs) {
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr) {
 
 
     private val TAG = "GradientTextView"
@@ -23,7 +23,7 @@ class GradientTextView @JvmOverloads constructor(
 
     var direction: GradientDirection = GradientDirection.LEFT_TO_RIGHT
 
-    val colors = intArrayOf(0xFFFF0000.toInt(), 0xFF0000FF.toInt()) // 红到绿再到蓝
+    val colors = intArrayOf(Color.RED, Color.BLUE) // 红到绿再到蓝
 
     // 定义渐变方向
     enum class GradientDirection {

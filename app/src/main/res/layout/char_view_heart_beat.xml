@@ -15,7 +15,7 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/balloon" />
 
-    <com.hm.viewdemo.widget.RingProgressView2
+    <com.hm.viewdemo.widget.GradientRingProgressView
         android:id="@+id/ring_progress_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
