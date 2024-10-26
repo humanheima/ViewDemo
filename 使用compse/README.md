@@ -34,4 +34,14 @@ fun ChipPractice(
 
 ```
 
+### 在 View 中使用 Compose
+
 * [在 View 中使用 Compose](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views?hl=zh-cn)
+
+### 在 Compose 中使用 View
+
+* [在 Compose 中使用 View](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/views-in-compose?hl=zh-cn)
+
+### Compose 获取系统资源
+
+* [Resources in Compose](https://developer.android.com/develop/ui/compose/resources)

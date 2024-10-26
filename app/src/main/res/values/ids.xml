@@ -18,4 +18,6 @@
     <item name="paste" type="id" />
     <item name="insert_a_new_line" type="id" />
 
+    <item name="btn_btn_in_compose_android_view" type="id" />
+
 </resources>
