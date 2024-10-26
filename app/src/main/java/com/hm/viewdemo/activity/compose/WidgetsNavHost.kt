@@ -49,6 +49,8 @@ object WidgetsNavRoute {
 
     const val bottomSheetPractice = "Bottom Sheet Practice"
 
+    const val LazyColumnPractice = "Lazy Column Practice"
+
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
     const val routeWithArgs = "${route}/{${accountTypeArg}}"
@@ -144,6 +146,12 @@ fun WidgetsNavHost(
                     navController.navigateToSingleAccount(WidgetsNavRoute.bottomSheetPractice)
                 }
             ),
+            Item(
+                text = WidgetsNavRoute.LazyColumnPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.LazyColumnPractice)
+                }
+            ),
 
             )
         composable(route = WidgetsNavRoute.widgetsEnter) {
@@ -198,6 +206,8 @@ private fun WidgetsPractice(
         WidgetsNavRoute.BadgesPractice -> BadgesPractice(modifier, onBackClick)
 
         WidgetsNavRoute.bottomSheetPractice -> BottomSheetPractice(modifier, onBackClick)
+
+        WidgetsNavRoute.LazyColumnPractice -> LazyColumnPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
