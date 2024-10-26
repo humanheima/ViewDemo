@@ -3,11 +3,9 @@ package com.hm.viewdemo.activity.compose
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.hm.viewdemo.R
+import com.hm.viewdemo.databinding.ActivityUseComposeInFragmentBinding
 
 /**
  * Created by p_dmweidu on 2024/10/21
@@ -24,13 +22,28 @@ class UseComposeInFragmentActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityUseComposeInFragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_use_compose_in_fragment)
-        val fragment = UseComposeInFragment.newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fl_container, fragment)
-            .commit()
+
+        binding = ActivityUseComposeInFragmentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.btnAddFragment1.setOnClickListener {
+
+            val fragment = UseComposeInFragment.newInstance()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_container, fragment)
+                .commit()
+        }
+
+        binding.btnAddFragment2.setOnClickListener {
+            val fragment = ExampleFragmentNoXml.newInstance()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_container, fragment)
+                .commit()
+        }
+
     }
 }

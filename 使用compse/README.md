@@ -33,3 +33,5 @@ fun ChipPractice(
 
 
 ```
+
+* [在 View 中使用 Compose](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views?hl=zh-cn)

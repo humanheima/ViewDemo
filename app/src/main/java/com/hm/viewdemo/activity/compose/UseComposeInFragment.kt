@@ -71,7 +71,7 @@ class UseComposeInFragment : Fragment() {
         }
     }
 
-    @Preview
+    @Preview(showBackground = true)
     @Composable
     fun GreetingPreview() {
         Greeting("Android")
