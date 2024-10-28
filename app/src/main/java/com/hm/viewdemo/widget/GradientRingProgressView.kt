@@ -52,7 +52,7 @@ class GradientRingProgressView @JvmOverloads constructor(
     private var sg: SweepGradient? = null
     private var linearGradient: LinearGradient? = null
 
-    private val colors = intArrayOf(Color.RED, Color.BLUE, Color.GREEN, Color.RED)
+    var colors = intArrayOf(Color.RED, Color.BLUE, Color.GREEN, Color.RED)
     //private val colors = intArrayOf(Color.BLUE, Color.GREEN, Color.BLUE)
 
     //0 240 360

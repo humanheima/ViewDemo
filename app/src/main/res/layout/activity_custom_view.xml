@@ -29,14 +29,38 @@
             app:maxProgress="100"
             app:ringWidth="10dp" />
 
-        <com.hm.viewdemo.widget.GradientRingProgressView
-            android:id="@+id/ring_progress_view3"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center_horizontal"
-            app:currentProgress="1000"
-            app:maxProgress="100"
-            app:ringWidth="10dp" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <com.hm.viewdemo.widget.GradientRingProgressView
+                android:id="@+id/ring_progress_view3"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                app:currentProgress="1000"
+                app:maxProgress="100"
+                app:ringWidth="10dp" />
+
+            <FrameLayout
+                android:id="@+id/fl_inner_view"
+                android:layout_width="128dp"
+                android:layout_height="100dp"
+                android:background="#66666666"
+                android:orientation="vertical">
+
+                <com.hm.viewdemo.widget.GradientRingProgressView
+                    android:id="@+id/ring_progress_view4"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    app:currentProgress="1000"
+                    app:maxProgress="100"
+                    app:ringWidth="10dp" />
+
+            </FrameLayout>
+
+        </FrameLayout>
 
 
         <com.hm.viewdemo.widget.GradientTextView

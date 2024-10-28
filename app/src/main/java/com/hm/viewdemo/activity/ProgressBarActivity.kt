@@ -2,7 +2,6 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Handler
 import android.os.Message
 import com.hm.viewdemo.base.BaseActivity
@@ -17,6 +16,14 @@ import java.lang.ref.WeakReference
  * 参考链接：https://blog.csdn.net/mad1989/article/details/38042875
  */
 class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding>() {
+
+    companion object {
+        fun launch(context: Context) {
+            val starter = Intent(context, ProgressBarActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
+
     private var handler: MyHandler? = null
     override fun createViewBinding(): ActivityProgressBarBinding {
         return ActivityProgressBarBinding.inflate(layoutInflater)
@@ -38,7 +45,7 @@ class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding>() {
                 }
             }
         }.start()
-        binding!!.btnChangeRate.setOnClickListener { binding!!.ratingBar.rating = 3.5f }
+        binding.btnChangeRate.setOnClickListener { binding.ratingBar.rating = 3.5f }
 //        val drawable = binding.progressBar2.progressDrawable
 //        if (drawable is AnimatedVectorDrawable){
 //            drawable.setduration(1000)
@@ -46,25 +53,16 @@ class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding>() {
     }
 
     private class MyHandler(baseActivity: BaseActivity<*>) : Handler() {
-        private val weakActivity: WeakReference<BaseActivity<*>>
 
-        init {
-            weakActivity = WeakReference(baseActivity)
-        }
+        private val weakActivity: WeakReference<BaseActivity<*>> = WeakReference(baseActivity)
 
         override fun handleMessage(msg: Message) {
             val activity = weakActivity.get() as ProgressBarActivity?
             if (activity != null) {
-                activity.binding!!.progressBar.progress = msg.arg1
-                activity.binding!!.textProgress.text = msg.arg1.toString() + "%"
+                activity.binding.progressBar.progress = msg.arg1
+                activity.binding.textProgress.text = msg.arg1.toString() + "%"
             }
         }
     }
 
-    companion object {
-        fun launch(context: Context) {
-            val starter = Intent(context, ProgressBarActivity::class.java)
-            context.startActivity(starter)
-        }
-    }
 }

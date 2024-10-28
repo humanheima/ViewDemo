@@ -1,34 +1,11 @@
 apply plugin: 'com.android.library'
-
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'dot-progress-bar'
-
-    PUBLISH_GROUP_ID = 'com.github.silvestrpredko'
-    libraryName = 'DotProgressBar'
-    PUBLISH_ARTIFACT_ID = 'dot-progress-bar'
-
-    libraryDescription = 'simple progress bar'
-
-    siteUrl = 'https://github.com/silvestrpredko/DotProgressBarExample'
-    gitUrl = 'https://github.com/silvestrpredko/DotProgressBarExample.git'
-
-    PUBLISH_VERSION = '1.1'
-
-    developerId = 'silvestr1994'
-    developerName = 'Silvestr Predko'
-    developerEmail = 'Silvestr1994@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
+apply plugin: 'kotlin-android'
 
 android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -41,11 +18,15 @@ android {
         }
     }
     namespace 'com.github.silvestrpredko.dotprogressbar'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    implementation 'androidx.core:core-ktx:1.13.1'
 
 }
 
