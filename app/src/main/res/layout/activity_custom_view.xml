@@ -54,9 +54,15 @@
                     android:id="@+id/ring_progress_view4"
                     android:layout_width="128dp"
                     android:layout_height="128dp"
+                    android:visibility="gone"
                     app:currentProgress="1000"
                     app:maxProgress="100"
                     app:ringWidth="10dp" />
+
+                <org.libpag.PAGView
+                    android:id="@+id/pag_view"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"/>
 
             </FrameLayout>
 

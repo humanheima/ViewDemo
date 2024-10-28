@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityCustomViewBinding
+import org.libpag.PAGFile
 
 
 /**
@@ -53,6 +54,14 @@ class CustomViewActivity : AppCompatActivity() {
 
         }
 
+        binding.pagView.setPathAsync("https://imgservices-1252317822.image.myqcloud.com/coco/s09242024/ba99f007.jov7su.pag") { p0 ->
+            if (p0 != null) {
+                binding.pagView.composition = p0
+                binding.pagView.setRepeatCount(0)
+                binding.pagView.play()
+            }
+        }
+
         binding.flInnerView.setOnClickListener {
 
             rotateImage()
@@ -63,11 +72,22 @@ class CustomViewActivity : AppCompatActivity() {
     private fun rotateImage() {
         // 旋转30度
         val animator = ObjectAnimator.ofFloat(
-            binding.ringProgressView4,
+            binding.pagView,
             "rotation",
-            binding.ringProgressView4.getRotation() + 30
+            binding.pagView.rotation + 30
         )
         animator.setDuration(300) // 旋转持续时间
         animator.start()
     }
+
+//    private fun rotateImage() {
+//        // 旋转30度
+//        val animator = ObjectAnimator.ofFloat(
+//            binding.ringProgressView4,
+//            "rotation",
+//            binding.ringProgressView4.getRotation() + 30
+//        )
+//        animator.setDuration(300) // 旋转持续时间
+//        animator.start()
+//    }
 }
