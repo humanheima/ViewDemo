@@ -3,8 +3,10 @@ package com.hm.viewdemo.widget
 import android.content.Context
 import android.os.CountDownTimer
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.CountDownViewBinding
 
@@ -16,7 +18,7 @@ class CountDownView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val TAG = "CountDownView"
 
@@ -38,13 +40,8 @@ class CountDownView @JvmOverloads constructor(
 
     }
 
-    private val binding: CountDownViewBinding by lazy {
-        CountDownViewBinding.bind(this)
-    }
+    private var binding: CountDownViewBinding = CountDownViewBinding.inflate(LayoutInflater.from(context), this)
 
-    init {
-        View.inflate(getContext(), R.layout.count_down_view, this)
-    }
 
     /**
      * @param finishTime 毫秒
