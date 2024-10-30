@@ -63,4 +63,9 @@
         <item>@color/color_dd2233</item>
     </array>
 
+    <color name="char_color_e9a7ff">#FFE9A7FF</color>
+
+    <color name="char_color_9690ff">#FF9690FF</color>
+
+
 </resources>

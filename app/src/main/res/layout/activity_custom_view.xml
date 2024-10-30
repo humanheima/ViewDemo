@@ -25,10 +25,16 @@
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:layout_gravity="center_horizontal"
-            app:currentProgress="60"
+            app:currentProgress="0"
             app:maxProgress="100"
+            app:ringColor="#40ffffff"
             app:ringWidth="10dp" />
 
+        <Button
+            android:id="@+id/btn_animate_update_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="动画更新进度" />
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -62,7 +68,7 @@
                 <org.libpag.PAGView
                     android:id="@+id/pag_view"
                     android:layout_width="128dp"
-                    android:layout_height="128dp"/>
+                    android:layout_height="128dp" />
 
             </FrameLayout>
 

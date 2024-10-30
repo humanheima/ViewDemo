@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityCustomViewBinding
 import org.libpag.PAGFile
 
@@ -35,10 +36,18 @@ class CustomViewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.ringProgressView.useLinearGradient = false
-        binding.ringProgressView2.useLinearGradient = true
 
-        binding.ringProgressView3.colors =
-            intArrayOf(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE)
+        val startColor = getColor(R.color.char_color_9690ff)
+
+        val endColor = getColor(R.color.char_color_e9a7ff)
+
+        binding.ringProgressView2.colors =
+            intArrayOf(startColor, endColor, endColor, startColor)
+
+        binding.btnAnimateUpdateProgress.setOnClickListener {
+            testAnimateUpdateProgress()
+        }
+
 
         binding.ringProgressView4.colors =
             intArrayOf(Color.RED, Color.GREEN, Color.YELLOW, Color.RED)
@@ -67,6 +76,16 @@ class CustomViewActivity : AppCompatActivity() {
             rotateImage()
         }
 
+    }
+
+    private fun testAnimateUpdateProgress() {
+        val currentProgress = binding.ringProgressView2.currentProgress
+        val targetProgress = currentProgress + 30
+        Log.d(
+            TAG,
+            "testAnimateUpdateProgress: currentProgress = $currentProgress, targetProgress = $targetProgress"
+        )
+        binding.ringProgressView2.animateProgress(targetProgress)
     }
 
     private fun rotateImage() {

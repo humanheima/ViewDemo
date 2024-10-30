@@ -1,5 +1,6 @@
 package com.hm.viewdemo.widget
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -57,7 +58,7 @@ class GradientRingProgressView @JvmOverloads constructor(
 
     //0 240 360
     //0 2, 3
-    private val positions = floatArrayOf(0f, 0.7f, 0.8f, 1f)
+    private val positions = floatArrayOf(0f, 0.7f, 0.98f, 1f)
 
     init {
         // 得到自定义资源数组
@@ -95,9 +96,20 @@ class GradientRingProgressView @JvmOverloads constructor(
         //先绘制背景色
         canvas.drawArc(rectF, startAngel, sweepAngel, false, paint)
 
-        paint.shader = if (useLinearGradient) linearGradient else sg
         //绘制进度
-        canvas.drawArc(rectF, startAngel, currentProgress * sweepAngel / maxProgress, false, paint)
+        var currentAngle = currentProgress * sweepAngel / maxProgress
+
+        if (currentAngle > sweepAngel) {
+            currentAngle = sweepAngel
+        }
+
+        paint.color = Color.GRAY
+
+        canvas.drawArc(rectF, startAngel, currentAngle, false, paint)
+
+        paint.shader = if (useLinearGradient) linearGradient else sg
+
+        canvas.drawArc(rectF, startAngel, currentAngle, false, paint)
 
     }
 
@@ -125,6 +137,20 @@ class GradientRingProgressView @JvmOverloads constructor(
                 }
             }
         }
+    }
+
+
+    fun animateProgress(targetProgress: Int) {
+        if (targetProgress == currentProgress) {
+            return
+        }
+        val animator = ValueAnimator.ofInt(currentProgress, targetProgress)
+        animator.setDuration(1000) // 动画持续时间
+        animator.addUpdateListener { animation: ValueAnimator ->
+            currentProgress = animation.animatedValue as Int
+            invalidate() // 重新绘制
+        }
+        animator.start()
     }
 
 }
