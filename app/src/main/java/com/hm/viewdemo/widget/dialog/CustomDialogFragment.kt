@@ -3,11 +3,14 @@ package com.hm.viewdemo.widget.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.DialogSigninBinding
 
@@ -15,11 +18,17 @@ import com.hm.viewdemo.databinding.DialogSigninBinding
  * Created by dumingwei on 2019-10-22.
  * Desc:
  */
-class CustomDialogFragment : androidx.fragment.app.DialogFragment() {
+class CustomDialogFragment : DialogFragment() {
+
+    private val TAG = "CustomDialogFragment"
 
     private var _binding: DialogSigninBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = DialogSigninBinding.inflate(inflater, container, false)
         return _binding?.root
     }
@@ -30,12 +39,22 @@ class CustomDialogFragment : androidx.fragment.app.DialogFragment() {
         //isCancelable = false
 
         dialog?.window?.let {
+            Log.d(TAG, "onActivityCreated: ")
             it.setGravity(Gravity.BOTTOM)
-            //window.setWindowAnimations(R.style.animate_dialog)
+
+
+            //设置宽高全屏
+            it.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
             //设置背景透明，不然dialog周围会有padding
             it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            it.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+            it.setStatusBarColor(Color.TRANSPARENT);
+
+            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            it.decorView.setSystemUiVisibility(option)
+            it.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
         }
     }
 

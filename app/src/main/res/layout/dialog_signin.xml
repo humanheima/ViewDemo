@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/color_90EE90"
     android:orientation="vertical"
     android:visibility="visible">
@@ -10,8 +10,7 @@
         android:layout_height="200dp"
         android:background="#FFFFBB33"
         android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        android:src="@drawable/balloon" />
+        android:scaleType="centerCrop" />
 
     <EditText
         android:id="@+id/username"

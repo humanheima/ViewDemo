@@ -145,7 +145,7 @@ public class NumberRunningTextView extends AppCompatTextView {
                 this.setText(numStr);
                 return;
             }
-            ValueAnimator intAnimator = new ValueAnimator().ofInt(0, finalNum);
+            ValueAnimator intAnimator = ValueAnimator.ofInt(0, finalNum);
             intAnimator.setDuration(duration);
             intAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override

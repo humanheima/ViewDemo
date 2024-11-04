@@ -9,6 +9,10 @@ import android.os.Bundle
 import android.view.View
 import com.hm.viewdemo.R
 
+/**
+ * Created by p_dmweidu on 2024/10/31
+ * Desc:
+ */
 class StatusBarActivity : AppCompatActivity() {
 
     companion object {
