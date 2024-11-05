@@ -2,6 +2,7 @@ package com.hm.viewdemo.custom_view.chapter7
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
@@ -41,11 +42,6 @@ class LinearGradientActivity : AppCompatActivity() {
         binding = ActivityLinearGradientBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.tvGradient1.direction = GradientTextView.GradientDirection.LEFT_TO_RIGHT
-//        binding.tvGradient2.direction = GradientTextView.GradientDirection.RIGHT_TO_LEFT
-//        binding.tvGradient3.direction = GradientTextView.GradientDirection.TOP_TO_BOTTOM
-//        binding.tvGradient4.direction = GradientTextView.GradientDirection.BOTTOM_TO_TOP
-
         val colors = intArrayOf(0xFFFF0000.toInt(), 0xFF0000FF.toInt()) // 红到蓝
 
         binding.tvGradient4.post {
@@ -65,16 +61,9 @@ class LinearGradientActivity : AppCompatActivity() {
             binding.tvGradient4.invalidate()
 
         }
-//
         binding.tvGradient5.direction =
-            GradientTextView.GradientDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM
-//        binding.tvGradient6.direction =
-//            GradientTextView.GradientDirection.RIGHT_TO_LEFT_TOP_TO_BOTTOM
-//        binding.tvGradient7.direction =
-//            GradientTextView.GradientDirection.LEFT_TO_RIGHT_BOTTOM_TO_TOP
-//        binding.tvGradient8.direction =
-//            GradientTextView.GradientDirection.RIGHT_TO_LEFT_BOTTOM_TO_TOP
-
+            GradientTextView.GradientDirection.TOP_TO_BOTTOM
+        binding.tvGradient5.colors = intArrayOf(Color.WHITE, Color.TRANSPARENT)
 
         lg_view_2 = findViewById(R.id.lg_view_2)
 

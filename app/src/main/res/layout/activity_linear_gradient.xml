@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#52000000"
         android:orientation="vertical"
         tools:context=".custom_view.chapter7.LinearGradientActivity">
-
 
         <TextView
             android:id="@+id/tv_gradient_4"
@@ -25,10 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变\n从左上到右下渐变"
             android:textSize="20sp" />
-
-
 
 
         <com.hm.viewdemo.custom_view.chapter7.widget.LinearGradientView

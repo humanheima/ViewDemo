@@ -23,7 +23,7 @@ class GradientTextView @JvmOverloads constructor(
 
     var direction: GradientDirection = GradientDirection.LEFT_TO_RIGHT
 
-    val colors = intArrayOf(Color.RED, Color.BLUE) // 红到绿再到蓝
+    var colors = intArrayOf(Color.RED, Color.BLUE) // 红到绿再到蓝
 
     // 定义渐变方向
     enum class GradientDirection {
@@ -124,7 +124,7 @@ class GradientTextView @JvmOverloads constructor(
             )
         }
 
-        paint.color = Color.TRANSPARENT
+        //paint.color = Color.TRANSPARENT
         paint.shader = linearGradient
         //invalidate() // 刷新视图以应用新的渐变
     }
