@@ -53,6 +53,19 @@
                     app:endColor="#ffffff"
                     app:startColor="#ffffff" />
 
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBarUse
+                    android:id="@+id/dot_progress_bar_use"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="48dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="@android:integer/config_mediumAnimTime"
+                    app:endColor="#ffffff"
+                    app:startColor="#ffffff" />
+
                 <com.github.silvestrpredko.dotprogressbar.CircularProgressBar
                     android:id="@+id/circular_progress_bar"
                     android:layout_width="100dp"

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.ProgressBarActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FA9C6A"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="下面这个例子，宽是高的两倍，绘制最小的圆" />
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBarUse
+                    android:id="@+id/dot_progress_bar_use_smallest"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="600"
+                    app:endColor="#ffffff"
+                    app:startColor="#ffffff" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="下面这个例子，宽高比是13/6，绘制最大的圆" />
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBarUse
+                    android:id="@+id/dot_progress_bar_use_biggest"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="600"
+                    app:endColor="#ffffff"
+                    app:startColor="#ffffff" />
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBarUse
+                    android:id="@+id/dot_progress_bar_use"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="600"
+                    app:endColor="#ffffff"
+                    app:startColor="#ffffff" />
+
+                <com.github.silvestrpredko.dotprogressbar.DotProgressBar
+                    android:id="@+id/dot_progress_bar"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
+                    app:amount="3"
+                    app:animationDirection="right"
+                    app:duration="600"
+                    app:endColor="#ffffff"
+                    app:startColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/btn_change_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="改变颜色" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
