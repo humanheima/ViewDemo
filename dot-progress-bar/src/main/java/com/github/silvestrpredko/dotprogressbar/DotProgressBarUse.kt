@@ -48,6 +48,10 @@ class DotProgressBarUse @JvmOverloads constructor(
      * Animation tools
      */
     private var animationTime: Long = 0
+
+    /**
+     * 动画过程中的半径
+     */
     private var animatedRadius = 0f
     private var isFirstLaunch = true
 
@@ -201,7 +205,6 @@ class DotProgressBarUse @JvmOverloads constructor(
     private val TAG = "DotProgressBarUse"
 
     private fun drawCirclesLeftToRight(canvas: Canvas, radius: Float) {
-        Log.d(TAG, "drawCirclesLeftToRight: ")
         var step = 0f
 
         var pointStep = 0f
@@ -209,12 +212,9 @@ class DotProgressBarUse @JvmOverloads constructor(
 
             drawCircles(canvas, i, step, radius)
 
-            //val flx = xCoordinate + pointStep
-
             //确定圆心位置
             val flx = xCoordinate + step
             val fry = measuredHeight.toFloat() / 2
-            Log.d(TAG, "drawCirclesLeftToRight: flx = $flx, fry = $fry")
             canvas.drawPoint(flx, fry, paint)
 
             step += dotRadius * 3
@@ -223,7 +223,6 @@ class DotProgressBarUse @JvmOverloads constructor(
     }
 
     private fun drawCirclesRightToLeft(canvas: Canvas, radius: Float) {
-        Log.d(TAG, "drawCirclesRightToLeft: ")
         var step = 0f
         for (i in dotAmount - 1 downTo 0) {
             drawCircles(canvas, i, step, radius)
@@ -254,7 +253,11 @@ class DotProgressBarUse @JvmOverloads constructor(
     }
 
     /**
+     * index 为 dotPosition ，逐渐变大，从 dotRadius 变化到最大 bounceDotRadius
      * Circle radius is grow
+     * @param step 用来确定在水平方向上圆心的位置
+     * @param radius 变化过程中的半径
+     *
      */
     private fun drawCircleUp(canvas: Canvas, step: Float, radius: Float) {
         val finalRadius = if (debugDrawBiggest) {
@@ -271,8 +274,11 @@ class DotProgressBarUse @JvmOverloads constructor(
         )
     }
 
+    /**
+     * 大小不变，半径就是 dotRadius
+     * @param step 用来确定在水平方向上圆心的位置
+     */
     private fun drawCircle(canvas: Canvas, step: Float) {
-
         val finalRadius = if (debugDrawBiggest) {
             bounceDotRadius
         } else {
@@ -290,6 +296,7 @@ class DotProgressBarUse @JvmOverloads constructor(
 
     /**
      * Circle radius is decrease
+     * 逐渐变小，从 bounceDotRadius 变化到 dotRadius
      */
     private fun drawCircleDown(canvas: Canvas, step: Float, radius: Float) {
         val finalRadius = if (debugDrawBiggest) {
@@ -326,7 +333,7 @@ class DotProgressBarUse @JvmOverloads constructor(
         if (!enableAnimation) {
             return
         }
-        val bounceAnimation: BounceAnimation = BounceAnimation()
+        val bounceAnimation = BounceAnimation()
         bounceAnimation.duration = animationTime
         bounceAnimation.repeatCount = Animation.INFINITE
         bounceAnimation.interpolator = LinearInterpolator()
@@ -370,6 +377,10 @@ class DotProgressBarUse @JvmOverloads constructor(
         override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
             super.applyTransformation(interpolatedTime, t)
             animatedRadius = (bounceDotRadius - dotRadius) * interpolatedTime
+            Log.d(
+                TAG,
+                "applyTransformation:  interpolatedTime = $interpolatedTime bounceRadius = $bounceDotRadius dotRadius = $dotRadius animatedRadius = $animatedRadius"
+            )
             invalidate()
         }
     }

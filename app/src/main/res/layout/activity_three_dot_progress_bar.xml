@@ -54,7 +54,7 @@
                     android:layout_margin="20dp"
                     app:amount="3"
                     app:animationDirection="right"
-                    app:duration="600"
+                    app:duration="00"
                     app:endColor="#ffffff"
                     app:startColor="#ffffff" />
 
@@ -65,7 +65,7 @@
                     android:layout_margin="20dp"
                     app:amount="3"
                     app:animationDirection="right"
-                    app:duration="600"
+                    app:duration="1600"
                     app:endColor="#ffffff"
                     app:startColor="#ffffff" />
 

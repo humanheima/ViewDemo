@@ -33,7 +33,10 @@ class ThreeDotProgressBarActivity : BaseActivity<ActivityThreeDotProgressBarBind
         binding.dotProgressBarUseBiggest.debugDrawBiggest = true
 
 
+        binding.dotProgressBarUse.enableAnimation = false
+
         binding.btnChangeColor.setOnClickListener {
+            binding.dotProgressBarUse.enableAnimation = true
             binding.dotProgressBarUse.changeColor(ContextCompat.getColor(this, R.color.colorAccent))
         }
     }
