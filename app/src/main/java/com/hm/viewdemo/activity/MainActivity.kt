@@ -119,6 +119,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestWindowInsetsController -> {
+                WindowInsetsControllerActivity.launch(this)
+            }
+
             R.id.btn_three_dot_progressbar -> {
                 ThreeDotProgressBarActivity.launch(this)
             }

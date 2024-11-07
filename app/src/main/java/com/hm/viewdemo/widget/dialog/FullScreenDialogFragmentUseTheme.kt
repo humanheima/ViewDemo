@@ -1,10 +1,12 @@
 package com.hm.viewdemo.widget.dialog
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.DialogFragment
 import com.hm.viewdemo.R
 
@@ -37,12 +39,19 @@ class FullScreenDialogFragmentUseTheme : DialogFragment() {
         /**
          * 如果要延伸到状态栏，可以使用这个来实现
          */
-        if (dialog?.window?.getDecorView() != null) {
-            dialog?.window?.getDecorView()?.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            )
-        }
+        hideSystemUI()
     }
 
+    private fun hideSystemUI() {
+        //让内容延伸到状态栏上
+        dialog?.window?.let {
+            WindowCompat.setDecorFitsSystemWindows(it, false)
+            //注释1处，设置状态栏的背景颜色
+            it.statusBarColor = Color.TRANSPARENT
+            WindowCompat.getInsetsController(it, it.decorView).let { controller ->
+                //注释2处，false，状态栏上的颜色是白色的。true ，状态栏上的颜色是黑色的。
+                controller.isAppearanceLightStatusBars = true
+            }
+        }
+    }
 }
