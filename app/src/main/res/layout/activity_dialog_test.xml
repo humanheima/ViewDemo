@@ -28,6 +28,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_fullscreen_dialog_fragment2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全屏DialogFragment，使用Theme 来实现"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="封闭式测试"
