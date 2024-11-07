@@ -24,7 +24,7 @@ public class FullScrreenDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //<!--关键点1-- >
+        //<!--关键点1-- 需要在 setContentView 之前调用。方法注释上也提到了。 >
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_signin, null);
         //<!--关键点2-- >

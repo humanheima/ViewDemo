@@ -15,7 +15,7 @@ import com.hm.viewdemo.util.ImageUtil
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
 import com.hm.viewdemo.widget.dialog.FireMissilesDialogFragment
 import com.hm.viewdemo.widget.dialog.FullScreenDialog2
-import com.hm.viewdemo.widget.dialog.FullScrreenDialog
+import com.hm.viewdemo.widget.dialog.FullScreenDialogFragment
 import com.hm.viewdemo.widget.hongyang.RoundImageView
 import kotlin.random.Random
 
@@ -58,6 +58,11 @@ class DialogTestActivity : AppCompatActivity() {
             //val dialog = FullScrreenDialog(this)
             val dialog = FullScreenDialog2(this)
             dialog.show()
+        }
+
+        binding.btnFullscreenDialogFragment1.setOnClickListener {
+            val fullScreenDialogFragment = FullScreenDialogFragment()
+            fullScreenDialogFragment.show(supportFragmentManager, null)
         }
         binding.btnShowDialog.setOnClickListener {
             showDialog()

@@ -1,8 +1,20 @@
-# 关于如何实现Dialog/DialogFragment全屏
+package com.hm.viewdemo.widget.dialog
 
-### 第一阶段，完全使用代码来控制。
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
+import com.hm.viewdemo.R
 
-```kotlin
+/**
+ * Created by p_dmweidu on 2024/11/7
+ * Desc: 全屏的DialogFragment
+ */
 class FullScreenDialogFragment : DialogFragment() {
 
     private val TAG = "FullScreenDialogFragmen"
@@ -37,7 +49,3 @@ class FullScreenDialogFragment : DialogFragment() {
     }
 
 }
-```
-
-
-参考链接：[三句代码创建全屏Dialog或者DialogFragment：带你从源码角度实现](https://www.jianshu.com/p/3ecad4bfc55e)
