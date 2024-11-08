@@ -4,18 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.os.Bundle
 import android.view.WindowInsets
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import com.hm.viewdemo.R
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityWindowInsetsControllerBinding
 
 /**
  * Created by p_dmweidu on 2024/11/7
  * Desc:测试 WindowInsetsController 的用法
  */
-class WindowInsetsControllerActivity : AppCompatActivity() {
+class WindowInsetsControllerActivity : BaseActivity<ActivityWindowInsetsControllerBinding>() {
 
 
     companion object {
@@ -26,35 +27,53 @@ class WindowInsetsControllerActivity : AppCompatActivity() {
         }
     }
 
+    override fun createViewBinding(): ActivityWindowInsetsControllerBinding {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_window_insets_controller)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-        hideSystemUI()
+        return ActivityWindowInsetsControllerBinding.inflate(layoutInflater)
     }
 
-    private fun hideSystemUI() {
+    override fun initData() {
+        changeStatusBarUI()
+        binding.btnHideSystemBars.setOnClickListener {
+            hide()
+        }
+        binding.btnShowSystemBars.setOnClickListener {
+            show()
+        }
+    }
+
+    private fun changeStatusBarUI() {
         //让内容延伸到状态栏上
         WindowCompat.setDecorFitsSystemWindows(window, false)
         //注释1处，设置状态栏的背景颜色
         window.statusBarColor = Color.TRANSPARENT
         WindowCompat.getInsetsController(window, window.decorView).let { controller ->
             //controller.hide(WindowInsetsCompat.Type.systemBars())
-//            controller.systemBarsBehavior =
-//                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            //controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             //注释2处，false，状态栏上的颜色是白色的。true ，状态栏上的颜色是黑色的。
-            controller.isAppearanceLightStatusBars = true
+            //controller.isAppearanceLightStatusBars = true
+
         }
     }
 
+    private fun hide() {
+        // 获取 WindowInsetsController
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+
+        // 隐藏状态栏
+        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
+    }
+
+    private fun show() {
+        // 获取 WindowInsetsController
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+
+        // 显示状态栏
+        windowInsetsController.show(WindowInsetsCompat.Type.statusBars())
+    }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    fun initSystemBarsByAndroidX() {
+    private fun initSystemBarsByAndroidX() {
         var controller = WindowCompat.getInsetsController(window, window.decorView)
         // 设置状态栏反色
         controller.isAppearanceLightStatusBars = true

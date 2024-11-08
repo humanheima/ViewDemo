@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.TempActivity2"
+            android:exported="false" />
+        <activity
             android:name=".activity.WindowInsetsControllerActivity"
             android:exported="false" />
         <activity
