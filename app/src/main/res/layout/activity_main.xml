@@ -4,6 +4,7 @@
     android:id="@+id/scroll_view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:overScrollMode="never"
     tools:context=".activity.MainActivity">
 
@@ -12,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+
+        <com.hm.viewdemo.widget.CustomLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
@@ -960,7 +961,8 @@
                 android:text="xfermode实现圆角图片和圆形图片"
                 android:textAllCaps="false" />
 
-        </LinearLayout>
+        </com.hm.viewdemo.widget.CustomLinearLayout>
+
 
     </com.hm.viewdemo.widget.MyFrameLayout>
 

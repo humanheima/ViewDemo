@@ -121,6 +121,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
         val gestureDetector =
             GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
 
+                override fun onDown(e: MotionEvent): Boolean {
+                    val onDown = super.onDown(e)
+                    Log.i(TAG, "onDown: = $onDown")
+
+                    return true
+                }
+
+                override fun onScroll(
+                    e1: MotionEvent?,
+                    e2: MotionEvent,
+                    distanceX: Float,
+                    distanceY: Float
+                ): Boolean {
+                    val onScroll = super.onScroll(e1, e2, distanceX, distanceY)
+                    Log.e(TAG, "onScroll: $onScroll")
+                    return true
+
+                }
+
                 override fun onFling(
                     e1: MotionEvent?,
                     e2: MotionEvent,
@@ -144,10 +163,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 }
             })
 
-        binding.flContent.setOnTouchListener { _, event ->
-            gestureDetector.onTouchEvent(event)
-
-        }
+//        binding.flFrontMask.setOnTouchListener { _, event ->
+//            return@setOnTouchListener gestureDetector.onTouchEvent(event)
+//
+//        }
 
     }
 
