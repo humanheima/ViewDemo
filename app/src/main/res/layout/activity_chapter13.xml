@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".custom_view.chapter_13.Chapter13Activity">
 
-    <com.hm.viewdemo.custom_view.chapter_13.TestGestureview
+    <com.hm.viewdemo.custom_view.chapter_13.TestGestureView
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 

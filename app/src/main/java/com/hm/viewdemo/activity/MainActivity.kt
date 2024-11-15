@@ -7,6 +7,8 @@ import android.content.res.AssetManager
 import android.os.Debug
 import android.os.Environment
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -40,6 +42,7 @@ import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
 import pub.devrel.easypermissions.EasyPermissions
+import kotlin.math.abs
 import kotlin.random.Random
 
 /**
@@ -104,8 +107,48 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                     composeButton()
                 }
             }
+        }
+
+        testGestureDetector()
+    }
+
+
+    private fun testGestureDetector() {
+
+        val FLING_MIN_DISTANCE = 100
+        val FLING_MIN_VELOCITY = 200
+
+        val gestureDetector =
+            GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+
+                override fun onFling(
+                    e1: MotionEvent?,
+                    e2: MotionEvent,
+                    velocityX: Float,
+                    velocityY: Float
+                ): Boolean {
+                    if (e1 == null) {
+                        return false
+                    }
+                    Log.e(
+                        TAG,
+                        "onFling: e1.x=${e1.x}, e2.x=${e2.x}, velocityX=$velocityX, velocityY=$velocityY"
+                    )
+                    if (e1.x - e2.x > FLING_MIN_DISTANCE && abs(velocityX) >= FLING_MIN_VELOCITY) {
+                        //向左滑
+                        Log.e(TAG, "onFling: left")
+                    } else if (e2.x - e1.x > FLING_MIN_DISTANCE && abs(velocityX) >= FLING_MIN_VELOCITY) {
+                        Log.e(TAG, "onFling: right")
+                    }
+                    return true
+                }
+            })
+
+        binding.flContent.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
 
         }
+
     }
 
     @Composable
