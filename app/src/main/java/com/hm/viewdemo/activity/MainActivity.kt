@@ -181,6 +181,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_test_rotation_y -> {
+                TestRotateYActivity.launch(this)
+            }
+
             R.id.btnTestWindowInsetsController -> {
                 WindowInsetsControllerActivity.launch(this)
             }
