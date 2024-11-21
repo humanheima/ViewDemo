@@ -20,9 +20,9 @@ import com.hm.viewdemo.R;
  * Date:2017/12/29 上午10:31
  */
 
-public class CurveImageView extends ImageView {
+public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView {
 
-    public static final int NEED_PADDING = 200;
+    public static final int NEED_PADDING = 20;
     private Bitmap mBitmap;
     private Camera camera;
 
@@ -60,8 +60,7 @@ public class CurveImageView extends ImageView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog);
-        //mBitmap = Bitmap.createScaledBitmap(mBitmap, w - NEED_PADDING, h - NEED_PADDING, true);
-        mBitmap = Bitmap.createScaledBitmap(mBitmap, w, h, false);
+        mBitmap = Bitmap.createScaledBitmap(mBitmap, w - NEED_PADDING, h - NEED_PADDING, true);
     }
 
     public float getAngle() {

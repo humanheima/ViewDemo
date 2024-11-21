@@ -8,10 +8,26 @@
     tools:context=".activity.TestRotateYActivity">
 
 
+    <com.hm.viewdemo.widget.CurveImageViewOrigin
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@color/gray" />
+
+    <com.hm.viewdemo.widget.CurveImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@color/gray" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/ivLeft"
@@ -42,9 +58,5 @@
         android:layout_height="wrap_content"
         android:text="改变左右两个View的setRotationY"
         android:textAllCaps="false" />
-
-    <com.hm.viewdemo.widget.CustomVertexView
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
 
 </LinearLayout>
