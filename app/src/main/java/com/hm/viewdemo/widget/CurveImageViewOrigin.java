@@ -119,6 +119,7 @@ public class CurveImageViewOrigin extends androidx.appcompat.widget.AppCompatIma
                 float py = fy;
 
                 point = new float[]{px, py};
+                // TODO: 2024/11/21 ，这两行的作用，应该是为了让 camera 的变化，在中间的点进行变换。
                 m3DMatrix.preTranslate(-bw / 2, bh / 2);
                 m3DMatrix.postTranslate(bw / 2, -bh / 2);
                 m3DMatrix.mapPoints(point);
