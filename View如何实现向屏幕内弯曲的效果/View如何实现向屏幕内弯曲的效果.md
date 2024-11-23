@@ -46,6 +46,27 @@ double offsetZ = r * (1 - Math.cos(asin));
 ```
 
 
+### 搞明白了 CurveImageView 到底是怎么弯曲的。
+
+```java
+
+/**
+ * 这种移动方式，是让每一个点都以中心点进行变换。这种方式是对的。
+ */
+//m3DMatrix.preTranslate(-bw / 2, -bh / 2);
+//m3DMatrix.postTranslate(bw / 2, bh / 2);
+//m3DMatrix.mapPoints(point);
+
+
+/**
+ * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，0]点进行变换。视觉上有更好弯曲效果
+ */
+m3DMatrix.preTranslate(-bw / 2, bh / 2);
+m3DMatrix.postTranslate(bw / 2, -bh / 2);
+m3DMatrix.mapPoints(point);
+```
+
+
 
 [Android——弧形弯曲显示的ImageView](https://juejin.cn/post/6844903543946625031)
 

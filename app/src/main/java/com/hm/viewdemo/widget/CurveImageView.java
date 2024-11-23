@@ -7,7 +7,7 @@ import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -22,7 +22,9 @@ import com.hm.viewdemo.R;
 
 public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView {
 
-    public static final int NEED_PADDING = 20;
+    private static final String TAG = "CurveImageView";
+
+    public static final int NEED_PADDING = 100;
     private Bitmap mBitmap;
     private Camera camera;
 
@@ -59,7 +61,7 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog_square);
         mBitmap = Bitmap.createScaledBitmap(mBitmap, w - NEED_PADDING, h - NEED_PADDING, true);
     }
 
@@ -100,10 +102,13 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
             for (int j = 0; j < MESH_WIDTH + 1; j++) {
                 float fx = bw / MESH_WIDTH * j;
 
+
                 origin[index * 2 + 0] = fx;
                 origin[index * 2 + 1] = fy;
                 float d = Math.abs(fx - bw / 2);
                 double offsetZ = mRadius * (1 - Math.cos(Math.asin(d / mRadius)));
+                //Log.d(TAG, "initMesh: bw :" + bw + " bh:" + bh + " fx :" + fx + " fy:" + fy + " offsetZ = "+offsetZ);
+                Log.d(TAG, " fx :" + fx + " fy:" + fy + " offsetZ = " + offsetZ);
                 camera.save();
                 camera.translate(0, 0, (float) offsetZ);
                 camera.getMatrix(m3DMatrix);
@@ -112,7 +117,25 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
                 float px = fx;
                 float py = fy;
 
+                //Log.d(TAG, "initMesh: width :" + bw + " height:" + bh + " fx:" + fx + " fy:" + fy);
+
+                //变化坐标是[0，0]
+                //当前点的坐标
                 point = new float[]{px, py};
+                //dx > 0 ，向右移动，dx < 0 会向左移动
+                //dy > 0 会向下移动,dy < 0 会向上移动
+
+                /**
+                 * 这种移动方式，是让每一个点都以中心点进行变换。这种方式是对的。
+                 */
+//                m3DMatrix.preTranslate(-bw / 2, -bh / 2);
+//                m3DMatrix.postTranslate(bw / 2, bh / 2);
+//                m3DMatrix.mapPoints(point);
+
+
+                /**
+                 * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，0]点进行变换。视觉上有更好弯曲效果
+                 */
                 m3DMatrix.preTranslate(-bw / 2, bh / 2);
                 m3DMatrix.postTranslate(bw / 2, -bh / 2);
                 m3DMatrix.mapPoints(point);
@@ -120,8 +143,11 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
                 dst[index * 2 + 0] = point[0];
                 dst[index * 2 + 1] = point[1];
 
+                //Log.e(TAG, "initMesh: px:" + point[0] + " py:" + point[1]);
+
                 index++;
             }
+            Log.e(TAG, "initMesh: 换行");
         }
     }
 
@@ -131,14 +157,6 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
         initMesh();
         canvas.save();
         canvas.translate(NEED_PADDING / 2, NEED_PADDING / 2);
-        canvas.translate(getWidth() / 2, getHeight() / 2);
-        camera.save();
-        camera.translate(0, 0, (float) mRadius);
-        camera.rotateY(mRotateY);
-        camera.translate(0, 0, (float) -mRadius);
-        camera.applyToCanvas(canvas);
-        camera.restore();
-        canvas.translate(-getWidth() / 2, -getHeight() / 2);
         canvas.drawBitmapMesh(mBitmap, MESH_WIDTH, MESH_HEIGHT, dst, 0, null, 0, null);
         canvas.restore();
     }

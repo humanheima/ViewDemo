@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityTestRotateYactivityBinding
+import com.hm.viewdemo.widget.MatrixExample
 
 /**
  * Created by p_dmweidu on 2024/11/19
@@ -29,38 +30,44 @@ class TestRotateYActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnRotate.setOnClickListener {
-            binding.ivLeft.animate()
-                .rotationY(-70f) // 向内弯曲的角度
-                .scaleX(0.7f)
-                .scaleY(0.7f)
-                .setDuration(5000) // 动画持续时间
-                .withEndAction {
-                    // 动画结束后的操作，例如恢复到原来的状态
-                    binding.ivLeft.animate()
-                        .rotationY(0f) // 恢复到原来的状态
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(5000)
-                        .start()
-                }
-                .start()
+            //rotate()
 
-            binding.ivRight.animate()
-                .rotationY(70f) // 向内弯曲的角度
-                .scaleX(0.7f)
-                .scaleY(0.7f)
-                .setDuration(5000) // 动画持续时间
-                .withEndAction {
-                    // 动画结束后的操作，例如恢复到原来的状态
-                    binding.ivRight.animate()
-                        .rotationY(0f) // 恢复到原来的状态
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(5000)
-                        .start()
-                }
-                .start()
+            MatrixExample.main()
         }
 
+    }
+
+    private fun rotate() {
+        binding.ivLeft.animate()
+            .rotationY(-70f) // 向内弯曲的角度
+            .scaleX(0.7f)
+            .scaleY(0.7f)
+            .setDuration(5000) // 动画持续时间
+            .withEndAction {
+                // 动画结束后的操作，例如恢复到原来的状态
+                binding.ivLeft.animate()
+                    .rotationY(0f) // 恢复到原来的状态
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(5000)
+                    .start()
+            }
+            .start()
+
+        binding.ivRight.animate()
+            .rotationY(70f) // 向内弯曲的角度
+            .scaleX(0.7f)
+            .scaleY(0.7f)
+            .setDuration(5000) // 动画持续时间
+            .withEndAction {
+                // 动画结束后的操作，例如恢复到原来的状态
+                binding.ivRight.animate()
+                    .rotationY(0f) // 恢复到原来的状态
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(5000)
+                    .start()
+            }
+            .start()
     }
 }
