@@ -20,7 +20,7 @@ import com.hm.viewdemo.R;
  * Date:2017/12/29 上午10:31
  */
 
-public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView {
+public class CurveImageView2 extends androidx.appcompat.widget.AppCompatImageView {
 
     private static final String TAG = "CurveImageView";
 
@@ -39,11 +39,11 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
     private double mRadius;
     private float offsetY;
 
-    public CurveImageView(Context context) {
+    public CurveImageView2(Context context) {
         super(context);
     }
 
-    public CurveImageView(Context context, @Nullable AttributeSet attrs) {
+    public CurveImageView2(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
@@ -128,17 +128,17 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
                 /**
                  * 这种移动方式，是让每一个点都以中心点进行变换。这种方式是对的。
                  */
-                m3DMatrix.preTranslate(-bw / 2, -bh / 2);
-                m3DMatrix.postTranslate(bw / 2, bh / 2);
-                m3DMatrix.mapPoints(point);
+//                m3DMatrix.preTranslate(-bw / 2, -bh / 2);
+//                m3DMatrix.postTranslate(bw / 2, bh / 2);
+//                m3DMatrix.mapPoints(point);
 
 
                 /**
-                 * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，0]点进行变换。视觉上有更好弯曲效果
+                 * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，当前坐标+ bh / 2 ]点进行变换。视觉上有更好弯曲效果
                  */
-//                m3DMatrix.preTranslate(-bw / 2, bh / 2);
-//                m3DMatrix.postTranslate(bw / 2, -bh / 2);
-//                m3DMatrix.mapPoints(point);
+                m3DMatrix.preTranslate(-bw / 2, bh / 2);
+                m3DMatrix.postTranslate(bw / 2, -bh / 2);
+                m3DMatrix.mapPoints(point);
 
                 dst[index * 2 + 0] = point[0];
                 dst[index * 2 + 1] = point[1];

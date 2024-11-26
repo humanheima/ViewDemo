@@ -59,7 +59,9 @@ double offsetZ = r * (1 - Math.cos(asin));
 
 
 /**
- * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，0]点进行变换。视觉上有更好弯曲效果
+ * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，当前点+ bh / 2 ]点进行变换。视觉上有更好弯曲效果
+ * 
+ * 可以对比一下 CurveImageView 和 CurveImageView2，
  */
 m3DMatrix.preTranslate(-bw / 2, bh / 2);
 m3DMatrix.postTranslate(bw / 2, -bh / 2);
