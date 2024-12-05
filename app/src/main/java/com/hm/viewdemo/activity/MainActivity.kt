@@ -198,7 +198,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
 
             R.id.btn_test_custom_view -> {
-                CustomViewActivity.launch(this)
+                CustomerViewActivity.launch(this)
             }
 
             R.id.btn_compose_use_system_view -> {

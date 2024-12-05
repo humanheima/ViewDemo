@@ -6,8 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
 
 import com.hm.viewdemo.R;
 
@@ -56,9 +57,10 @@ public class RoundLayout extends FrameLayout {
     }
 
     @Override
-    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    protected void dispatchDraw(@NonNull Canvas canvas) {
         // 绘制圆角
         canvas.clipPath(mPath);
-        return super.drawChild(canvas, child, drawingTime);
+        super.dispatchDraw(canvas);
     }
+
 }

@@ -13,6 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/btn_test_custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:onClick="onClick"
+            android:text="测试自定义View"
+            android:textAllCaps="false" />
 
         <com.hm.viewdemo.widget.CustomLinearLayout
             android:layout_width="match_parent"
@@ -84,14 +92,6 @@
                 android:text="测试ProgressBar"
                 android:textAllCaps="false" />
 
-            <Button
-                android:id="@+id/btn_test_custom_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:onClick="onClick"
-                android:text="测试自定义View"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btnAnnouncementView"
