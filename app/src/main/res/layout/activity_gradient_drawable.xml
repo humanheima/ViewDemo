@@ -7,6 +7,12 @@
     tools:context=".custom_view.chapter7.GradientDrawableActivity">
 
     <ImageView
+        android:id="@+id/iv_animator_gradient_drawable"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_size_20dp"
+        android:layout_margin="8dp" />
+
+    <ImageView
         android:id="@+id/ivFirst"
         android:layout_width="100dp"
         android:layout_height="100dp"

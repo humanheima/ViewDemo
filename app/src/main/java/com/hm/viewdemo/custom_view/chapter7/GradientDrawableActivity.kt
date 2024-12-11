@@ -6,6 +6,8 @@ import android.graphics.drawable.GradientDrawable
 import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityGradientDrawableBinding
+import com.hm.viewdemo.util.ScreenUtil
+import com.hm.viewdemo.widget.AnimatedGradientDrawable
 
 /**
  * Created by dumingwei on 2020/5/22
@@ -29,8 +31,6 @@ class GradientDrawableActivity : BaseActivity<ActivityGradientDrawableBinding>()
     }
 
     override fun initData() {
-
-
 //        val background = GradientDrawable(
 //            GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
 //                resources.getColor(R.color.vip_start_color),
@@ -39,6 +39,11 @@ class GradientDrawableActivity : BaseActivity<ActivityGradientDrawableBinding>()
 //                )
 //            )
 //        )
+
+        val animatedGradientDrawable = AnimatedGradientDrawable()
+        animatedGradientDrawable.cornerRadius = ScreenUtil.dpToPx(this, 10)
+        binding.ivAnimatorGradientDrawable.setImageDrawable(animatedGradientDrawable)
+
         val background = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
                 resources.getColor(R.color.xx_color_99a1fd),

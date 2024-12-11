@@ -17,7 +17,7 @@ import com.hm.viewdemo.extension.dp2pxFloat
  *
  *
  */
-class TestImageView @JvmOverloads constructor(
+class AnotherCutCornerImageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatImageView(context, attrs) {
 

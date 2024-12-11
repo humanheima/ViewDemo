@@ -28,6 +28,13 @@ class DrawPathView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+    companion object {
+        private const val TAG = "DrawPathView"
+        private const val SHADOW_MULTIPLIER = 1.5f
+    }
+
+
     private lateinit var mPaint: Paint
     private var mWidth = 0
     private var mHeight = 0
@@ -119,6 +126,7 @@ class DrawPathView @JvmOverloads constructor(
 
         //canvas.drawArc(rectF, 0f, 30f, false, mPaint);
 
+        /************/
         /*mPaint.setPathEffect(pathEffect);
         mPaint.setColor(Color.BLUE);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -130,7 +138,7 @@ class DrawPathView @JvmOverloads constructor(
         //pathAddRoundRect(canvas)
         //testPathAddPath(canvas);
         //pathAddArc(canvas);
-        testPathArcTo(canvas);
+        //testPathArcTo(canvas);
         //pathFillTypeEVenOld(canvas);
         //pathFillTypeWinding(canvas);
         //pathOp(canvas);
@@ -140,7 +148,7 @@ class DrawPathView @JvmOverloads constructor(
 
         //getPathNextContour(canvas);
         //getPathPosStan(canvas);
-        //getPathPosMatrix(canvas);
+        getPathPosMatrix(canvas);
 
         //testArcTo(canvas);
         //testArcTo1(canvas);
@@ -148,6 +156,8 @@ class DrawPathView @JvmOverloads constructor(
         //testArcTo2(canvas);
 
         //testSpecialShape(canvas)
+
+
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -170,8 +180,8 @@ class DrawPathView @JvmOverloads constructor(
      * @param canvas
      */
     private fun testArcTo1(canvas: Canvas) {
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = 5f
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 5f
         val path = Path()
         path.moveTo(10f, 10f)
         path.lineTo(100f, 50f)
@@ -201,16 +211,16 @@ class DrawPathView @JvmOverloads constructor(
         canvas.drawPath(cCWRectPth, mPaint)
         canvas.drawPath(cWRectPth, mPaint)
         val text = "苦心人天不负，有志者事竟成"
-        mPaint!!.color = Color.GREEN
-        mPaint!!.textSize = 35f
+        mPaint.color = Color.GREEN
+        mPaint.textSize = 35f
         canvas.drawTextOnPath(text, cCWRectPth, 0f, 18f, mPaint)
         canvas.drawTextOnPath(text, cWRectPth, 0f, 18f, mPaint)
     }
 
     private fun getPathPosMatrix(canvas: Canvas) {
-        mPaint!!.color = Color.BLACK
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = dp2px(1f).toFloat()
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = dp2px(1f).toFloat()
         canvas.translate(mWidth / 2f, mHeight / 2f)
         val path = Path()
         path.addCircle(0f, 0f, 200f, Path.Direction.CW) // 添加一个圆形
@@ -234,19 +244,26 @@ class DrawPathView @JvmOverloads constructor(
         invalidate() // 重绘页面
     }
 
+
+    private var posTanPath = Path()
     private fun getPathPosStan(canvas: Canvas) {
-        mPaint!!.color = Color.BLACK
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = dp2px(1f).toFloat()
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = dp2px(1f).toFloat()
         canvas.translate(mWidth / 2f, mHeight / 2f)
-        val path = Path()
-        path.addCircle(0f, 0f, 200f, Path.Direction.CW) // 添加一个圆形
-        val measure = PathMeasure(path, false) // 创建 PathMeasure
+        posTanPath.reset()
+        posTanPath.addCircle(0f, 0f, 200f, Path.Direction.CW) // 添加一个圆形
+        val measure = PathMeasure(posTanPath, false) // 创建 PathMeasure
         currentValue += 0.005.toFloat() // 计算当前的位置在总长度上的比例[0,1]
         if (currentValue >= 1) {
             currentValue = 0f
         }
-        measure.getPosTan(measure.length * currentValue, pos, tan) // 获取当前位置的坐标以及趋势
+
+        //长度乘以比例，保证在总长度上移动，位置在总长度上的比例[0,1]
+        val distance = measure.length * currentValue
+        Log.d(TAG, "getPathPosStan: ${measure.length} distance: $distance")
+
+        measure.getPosTan(distance, pos, tan) // 获取当前位置的坐标以及趋势
         mMatrix.reset() // 重置Matrix
         val degrees = (Math.atan2(
             tan[1].toDouble(), tan[0].toDouble()
@@ -256,15 +273,15 @@ class DrawPathView @JvmOverloads constructor(
             pos[0] - mBitmap.width / 2f,
             pos[1] - mBitmap.height / 2f
         ) // 将图片绘制中心调整到与当前点重合
-        canvas.drawPath(path, mPaint) // 绘制 Path
+        canvas.drawPath(posTanPath, mPaint) // 绘制 Path
         canvas.drawBitmap(mBitmap, mMatrix, mPaint) // 绘制箭头
         invalidate() // 重绘页面
     }
 
     private fun getPathNextContour(canvas: Canvas) {
-        mPaint!!.color = Color.BLACK
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = dp2px(1f).toFloat()
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = dp2px(1f).toFloat()
         canvas.translate(mWidth / 2f, mHeight / 2f)
         val path = Path()
         path.addRect(-100f, -100f, 100f, 100f, Path.Direction.CW) // 添加小矩形
@@ -279,16 +296,16 @@ class DrawPathView @JvmOverloads constructor(
     }
 
     private fun getPathSegment(canvas: Canvas) {
-        mPaint!!.color = Color.BLACK
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.strokeWidth = dp2px(1f).toFloat()
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = dp2px(1f).toFloat()
         canvas.translate(mWidth / 2f, mHeight / 2f)
         val path = Path()
         path.addRect(-200f, -200f, 200f, 200f, Path.Direction.CW)
 
         //先画出矩形
         canvas.drawPath(path, mPaint)
-        mPaint!!.color = Color.BLUE
+        mPaint.color = Color.BLUE
         val dst = Path()
         dst.lineTo(-300f, -300f)
         val measure = PathMeasure(path, true)
@@ -308,8 +325,8 @@ class DrawPathView @JvmOverloads constructor(
         path.addCircle(-100f, 0f, 100f, Path.Direction.CW)
         path.computeBounds(rect1, true) // 测量Path
         canvas.drawPath(path, mPaint) // 绘制Path
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.color = Color.RED
+        mPaint.style = Paint.Style.STROKE
+        mPaint.color = Color.RED
         canvas.drawRect(rect1, mPaint) // 绘制边界
     }
 
@@ -548,6 +565,7 @@ class DrawPathView @JvmOverloads constructor(
 
 
     val specialPath = Path()
+
     /**
      * 合并path
      *
@@ -598,11 +616,6 @@ class DrawPathView @JvmOverloads constructor(
             TypedValue.COMPLEX_UNIT_SP,
             dpVal.toFloat(), resources.displayMetrics
         ).toInt()
-    }
-
-    companion object {
-        private const val TAG = "DrawPathView"
-        private const val SHADOW_MULTIPLIER = 1.5f
     }
 
 }
