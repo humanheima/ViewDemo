@@ -216,6 +216,8 @@
             android:name=".animtest.ActivityAnimTestActivity"
             android:theme="@style/ActivityAnimTestTheme" />
 
+        <activity android:name=".activity.MathTestActivity" />
+
         <receiver android:name=".alarm.YourBroadcastReceiver" />
     </application>
 

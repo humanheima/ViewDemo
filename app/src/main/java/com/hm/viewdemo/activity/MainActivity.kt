@@ -181,6 +181,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btnTestMathFunction -> {
+                MathTestActivity.launch(this)
+            }
+
             R.id.btn_test_rotation_y -> {
                 TestRotateYActivity.launch(this)
             }

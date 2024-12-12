@@ -18,6 +18,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import com.hm.viewdemo.R
+import com.hm.viewdemo.dp2px
 
 /**
  * Crete by dumingwei on 2019-08-13
@@ -148,9 +149,9 @@ class DrawPathView @JvmOverloads constructor(
 
         //getPathNextContour(canvas);
         //getPathPosStan(canvas);
-        getPathPosMatrix(canvas);
+        //getPathPosMatrix(canvas);
 
-        //testArcTo(canvas);
+        testArcTo(canvas);
         //testArcTo1(canvas);
         //testPathAddRect(canvas);
         //testArcTo2(canvas);
@@ -167,10 +168,13 @@ class DrawPathView @JvmOverloads constructor(
     }
 
     private fun testArcTo(canvas: Canvas) {
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 5f
         val path = Path()
-        path.moveTo(10f, 10f)
-        val rectF = RectF(100f, 10f, 200f, 100f)
-        path.arcTo(rectF, 0f, 90f, true)
+        val dp10 = 10f.dp2px(context)
+        val rectF = RectF(dp10, dp10, width.toFloat() - dp10, 3 * height / 4f)
+        //canvas.drawRect(rectF, mPaint)
+        path.arcTo(rectF, 0f, 180f, true)
         canvas.drawPath(path, mPaint)
     }
 
@@ -610,6 +614,7 @@ class DrawPathView @JvmOverloads constructor(
             dpVal, resources.displayMetrics
         ).toInt()
     }
+
 
     fun sp2px(dpVal: Int): Int {
         return TypedValue.applyDimension(

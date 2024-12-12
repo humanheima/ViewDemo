@@ -9,7 +9,8 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+    private static final SimpleDateFormat df =
+            new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
 
     public static String currentTime() {
         return df.format(System.currentTimeMillis());
