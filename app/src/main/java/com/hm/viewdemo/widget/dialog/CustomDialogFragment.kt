@@ -1,18 +1,20 @@
 package com.hm.viewdemo.widget.dialog
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
-import com.hm.viewdemo.R
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.hm.viewdemo.databinding.DialogSigninBinding
+
 
 /**
  * Created by dumingwei on 2019-10-22.
@@ -24,12 +26,25 @@ class CustomDialogFragment : DialogFragment() {
 
     private var _binding: DialogSigninBinding? = null
 
+    private val mObserver: Observer<LifecycleOwner> = Observer<LifecycleOwner> {
+        Log.e(TAG, "lifecycleOwner = ${it.lifecycle.currentState}")
+        Log.e(TAG, "showsDialog: = $showsDialog")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewLifecycleOwnerLiveData.observeForever(mObserver)
+        Log.e(TAG, "onAttach: ")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = DialogSigninBinding.inflate(inflater, container, false)
+        Log.e(TAG, "onCreateView: ")
         return _binding?.root
     }
 
