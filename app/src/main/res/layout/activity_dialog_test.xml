@@ -8,6 +8,16 @@
     tools:context=".activity.DialogTestActivity">
 
     <Button
+        android:id="@+id/btn_animate_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="动画进入Dialog"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_fullscreen_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

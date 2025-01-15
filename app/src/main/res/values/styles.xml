@@ -221,6 +221,15 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@color/transparent</item>
 
+
+    </style>
+
+    <style name="DialogAnimation" parent="Theme.AppCompat.Dialog">
+        <!-- 进入动画 -->
+        <item name="android:windowEnterAnimation">@anim/scale_enter</item>
+        <!-- 退出动画 -->
+        <item name="android:windowExitAnimation">@anim/scale_exit</item>
+
     </style>
 
 

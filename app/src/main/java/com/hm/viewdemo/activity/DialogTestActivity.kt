@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityDialogTestBinding
 import com.hm.viewdemo.util.ImageUtil
+import com.hm.viewdemo.widget.dialog.AnimateInDialogFragment
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
 import com.hm.viewdemo.widget.dialog.FireMissilesDialogFragment
 import com.hm.viewdemo.widget.dialog.FullScreenDialog2
@@ -93,6 +94,11 @@ class DialogTestActivity : AppCompatActivity() {
             showCustomDialog()
         }
         arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")
+
+        binding.btnAnimateIn.setOnClickListener {
+            val animateInDialogFragment = AnimateInDialogFragment()
+            animateInDialogFragment.show(supportFragmentManager, null)
+        }
     }
 
     private fun showDialog() {

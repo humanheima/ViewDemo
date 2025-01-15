@@ -39,6 +39,9 @@ class FullScreenDialogFragment : DialogFragment() {
 
         //貌似高版本不调用也可以。多高的版本呢？猜测是5.0以上。
         //dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE);
+
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
