@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.os.MessageQueue
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityHandlerBinding
@@ -38,12 +39,6 @@ class HandlerActivity : AppCompatActivity() {
         binding = ActivityHandlerBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
-        /*Looper.myQueue().addIdleHandler {
-            Log.i(TAG, "onCreate: " + Thread.currentThread().name)
-            true
-        }*/
 
         //添加Printer
         /*Looper.getMainLooper().setMessageLogging { str ->
@@ -94,6 +89,20 @@ class HandlerActivity : AppCompatActivity() {
     private fun longDurationMethod() {
         Thread.sleep(2000)
         Log.i(TAG, "onCreate: send msg")
+    }
+
+    private fun testIdleHandler() {
+        val idleHandler = object : MessageQueue.IdleHandler {
+            override fun queueIdle(): Boolean {
+                Log.i(TAG, "queueIdle: ")
+                //return false会自动移除
+                //注意也不要做太耗时的操作
+                return false
+            }
+        }
+        Looper.myQueue().addIdleHandler(idleHandler)
+        //或者调用removeIdleHandler 主动移除。
+        //Looper.myQueue().removeIdleHandler(idleHandler)
     }
 
     override fun onStop() {

@@ -1,4 +1,3 @@
-
 ### 可以在 View 中使用 Compose ，也可以在 Compose 中使用 View
 
 * [Interoperability API](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis?hl=zh-cn)
@@ -45,3 +44,9 @@ fun ChipPractice(
 ### Compose 获取系统资源
 
 * [Resources in Compose](https://developer.android.com/develop/ui/compose/resources)
+
+### Text 设置 文本，注意不能为null
+
+```kotlin
+Text(text = item.itemText ?: "")
+```
