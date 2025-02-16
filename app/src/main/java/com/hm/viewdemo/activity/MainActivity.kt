@@ -423,8 +423,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
 
             R.id.btnTestCancelEVent -> {
-
-                val assetManager = AssetManager::class.java.newInstance()
                 TestCancelEventActivity.launch(this)
             }
 
