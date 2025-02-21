@@ -3,7 +3,7 @@
 ### 先说下结论
 
 1. 是可以在子线程更新UI的。
-2. 只要绕过ViewRootImpl 的检查 checkThread方法 就可以了。
+2. 只要绕过 ViewRootImpl 的检查 checkThread方法 就可以了。
 3. 一个TextView，如果开始宽高是固定的，那么在子线程更新UI的时候，不会崩溃。因为不会调用requestLayout方法。
 
 

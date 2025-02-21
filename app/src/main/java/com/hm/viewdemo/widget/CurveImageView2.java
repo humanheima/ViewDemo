@@ -61,7 +61,7 @@ public class CurveImageView2 extends androidx.appcompat.widget.AppCompatImageVie
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog_square);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog);
         mBitmap = Bitmap.createScaledBitmap(mBitmap, w - NEED_PADDING, h - NEED_PADDING, true);
     }
 

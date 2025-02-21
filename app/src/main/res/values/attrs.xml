@@ -230,5 +230,10 @@
 
     </declare-styleable>
 
+    <declare-styleable name="FinalMeasureLinearlayout_Layout">
+        <attr name="layout_final_measure" format="boolean" />
+
+    </declare-styleable>
+
 
 </resources>

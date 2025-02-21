@@ -3,10 +3,10 @@ package com.hm.viewdemo.activity
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
-import android.content.res.AssetManager
 import android.os.Debug
 import android.os.Environment
 import android.util.Log
+import android.view.Choreographer
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -44,6 +44,7 @@ import com.hm.viewdemo.widget.ChatThreeAvatarView
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.math.abs
 import kotlin.random.Random
+
 
 /**
  * Created by p_dmweidu on 2023/8/21
@@ -179,10 +180,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
         }
     }
 
+    private val frameCallback = object : Choreographer.FrameCallback {
+        private var mLastFrameTime: Long = 0
+        override fun doFrame(frameTimeNanos: Long) {
+            if (mLastFrameTime != 0L) {
+                val frameIntervalMs = (frameTimeNanos - mLastFrameTime) / 1000000
+                if (frameIntervalMs > 16) { // 超过16ms视为掉帧
+                    Log.w("FrameDrop", "掉帧: " + frameIntervalMs + "ms")
+                }
+            }
+            mLastFrameTime = frameTimeNanos
+            Choreographer.getInstance().postFrameCallback(this)
+        }
+
+    }
+
     fun onClick(view: View) {
         when (view.id) {
             R.id.btnTestMathFunction -> {
-                MathTestActivity.launch(this)
+                //MathTestActivity.launch(this)
+                Choreographer.getInstance().postFrameCallback(frameCallback)
             }
 
             R.id.btn_test_rotation_y -> {

@@ -61,7 +61,7 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog_square);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_dog);
         mBitmap = Bitmap.createScaledBitmap(mBitmap, w - NEED_PADDING, h - NEED_PADDING, true);
     }
 
@@ -102,7 +102,6 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
             for (int j = 0; j < MESH_WIDTH + 1; j++) {
                 float fx = bw / MESH_WIDTH * j;
 
-
                 origin[index * 2 + 0] = fx;
                 origin[index * 2 + 1] = fy;
                 float d = Math.abs(fx - bw / 2);
@@ -132,7 +131,6 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
                 m3DMatrix.postTranslate(bw / 2, bh / 2);
                 m3DMatrix.mapPoints(point);
 
-
                 /**
                  * 这种方式，是让每一个点都以水平中心点，竖直方向上以[水平中心，0]点进行变换。视觉上有更好弯曲效果
                  */
@@ -150,7 +148,6 @@ public class CurveImageView extends androidx.appcompat.widget.AppCompatImageView
             Log.e(TAG, "initMesh: 换行");
         }
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
