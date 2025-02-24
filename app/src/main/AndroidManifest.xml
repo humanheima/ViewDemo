@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EncryptActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.TestRotateYActivity"
             android:exported="false" />
         <activity
@@ -215,7 +218,6 @@
         <activity
             android:name=".animtest.ActivityAnimTestActivity"
             android:theme="@style/ActivityAnimTestTheme" />
-
         <activity android:name=".activity.MathTestActivity" />
 
         <receiver android:name=".alarm.YourBroadcastReceiver" />

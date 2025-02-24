@@ -17,7 +17,7 @@
 -->
 
     <com.hm.viewdemo.custom_view.chapter9.BitmapCanvasView
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp" />
 
     <!--    <com.hm.viewdemo.custom_view.chapter9.RestoreToCountView-->

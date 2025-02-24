@@ -1,47 +1,32 @@
-
 ### save方法和restore方法
 
-```
-    /**
-     * Saves the current matrix and clip onto a private stack。
-     * <p>
-     * Subsequent calls to translate,scale,rotate,skew,concat or clipRect,
-     * clipPath will all operate as usual, but when the balancing call to
-     * restore() is made, those calls will be forgotten, and the settings that
-     * existed before the save() will be reinstated.
-     *
-     * @return The value to pass to restoreToCount() to balance this save()
-     */
-    public int save() {
-        return nSave(mNativeCanvasWrapper, MATRIX_SAVE_FLAG | CLIP_SAVE_FLAG);
-    }
+可以使用 BitmapCanvasView 类做测试。 
 
-```
+save() 的作用是将当前的 Canvas 状态保存到一个栈（stack）中。方便临时操作。
+使用场景：当你需要在绘制过程中临时 `改变坐标系` 或  `剪裁区域` ，但不希望这些改变影响后续操作时。
+比如，你想在一个局部区域旋转绘制内容，然后恢复原始状态继续绘制。
 
-当我们调用save方法的时候，会将当前矩阵和剪辑保存到专用堆栈。然后调用translate,scale,rotate,skew,concat or clipRect, clipPath这些改变矩阵和剪辑的方法和平常一样。但是当我们调用restore方法以后，这些调用这些改变矩阵和剪辑的方法的结果会被丢弃。矩阵和剪辑会恢复到save方法之前。
+restore() 的作用是从状态栈中弹出最近一次 save() 保存的状态，并恢复到那个状态。
+效果： 撤销自上次 save() 以来对 Canvas 的所有变换和剪裁操作。 恢复到调用 save() 时的坐标系和状态。
+注意： 如果栈中没有保存的状态，调用 restore() 会抛出异常。 已绘制的内容不会被擦除，只是后续绘制会基于恢复后的状态。
+使用场景： 在完成局部绘制后，恢复到全局状态，避免临时变换影响其他部分。
 
-举个例子
+注意：在 Android 的 Canvas 中，调用 save() 和 restore() 不会影响 Paint 对象的状态，包括画笔的颜色。因此，如果你在
+save() 之后将画笔的颜色设置为红色（red），调用 restore() 之后，画笔颜色仍然是红色。
 
-```
-    override fun onDraw(canvas: Canvas) {
-        //将画布移动到控件中心
-        canvas.translate(width / 2f, height / 2f)
-        canvas.save()
-        for (i in 0..5) {
-            canvas.drawLine(0f, 0f, 100f, 0f, mPaint)
-            //每次旋转60度
-            canvas.rotate(60f)
-            
-        }
-        canvas.restore()
+# saveLayer() 的作用，与 save() 的区别
 
-    }
+在 Android 的 Canvas 中，saveLayer() 方法是一个功能强大的工具，用于创建一个新的绘制图层（Layer）。
+它与 save() 类似，但不仅保存当前状态，还允许你在独立图层上绘制内容，并支持透明度()、混合模式等高级操作。
 
-```
-在这个例子中，我们画了6条线，每条线之间的夹角是60度。
+saveLayerAlpha，可以在创建新的图层的时候，指定透明度。
 
-总结：save方法之后改变画布的矩阵和剪辑信息，在restore方法会全部被丢弃，画布的矩阵和剪辑信息恢复到调用sava方法之前。
-
+特性 save()    saveLayer()
+保存状态 是 是
+创建新图层 否 是
+支持透明度/混合 否 是
+内存开销 较低 较高（因创建离屏缓冲）
+典型用途 坐标变换、剪裁 透明叠加、复杂混合效果
 
 
 
