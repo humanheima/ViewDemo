@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.RectF
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -46,14 +47,25 @@ class MatrixTestActivity : AppCompatActivity() {
         matrix.postTranslate((dx + 0.5f), (dy + 0.5f))
 
         //val transformedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true)
-        val dp2px = 369.dp2px(this)
-        val dp2px1 = 199.dp2px(this)
+        val width = 369.dp2px(this)
+        val height = 199.dp2px(this)
         val targetBitmap = Bitmap.createBitmap(
-            dp2px,
-            dp2px1,
+            width,
+            height,
             Bitmap.Config.ARGB_8888
         )
-        applyMatrix(originalBitmap, targetBitmap, matrix)
+
+        val canvas = Canvas(targetBitmap)
+        canvas.drawColor(Color.GRAY)
+        canvas.drawBitmap(
+            originalBitmap,
+            null,
+            RectF(0f, 0f, width + 0.5f, height + 0.5f),
+            null
+        )
+
+
+        //applyMatrix(originalBitmap, targetBitmap, matrix)
         imageView.setImageBitmap(targetBitmap)
     }
 

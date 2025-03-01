@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/iv_dog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="369dp"
+        android:layout_height="199dp"
         android:background="@color/colorAccent" />
 
     <!--    <com.hm.viewdemo.widget.MatrixTestView-->
