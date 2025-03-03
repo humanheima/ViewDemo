@@ -18,7 +18,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.example.soft_keyboard.TestSoftKeyboardActivity
-import com.hm.viewdemo.EncryptActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
@@ -198,11 +197,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnEncryptTest -> {
-                //MathTestActivity.launch(this)
-                EncryptActivity.launch(this)
-            }
-
             R.id.btnTestMathFunction -> {
                 MathTestActivity.launch(this)
                 //Choreographer.getInstance().postFrameCallback(frameCallback)

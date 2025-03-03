@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activity.CustomerViewActivity">
 
     <LinearLayout
         android:id="@+id/rl_custome_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".activity.CustomViewActivity">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +39,11 @@
                 android:background="@color/colorAccent" />
 
         </com.hm.viewdemo.widget.RoundLayoutTwo>
+
+        <com.hm.viewdemo.widget.TriangleView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp" />
 
         <com.hm.viewdemo.widget.RoundLayout
             android:layout_width="match_parent"
@@ -73,10 +78,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="#00000000"
             app:corner_radius="24dp"
             app:cut_height="62dp"
             app:cut_radius="28dp"
-            android:background="#00000000"
             app:cut_width="126dp">
 
             <ImageView

@@ -19,9 +19,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.hm.viewdemo.widget.TriangleView
-                android:layout_width="120dp"
-                android:layout_height="60dp" />
+            <Button
+                android:id="@+id/btn_customer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="自定义View Activity"
+                android:textAllCaps="false" />
 
             <Button
                 android:layout_width="match_parent"
@@ -42,14 +46,6 @@
                 android:id="@+id/compose_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnEncryptTest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="测试各种加密算法的使用"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btnDialogTest"
@@ -920,14 +916,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
                 android:text="viewDragHelper"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/btn_customer_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="自定义View Activity"
                 android:textAllCaps="false" />
 
             <Button
