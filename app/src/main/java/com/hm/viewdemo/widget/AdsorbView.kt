@@ -266,7 +266,6 @@ class AdsorbView @JvmOverloads constructor(
         val objectAnimator1 = ObjectAnimator.ofFloat(this, "x", x, rect.left.toFloat())
         val objectAnimator2 = ObjectAnimator.ofFloat(this, "y", y, rect.top.toFloat())
         animatorSet.playTogether(objectAnimator1, objectAnimator2)
-
         /**
          * rect.left：down事件的时候，在父布局中的位置
          * x：当前的位置
@@ -403,19 +402,26 @@ class AdsorbView @JvmOverloads constructor(
         if (interruptedMove || isMoving || isAttachedToWindow.not()) {
             return
         }
-        //吸边操作
-        if (mIsRightStatus) {
+
+        Log.e(TAG, "autoHidePart: x = $x , y = $y")
+        Log.e(TAG, "autoHidePart: rect = " + rect.flattenToString())
+        Log.e(
+            TAG,
+            "autoHidePart: dragRect = " + dragRect?.flattenToString() + " centerX = " + dragRect?.centerX() + " centerY = " + dragRect?.centerY()
+        )
+
+        val finalX = if (mIsRightStatus) {
             //右吸边
-            val newLeft = dragRect!!.right - dragRect!!.left - width + horizontalOffset
-            rect.offsetTo(newLeft, rect.top)
+            dragRect!!.right - dragRect!!.left - width + horizontalOffset
+            //rect.offsetTo(newLeft, rect.top)
         } else {
             //左吸边
-            rect.offsetTo(-horizontalOffset, rect.top)
+            //rect.offsetTo(-horizontalOffset, rect.top)
+            -horizontalOffset
         }
         val animatorSet = AnimatorSet()
-        val objectAnimator1 = ObjectAnimator.ofFloat(this, "x", x, rect.left.toFloat())
-        val objectAnimator2 = ObjectAnimator.ofFloat(this, "y", y, rect.top.toFloat())
-        animatorSet.playTogether(objectAnimator1, objectAnimator2)
+        val objectAnimator1 = ObjectAnimator.ofFloat(this, "x", x, finalX.toFloat())
+        animatorSet.playTogether(objectAnimator1)
         animatorSet.setDuration(200)
         animatorSet.start()
     }

@@ -92,7 +92,10 @@
         <activity android:name=".activity.PaddingTestActivity" />
         <activity android:name=".activity.textview.FontMetricsActivity" />
         <activity android:name=".activity.FontFamilyMainActivity" />
-        <activity android:name=".activity.RelativeDynamicAddRuleActivity" />
+        <activity
+            android:name=".activity.RelativeDynamicAddRuleActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity android:name=".activity.TestScrollerUpViewActivity" />
         <activity android:name=".activity.SeekBarTestActivity" />
         <activity android:name=".activity.TestWaveViewActivity" />
