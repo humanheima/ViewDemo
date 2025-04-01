@@ -99,7 +99,7 @@ class ListViewActivity : BaseActivity<ActivityListViewBinding>() {
                     Log.i(TAG, "onScroll: scrollY =  $currentScrollY")
 
                     if (currentScrollY > 0) {
-                        binding.adsorbView.setSuction(true)
+                        binding.adsorbView.setInitialSuction(true)
                     }
                 }
             }
@@ -140,7 +140,7 @@ class ListViewActivity : BaseActivity<ActivityListViewBinding>() {
 
                     AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
                         //Log.i(TAG, "onScrollStateChanged: state = SCROLL_STATE_IDLE")
-                        binding.adsorbView.setSuction(false)
+                        binding.adsorbView.setInitialSuction(false)
 
                         val view = binding.listView.getChildAt(binding.listView.childCount - 1)
 

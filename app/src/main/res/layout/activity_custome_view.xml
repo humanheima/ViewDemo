@@ -45,6 +45,12 @@
             android:layout_height="60dp"
             android:layout_margin="10dp" />
 
+        <com.hm.viewdemo.widget.TriangleView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:rotation="180" />
+
         <com.hm.viewdemo.widget.RoundLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

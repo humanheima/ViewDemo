@@ -3,10 +3,11 @@ package com.hm.viewdemo.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityRelativeDynamicAddRuleBinding
+import com.hm.viewdemo.dp2px
 import com.hm.viewdemo.util.SpUtil
 import com.hm.viewdemo.widget.AdsorbView
 
@@ -39,8 +40,16 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
 
         adsorbView = binding.adsorbView
 
-        adsorbView.addMoveDirectionListener { isRight ->
-            saveBottomMarginToLocal(isRight)
+        //adsorbView.setLayoutId(R.layout.view_selected_mode)
+
+        adsorbView.addMoveDirectionListener(object : AdsorbView.IMoveDirection {
+            override fun moveDirection(isRight: Boolean) {
+                saveBottomMarginToLocal(isRight)
+            }
+        })
+
+        adsorbView.post {
+            adsorbView.setInitialSuction(true, 16.dp2px(this))
         }
 
         binding.btnChangeRule.setOnClickListener {
