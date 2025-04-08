@@ -2,12 +2,14 @@ package com.hm.viewdemo.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.databinding.ActivityRelativeDynamicAddRuleBinding
 import com.hm.viewdemo.dp2px
+import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.util.SpUtil
 import com.hm.viewdemo.widget.AdsorbView
 
@@ -38,9 +40,18 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
         binding = ActivityRelativeDynamicAddRuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         adsorbView = binding.adsorbView
 
-        //adsorbView.setLayoutId(R.layout.view_selected_mode)
+        val screenWidth = ScreenUtil.getScreenWidth(this)
+        adsorbView.setDragRect(
+            Rect(
+                0,
+                60.dp2px(this),
+                screenWidth,
+                ScreenUtil.getScreenHeight(this) - 60.dp2px(this)
+            )
+        )
 
         adsorbView.addMoveDirectionListener(object : AdsorbView.IMoveDirection {
             override fun moveDirection(isRight: Boolean) {

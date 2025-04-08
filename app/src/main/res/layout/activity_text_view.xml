@@ -91,6 +91,17 @@
             android:textColor="#333333"
             android:textSize="14dp" />
 
+
+        <TextView
+            android:id="@+id/tv_test_regular_expression"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="onClick"
+            android:text="（正在思考）测试限制文字(可以）长度，(什么情况)英文算一个字符，中文算两个字符（可以的）"
+            android:textSize="18sp" />
+
+
         <Button
             android:id="@+id/btnTestLimitTextLength"
             android:layout_width="match_parent"

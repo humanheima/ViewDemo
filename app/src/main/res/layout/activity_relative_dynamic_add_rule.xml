@@ -44,6 +44,7 @@
         android:layout_height="36dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/bg_left_radius_bg"
         android:gravity="center_vertical" />
 

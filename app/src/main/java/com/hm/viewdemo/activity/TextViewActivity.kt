@@ -1,263 +1,287 @@
-package com.hm.viewdemo.activity;
+package com.hm.viewdemo.activity
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Color;
-import android.graphics.EmbossMaskFilter;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ClickableSpan;
-import android.text.style.DynamicDrawableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
-import android.text.style.LeadingMarginSpan;
-import android.text.style.MaskFilterSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.ScaleXSpan;
-import android.text.style.StyleSpan;
-import android.text.style.SubscriptSpan;
-import android.text.style.SuperscriptSpan;
-import android.text.style.TabStopSpan;
-import android.text.style.TextAppearanceSpan;
-import android.text.style.URLSpan;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.core.content.ContextCompat;
-import com.hm.viewdemo.R;
-import com.hm.viewdemo.base.BaseActivity;
-import com.hm.viewdemo.databinding.ActivityTextViewBinding;
-import com.hm.viewdemo.util.FontsUtil;
-import com.hm.viewdemo.util.MyUtils;
-import com.hm.viewdemo.util.ScreenUtil;
-import com.hm.viewdemo.util.TextViewSpanUtil;
-import com.hm.viewdemo.widget.MyTypefaceSpan;
-import com.hm.viewdemo.widget.span.SpaceSpan;
-import com.hm.viewdemo.widget.span.VerticalAlignTextSpan;
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.xmlpull.v1.XmlPullParserException;
+import android.content.Context
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.BlurMaskFilter
+import android.graphics.Color
+import android.graphics.EmbossMaskFilter
+import android.graphics.Typeface
+import android.os.Parcel
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
+import android.text.style.LeadingMarginSpan
+import android.text.style.MaskFilterSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.ScaleXSpan
+import android.text.style.StyleSpan
+import android.text.style.SubscriptSpan
+import android.text.style.SuperscriptSpan
+import android.text.style.TabStopSpan
+import android.text.style.TextAppearanceSpan
+import android.text.style.URLSpan
+import android.util.Log
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.hm.viewdemo.R
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityTextViewBinding
+import com.hm.viewdemo.util.FontsUtil
+import com.hm.viewdemo.util.MyUtils
+import com.hm.viewdemo.util.ScreenUtil
+import com.hm.viewdemo.util.TextViewSpanUtil
+import com.hm.viewdemo.widget.span.SpaceSpan
+import com.hm.viewdemo.widget.span.VerticalAlignTextSpan
+import org.xmlpull.v1.XmlPullParserException
+import java.io.IOException
+import java.util.regex.Pattern
 
 /**
  * 测试TextView 设置Span
  */
-public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
+class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
 
-    private final String TAG = getClass().getSimpleName();
-
-    public static void launch(Context context) {
-        Intent starter = new Intent(context, TextViewActivity.class);
-        context.startActivity(starter);
+    override fun createViewBinding(): ActivityTextViewBinding {
+        return ActivityTextViewBinding.inflate(layoutInflater)
     }
 
-    @Override
-    protected ActivityTextViewBinding createViewBinding() {
-        return ActivityTextViewBinding.inflate(getLayoutInflater());
-    }
+    override fun initData() {
+        binding.flContainer.setOnClickListener {
+            Toast.makeText(
+                this@TextViewActivity,
+                "点击了fl_container",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
-    @Override
-    protected void initData() {
-        binding.flContainer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TextViewActivity.this, "点击了fl_container", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(), "DroidSansMono_1_subfont.ttf");
+        val typeface = Typeface.createFromAsset(resources.assets, "DroidSansMono_1_subfont.ttf")
 
         if (typeface != null) {
-            Log.d(TAG, "initData: typeface!=null");
-            binding.tvTestFont.setTypeface(typeface);
+            Log.d(TAG, "initData: typeface!=null")
+            binding.tvTestFont.typeface = typeface
         }
 
-        SpannableStringBuilder builder = new SpannableStringBuilder("1234512345=古今山河");
-        MyTypefaceSpan myTypefaceSpan = FontsUtil.getInstance(this).getMyNumTypefaceSpan();
-        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(1.5f);
+        val builder = SpannableStringBuilder("1234512345=古今山河")
+        val myTypefaceSpan = FontsUtil.getInstance(this).myNumTypefaceSpan
+        val relativeSizeSpan = RelativeSizeSpan(1.5f)
 
-        builder.setSpan(myTypefaceSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(relativeSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(myTypefaceSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        builder.setSpan(relativeSizeSpan, 0, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        binding.btnSendInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String charSequence = binding.etInput.getText().toString();
-                //tvWithSuffix.setText(charSequence);
-                binding.sdtv1.setText(charSequence);
-//                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tvWithSuffix, 3,
+        binding.btnSendInput.setOnClickListener {
+            val charSequence = binding.etInput.text.toString()
+            //tvWithSuffix.setText(charSequence);
+            binding.sdtv1.setText(charSequence)
+            //                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tvWithSuffix, 3,
 //                        charSequence,
 //                        "  详情", R.color.colorAccent, false);
-            }
-        });
+        }
 
-        setTextView1();
-        setTextView2();
-        setTextView3();
-        setTextView4();
-        setTextView5();
-        setTextView6();
-        setTextView7();
+        setTextView1()
+        setTextView2()
+        setTextView3()
+        setTextView4()
+        setTextView5()
+        setTextView6()
+        setTextView7()
         //setTextView8();
-        setTextView8_2();
-        setTextView9();
-        setTextView10();
-        setTextView11();
+        setTextView8_2()
+        setTextView9()
+        setTextView10()
+        setTextView11()
 
-        setTextViewRegex();
+        setTextViewRegex()
 
-        TextViewSpanUtil.toggleEllipsize(this, binding.tvWithSuffix, 3,
-                "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
-                "  详情", R.color.colorAccent, false);
+        TextViewSpanUtil.toggleEllipsize(
+            this, binding.tvWithSuffix, 3,
+            "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
+            "  详情", R.color.colorAccent, false
+        )
 
-        Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show()
 
-        setTextView12();
-        setTextView13();
-        setTextView14();
-        setTextView15();
+        setTextView12()
+        setTextView13()
+        setTextView14()
+        setTextView15()
 
         //setEtOne();
+
+        setBracketTextColor(
+            binding.tvTestRegularExpression,
+            "（正在思考）测(）试限制（)文字长度，(什么情况)英文算一个字符，中文算两个字符（可以的）"
+        )
     }
 
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnTestLimitTextLength) {
-
-            showLimitResult();
+    fun onClick(v: View) {
+        if (v.id == R.id.btnTestLimitTextLength) {
+            showLimitResult()
         }
     }
 
-    private void showLimitResult() {
-        String s1 = "abcde";
-        String s2 = "abcdef";
-        String result1 = MyUtils.getTextLimitMaxLength(s1, 5);
-        String result2 = MyUtils.getTextLimitMaxLength(s2, 5);
+    private fun showLimitResult() {
+        val s1 = "abcde"
+        val s2 = "abcdef"
+        val result1 = MyUtils.getTextLimitMaxLength(s1, 5)
+        val result2 = MyUtils.getTextLimitMaxLength(s2, 5)
 
-        String s3 = "古道";
-        String s4 = "古道西风瘦马";
-        String result3 = MyUtils.getTextLimitMaxLength(s3, 5);
-        String result4 = MyUtils.getTextLimitMaxLength(s4, 5);
+        val s3 = "古道"
+        val s4 = "古道西风瘦马"
+        val result3 = MyUtils.getTextLimitMaxLength(s3, 5)
+        val result4 = MyUtils.getTextLimitMaxLength(s4, 5)
 
-        String s5 = "古道西";
-        String s6 = "古道西风瘦马";
-        String result5 = MyUtils.getTextLimitMaxLength(s5, 6);
-        String result6 = MyUtils.getTextLimitMaxLength(s6, 6);
+        val s5 = "古道西"
+        val s6 = "古道西风瘦马"
+        val result5 = MyUtils.getTextLimitMaxLength(s5, 6)
+        val result6 = MyUtils.getTextLimitMaxLength(s6, 6)
 
-        String s7 = "a古道";
-        String s8 = "a古道西风瘦马";
-        String result7 = MyUtils.getTextLimitMaxLength(s7, 5);
-        String result8 = MyUtils.getTextLimitMaxLength(s8, 5);
+        val s7 = "a古道"
+        val s8 = "a古道西风瘦马"
+        val result7 = MyUtils.getTextLimitMaxLength(s7, 5)
+        val result8 = MyUtils.getTextLimitMaxLength(s8, 5)
 
-        String s9 = "a古道";
-        String s10 = "a古道西风瘦马";
-        String result9 = MyUtils.getTextLimitMaxLength(s9, 6);
-        String result10 = MyUtils.getTextLimitMaxLength(s10, 6);
+        val s9 = "a古道"
+        val s10 = "a古道西风瘦马"
+        val result9 = MyUtils.getTextLimitMaxLength(s9, 6)
+        val result10 = MyUtils.getTextLimitMaxLength(s10, 6)
 
-        SpannableStringBuilder builder = new SpannableStringBuilder(result1);
-        builder.append("\n");
-        builder.append(result2);
-        builder.append("\n");
-        builder.append(result3);
-        builder.append("\n");
-        builder.append(result4);
-        builder.append("\n");
-        builder.append(result5);
-        builder.append("\n");
-        builder.append(result6);
-        builder.append("\n");
-        builder.append(result7);
-        builder.append("\n");
-        builder.append(result8);
-        builder.append("\n");
-        builder.append(result9);
-        builder.append("\n");
-        builder.append(result10);
+        val builder = SpannableStringBuilder(result1)
+        builder.append("\n")
+        builder.append(result2)
+        builder.append("\n")
+        builder.append(result3)
+        builder.append("\n")
+        builder.append(result4)
+        builder.append("\n")
+        builder.append(result5)
+        builder.append("\n")
+        builder.append(result6)
+        builder.append("\n")
+        builder.append(result7)
+        builder.append("\n")
+        builder.append(result8)
+        builder.append("\n")
+        builder.append(result9)
+        builder.append("\n")
+        builder.append(result10)
 
-        binding.tvLimitTextLengthResult.setText(builder.toString());
-
+        binding!!.tvLimitTextLengthResult.text = builder.toString()
     }
 
 
-    private void setTextView11() {
-        SpannableStringBuilder builder = new SpannableStringBuilder("什么情况save6you3fromanything" +
-                "什么情况save6you3fromanything什么情况save6you3fromanything什么情况save6you3" +
-                "fromanything什么情况save6you3fromanything什么情况save6you3fromanything");
-        LeadingMarginSpan leadingMarginSpan = new LeadingMarginSpan.Standard(96, 36);
-        builder.setSpan(leadingMarginSpan, 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.textView11.setText(builder);
+    private fun setTextView11() {
+        val builder = SpannableStringBuilder(
+            "什么情况save6you3fromanything" +
+                    "什么情况save6you3fromanything什么情况save6you3fromanything什么情况save6you3" +
+                    "fromanything什么情况save6you3fromanything什么情况save6you3fromanything"
+        )
+        val leadingMarginSpan: LeadingMarginSpan = LeadingMarginSpan.Standard(96, 36)
+        builder.setSpan(leadingMarginSpan, 0, builder.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding!!.textView11.text = builder
     }
 
-    private void setTextView10() {
-        SpannableStringBuilder builder = new SpannableStringBuilder("什么情况save6you3fromanything");
-        MaskFilterSpan embossMaskFilterSpan = new MaskFilterSpan(
-                new EmbossMaskFilter(new float[]{3, 3, 3}, 0.5f, 8, 3));
-        builder.setSpan(embossMaskFilterSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        MaskFilterSpan blurMaskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2, BlurMaskFilter.Blur.OUTER));
-        builder.setSpan(blurMaskFilterSpan, 6, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView10.setText(builder);
+    private fun setTextView10() {
+        val builder = SpannableStringBuilder("什么情况save6you3fromanything")
+        val embossMaskFilterSpan = MaskFilterSpan(
+            EmbossMaskFilter(floatArrayOf(3f, 3f, 3f), 0.5f, 8f, 3f)
+        )
+        builder.setSpan(embossMaskFilterSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        val blurMaskFilterSpan = MaskFilterSpan(BlurMaskFilter(2f, BlurMaskFilter.Blur.OUTER))
+        builder.setSpan(blurMaskFilterSpan, 6, 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        binding!!.textView10.text = builder
     }
 
-    private void setTextView9() {
-        SpannableStringBuilder builder = new SpannableStringBuilder("save6 you3 from anything");
-        ScaleXSpan scaleXSpan = new ScaleXSpan(3.0F);
-        builder.setSpan(scaleXSpan, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView9.setText(builder);
+    private fun setTextView9() {
+        val builder = SpannableStringBuilder("save6 you3 from anything")
+        val scaleXSpan = ScaleXSpan(3.0f)
+        builder.setSpan(scaleXSpan, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        binding!!.textView9.text = builder
     }
 
-    private void setTextView8() {
-        SpannableStringBuilder builder = new SpannableStringBuilder("save6 you3 from anything");
-        Parcel parcel = Parcel.obtain();
-        parcel.writeInt(6);
-        int pos = builder.toString().indexOf("6");
-        int pos1 = builder.toString().indexOf("3");
-        SuperscriptSpan superscriptSpan = new SuperscriptSpan(parcel);
-        parcel.writeInt(3);
-        SubscriptSpan subscriptSpan = new SubscriptSpan(parcel);
-        builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        parcel.recycle();
-        binding.textView8.setText(builder);
+    private fun setTextView8() {
+        val builder = SpannableStringBuilder("save6 you3 from anything")
+        val parcel = Parcel.obtain()
+        parcel.writeInt(6)
+        val pos = builder.toString().indexOf("6")
+        val pos1 = builder.toString().indexOf("3")
+        val superscriptSpan = SuperscriptSpan(parcel)
+        parcel.writeInt(3)
+        val subscriptSpan = SubscriptSpan(parcel)
+        builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        parcel.recycle()
+        binding!!.textView8.text = builder
     }
 
-    private void setTextView8_2() {
-        SpannableStringBuilder builder = new SpannableStringBuilder("save8 you6 from anything");
-        int pos = builder.toString().indexOf("8");
-        int pos1 = builder.toString().indexOf("6");
-        SuperscriptSpan superscriptSpan = new SuperscriptSpan();
-        SubscriptSpan subscriptSpan = new SubscriptSpan();
-        builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView8.setText(builder);
+    private fun setTextView8_2() {
+        val builder = SpannableStringBuilder("save8 you6 from anything")
+        val pos = builder.toString().indexOf("8")
+        val pos1 = builder.toString().indexOf("6")
+        val superscriptSpan = SuperscriptSpan()
+        val subscriptSpan = SubscriptSpan()
+        builder.setSpan(superscriptSpan, pos, pos + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        builder.setSpan(subscriptSpan, pos1, pos1 + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        binding!!.textView8.text = builder
     }
 
-    private void setTextView7() {
-        String string = new String("save you from anything");
-        String[] strings = string.split(" ");
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        for (String s : strings) {
-            builder.append("\t").append(s).append(" ");
-            builder.append("\n");
+    private fun setTextView7() {
+        val string = "save you from anything"
+        val strings = string.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val builder = SpannableStringBuilder()
+        for (s in strings) {
+            builder.append("\t").append(s).append(" ")
+            builder.append("\n")
         }
-        TabStopSpan tabStopSpan = new TabStopSpan.Standard(26);
-        builder.setSpan(tabStopSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        binding.textView7.setText(builder);
+        val tabStopSpan: TabStopSpan = TabStopSpan.Standard(26)
+        builder.setSpan(tabStopSpan, 0, builder.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        binding!!.textView7.text = builder
     }
 
-    private void setTextView1() {
-        String spannableString = "那边就可以\uD83D\uDE0C\uD83C\uDDF7\uD83C\uDDEA\uD83C"
+    /**
+     * 正则表达式，匹配括号包括的内容设置不同的颜色。支持中文括号和英文括号
+     * 1.支持全英文括号 ()
+     * 2.支持全中文括号 ()
+     * 3.支持中英文混合，左英文右中文 (），左中文右英文（)
+     */
+    private fun setBracketTextColor(textView: TextView, text: String) {
+        val spannableString = SpannableString(text)
+        // 定义正则表达式
+        val pattern = "(?:\\([^()]*\\)|\\（[^（）]*\\）|\\([^（）]*\\）|\\（[^（）]*\\))".toRegex()
+
+        // 查找所有匹配的括号内容
+        pattern.findAll(text).forEach { matchResult ->
+            val start = matchResult.range.first
+            val end = matchResult.range.last + 1
+            // 设置括号及其内容的颜色（这里使用蓝色作为示例）
+            spannableString.setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        textView.context,
+                        android.R.color.holo_blue_dark
+                    )
+                ),
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        // 应用到TextView
+        textView.text = spannableString
+    }
+
+    private fun setTextView1() {
+        val spannableString = ("那边就可以\uD83D\uDE0C\uD83C\uDDF7\uD83C\uDDEA\uD83C"
                 + "\uDDE7\uD83C\uDDE9\uD83C\uDDF7\uD83C\uDDEA\uD83C\uDDF1\uD83C\uDDFA\uD83C\uDDF2\uD83C"
                 + "\uDDE8\uD83E\uDD79\uD83E\uDD79\uD83D\uDE1C\uD83D\uDE05\\uD83E\\uDD2A\\uD83D\\uDE02\\uD83D"
                 + "\\uDE02\\uD83E\\uDD2A\\uD83D\\uDE0E\\uD83E\\uDD78\\uD83D\\uDE02\\uD83E\\uDD29\\uD83D\\uDE02\\uD83E"
@@ -265,55 +289,65 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
                 + "\\uDD78\\uD83D\\uDE05\\uD83E\\uDD29\\uD83E\\uDD29\\uD83D\\uDE0A\\uD83D\\uDE07\\uD83D\\uDE07\\uD83E"
                 + "\\uDD29\\uD83D\\uDE05\\uD83E\\uDD28\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E"
                 + "\\uDD28\\uD83D\\uDE05\\uD83E\\uDD79\\uD83E\\uDD28\\uD83E\\uDD79\",\n"
-                + "\t\t";
+                + "\t\t")
         //ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
         //spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //SpannableString spannableString1 = new SpannableString(spannableString);
         //spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.textView1.setText(spannableString);
+        binding!!.textView1.text = spannableString
     }
 
-    private void setTextView2() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("暗影IV");
-        builder.append("已经开始暴走了");
-        builder.append("艰难苦恨繁霜鬓");
+    private fun setTextView2() {
+        val builder = SpannableStringBuilder()
+        builder.append("暗影IV")
+        builder.append("已经开始暴走了")
+        builder.append("艰难苦恨繁霜鬓")
         //设置字体颜色
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        val colorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"))
         //背景色
         // BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.parseColor("#ff3344"));
         //字体大小
-        AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 20));
+        val sizeSpan = AbsoluteSizeSpan(ScreenUtil.spToPx(this, 20))
         //设置粗体。斜体
-        StyleSpan styleSpan = new StyleSpan(Typeface.BOLD_ITALIC);
-        StyleSpan styleSpan1 = new StyleSpan(Typeface.BOLD);
+        val styleSpan = StyleSpan(Typeface.BOLD_ITALIC)
+        val styleSpan1 = StyleSpan(Typeface.BOLD)
 
-        builder.setSpan(colorSpan, 0, 8, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        builder.setSpan(colorSpan, 0, 8, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         //builder.setSpan(backgroundColorSpan, 0, builder.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        builder.setSpan(sizeSpan, 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(sizeSpan, 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(
+            styleSpan,
+            builder.length - 2,
+            builder.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
-        builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.textView2.setText(builder);
+        builder.setSpan(
+            styleSpan1,
+            builder.length - 5,
+            builder.length - 3,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding!!.textView2.text = builder
     }
 
-    private void setTextView3() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
+    private fun setTextView3() {
+        val builder = SpannableStringBuilder()
         //builder.append("11hello暗影IV");
-        builder.append("已经开始暴走了");
-        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了");
-//        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+        builder.append("已经开始暴走了")
+        builder.append("艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了艰难苦恨繁霜鬓,已经开始暴走了")
+        //        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
 //        StrikethroughSpan strikethroughSpan1 = new StrikethroughSpan();
 //        UnderlineSpan underlineSpan = new UnderlineSpan();
         //ImageSpan imageSpan = new ImageSpan(this, R.mipmap.ic_launcher);
-        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        val drawable = resources.getDrawable(R.mipmap.ic_launcher)
         //drawable.setBounds(0, 0, 42, 42);
         //图片和文字基线对齐
-        ImageSpan imageSpan1 = new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE);
+        val imageSpan1 = ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE)
 
-        SpannableString spannableString = new SpannableString(builder);
+        val spannableString = SpannableString(builder)
 
-//        ClickableSpan clickableSpan = new ClickableSpan() {
+        //        ClickableSpan clickableSpan = new ClickableSpan() {
 //            @Override
 //            public void onClick(View widget) {
 //                Toast.makeText(TextViewActivity.this, "HAAHH 点击TextView", Toast.LENGTH_SHORT).show();
@@ -321,10 +355,10 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
 //        };
         //spannableString.setSpan(strikethroughSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //spannableString.setSpan(strikethroughSpan1, 5, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(imageSpan1, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
         //spannableString.setSpan(clickableSpan, 9, 19, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         //builder.setSpan(clickableSpan, 12, 15, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        binding.textView3.setText(spannableString);
+        binding!!.textView3.text = spannableString
 
         //设置ClickableSpan后要加上这行代码
         //binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
@@ -353,27 +387,48 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
 //        binding.textView3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    private void setTextView4() {
-        String days = "100";
-        String mileage = "1000";
-        String result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓";
-        SpannableStringBuilder builder = new SpannableStringBuilder(result);
-        int dayStart = result.indexOf(days);
-        int mileageStart = result.indexOf(mileage);
-        Log.i(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
+    private fun setTextView4() {
+        val days = "100"
+        val mileage = "1000"
+        val result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓"
+        val builder = SpannableStringBuilder(result)
+        val dayStart = result.indexOf(days)
+        val mileageStart = result.indexOf(mileage)
+        Log.i(TAG, "setTextView4: dayStart=$dayStart,mileageStart=$mileageStart")
 
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
-        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        RelativeSizeSpan sizeSpan1 = new RelativeSizeSpan(2.0F);
+        val colorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"))
+        val sizeSpan = RelativeSizeSpan(2.0f)
+        val colorSpan1 = ForegroundColorSpan(Color.parseColor("#009ad6"))
+        val sizeSpan1 = RelativeSizeSpan(2.0f)
 
-        builder.setSpan(colorSpan, dayStart, dayStart + days.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(sizeSpan, dayStart, dayStart + days.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(
+            colorSpan,
+            dayStart,
+            dayStart + days.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        builder.setSpan(
+            sizeSpan,
+            dayStart,
+            dayStart + days.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )
 
-        builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView4.setText(builder);
+        builder.setSpan(
+            colorSpan1,
+            mileageStart,
+            mileageStart + mileage.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        builder.setSpan(
+            sizeSpan1,
+            mileageStart,
+            mileageStart + mileage.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        binding!!.textView4.text = builder
     }
+
     /*private void setTextView4() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append("暗影IV");
@@ -385,94 +440,104 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
         builder.setSpan(sizeSpan, 5, 7, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         textView4.setData(builder);
     }*/
-
-    private void setTextView5() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("暗影IV已经开始暴走了艰难苦恨繁霜鬓");
-        URLSpan urlSpan = new URLSpan("http://blog.csdn.net/leilifengxingmw");
+    private fun setTextView5() {
+        val builder = SpannableStringBuilder()
+        builder.append("暗影IV已经开始暴走了艰难苦恨繁霜鬓")
+        val urlSpan = URLSpan("http://blog.csdn.net/leilifengxingmw")
         //MaskFilterSpan maskFilterSpan = new MaskFilterSpan(new BlurMaskFilter(2.0F, BlurMaskFilter.Blur.NORMAL));
-        builder.setSpan(urlSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(urlSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // 在单击链接时凡是有要执行的动作，都必须设置MovementMethod对象
-        binding.textView5.setMovementMethod(LinkMovementMethod.getInstance());
-        binding.textView5.setText(builder);
+        binding!!.textView5.movementMethod = LinkMovementMethod.getInstance()
+        binding!!.textView5.text = builder
     }
 
-    private void setTextView6() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("什么情况IV已经开始暴走了艰难苦恨繁霜鬓");
-        ColorStateList colorStateList = null;
+    private fun setTextView6() {
+        val builder = SpannableStringBuilder()
+        builder.append("什么情况IV已经开始暴走了艰难苦恨繁霜鬓")
+        var colorStateList: ColorStateList? = null
         try {
-            colorStateList = ColorStateList.createFromXml(getResources(), getResources().getXml(R.color.color_list));
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            colorStateList =
+                ColorStateList.createFromXml(resources, resources.getXml(R.color.color_list))
+        } catch (e: XmlPullParserException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-        TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan("serif", Typeface.BOLD_ITALIC,
-                getResources().getDimensionPixelSize(R.dimen.default_size), colorStateList, colorStateList);
+        val textAppearanceSpan = TextAppearanceSpan(
+            "serif", Typeface.BOLD_ITALIC,
+            resources.getDimensionPixelSize(R.dimen.default_size), colorStateList, colorStateList
+        )
         // TextAppearanceSpan textAppearanceSpan1 = new TextAppearanceSpan(this, R.style.MyTextViewStyle);
-        builder.setSpan(textAppearanceSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        builder.setSpan(textAppearanceSpan, 6, 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView6.setText(builder);
+        builder.setSpan(textAppearanceSpan, 0, 4, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        builder.setSpan(textAppearanceSpan, 6, 8, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        binding!!.textView6.text = builder
     }
 
-    private void setTextViewRegex() {
-        String s = "再听1000秒，至少可领30金币，";
+    private fun setTextViewRegex() {
+        val s = "再听1000秒，至少可领30金币，"
 
-        Pattern patternSecond = Pattern.compile("[0-9]+秒");
-        Pattern patternCoin = Pattern.compile("[0-9]+金币");
+        val patternSecond = Pattern.compile("[0-9]+秒")
+        val patternCoin = Pattern.compile("[0-9]+金币")
 
-        Matcher matcherSecond = patternSecond.matcher(s);
-        Matcher matcherCoin = patternCoin.matcher(s);
+        val matcherSecond = patternSecond.matcher(s)
+        val matcherCoin = patternCoin.matcher(s)
 
-        String secondText = null;
-        String coinText = null;
+        var secondText: String? = null
+        var coinText: String? = null
 
         if (matcherSecond.find()) {
-            secondText = matcherSecond.group();
-            Log.i(TAG, "setTextViewRegex: " + secondText);
+            secondText = matcherSecond.group()
+            Log.i(TAG, "setTextViewRegex: $secondText")
         }
 
         if (matcherCoin.find()) {
-            coinText = matcherCoin.group();
-            Log.i(TAG, "setTextViewRegex: " + coinText);
+            coinText = matcherCoin.group()
+            Log.i(TAG, "setTextViewRegex: $coinText")
         }
 
-        int secondTextStartIndex = -1;
-        int coinTextStartIndex = -1;
+        var secondTextStartIndex = -1
+        var coinTextStartIndex = -1
 
         if (!TextUtils.isEmpty(secondText)) {
-            secondTextStartIndex = s.indexOf(secondText);
+            secondTextStartIndex = s.indexOf(secondText!!)
         }
         if (!TextUtils.isEmpty(coinText)) {
-            coinTextStartIndex = s.indexOf(coinText);
+            coinTextStartIndex = s.indexOf(coinText!!)
         }
 
-        SpannableStringBuilder builder = new SpannableStringBuilder(s);
+        val builder = SpannableStringBuilder(s)
 
         //设置字体颜色
-        ForegroundColorSpan secondColorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        val secondColorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"))
         //字体大小
-        AbsoluteSizeSpan secondSizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16));
+        val secondSizeSpan = AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16))
 
         //设置字体颜色
-        ForegroundColorSpan coinColorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        val coinColorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"))
         //字体大小
-        AbsoluteSizeSpan coinSizeSpan = new AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16));
+        val coinSizeSpan = AbsoluteSizeSpan(ScreenUtil.spToPx(this, 16))
 
         if (secondTextStartIndex != -1) {
-            builder.setSpan(secondColorSpan, secondTextStartIndex, secondTextStartIndex + secondText.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(
+                secondColorSpan, secondTextStartIndex, secondTextStartIndex + secondText!!.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             //去掉秒字
-            builder.setSpan(secondSizeSpan, secondTextStartIndex, secondTextStartIndex + secondText.length() - 1,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(
+                secondSizeSpan, secondTextStartIndex, secondTextStartIndex + secondText.length - 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
         if (coinTextStartIndex != -1) {
-            builder.setSpan(coinColorSpan, coinTextStartIndex, coinTextStartIndex + coinText.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(
+                coinColorSpan, coinTextStartIndex, coinTextStartIndex + coinText!!.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             //去掉金币两个字
-            builder.setSpan(coinSizeSpan, coinTextStartIndex, coinTextStartIndex + coinText.length() - 2,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(
+                coinSizeSpan, coinTextStartIndex, coinTextStartIndex + coinText.length - 2,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
 
         //设置粗体。斜体
@@ -485,68 +550,76 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
         //builder.setSpan(styleSpan, builder.length() - 2, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //builder.setSpan(styleSpan1, builder.length() - 5, builder.length() - 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.tvRegex.setText(builder);
+        binding!!.tvRegex.text = builder
     }
 
-    private void setTextView12() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
-        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(2.0f);
-        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+    private fun setTextView12() {
+        val builder = SpannableStringBuilder()
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔")
+        val relativeSizeSpan = RelativeSizeSpan(2.0f)
+        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        SubscriptSpan subscriptSpan = new SubscriptSpan();
-        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        val subscriptSpan = SubscriptSpan()
+        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        binding.textView12.setText(builder);
+        binding!!.textView12.text = builder
     }
 
-    private void setTextView13() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
+    private fun setTextView13() {
+        val builder = SpannableStringBuilder()
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔")
 
-        SubscriptSpan subscriptSpan = new SubscriptSpan();
-        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        val subscriptSpan = SubscriptSpan()
+        builder.setSpan(subscriptSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(2.0f);
-        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        val relativeSizeSpan = RelativeSizeSpan(2.0f)
+        builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        binding.textView13.setText(builder);
+        binding!!.textView13.text = builder
     }
 
-    private void setTextView14() {
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔");
+    private fun setTextView14() {
+        val builder = SpannableStringBuilder()
+        builder.append("念去去 · 千里烟波暮霭沉沉楚天阔")
 
         //RelativeSizeSpan relativeSizeSpan = new RelativeSizeSpan(1.3f);
         //builder.setSpan(relativeSizeSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        val verticalAlignTextSpan = VerticalAlignTextSpan(
+            ScreenUtil.spToPx(
+                this, 24
+            )
+        )
+        builder.setSpan(verticalAlignTextSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
-        VerticalAlignTextSpan verticalAlignTextSpan = new VerticalAlignTextSpan(ScreenUtil.spToPx(this, 24));
-        builder.setSpan(verticalAlignTextSpan, 4, 5, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-
-        binding.textView14.setText(builder);
+        binding!!.textView14.text = builder
     }
 
-    private void setTextView15() {
-        String days = "100";
-        String mileage = "1000";
+    private fun setTextView15() {
+        val days = "100"
+        val mileage = "1000"
         //把这三个字符替换成10dp的空白
-        String beReplace = "被替代";
+        val beReplace = "被替代"
 
-        String result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓被替代哈哈";
-        SpannableStringBuilder builder = new SpannableStringBuilder(result);
-        int dayStart = result.indexOf(days);
-        int mileageStart = result.indexOf(mileage);
-        int replaceStart = result.indexOf(beReplace);
-        Log.i(TAG, "setTextView4: dayStart=" + dayStart + ",mileageStart=" + mileageStart);
+        val result = "暗影IV100已经开始暴走了1000艰难苦恨繁霜鬓被替代哈哈"
+        val builder = SpannableStringBuilder(result)
+        val dayStart = result.indexOf(days)
+        val mileageStart = result.indexOf(mileage)
+        val replaceStart = result.indexOf(beReplace)
+        Log.i(TAG, "setTextView4: dayStart=$dayStart,mileageStart=$mileageStart")
 
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2.0F);
-        ForegroundColorSpan colorSpan1 = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        RelativeSizeSpan sizeSpan1 = new RelativeSizeSpan(2.0F);
+        val colorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"))
+        val sizeSpan = RelativeSizeSpan(2.0f)
+        val colorSpan1 = ForegroundColorSpan(Color.parseColor("#009ad6"))
+        val sizeSpan1 = RelativeSizeSpan(2.0f)
 
-        SpaceSpan spaceSpan = new SpaceSpan(ScreenUtil.dpToPx(this, 10));
+        val spaceSpan = SpaceSpan(ScreenUtil.dpToPx(this, 10))
 
-        builder.setSpan(spaceSpan, replaceStart, replaceStart + beReplace.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        builder.setSpan(
+            spaceSpan,
+            replaceStart,
+            replaceStart + beReplace.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
 
         //builder.setSpan(colorSpan, dayStart, dayStart + days.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan, dayStart, dayStart + days.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -554,20 +627,25 @@ public class TextViewActivity extends BaseActivity<ActivityTextViewBinding> {
         //builder.setSpan(colorSpan1, mileageStart, mileageStart + mileage.length(), Spannable
         // .SPAN_INCLUSIVE_INCLUSIVE);
         //builder.setSpan(sizeSpan1, mileageStart, mileageStart + mileage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        binding.textView15.setText(builder);
+        binding!!.textView15.text = builder
     }
 
     /**
      * 测试EditText 设置 text 长度超限的问题。
      */
-    private void setEtOne() {
-        String text = "1234567890123";//长度是13，在xml文件中限制了etOne的maxLength为12
-        if (text.length() > 12) {
-            text = text.substring(0, 12);
+    private fun setEtOne() {
+        var text = "1234567890123" //长度是13，在xml文件中限制了etOne的maxLength为12
+        if (text.length > 12) {
+            text = text.substring(0, 12)
         }
-        binding.etOne.setText(text);
-        binding.etOne.setSelection(text.length());
-
+        binding!!.etOne.setText(text)
+        binding!!.etOne.setSelection(text.length)
     }
 
+    companion object {
+        fun launch(context: Context) {
+            val starter = Intent(context, TextViewActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
 }
