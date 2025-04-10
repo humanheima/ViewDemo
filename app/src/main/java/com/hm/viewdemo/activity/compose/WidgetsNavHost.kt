@@ -207,7 +207,7 @@ private fun WidgetsPractice(
 
         WidgetsNavRoute.bottomSheetPractice -> BottomSheetPractice(modifier, onBackClick)
 
-        WidgetsNavRoute.LazyColumnPractice -> LazyColumnPractice(modifier, onBackClick)
+        WidgetsNavRoute.LazyColumnPractice -> LazyColumnPractice2(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
