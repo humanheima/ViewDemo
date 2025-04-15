@@ -10,6 +10,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_with_suffix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="14dp"
+            tools:text="11111" />
+
+        <com.hm.viewdemo.widget.ExpandableTextView
+            android:id="@+id/expand_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <com.hm.viewdemo.widget.FinalMeasureLinearlayout
             android:id="@+id/ll_top_title"
@@ -19,23 +31,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/atvUnionGroupName"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_left_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
                 android:text="左边内容很长，一行+省略号，右边的控件总是能够展示出来。"
                 android:textStyle="bold"
                 app:layout_final_measure="true" />
 
             <TextView
+                android:id="@+id/tv_right_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableRight="@drawable/chat_ic_deep_seek"
+                android:drawablePadding="8dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="右边占位"
                 android:textColor="@color/xx_color_99a1fd"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
         </com.hm.viewdemo.widget.FinalMeasureLinearlayout>
 
@@ -83,14 +98,6 @@
             android:id="@+id/sdtv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tv_with_suffix"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textSize="14dp" />
-
 
         <TextView
             android:id="@+id/tv_test_regular_expression"

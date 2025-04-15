@@ -7,6 +7,7 @@ import android.graphics.BlurMaskFilter
 import android.graphics.Color
 import android.graphics.EmbossMaskFilter
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Parcel
 import android.text.Spannable
 import android.text.SpannableString
@@ -16,6 +17,7 @@ import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.DynamicDrawableSpan
+import android.text.style.DynamicDrawableSpan.ALIGN_CENTER
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.text.style.LeadingMarginSpan
@@ -36,6 +38,7 @@ import androidx.core.content.ContextCompat
 import com.hm.viewdemo.R
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityTextViewBinding
+import com.hm.viewdemo.dp2px
 import com.hm.viewdemo.util.FontsUtil
 import com.hm.viewdemo.util.MyUtils
 import com.hm.viewdemo.util.ScreenUtil
@@ -45,6 +48,7 @@ import com.hm.viewdemo.widget.span.VerticalAlignTextSpan
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.util.regex.Pattern
+
 
 /**
  * 测试TextView 设置Span
@@ -81,7 +85,40 @@ class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
         binding.btnSendInput.setOnClickListener {
             val charSequence = binding.etInput.text.toString()
             //tvWithSuffix.setText(charSequence);
-            binding.sdtv1.setText(charSequence)
+            //binding.expandTextView.setText(charSequence)
+            //binding.sdtv1.setText(charSequence)
+            setTextWithEllipsize(
+                binding.tvWithSuffix,
+                3,
+                charSequence,
+                "详情",
+                R.color.colorAccent,
+                R.drawable.ic_text_right_arrow
+            )
+
+
+//            binding.tvLeftContent.post {
+//
+//                val availableWidth =
+//                    binding.tvLeftContent.width - binding.tvLeftContent.paddingLeft - binding.tvLeftContent.paddingRight
+//
+//                val availableTextWidth = availableWidth * 3f
+//                val paint = binding.tvLeftContent.paint
+//                val ellipsizeStr = TextUtils.ellipsize(
+//                    charSequence, paint,
+//                    availableTextWidth,
+//                    TextUtils.TruncateAt.END
+//                )
+//                if (ellipsizeStr.length < charSequence.length) {
+//                    binding.tvRightContent.visibility = View.VISIBLE
+//                } else {
+//                    binding.tvRightContent.visibility = View.GONE
+//                }
+//                binding.tvLeftContent.text = ellipsizeStr
+//
+//
+//            }
+
             //                TextViewSpanUtil.toggleEllipsize(TextViewActivity.this, tvWithSuffix, 3,
 //                        charSequence,
 //                        "  详情", R.color.colorAccent, false);
@@ -104,7 +141,7 @@ class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
 
         TextViewSpanUtil.toggleEllipsize(
             this, binding.tvWithSuffix, 3,
-            "豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
+            "在干嘛呢豫章故郡，洪都新府，襟三江而带五湖，控蛮荆而引瓯越，豫章故郡，豫章故郡，洪都新府，襟三江而带，控蛮荆而引瓯越，",
             "  详情", R.color.colorAccent, false
         )
 
@@ -122,6 +159,113 @@ class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
             "（正在思考）测(）试限制（)文字长度，(什么情况)英文算一个字符，中文算两个字符（可以的）"
         )
     }
+
+    /**
+     * @param textView textview
+     * @param minLines 最少的行数
+     * @param endText  结尾文字
+     * @param endColor 结尾文字颜色id
+     * @param endResId 结尾图标
+     */
+    private fun setTextWithEllipsize(
+        textView: TextView, minLines: Int, originContent: String?,
+        endText: String, endColor: Int, endResId: Int
+    ) {
+        if (originContent.isNullOrEmpty()) {
+            return
+        }
+        val availableWidth = textView.width - textView.paddingLeft - textView.paddingRight
+        //留出一段距离
+        val threeEmptyChar = "   "
+        val paint = textView.paint
+        Log.e(
+            TAG,
+            "setTextWithEllipsize:threeEmptyChar width =  ${paint.measureText(threeEmptyChar)}"
+        )
+        val moreTextWidth = paint.measureText(endText)
+        Log.d(
+            TAG,
+            "onGlobalLayout: moreTextWidth = $moreTextWidth"
+        )
+        //三行完整高度，如果正好能展示下，就展示下。
+        val availableTextWidth: Float = (availableWidth * minLines).toFloat()
+
+        val originTextWidth = paint.measureText(originContent)
+
+        Log.e(
+            TAG,
+            "setTextWithEllipsize: availableTextWidth = $availableTextWidth  originTextWidth = $originTextWidth"
+        )
+        if (originTextWidth <= availableTextWidth) {
+            textView.text = originContent
+        } else {
+            Log.e(TAG, "setTextWithEllipsize: 三行展示不下")
+            /** 三行展示不下
+             * * 获取endText + 三个空格的宽度： endTextWidth
+             * * 图标的宽度：dp14
+             * * 剩余展示文字的宽度： availableTextWidth - endTextWidth - dp14
+             */
+            val endTextWidth = paint.measureText("$threeEmptyChar$endText")
+
+            //图标宽度
+            val dp14 = 14.dp2px(this)
+
+            val dp8 = 8.dp2px(this)
+
+            val drawable = ContextCompat.getDrawable(this, endResId)
+
+            var imageSpan: ImageSpan? = null
+            drawable?.let {
+                it.setBounds(0, 0, dp14, dp14)
+                // 创建 ImageSpan
+                imageSpan = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    ImageSpan(drawable, ALIGN_CENTER)
+                } else {
+                    ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+                }
+            }
+
+            val displayWidth = availableTextWidth - endTextWidth - dp14 - dp8
+
+            Log.e(
+                TAG,
+                "setTextWithEllipsize: endTextWidth = $endTextWidth  dp14 = $dp14 availableTextWidth = $availableTextWidth  displayWidth = $displayWidth"
+            )
+
+            val ellipsizeStr = TextUtils.ellipsize(
+                originContent,
+                paint,
+                displayWidth,
+                TextUtils.TruncateAt.END
+            )
+            //用来ImageSpan占位
+            val imageSpanPlaceHolderString = " "
+            val finalText = "$ellipsizeStr$endText$imageSpanPlaceHolderString"
+
+            val spannableString = SpannableString(finalText)
+
+            val endTextIndex = finalText.length - 1
+            val start = endTextIndex - endText.length
+            spannableString.setSpan(
+                ForegroundColorSpan(endColor), start,
+                endTextIndex,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            )
+
+            spannableString.setSpan(
+                imageSpan,
+                endTextIndex,
+                finalText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            textView.text = spannableString
+            textView.movementMethod = LinkMovementMethod.getInstance()
+
+            textView.text = spannableString
+        }
+    }
+
 
     fun onClick(v: View) {
         if (v.id == R.id.btnTestLimitTextLength) {
@@ -296,6 +440,7 @@ class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
         //spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         binding!!.textView1.text = spannableString
     }
+
 
     private fun setTextView2() {
         val builder = SpannableStringBuilder()
