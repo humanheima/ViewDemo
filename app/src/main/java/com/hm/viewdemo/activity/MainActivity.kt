@@ -12,15 +12,19 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
+import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity
 import com.hm.viewdemo.activity.compose.UseComposeInFragmentActivity
 import com.hm.viewdemo.activity.compose.UseViewInComposeActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
@@ -173,11 +177,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     @Composable
     fun composeButton() {
-        Button(onClick = {
-            WidgetsActivity.launch(this)
-        }) {
-            Text(text = "测试Compose Widget")
+        Column() {
+            Button(modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    WidgetsActivity.launch(this@MainActivity)
+                }) {
+                Text(text = "测试Compose Widget")
+            }
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                PullRefreshExampleActivity.launch(this@MainActivity)
+            }) {
+                Text(text = "测试Compose 下拉刷新，上拉加载")
+            }
         }
+
     }
 
     private val frameCallback = object : Choreographer.FrameCallback {
