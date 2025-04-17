@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityChangeImageColorBinding
 
@@ -82,11 +80,42 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
         binding.btnLaunchActivity.setOnClickListener {
             AutoSizingTextViewActivity.launch(this)
-
         }
+
+        tintIvColorWithStatus()
+
     }
 
     private fun tintIvColor(iv: ImageView, resId: Int, color: Int) {
         iv.imageTintList = ColorStateList.valueOf(color)
     }
+
+    /**
+     * 选中状态下和非选中下，着色颜色不一样
+     *
+     */
+    private fun tintIvColorWithStatus() {
+        // 创建 ColorStateList
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_selected),  // 选中状态
+            intArrayOf(-android.R.attr.state_selected) // 非选中状态
+        )
+        val tintColor = getColor(R.color.palette_neutral_90)
+        val colors = intArrayOf(
+            getColor(R.color.palette_blue_50),  // 选中状态：透明（不应用 tint）
+            tintColor // 非选中状态：红色（可替换为你的颜色）
+        )
+        val colorStateList = ColorStateList(states, colors)
+
+        binding.ivSelectedBg.imageTintList = colorStateList
+
+        binding.ivSelectedBg.setOnClickListener {
+            if (binding.ivSelectedBg.isSelected) {
+                binding.ivSelectedBg.isSelected = false
+            } else {
+                binding.ivSelectedBg.isSelected = true
+            }
+        }
+    }
+
 }

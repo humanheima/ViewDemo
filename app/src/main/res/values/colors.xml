@@ -68,4 +68,68 @@
     <color name="char_color_9690ff">#FF9690FF</color>
 
 
+    <color name="palette_neutral_0">#ff000000</color>
+    <color name="palette_neutral_0_p4">#0A000000</color>
+    <color name="palette_neutral_0_p10">#1A000000</color>
+    <color name="palette_neutral_0_p32">#52000000</color>
+    <color name="palette_neutral_0_p36">#5C000000</color>
+    <color name="palette_neutral_0_p40">#66000000</color>
+    <color name="palette_neutral_0_p56">#8F000000</color>
+    <color name="palette_neutral_0_p64">#A3000000</color>
+    <color name="palette_neutral_0_p72">#B8000000</color>
+    <color name="palette_neutral_0_p88">#E0000000</color>
+    <color name="palette_neutral_5">#ff111111</color>
+    <color name="palette_neutral_5_p40">#66111111</color>
+    <color name="palette_neutral_5_p64">#A3111111</color>
+    <color name="palette_neutral_10">#ff1b1b1b</color>
+    <color name="palette_neutral_20">#ff303030</color>
+    <color name="palette_neutral_30">#ff474747</color>
+    <color name="palette_neutral_40">#ff5e5e5e</color>
+    <color name="palette_neutral_50">#ff777777</color>
+    <color name="palette_neutral_60">#ff919191</color>
+    <color name="palette_neutral_70">#ffababab</color>
+    <color name="palette_neutral_80">#ffc6c6c6</color>
+    <color name="palette_neutral_90">#ffe2e2e2</color>
+    <color name="palette_neutral_94">#ffeeeeee</color>
+    <color name="palette_neutral_97">#fff6f6f6</color>
+    <color name="palette_neutral_97_p48">#7AF6F6F6</color>
+    <color name="palette_neutral_97_p72">#B8F6F6F6</color>
+    <color name="palette_neutral_100">#ffffffff</color>
+    <color name="palette_neutral_100_p6">#0FFFFFFF</color>
+    <color name="palette_neutral_100_p32">#52FFFFFF</color>
+    <color name="palette_neutral_100_p46">#75FFFFFF</color>
+    <color name="palette_neutral_100_p56">#8FFFFFFF</color>
+    <color name="palette_neutral_100_p64">#A3FFFFFF</color>
+
+    <!--    带透明度的palette_neutral-->
+    <color name="palette_neutral_5_af4">#0A111111</color>
+    <color name="palette_neutral_0_p8">#14000000</color>
+    <color name="palette_neutral_0_p12">#1f000000</color>
+    <color name="palette_neutral_100_p8">#14FFFFFF</color>
+    <color name="palette_neutral_100_p12">#1fffffff</color>
+    <color name="palette_neutral_5_p48">#7a111111</color>
+    <color name="palette_neutral_5_p56">#8F111111</color>
+    <color name="palette_neutral_97_p56">#8FF6F6F6</color>
+    <color name="palette_neutral_100_p60">#66ffffff</color>
+
+    <color name="palette_blue_0">#ff000000</color>
+    <color name="palette_blue_5">#ff07052E</color>
+    <color name="palette_blue_10">#ff1A174D</color>
+    <color name="palette_blue_20">#ff28246B</color>
+    <color name="palette_blue_24">#3d8183ff</color>
+    <color name="palette_blue_30">#ff3433b0</color>
+    <color name="palette_blue_40">#ff4d4ec9</color>
+    <color name="palette_blue_50">#ff6768e4</color>
+    <color name="palette_blue_60">#ff8183ff</color>
+    <color name="palette_blue_70">#ffa1a2ff</color>
+    <color name="palette_blue_80">#ffc1c1ff</color>
+    <color name="palette_blue_90">#ffe1dfff</color>
+    <color name="palette_blue_94">#ffeeecff</color>
+    <color name="palette_blue_97">#fff8f5ff</color>
+    <color name="palette_blue_100">#ffffffff</color>
+
+    <color name="palette_blue_50_p20">#336768E4</color>
+    <color name="palette_blue_70_p20">#33A1A2FF</color>
+
+
 </resources>
