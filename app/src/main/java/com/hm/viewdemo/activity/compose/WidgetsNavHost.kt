@@ -53,6 +53,8 @@ object WidgetsNavRoute {
 
     const val HorizontalPagerPractice = "HorizontalPager Practice"
 
+    const val PaddingPractice = "Padding Practice"
+
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
     const val routeWithArgs = "${route}/{${accountTypeArg}}"
@@ -161,6 +163,12 @@ fun WidgetsNavHost(
                     navController.navigateToSingleAccount(WidgetsNavRoute.HorizontalPagerPractice)
                 }
             ),
+            Item(
+                text = WidgetsNavRoute.PaddingPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.PaddingPractice)
+                }
+            ),
         )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
@@ -218,6 +226,7 @@ private fun WidgetsPractice(
         WidgetsNavRoute.LazyColumnPractice -> LazyColumnPractice2(modifier, onBackClick)
 
         WidgetsNavRoute.HorizontalPagerPractice -> HorizontalPagerPractice(modifier, onBackClick)
+        WidgetsNavRoute.PaddingPractice -> PaddingPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
