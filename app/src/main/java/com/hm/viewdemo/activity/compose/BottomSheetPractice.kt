@@ -3,10 +3,12 @@ package com.hm.viewdemo.activity.compose
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.material3.Button
@@ -118,7 +120,8 @@ fun ModalBottomSheetExample(modifier: Modifier) {
     if (showSheet) {
         ModalBottomSheet(
             onDismissRequest = { showSheet = false }, // 点击外部或返回时关闭
-            sheetState = sheetState
+            sheetState = sheetState,
+            dragHandle = null
         ) {
             // BottomSheet 的内容
             Column(
@@ -184,6 +187,41 @@ private fun PartialBottomSheet() {
 @Preview
 private fun BottomSheetPracticePreview() {
     BottomSheetPractice(modifier = Modifier)
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomDialogExample() {
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    // 按钮触发显示底部弹窗
+    Button(onClick = { showBottomSheet = true }) {
+        Text("Show Bottom Dialog")
+    }
+
+    // ModalBottomSheet 实现底部弹窗
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            sheetState = rememberModalBottomSheetState(),
+            content = {
+                // 底部弹窗的内容
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("This is a Bottom Dialog", style = MaterialTheme.typography.titleLarge)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { showBottomSheet = false }) {
+                        Text("Close")
+                    }
+                }
+            }
+        )
+    }
 }
 
 
