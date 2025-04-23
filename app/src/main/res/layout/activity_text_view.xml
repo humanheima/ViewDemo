@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="左边内容短，右边的View紧跟左边的View"
+                android:text="左边内容短，右左边内容短，右边的View紧跟左边的View左边内容短，右边的View紧跟左边的View边的View紧跟左边的View"
                 android:textStyle="bold"
                 app:layout_final_measure="true" />
 

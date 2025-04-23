@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity.compose
 
+import ComposeFragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -30,7 +31,8 @@ class UseComposeInFragmentActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.btnAddFragment1.setOnClickListener {
 
-            val fragment = UseComposeInFragment.newInstance()
+            //val fragment = UseComposeInFragment.newInstance()
+            val fragment = ComposeFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fl_container, fragment)
