@@ -19,6 +19,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hm.viewdemo.activity.compose.scrolltest.ScrollPractice
 
 
 /**
@@ -54,6 +55,12 @@ object WidgetsNavRoute {
     const val HorizontalPagerPractice = "HorizontalPager Practice"
 
     const val PaddingPractice = "Padding Practice"
+
+    /**
+     * 滚动相关学习
+     */
+    const val ScrollPractice = "Scroll Practice"
+
 
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
@@ -169,6 +176,12 @@ fun WidgetsNavHost(
                     navController.navigateToSingleAccount(WidgetsNavRoute.PaddingPractice)
                 }
             ),
+            Item(
+                text = WidgetsNavRoute.ScrollPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.ScrollPractice)
+                }
+            ),
         )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
@@ -227,6 +240,7 @@ private fun WidgetsPractice(
 
         WidgetsNavRoute.HorizontalPagerPractice -> HorizontalPagerPractice(modifier, onBackClick)
         WidgetsNavRoute.PaddingPractice -> PaddingPractice(modifier, onBackClick)
+        WidgetsNavRoute.ScrollPractice -> ScrollPractice(modifier, onBackClick)
 
         else -> Text(text = "未知界面")
     }
