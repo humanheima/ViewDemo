@@ -62,6 +62,8 @@ object WidgetsNavRoute {
     const val ScrollPractice = "Scroll Practice"
 
 
+
+
     const val route = "Widgets"
     const val accountTypeArg = "account_type"
     const val routeWithArgs = "${route}/{${accountTypeArg}}"

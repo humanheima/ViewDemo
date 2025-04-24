@@ -42,16 +42,17 @@ fun HorizontalPagerPractice(
         //SimpleHorizontalPagerSample(modifier = modifier.padding(padding))
         //MyPagerWithIndicator(modifier = modifier.padding(padding))
 
-        val datas = SnapshotStateList<String>()
-        DynamicPagerScreen(modifier = modifier.padding(padding), datas = datas)
-
-        // 模拟网络请求
-        LaunchedEffect(Unit) {
-            // 延迟模拟网络请求
-            delay(2000)
-            // 更新 items
-            datas.addAll(listOf("Item 1", "Item 2", "Item 3"))
-        }
+//        val datas = SnapshotStateList<String>()
+//        DynamicPagerScreen(modifier = modifier.padding(padding), datas = datas)
+//
+//        // 模拟网络请求
+//        LaunchedEffect(Unit) {
+//            // 延迟模拟网络请求
+//            delay(2000)
+//            // 更新 items
+//            datas.addAll(listOf("Item 1", "Item 2", "Item 3"))
+//        }
+        PagerWithTabs(modifier=modifier.padding(padding))
 
     }
 }

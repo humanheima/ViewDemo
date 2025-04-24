@@ -47,14 +47,12 @@ fun BadgesPractice(
 
             BadgeExample()
 
-
             BadgeInteractiveExample(modifier = Modifier.padding(top = 16.dp))
 
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BadgeExample() {
     BadgedBox(
