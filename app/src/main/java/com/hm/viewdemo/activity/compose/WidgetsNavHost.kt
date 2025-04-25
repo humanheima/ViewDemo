@@ -19,6 +19,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hm.viewdemo.activity.compose.pulltorefresh.nestedscroll.ComposeNestedScrollSampleUsingConnectionClass
 import com.hm.viewdemo.activity.compose.scrolltest.ScrollPractice
 
 
@@ -61,7 +62,10 @@ object WidgetsNavRoute {
      */
     const val ScrollPractice = "Scroll Practice"
 
-
+    /**
+     * 嵌套滑动
+     */
+    const val NestedScrollPractice = "NestedScroll Practice"
 
 
     const val route = "Widgets"
@@ -85,6 +89,12 @@ fun WidgetsNavHost(
         modifier = modifier
     ) {
         val itemList = listOf<Item>(
+            Item(
+                text = WidgetsNavRoute.NestedScrollPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.NestedScrollPractice)
+                }
+            ),
             Item(
                 text = WidgetsNavRoute.buttonPractice,
                 onclick = {
@@ -184,7 +194,8 @@ fun WidgetsNavHost(
                     navController.navigateToSingleAccount(WidgetsNavRoute.ScrollPractice)
                 }
             ),
-        )
+
+            )
         composable(route = WidgetsNavRoute.widgetsEnter) {
             WidgetsEnter(
                 modifier = modifier,
@@ -243,6 +254,8 @@ private fun WidgetsPractice(
         WidgetsNavRoute.HorizontalPagerPractice -> HorizontalPagerPractice(modifier, onBackClick)
         WidgetsNavRoute.PaddingPractice -> PaddingPractice(modifier, onBackClick)
         WidgetsNavRoute.ScrollPractice -> ScrollPractice(modifier, onBackClick)
+        WidgetsNavRoute.NestedScrollPractice -> ComposeNestedScrollSampleUsingConnectionClass()
+        //WidgetsNavRoute.NestedScrollPractice -> ComposeNestedScrollSampleWithAppBarOffset()
 
         else -> Text(text = "未知界面")
     }

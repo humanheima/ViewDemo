@@ -39,22 +39,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-//class MainActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            MaterialTheme {
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    PagerWithTabs()
-//                }
-//            }
-//        }
-//    }
-//}
-
 /**
  * Created by p_dmweidu on 2025/4/24
  * Desc: 测试类似 ViewPager + Fragment 的效果。Fragment 内部 加载列表，上拉加载更多。
@@ -123,7 +107,7 @@ data class PageData(
     val title: String,
     val items: MutableList<String>,
     val currentPage: Int,
-    val isAllLoaded: Boolean
+    var isAllLoaded: Boolean
 )
 
 @Composable
@@ -169,23 +153,53 @@ fun PagerWithTabs(modifier: Modifier) {
 
 @Composable
 fun PageContent(pageData: PageData, onLoadMore: ((Boolean) -> Unit) -> Unit) {
+
     val listState = rememberLazyListState()
     var isLoading by remember { mutableStateOf(false) }
+    var hasTriggeredInitialLoad by remember { mutableStateOf(false) } // 跟踪是否已触发初始加载
 
-    // 检测是否滚动到底部
+
+    // 检测是否需要加载更多
     LaunchedEffect(listState) {
-        snapshotFlow { listState.layoutInfo.visibleItemsInfo }
-            .collect { visibleItems ->
-                val lastVisibleItem = visibleItems.lastOrNull()
-                if (lastVisibleItem != null && lastVisibleItem.index >= pageData.items.size - 1 && !pageData.isAllLoaded && !isLoading) {
+        snapshotFlow {
+            val layoutInfo = listState.layoutInfo
+            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
+            val isAtBottom =
+                lastVisibleItem != null && lastVisibleItem.index >= pageData.items.size - 1
+            Triple(isAtBottom, layoutInfo.totalItemsCount, listState.isScrollInProgress)
+        }.collect { (isAtBottom, totalItemsCount, isScrolling) ->
+            // 触发加载的条件：
+            // 1. 列表为空（初始加载）
+            // 2. 用户手动滑动到底部（isAtBottom && isScrolling）
+            // 3. 没有正在加载且未全部加载
+            Log.e(
+                TAG,
+                "PageContent: isAtBottom = $isAtBottom totalItemsCount = $totalItemsCount isScrolling = $isScrolling"
+            )
+
+            if (!isLoading && !pageData.isAllLoaded) {
+                if (totalItemsCount == 0 && !hasTriggeredInitialLoad) {
+                    // 初始加载：列表为空时
+                    isLoading = true
+                    hasTriggeredInitialLoad = true
+                    onLoadMore { loading ->
+                        isLoading = loading
+                        Log.e(TAG, "PageContent: ${pageData.title} loading = $loading (initial)")
+                    }
+                } else if (isAtBottom && isScrolling) {
+                    // 手动滑动到底部
                     isLoading = true
                     onLoadMore { loading ->
                         isLoading = loading
-                        Log.e(TAG, "PageContent: loading = $loading")
+                        Log.e(TAG, "PageContent: ${pageData.title} loading = $loading (manual)")
                     }
+                } else {
+                    Log.e(TAG, "PageContent: ${pageData.title} 什么情况")
                 }
             }
+        }
     }
+
 
     LazyColumn(
         state = listState,
