@@ -90,6 +90,12 @@ fun WidgetsNavHost(
     ) {
         val itemList = listOf<Item>(
             Item(
+                text = WidgetsNavRoute.HorizontalPagerPractice,
+                onclick = {
+                    navController.navigateToSingleAccount(WidgetsNavRoute.HorizontalPagerPractice)
+                }
+            ),
+            Item(
                 text = WidgetsNavRoute.NestedScrollPractice,
                 onclick = {
                     navController.navigateToSingleAccount(WidgetsNavRoute.NestedScrollPractice)
@@ -176,12 +182,7 @@ fun WidgetsNavHost(
                 }
             ),
 
-            Item(
-                text = WidgetsNavRoute.HorizontalPagerPractice,
-                onclick = {
-                    navController.navigateToSingleAccount(WidgetsNavRoute.HorizontalPagerPractice)
-                }
-            ),
+
             Item(
                 text = WidgetsNavRoute.PaddingPractice,
                 onclick = {
