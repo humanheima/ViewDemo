@@ -425,22 +425,15 @@ class TextViewActivity : BaseActivity<ActivityTextViewBinding>() {
     }
 
     private fun setTextView1() {
-        val spannableString = ("那边就可以\uD83D\uDE0C\uD83C\uDDF7\uD83C\uDDEA\uD83C"
-                + "\uDDE7\uD83C\uDDE9\uD83C\uDDF7\uD83C\uDDEA\uD83C\uDDF1\uD83C\uDDFA\uD83C\uDDF2\uD83C"
-                + "\uDDE8\uD83E\uDD79\uD83E\uDD79\uD83D\uDE1C\uD83D\uDE05\\uD83E\\uDD2A\\uD83D\\uDE02\\uD83D"
-                + "\\uDE02\\uD83E\\uDD2A\\uD83D\\uDE0E\\uD83E\\uDD78\\uD83D\\uDE02\\uD83E\\uDD29\\uD83D\\uDE02\\uD83E"
-                + "\\uDD29\\uD83D\\uDE02\\uD83D\\uDE07\\uD83E\\uDD29\\uD83D\\uDE07\\uD83E\\uDD78\\uD83D\\uDE05\\uD83E"
-                + "\\uDD78\\uD83D\\uDE05\\uD83E\\uDD29\\uD83E\\uDD29\\uD83D\\uDE0A\\uD83D\\uDE07\\uD83D\\uDE07\\uD83E"
-                + "\\uDD29\\uD83D\\uDE05\\uD83E\\uDD28\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E\\uDD28\\uD83D\\uDE05\\uD83E"
-                + "\\uDD28\\uD83D\\uDE05\\uD83E\\uDD79\\uD83E\\uDD28\\uD83E\\uDD79\",\n"
-                + "\t\t")
-        //ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
-        //spannableString.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        val stringBuilder = SpannableStringBuilder("那边就可以")
+        val colorSpan = ForegroundColorSpan(Color.parseColor("#009ad6"));
+        //stringBuilder.setSpan(colorSpan, 0, 4, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        stringBuilder.setSpan(colorSpan, 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        stringBuilder.insert(0,"可以")
         //SpannableString spannableString1 = new SpannableString(spannableString);
         //spannableString1.setSpan(colorSpan, 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding!!.textView1.text = spannableString
+        binding.textView1.text = stringBuilder
     }
-
 
     private fun setTextView2() {
         val builder = SpannableStringBuilder()

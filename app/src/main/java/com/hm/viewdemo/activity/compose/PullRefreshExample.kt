@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 
 /**
  * Created by p_dmweidu on 2025/4/16
- * Desc: compose 下拉刷新，上拉加载的例子
+ * Desc: compose 下拉刷新，上拉加载的例子，简单例子。
  */
 class PullRefreshExampleActivity : AppCompatActivity() {
 
