@@ -40,6 +40,7 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
         binding = ActivityRelativeDynamicAddRuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.d(TAG, "onCreate: dp36 = ${36.dp2px(this)}")
 
         adsorbView = binding.adsorbView
 
@@ -76,7 +77,7 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
         }
 
         binding.btnSaveBottomMargin.setOnClickListener {
-            //saveBottomMarginToLocal()
+            saveBottomMarginToLocal(true)
         }
 
         binding.btnLoadBottomMargin.setOnClickListener {
@@ -84,18 +85,25 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 这里的bottomMargin是相对于父布局的，不会变的。一直是布局文件里的 48dp
+     */
     private fun saveBottomMarginToLocal(isRight: Boolean) {
         val layoutParams = binding.adsorbView.layoutParams as RelativeLayout.LayoutParams
         val bottomMargin = layoutParams.bottomMargin
+        val dynamicBottomMargin = binding.adsorbView.getBottomMargin()
         Log.d(TAG, "saveBottomMarginToLocal: bottom margin = $bottomMargin")
-        SpUtil.getInstance(this).saveInt("bottom_margin", bottomMargin)
+
+        Log.d(TAG, "saveBottomMarginToLocal: 48dp = ${48.dp2px(this)}")
+        Log.d(TAG, "saveBottomMarginToLocal: dynamicBottomMargin = $dynamicBottomMargin")
+
+        SpUtil.getInstance(this).saveInt("bottom_margin", dynamicBottomMargin)
         SpUtil.getInstance(this).saveBoolean("is_right", isRight)
     }
 
     private fun loadBottomMarginFromLocal() {
         val layoutParams = binding.adsorbView.layoutParams as RelativeLayout.LayoutParams
-        val bottomMargin = SpUtil.getInstance(this).getInt("bottom_margin")
-        Log.d(TAG, "loadBottomMarginFromLocal: bottom margin = $bottomMargin")
+        val savedBottomMargin = SpUtil.getInstance(this).getInt("bottom_margin")
         val isRight = SpUtil.getInstance(this).getBoolean("is_right")
 
         layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_LEFT)
@@ -105,7 +113,16 @@ class RelativeDynamicAddRuleActivity : AppCompatActivity() {
         } else {
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
         }
-        layoutParams.bottomMargin = bottomMargin
+        val currentBottomMargin = layoutParams.bottomMargin
+
+        Log.d(
+            TAG,
+            "loadBottomMarginFromLocal: savedBottomMargin = $savedBottomMargin , current bottom margin = $currentBottomMargin"
+        )
+
+        layoutParams.bottomMargin = savedBottomMargin + currentBottomMargin
+
+        binding.adsorbView.layoutParams = layoutParams
     }
 
 }

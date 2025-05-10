@@ -218,6 +218,10 @@ class AdsorbView @JvmOverloads constructor(
                     }
 
                     if (rect.top < dragRect!!.top) {
+                        Log.d(
+                            TAG,
+                            "onTouchEvent: rect.top = ${rect.top} , dragRect.top = ${dragRect?.top}"
+                        )
                         //不能超过上边界
                         rect.offsetTo(rect.left, dragRect!!.top)
                     } else if (rect.bottom > dragRect!!.bottom) {
@@ -434,5 +438,46 @@ class AdsorbView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         moveDirections.clear()
     }
+
+
+    /**
+     * 获取View距拖动范围底部的距离
+     */
+    fun getBottomMargin(): Int {
+        Log.i(TAG, "drapRect.bottom=" + dragRect!!.bottom)
+        Log.i(TAG, "drapRect.top=" + dragRect!!.top)
+        Log.i(TAG, "drapRect.left=" + dragRect!!.left)
+        Log.i(TAG, "drapRect.right=" + dragRect!!.right)
+        Log.i(TAG, "drapRect.高度=" + (dragRect!!.bottom - dragRect!!.top))
+
+        Log.i(TAG, "===========")
+
+        Log.i(TAG, "rect.bottom=" + rect.bottom)
+        Log.i(TAG, "rect.top=" + rect.top)
+        Log.i(TAG, "rect.left=" + rect.left)
+        Log.i(TAG, "rect.right=" + rect.right)
+        Log.i(TAG, "rect.高度=" + (rect.bottom - rect.top))
+
+        Log.i(TAG, "===========")
+        Log.i(TAG, "bottom差=" + (dragRect!!.bottom - rect.bottom))
+        Log.i(TAG, "top差=" + rect.top)
+
+        //计算出
+        val height = rect.bottom - rect.top
+        if (height == 0) {
+            return 0
+        }
+        //处于可拖动区域的最顶部
+        if (rect.top <= 0) {
+            return dragRect!!.bottom - height
+        }
+        //处于可拖动区域的最底部
+        if (rect.bottom >= dragRect!!.bottom) {
+            return 0
+        }
+        //在正确范围内，可拖动区域的底部减去AdsorbView的底部就是bottomMargin
+        return dragRect!!.bottom - rect.bottom
+    }
+
 
 }

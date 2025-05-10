@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,6 +16,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="40dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_square" />
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_left"
+                android:layout_alignBottom="@+id/iv_left"
+                android:layout_toRightOf="@+id/iv_left"
+                android:background="#ff3344"
+                android:gravity="center"
+                android:text="右边的文字，测试 layout_alignTop layout_alignBottom"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_left1"
+                android:layout_width="40dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_square"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_right1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ff3344"
+                android:gravity="center"
+                android:text="右边的文字，测试 layout_alignTop layout_alignBottom"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_left1"
+                app:layout_constraintStart_toEndOf="@+id/iv_left1"
+                app:layout_constraintTop_toTopOf="@+id/iv_left1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/btn_change_rule"
@@ -44,6 +97,7 @@
         android:layout_height="36dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+
         android:layout_marginBottom="48dp"
         android:background="@drawable/bg_left_radius_bg"
         android:gravity="center_vertical" />
