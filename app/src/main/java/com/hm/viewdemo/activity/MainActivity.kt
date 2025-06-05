@@ -210,6 +210,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_dynamic_layout_test -> DynamicLayoutTestActivity.launch(this)
+
             R.id.btnTestMathFunction -> {
                 MathTestActivity.launch(this)
                 //Choreographer.getInstance().postFrameCallback(frameCallback)

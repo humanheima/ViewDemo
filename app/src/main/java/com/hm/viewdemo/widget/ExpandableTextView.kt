@@ -1,90 +1,191 @@
-package com.hm.viewdemo.widget;
+package com.hm.viewdemo.widget
 
-import android.content.Context;
-import android.text.Layout;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.AttributeSet;
+import android.content.Context
+import android.os.Build
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.DynamicDrawableSpan.ALIGN_CENTER
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
+import android.util.AttributeSet
+import android.util.Log
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import com.hm.viewdemo.R
+import com.hm.viewdemo.dp2px
 
-public class ExpandableTextView extends androidx.appcompat.widget.AppCompatTextView {
+/**
+ * Created by p_dmweidu on 2025/6/5
+ * Desc: 结尾是详情的+图标的TextView，待完善。
+ */
+class ExpandableTextView : AppCompatTextView {
 
-    private static final int MAX_LINES = 3;
-    private static final String MORE_TEXT = "详情 > ";
-    private boolean isTruncated = false;
+    var isTruncated: Boolean = false
+        private set
 
-    public ExpandableTextView(Context context) {
-        super(context);
-        init();
+    /**
+     * 空白字符
+     */
+    private val space = " "
+
+    /**
+     * 一个空格的宽度
+     */
+    private var spaceWidth = 0f
+
+    private var endResId = R.drawable.ic_text_right_arrow
+
+    companion object {
+        private const val TAG = "ExpandableTextView"
+        private const val MAX_LINES = 3
+
     }
 
-    public ExpandableTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+
+    private val MORE_TEXT = "详情"
+
+    /**
+     * 14dp，图标的宽度
+     */
+    private var dp14 = 0
+
+    private var widthOfChinese = 0
+
+    constructor(context: Context?) : super(context!!) {
+        init()
     }
 
-    public ExpandableTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
+    constructor(context: Context?, attrs: AttributeSet?) : super(
+        context!!, attrs
+    ) {
+        init()
     }
 
-    private void init() {
-        setMaxLines(MAX_LINES);
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context!!, attrs, defStyleAttr
+    ) {
+        init()
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    private fun init() {
+        maxLines = MAX_LINES
+        spaceWidth = paint.measureText(space)
+        dp14 = 14.dp2px(context)
+        //一个“中”的宽度，比图标宽度要宽
+        widthOfChinese = paint.measureText("中").toInt()
+        Log.d(TAG, "init: dp14 = $dp14 spaceWidth = $spaceWidth widthOfChinese = $widthOfChinese")
+    }
 
-        Layout layout = getLayout();
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val layout = layout
+        Log.d(TAG, "onMeasure: layout = $layout")
         if (layout != null) {
-            int lineCount = layout.getLineCount();
+            val lineCount = layout.lineCount
             if (lineCount > MAX_LINES) {
-                isTruncated = true;
-                truncateText();
+                isTruncated = true
+                truncateText()
             } else {
-                isTruncated = false;
-                setText(getText()); // 恢复原始文本
+                isTruncated = false
+                text = text // 恢复原始文本
             }
         }
     }
 
-    private void truncateText() {
-        Layout layout = getLayout();
-        if (layout == null) return;
+    private fun truncateText() {
+        val layout = layout ?: return
 
         // 获取第三行的起始字符索引
-        int thirdLineStart = layout.getLineStart(MAX_LINES - 1);
-        int thirdLineEnd = layout.getLineEnd(MAX_LINES - 1);
+        val thirdLineStart = layout.getLineStart(MAX_LINES - 1)
+        val thirdLineEnd = layout.getLineEnd(MAX_LINES - 1)
 
         // 获取原始文本
-        String originalText = getText().toString();
-        if (thirdLineEnd >= originalText.length()) return;
+        val originalText = text.toString()
+        if (thirdLineEnd >= originalText.length) return
 
         // 计算第三行能显示的最大字符数（留出“详情”空间）
-        String thirdLineText = originalText.substring(thirdLineStart, thirdLineEnd);
-        int maxLength = thirdLineText.length() - MORE_TEXT.length() - 1; // 预留“详情”和省略号
+        val thirdLineText = originalText.substring(thirdLineStart, thirdLineEnd)
+        var maxLength =
+            thirdLineText.length - MORE_TEXT.length - 2// 预留“详情”和省略号和向右箭头的宽度，省略号一个宽度，向右箭头一个宽度
 
         if (maxLength <= 0) {
-            maxLength = 0;
+            maxLength = 0
         }
 
         // 截断文本
-        String truncatedText = originalText.substring(0, thirdLineStart + maxLength) + "..." + MORE_TEXT;
+        val substring = originalText.substring(0, thirdLineStart + maxLength)
+        var truncatedText = "$substring...$MORE_TEXT"
 
-        // 创建 SpannableString 以设置“详情”的颜色（可选）
-        SpannableString spannable = new SpannableString(truncatedText);
+        val availableWidth = width - paddingLeft - paddingRight
+        var insertSpaceCount = 0
+
+        //第三行的文字
+        val thirdLineTruncatedText =
+            originalText.substring(thirdLineStart, thirdLineStart + maxLength) + "..." + MORE_TEXT
+
+        var measureTextWidth = paint.measureText(thirdLineTruncatedText)
+
+        Log.d(
+            TAG,
+            "truncateText: thirdLineTruncatedText = $thirdLineTruncatedText measureTextWidth = $measureTextWidth availableWidth = $availableWidth"
+        )
+
+        measureTextWidth += dp14//加上图标的宽度
+
+        while (measureTextWidth < availableWidth) {
+            Log.d(TAG, "truncateText: measureTextWidth = $measureTextWidth")
+            insertSpaceCount++
+            measureTextWidth += spaceWidth
+        }
+        Log.d(
+            TAG,
+            "truncateText: 跳出循环 measureTextWidth = $measureTextWidth insertSpaceCount = $insertSpaceCount availableWidth = $availableWidth"
+        )
+        //大于两个空白字符的宽度才调整
+        if (insertSpaceCount > 2) {
+            val stringBuilder = StringBuilder(substring)
+            stringBuilder.append("...")
+            for (i in 0 until insertSpaceCount - 2) {
+                stringBuilder.append(space)
+            }
+            stringBuilder.append(MORE_TEXT)
+            truncatedText = stringBuilder.toString()
+        }
+
+        // 创建 SpannableString ，最后一个空格展示向右的箭头
+        truncatedText += " "
+        val spannable = SpannableString(truncatedText)
         spannable.setSpan(
-                new ForegroundColorSpan(0xFF0000FF), // 蓝色
-                truncatedText.length() - MORE_TEXT.length(),
-                truncatedText.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
+            ForegroundColorSpan(-0xffff01),  // 蓝色
+            truncatedText.length - 1 - MORE_TEXT.length,
+            truncatedText.length - 1,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
-        setText(spannable);
+        val drawable = ContextCompat.getDrawable(context, endResId)
+
+        var imageSpan: ImageSpan? = null
+        drawable?.let {
+            it.setBounds(0, 0, dp14, dp14)
+            // 创建 ImageSpan
+            imageSpan = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ImageSpan(drawable, ALIGN_CENTER)
+            } else {
+                ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+            }
+        }
+
+        spannable.setSpan(
+            imageSpan,
+            truncatedText.length - 1,
+            truncatedText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        text = spannable
+        movementMethod = LinkMovementMethod.getInstance()
     }
 
-    public boolean isTruncated() {
-        return isTruncated;
-    }
 }

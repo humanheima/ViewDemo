@@ -182,6 +182,7 @@
             android:name=".activity.PullToRefreshActivity"
             android:theme="@style/FullScreenTheme" />
         <activity android:name=".activity.TextViewActivity" />
+        <activity android:name=".activity.DynamicLayoutTestActivity" />
         <activity android:name=".activity.MpAndroidChartActivity" />
         <activity android:name=".activity.TestFuDanActivity" />
         <activity android:name=".activity.ProgressBarActivity" />
