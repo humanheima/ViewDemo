@@ -10,6 +10,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <com.ctetin.expandabletextviewlibrary.ExpandableTextView
+            android:id="@+id/ep_09"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:lineSpacingExtra="5dp"
+            android:textSize="14sp"
+            app:ep_max_line="5"
+            app:ep_need_contract="true"
+            app:ep_need_expand="true"
+            app:ep_need_self="true" />
+
         <TextView
             android:id="@+id/tv_with_suffix"
             android:layout_width="match_parent"

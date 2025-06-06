@@ -116,6 +116,8 @@ dependencies {
 
     implementation project(path: ':soft_keyboard')
 
+    implementation project(path: ":expandabletextviewlibrary")
+
     // webpdecoder
     implementation "com.github.zjupure:webpdecoder:2.6.${rootProject.ext.glideVersion}"
     // glide 4.10.0+

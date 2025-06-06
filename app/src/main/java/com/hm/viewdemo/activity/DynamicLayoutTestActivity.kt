@@ -55,6 +55,9 @@ import java.util.regex.Pattern
  */
 class DynamicLayoutTestActivity : BaseActivity<ActivityDynamicLayoutTestBinding>() {
 
+    var yourText: String =
+        "    我所认识的中国，http://www.baidu.com 强大、友好 --习大大。@奥特曼 “一带一路”经济带带动了沿线国家的经济发展，促进我国与他国的友好往来和贸易发展，可谓“双赢”，Github地址。 自古以来，中国以和平、友好的面孔示人。汉武帝派张骞出使西域，开辟丝绸之路，增进与西域各国的友好往来。http://www.baidu.com 胡麻、胡豆、香料等食材也随之传入中国，汇集于中华美食。@RNG 漠漠古道，驼铃阵阵，这条路奠定了“一带一路”的基础，让世界认识了中国。"
+
     override fun createViewBinding(): ActivityDynamicLayoutTestBinding {
         return ActivityDynamicLayoutTestBinding.inflate(layoutInflater)
     }
@@ -89,6 +92,9 @@ class DynamicLayoutTestActivity : BaseActivity<ActivityDynamicLayoutTestBinding>
             )
             binding.expandTextView.text = charSequence
         }
+
+        binding.ep09.setContent(yourText)
+        binding.ep09.isNeedAlwaysShowRight = false
 
         setTextView1()
         setTextView2()
