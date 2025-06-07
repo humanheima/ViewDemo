@@ -22,6 +22,7 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -426,7 +427,7 @@ public class ExpandableTextView extends AppCompatTextView {
                 int index = currentLines - 1;
                 int endPosition = mDynamicLayout.getLineEnd(index);
                 int startPosition = mDynamicLayout.getLineStart(index);
-                float lineWidth = mDynamicLayout.getLineWidth(index);
+                float lineWidth = mDynamicLayout.getLineWidth(index);//获取当前行的文字宽度
 
                 String endString = getHideEndContent();
 
@@ -780,9 +781,15 @@ public class ExpandableTextView extends AppCompatTextView {
      * @param offset        偏移量
      * @return
      */
+
+    private static final String TAG = "ExpandableTextView";
+
     private int getFitPosition(String endString, int endPosition, int startPosition, float lineWidth,
                                float endStringWith, float offset) {
-        //最后一行需要添加的文字的字数
+        //TODO 最后一行需要添加的文字的字数，不太理解这是什么意思！！！！
+
+        Log.d(TAG, "getFitPosition: startPosition = " + startPosition + " endPosition = " + endPosition + " lineWidth = " + lineWidth + " endStringWith = " + endStringWith + " offset = " + offset);
+
         int position = (int) ((lineWidth - (endStringWith + offset)) * (endPosition - startPosition)
                 / lineWidth);
 
