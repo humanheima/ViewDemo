@@ -60,6 +60,12 @@ object GuideQueueManager {
         }
 
         val strategy = guideItem.strategyProvider(context)
+
+        if (strategy.shouldShow().not()){
+            tryShowNextGuide()
+            return
+        }
+
         currentStrategy = strategy
         currentGuideItem = guideItem
 
@@ -68,7 +74,7 @@ object GuideQueueManager {
         }
     }
 
-    fun dismissCurrentGuide() {
+    private fun dismissCurrentGuide() {
         currentStrategy?.dismiss()
         currentStrategy = null
         currentGuideItem?.dismissListener?.invoke()

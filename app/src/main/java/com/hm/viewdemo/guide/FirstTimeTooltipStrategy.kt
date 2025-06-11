@@ -23,7 +23,8 @@ class FirstTimeTooltipStrategy(
     }
 
     override fun shouldShow(): Boolean {
-        val show = !prefs.getBoolean(preferenceKey, false)
+        //默认展示
+        val show = prefs.getBoolean(preferenceKey, true)
         Log.d(TAG, "shouldShow: show = $show")
         return show
     }
@@ -43,11 +44,12 @@ class FirstTimeTooltipStrategy(
     }
 
     override fun dismiss() {
-
+        afterShown()
+        Log.d(TAG, "dismiss: ")
     }
 
     override fun afterShown() {
-        prefs.edit().putBoolean(preferenceKey, true).apply()
+        prefs.edit().putBoolean(preferenceKey, false).apply()
     }
 
     private fun positionView(guideView: View, anchorView: View) {
@@ -60,6 +62,7 @@ class FirstTimeTooltipStrategy(
                     //guideView.x = location[0] + anchorView.width / 2f - guideView.width / 2f
                     //guideView.y = location[1] + anchorView.height + 10f
                     containerView.addView(guideView)
+                    //afterShown()
                 }
 
                 Position.TOP -> {
@@ -67,6 +70,8 @@ class FirstTimeTooltipStrategy(
 //                    guideView.y = location[1] - guideView.height - 10f
 
                     containerView.addView(guideView)
+                    //afterShown()
+
                 }
                 // 其他位置实现...
                 Position.LEFT -> {
