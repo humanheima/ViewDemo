@@ -41,6 +41,7 @@ import com.hm.viewdemo.cancel_event.TestCancelEventActivity
 import com.hm.viewdemo.custom_view.GetStartAndPracticeActivity
 import com.hm.viewdemo.databinding.ActivityMainBinding
 import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
+import com.hm.viewdemo.guide.GuideQueueManagerActivity
 import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
@@ -210,6 +211,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+            R.id.btn_guide_manager -> GuideQueueManagerActivity.launch(this)
             R.id.btn_dynamic_layout_test -> DynamicLayoutTestActivity.launch(this)
 
             R.id.btnTestMathFunction -> {

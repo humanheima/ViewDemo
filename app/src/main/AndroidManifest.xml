@@ -145,6 +145,7 @@
         <activity android:name=".activity.DrawPathActivity" />
         <activity android:name=".activity.CountDownTimerActivity" />
         <activity android:name=".TestScreenScrollViewActivity" />
+        <activity android:name=".guide.GuideQueueManagerActivity" />
         <activity android:name=".activity.ViewLifecycleActivity" />
         <activity android:name=".activity.LollipopActivity" />
         <activity android:name=".activity.AnnouncementActivity" />
