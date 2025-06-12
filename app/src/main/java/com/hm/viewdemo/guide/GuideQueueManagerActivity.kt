@@ -157,6 +157,11 @@ class GuideQueueManagerActivity : BaseActivity<ActivityGuideQueueManagerBinding>
         )
 
         binding.tvShowGuide.setOnClickListener {
+            GuideQueueManager.addGuide(thirdGuideItem)
+            GuideQueueManager.addGuide(fourthGuideItem)
+            GuideQueueManager.addGuide(fifthGuideItem)
+            GuideQueueManager.addGuide(sixthGuideItem)
+
             GuideQueueManager.addGuide(firstGuideItem)
             GuideQueueManager.addGuide(secondGuideItem)
         }

@@ -9,6 +9,7 @@ import com.hm.viewdemo.R
 /**
  * Crete by dumingwei on 2020-03-02
  * Desc: ACTION_CANCEL 事件
+ *
  * 简单的说，就是 View，收到了ACTION_DOWN事件，但是后续的 ACTION_UP 或 ACTION_MOVE 事件没有收到，就会收到一个 ACTION_CANCEL 事件。
  *
  * 1.父View收到 ACTION_DOWN ，如果没有拦截事件，则 ACTION_DOWN 事件被子视图接收，并且子视图消费了 ACTION_DOWN 事件，父视图后续事件会发送到子View。

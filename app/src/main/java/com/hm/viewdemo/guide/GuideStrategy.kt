@@ -17,8 +17,6 @@ interface GuideStrategy {
      * @param anchorView 目标View
      * @param dismissCallback 引导消失时的回调
      */
-    //fun show(anchorView: View, dismissCallback: () -> Unit)
-
     fun show(anchorView: View, guideItem: GuideItem, dismissCallback: () -> Unit)
 
     /**

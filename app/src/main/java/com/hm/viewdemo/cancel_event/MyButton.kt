@@ -5,15 +5,15 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import android.widget.Button
+import androidx.appcompat.widget.AppCompatButton
 
 /**
  * Crete by dumingwei on 2020-03-02
  * Desc: 用来测试ACTION_CANCEL事件的触发条件
  *
- * step1. 父View收到ACTION_DOWN，如果没有拦截事件，则ACTION_DOWN前驱事件被子视图接收，父视图后续事件会发送到子View。
+ * step1. 父View收到ACTION_DOWN，如果没有拦截事件，则ACTION_DOWN前驱事件被子视图接收，父视图后续事件会发送到子View。
 
-step2. 此时如果在父View中拦截ACTION_UP或ACTION_MOVE，在第一次父视图拦截消息的瞬间，父视图指定子视图不接受后续消息了，同时子视图会收到ACTION_CANCEL事件。
+ * step2. 此时如果在父View中拦截ACTION_UP或ACTION_MOVE，在第一次父视图拦截消息的瞬间，父视图指定子视图不接受后续消息了，同时子视图会收到ACTION_CANCEL事件。
 
 
 
@@ -23,7 +23,13 @@ step2. 此时如果在父View中拦截ACTION_UP或ACTION_MOVE，在第一次父�
 原文链接：https://blog.csdn.net/starry_eve/article/details/46439437
  *
  */
-class MyButton : Button {
+class MyButton : AppCompatButton {
+
+    companion object {
+
+        private val TAG = "MyButton"
+
+    }
 
     constructor(context: Context) : super(context) {}
 
@@ -42,11 +48,6 @@ class MyButton : Button {
     override fun onDraw(canvas: Canvas) {
         Log.i(TAG, "onDraw: canvas = ${canvas.hashCode()}")
         super.onDraw(canvas)
-    }
-
-    companion object {
-
-        private val TAG = "MyButton"
     }
 
 }
