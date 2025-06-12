@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+/**
+ * Created by p_dmweidu on 2025/6/12
+ * Desc: 一个策略
+ */
 class FirstTimeTooltipStrategy(
     context: Context,
     private val contentLayoutId: Int,

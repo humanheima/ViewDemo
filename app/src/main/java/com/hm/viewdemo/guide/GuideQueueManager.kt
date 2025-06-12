@@ -35,10 +35,12 @@ object GuideQueueManager {
     private fun tryShowNextGuide() {
         if (itemTreeSet.isEmpty()) {
             isProcessing = false
+            Log.d(TAG, "tryShowNextGuide: itemTreeSet.isEmpty() return")
             return
         }
         if (currentStrategy != null) {
             //正在展示，直接返回
+            Log.d(TAG, "tryShowNextGuide: currentStrategy!=null return")
             isProcessing = false
             return
         }
@@ -54,14 +56,15 @@ object GuideQueueManager {
         val targetView: View? = guideItem?.viewFinder?.invoke()
 
         //不合法直接展示下一个
-        if (guideItem == null || context == null || targetView == null) {
+        if (context == null || targetView == null) {
+            Log.d(TAG, "tryShowNextGuide: 不合法直接展示下一个")
             tryShowNextGuide()
             return
         }
 
         val strategy = guideItem.strategyProvider(context)
 
-        if (strategy.shouldShow().not()){
+        if (strategy.shouldShow().not()) {
             tryShowNextGuide()
             return
         }
@@ -84,7 +87,7 @@ object GuideQueueManager {
 
     /**
      * 清空了 itemTreeSet
-     * dismissCurrentGuide 方法内部发现 itemTreeSet.isEmpty()，会直接返回
+     * dismissCurrentGuide 方法内部 调用 tryShowNextGuide 发现 itemTreeSet.isEmpty()，会直接返回
      */
     fun clearAllGuides() {
         itemTreeSet.clear()

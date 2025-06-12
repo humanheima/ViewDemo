@@ -14,13 +14,9 @@ import com.hm.viewdemo.guide.FirstTimeTooltipStrategy.Position
  */
 class GuideQueueManagerActivity : BaseActivity<ActivityGuideQueueManagerBinding>() {
 
-    //阴影和最大阴影都设为16dp
-    private var mElevation: Int = 16
-    private var mMaxElevation: Int = 16
-
-    //5.0版本以下，CardView设置的竖直方向上和水平方向上的padding
-    private var verticalPadding: Int = 0
-    private var horizontalPadding: Int = 0
+    private val prefs by lazy {
+        getSharedPreferences("guide_prefs", Context.MODE_PRIVATE)
+    }
 
     companion object {
 
@@ -63,7 +59,8 @@ class GuideQueueManagerActivity : BaseActivity<ActivityGuideQueueManagerBinding>
             this,
             priority = 190,
             viewFinder = {
-                binding.tvShowGuide
+                //binding.tvShowGuide
+                 null
             },
             strategyProvider = { context ->
                 FirstTimeTooltipStrategy(
@@ -173,6 +170,10 @@ class GuideQueueManagerActivity : BaseActivity<ActivityGuideQueueManagerBinding>
 
         binding.tvRemoveAllGuide.setOnClickListener {
             GuideQueueManager.clearAllGuides()
+        }
+
+        binding.tvRemoveAllSp.setOnClickListener {
+            prefs.edit().clear().apply()
         }
 
     }
