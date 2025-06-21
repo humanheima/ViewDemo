@@ -9,10 +9,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.databinding.ActivityCommonPopWindowBinding
+import com.hm.viewdemo.dp2px
 import com.hm.viewdemo.util.ScreenUtil
 
 /**
@@ -53,7 +55,7 @@ class CommonPopWindowActivity : AppCompatActivity() {
         initTopPopWindow()
 
         initBottomPopWindow()
-        binding.btnShowPopTop.setOnClickListener {
+        binding.btnShowPopTop.setOnClickListener { it ->
             if (!topPopWindow.isShowing) {
 
                 val anchorPosition = IntArray(2)
@@ -61,19 +63,34 @@ class CommonPopWindowActivity : AppCompatActivity() {
                 val screenWidth = ScreenUtil.getScreenWidth(this)
 
                 binding.btnAnchor.getLocationInWindow(anchorPosition)
-                Log.i(TAG, "onCreate: height = ${anchorPosition[1]}")
+                Log.i(TAG, "onCreate: width = ${anchorPosition[0]}, height = ${anchorPosition[1]}")
                 binding.btnAnchor.getLocationOnScreen(anchorPosition)
 
                 val widthAxis: Int =
                     anchorPosition[0] + binding.btnAnchor.measuredWidth / 2 - topPopWindowWidth / 2
                 val heightAxis: Int = anchorPosition[1] - topPopWindowHeight
 
+                Log.d(
+                    TAG,
+                    "onCreate: binding.btnAnchor.measuredWidth / 2  = ${binding.btnAnchor.measuredWidth / 2}"
+                )
+                Log.d(TAG, "onCreate: topPopWindowWidth / 2  = ${topPopWindowWidth / 2}")
+
+                Log.d(TAG, "onCreate: widthAxis = $widthAxis")
+                Log.d(TAG, "onCreate: heightAxis = $heightAxis")
+
+
+                /**
+                 *
+                 */
                 topPopWindow.showAtLocation(
                     binding.btnAnchor,
                     Gravity.TOP or Gravity.START,
-                    widthAxis,
+                    0,
                     heightAxis
                 )
+
+                it.postDelayed({ topPopWindow?.dismiss() }, 3000)
 
                 //使用showAsDropDown设置偏移量的方法让popwindow出现在控件上方
                 //val anchorHeight =binding.btnAnchor.measuredHeight
@@ -127,12 +144,18 @@ class CommonPopWindowActivity : AppCompatActivity() {
         )
         topPopWindow = PopupWindow(
             view,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            200.dp2px(this),
+            100.dp2px(this)
         )
-        topPopWindow.isFocusable = true
-        topPopWindow.isOutsideTouchable = true
-        topPopWindow.setBackgroundDrawable(ColorDrawable(0x00000000))
+        val ivTipsDowns = view.findViewById<ImageView>(R.id.iv_pop_tips_down)
+
+        val lp = ivTipsDowns.layoutParams as ViewGroup.MarginLayoutParams
+        lp.setMargins(30.dp2px(this), 0, 0, 0)
+        ivTipsDowns.layoutParams = lp
+
+        topPopWindow.isFocusable = false
+        topPopWindow.isOutsideTouchable = false
+        topPopWindow.setBackgroundDrawable(null)
     }
 
     private fun initBottomPopWindow() {
@@ -146,9 +169,9 @@ class CommonPopWindowActivity : AppCompatActivity() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        bottomPopWindow.isFocusable = true
-        bottomPopWindow.isOutsideTouchable = true
-        bottomPopWindow.setBackgroundDrawable(ColorDrawable(0x00000000))
+        bottomPopWindow.isFocusable = false
+        bottomPopWindow.isOutsideTouchable = false
+        //bottomPopWindow.setBackgroundDrawable(ColorDrawable(0x00000000))
     }
 
 }

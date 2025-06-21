@@ -47,6 +47,7 @@
             android:exported="false" />
         <activity android:name=".activity.OutlineTestActivity" />
         <activity android:name=".activity.ColorTestActivity" />
+        <activity android:name=".activity.ShadowLayoutActivity" />
         <activity
             android:name=".activity.compose.WidgetsActivity"
             android:exported="false" />

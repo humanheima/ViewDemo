@@ -245,6 +245,7 @@ public class RoundRectDrawableWithShadow extends Drawable {
             buildComponents(getBounds());
             mDirty = false;
         }
+        // TODO: 2025/6/19 注意，先向上平移画布 mRawShadowSize / 2 ，最终绘制的阴影底部比顶部多一些。
         canvas.translate(0, mRawShadowSize / 2);
         drawShadow(canvas);
         canvas.translate(0, -mRawShadowSize / 2);

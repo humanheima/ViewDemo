@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 内层背景（可选） -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- 内部填充颜色 -->
+        </shape>
+    </item>
+
+    <!-- 渐变边框层 -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- 设置边框宽度 -->
+            <stroke
+                android:width="5dp"
+                android:color="#00000000"> <!-- 透明颜色，实际边框颜色由gradient决定 -->
+
+                <!-- 渐变效果 -->
+                <gradient
+                    android:angle="0"
+                    android:endColor="#00FF00"
+                    android:startColor="#FF0000"
+                    android:type="linear" />
+            </stroke>
+        </shape>
+    </item>
+</layer-list>
