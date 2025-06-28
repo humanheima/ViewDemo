@@ -92,16 +92,16 @@ class ShadowLayerView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas.drawColor(Color.WHITE)
         if (mSetShadow) {
-            paint.setShadowLayer(mRadius, mDx, mDy, Color.GRAY)
+            paint.setShadowLayer(mRadius, mDx, mDy, Color.GREEN)
 
         } else {
             paint.clearShadowLayer()
         }
-        canvas.drawText("杜明伟", 100f, 100f, paint)
+        //canvas.drawText("杜明伟", 100f, 100f, paint)
         canvas.drawCircle(300f, 100f, 50f, paint)
-        rect.set(500, 50, 500 + dogBitmap.width, 50 + dogBitmap.height)
-        canvas.drawBitmap(dogBitmap, null,
-                rect, paint)
+       // rect.set(500, 50, 500 + dogBitmap.width, 50 + dogBitmap.height)
+//        canvas.drawBitmap(dogBitmap, null,
+//                rect, paint)
     }
 
 

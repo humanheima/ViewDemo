@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.hm.viewdemo.R
@@ -39,7 +38,6 @@ class FullScreenDialogFragment : DialogFragment() {
 
         //貌似高版本不调用也可以。多高的版本呢？猜测是5.0以上。
         //dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE);
-
 
 
     }

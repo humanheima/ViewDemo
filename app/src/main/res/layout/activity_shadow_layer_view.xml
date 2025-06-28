@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".custom_view.chapter7.ShadowLayerViewActivity">
 
     <Button
         android:id="@+id/btnAddX"
@@ -72,7 +74,32 @@
     <com.hm.viewdemo.custom_view.chapter7.widget.ShadowLayerView
         android:id="@+id/shadowLayerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="100dp" />
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:background="#ff3344">
+
+        <com.hm.viewdemo.custom_view.chapter7.widget.ShadowLayerFrameLayout
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="阴影扩散区域改变"
+                android:textColor="#000000"
+                android:visibility="invisible" />
+
+        </com.hm.viewdemo.custom_view.chapter7.widget.ShadowLayerFrameLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
 

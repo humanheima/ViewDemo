@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".custom_view.chapter7.TextShadowActivity">
 
+    <com.hm.viewdemo.custom_view.chapter7.widget.ShadowView
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
     <!--通过xml属性设置属性-->
     <TextView
         android:layout_width="wrap_content"
