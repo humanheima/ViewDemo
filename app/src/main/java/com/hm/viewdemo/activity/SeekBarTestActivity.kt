@@ -15,6 +15,11 @@ import com.hm.viewdemo.databinding.ActivitySeekBarTestBinding
 /**
  * Created by dumingwei on 2020/12/18
  * Desc: 测试SeekBar
+ * 1. 设置 progressDrawable 和设置 background 的区别。 可以在 progressDrawable 中，同时设置背景，第一进度背景，第二进度背景。
+ * 2. splitTrack 属性应该与 progressDrawable 配合才起作用。
+ * Android 的 SeekBar 中，splitTrack 属性用于控制进度条是否在滑块（thumb）处显示一个“间隙”或“分割”。
+ * 具体来说，当 splitTrack 设置为 true 时，进度条的背景（track）会在滑块的位置断开，露出底层的背景颜色，从而在视觉上将进度条分为两部分。
+ * 这个效果在某些自定义样式中可以增强用户体验，尤其是在需要突出滑块位置时。
  */
 class SeekBarTestActivity : AppCompatActivity() {
 
@@ -60,11 +65,11 @@ class SeekBarTestActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-
+                Log.d(TAG, "onStartTrackingTouch: ")
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-
+                Log.d(TAG, "onStopTrackingTouch: ")
             }
         })
     }

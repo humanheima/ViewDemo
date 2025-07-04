@@ -13,15 +13,12 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/shape_round_solid_r12_neutral_overlay_inverse"
         android:hapticFeedbackEnabled="true"
         android:max="10"
-        android:maxHeight="1dp"
-        android:minHeight="1dp"
         android:paddingHorizontal="20dp"
         android:progress="5"
-        android:progressDrawable="@null"
-        android:splitTrack="true"
+        android:progressDrawable="@drawable/custom_progress"
+        android:splitTrack="false"
         android:thumb="@drawable/ic_slider_thumb"
         android:thumbOffset="24dp" />
 
