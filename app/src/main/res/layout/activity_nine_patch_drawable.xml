@@ -1,118 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_margin="16dp"
-        android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context=".activity.NinePatchDrawableActivity">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".activity.NinePatchDrawableActivity">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".activity.NinePatchDrawableActivity">
 
         <ImageView
-                android:layout_width="match_parent"
-                android:src="@drawable/ic_bubble1"
-                android:layout_height="100dp" />
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_bubble1" />
 
 
         <TextView
-                android:layout_width="match_parent"
-                android:text="原图拉伸"
-                android:layout_height="40dp" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="原图拉伸" />
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
             <TextView
-                    android:background="@drawable/ic_bubble1"
-                    android:layout_width="match_parent"
-                    android:ellipsize="end"
-                    android:text="@string/fish_and_bear"
-                    android:layout_height="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_bubble1"
+                android:ellipsize="end"
+                android:text="@string/fish_and_bear" />
 
         </RelativeLayout>
 
         <RelativeLayout
-                android:layout_width="300dp"
-                android:layout_height="200dp">
+            android:layout_width="300dp"
+            android:layout_height="200dp">
 
             <TextView
-                    android:background="@drawable/ic_bubble1"
-                    android:layout_width="match_parent"
-                    android:ellipsize="end"
-                    android:text="@string/fish_and_bear"
-                    android:layout_height="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_bubble1"
+                android:ellipsize="end"
+                android:text="@string/fish_and_bear" />
 
         </RelativeLayout>
 
         <TextView
-                android:layout_width="match_parent"
-                android:text="从文件加载的"
-                android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="从文件加载的" />
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
             <TextView
-                    android:id="@+id/tv_9_patch2"
-                    android:layout_width="match_parent"
-                    android:ellipsize="end"
-                    android:text="@string/fish_and_bear"
-                    android:layout_height="match_parent" />
+                android:id="@+id/tv_9_patch2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:text="@string/fish_and_bear" />
 
         </RelativeLayout>
 
         <Button
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:text="下面的两个是从Resource加载的"
-                android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="下面的两个是从Resource加载的" />
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
             <TextView
-                    android:id="@+id/tv_9_patch3"
-                    android:layout_width="match_parent"
-                    android:text="@string/fish_and_bear"
-                    android:ellipsize="end"
-                    android:layout_height="match_parent" />
+                android:id="@+id/tv_9_patch3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:text="@string/fish_and_bear" />
 
         </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/rl_9_patch4"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+            android:id="@+id/rl_9_patch4"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
             <TextView
-                    android:layout_margin="10dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/tv_9_patch4"
-                    android:layout_width="match_parent"
-                    android:ellipsize="end"
-                    android:text="@string/fish_and_bear"
-                    android:layout_height="match_parent" />
+                android:id="@+id/tv_9_patch4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:ellipsize="end"
+                android:text="@string/fish_and_bear" />
 
         </RelativeLayout>
 
         <RelativeLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp">
 
             <TextView
-                    android:layout_centerInParent="true"
-                    android:id="@+id/tv_9_patch5"
-                    android:layout_width="wrap_content"
-                    android:ellipsize="end"
-                    android:text="哈哈"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/tv_9_patch5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:text="哈哈" />
 
         </RelativeLayout>
 

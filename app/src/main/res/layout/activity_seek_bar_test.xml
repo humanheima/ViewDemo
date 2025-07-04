@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.SeekBarTestActivity">
+
+    <SeekBar
+        android:id="@+id/seek_bar_one"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_round_solid_r12_neutral_overlay_inverse"
+        android:hapticFeedbackEnabled="true"
+        android:max="10"
+        android:maxHeight="1dp"
+        android:minHeight="1dp"
+        android:paddingHorizontal="20dp"
+        android:progress="5"
+        android:progressDrawable="@null"
+        android:splitTrack="true"
+        android:thumb="@drawable/ic_slider_thumb"
+        android:thumbOffset="24dp" />
 
     <SeekBar
         android:id="@+id/seek_bar"
@@ -25,10 +43,5 @@
         android:layout_height="wrap_content"
         android:text="设置进度" />
 
-    <Button
-        android:id="@+id/btn_measure_text_width"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="测量文字宽度" />
 
 </LinearLayout>
