@@ -83,7 +83,6 @@ class DialogTestActivity : AppCompatActivity() {
             showDialog2()
         }
         binding.btnShowDialog4.setOnClickListener {
-            //showDialog2()
             if (Random.nextBoolean()) {
                 arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/7F2B7CCCC90CFD154497A93A7CA147FC.jpg")
             } else {
@@ -112,7 +111,6 @@ class DialogTestActivity : AppCompatActivity() {
 
 
     private fun showCustomDialog() {
-        //if (alertDialog == null) {
         val builder = AlertDialog.Builder(this)
 
 
