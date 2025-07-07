@@ -212,6 +212,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
     fun onClick(view: View) {
         when (view.id) {
 
+            R.id.btnTestLayerDrawable -> LayerDrawableTestActivity.launch(this)
+
             R.id.btn_shadow_layout -> ShadowLayoutActivity.launch(this)
 
             R.id.btn_guide_manager -> GuideQueueManagerActivity.launch(this)

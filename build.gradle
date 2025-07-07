@@ -36,7 +36,7 @@ ext {
     compileSdkVersion = 35
     buildToolsVersion = "35.0.0"
     minSdkVersion = 23
-    targetSdkVersion = 33
+    targetSdkVersion = 35
     bufferKnifeVersion = "8.5.1"
     glideVersion = "4.16.0"
 

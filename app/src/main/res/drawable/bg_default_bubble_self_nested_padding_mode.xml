@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--注意，LayerDrawable 内部的item的padding是叠加的。-->
-<!--包裹的内容最终的padding是 item的上下左右padding的累加     -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!--nest 模式 包裹的内容最终的padding是 item的上下左右padding的累加     -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingMode="nest">
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="8dp" />

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--注意，LayerDrawable 内部的item的padding是叠加的。-->
+<!--stack 模式 包裹的内容最终的padding是 item的上下左右padding的累加     -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingMode="stack">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+
+            <padding
+                android:bottom="12dp"
+                android:left="12dp"
+                android:right="22dp"
+                android:top="12dp" />
+            <solid android:color="#ff3344" />
+
+        </shape>
+
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+
+            <padding
+                android:bottom="8dp"
+                android:left="12dp"
+                android:right="12dp"
+                android:top="8dp" />
+            <solid android:color="#ffc1c1ff" />
+
+        </shape>
+
+    </item>
+</layer-list>
