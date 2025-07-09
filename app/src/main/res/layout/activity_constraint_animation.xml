@@ -61,4 +61,43 @@
         android:text="测试向上平移和alpha动画"
         app:layout_constraintTop_toBottomOf="@+id/cl_opened_layout" />
 
+    <!-- View A -->
+    <Button
+        android:id="@+id/viewA"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="#00ff00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start_vertical_animation" />
+
+    <!-- View B -->
+    <Button
+        android:id="@+id/viewB"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:background="#00ff00"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start_vertical_animation" />
+
+    <!-- Barrier -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="viewA,viewB" />
+
+    <!-- View C -->
+    <Button
+        android:id="@+id/viewC"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="#00ff00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

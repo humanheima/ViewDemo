@@ -20,6 +20,14 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="ConstraintLayoutActivity"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/btnTestLayerDrawable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,14 +192,6 @@
                 android:id="@+id/compose_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btn_constraint_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="ConstraintLayoutActivity"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_show_loading"
