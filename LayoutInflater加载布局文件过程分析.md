@@ -38,7 +38,7 @@ public void setContentView(int resId) {
 
 Activity的getLayoutInflater方法
 
-```
+```java
 public LayoutInflater getLayoutInflater() {
     return getWindow().getLayoutInflater();
 }
@@ -46,7 +46,7 @@ public LayoutInflater getLayoutInflater() {
 
 PhoneWindow的getLayoutInflater方法
 
-```
+```java
 public LayoutInflater getLayoutInflater() {
     return mLayoutInflater;
 }
@@ -54,7 +54,7 @@ public LayoutInflater getLayoutInflater() {
 
 PhoneWindow的构造函数
 
-```
+```java
 public PhoneWindow(Context context) {
     super(context);
     //还是通过LayoutInflater.from方法获取的。
@@ -64,7 +64,7 @@ public PhoneWindow(Context context) {
 
 LayoutInflater的from方法内部就是使用context.getSystemService来获取LayoutInflater实例的。
 
-```
+```java
 public static LayoutInflater from(Context context) {
     LayoutInflater LayoutInflater =
             (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +79,7 @@ public static LayoutInflater from(Context context) {
 
 这是Activity的布局文件。
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -120,7 +120,7 @@ public static LayoutInflater from(Context context) {
 
 接下来看看LayoutInflater的inflate方法究竟是怎么把布局文件转换成view对象的。
 
-```
+```java
 public View inflate(@LayoutRes int resource, @Nullable ViewGroup root) {
     //调用3个参数的重载函数
     return inflate(resource, root, root != null);
@@ -155,7 +155,7 @@ public View inflate(int resource, ViewGroup root, boolean attachToRoot){
 
 注释1处,调用Resources的getLayout方法
 
-```
+```java
 /**
  * 返回一个XmlResourceParser对象，通过这个对象，可以从指定的资源id中读取view 的布局描述。
  * 
@@ -175,7 +175,7 @@ public XmlResourceParser getLayout(@LayoutRes int id) throws NotFoundException {
 
 注释2处，调用LayoutInflater的inflate(XmlPullParser parser,ViewGroup root, boolean attachToRoot)方法开始读取解析数据。
 
-```
+```java
 public View inflate(XmlPullParser parser,ViewGroup root, boolean attachToRoot) {
     synchronized (mConstructorArgs) {     
         //...
@@ -240,7 +240,6 @@ public View inflate(XmlPullParser parser,ViewGroup root, boolean attachToRoot) {
         return result;
     }
 }
-
 ```
 
 注释0处，布局文件中第一个标签名字，在这个例子中就是布局中的`RelativeLayout`。
@@ -251,16 +250,15 @@ final String name = parser.getName();
 
 在注释1处，调用createViewFromTag方法获取xml文件中的根view。
 
-```
+```java
 private View createViewFromTag(View parent, String name, Context context, 
             AttributeSet attrs) {
     return createViewFromTag(parent, name, context, attrs, false);
 }
-
 ```
 
 
-```
+```java
 /**
      * 从一个标签名和提供的属性集合创建一个view。
      * 
