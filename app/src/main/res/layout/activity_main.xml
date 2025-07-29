@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:overScrollMode="never"
+    android:fitsSystemWindows="true"
     tools:context=".activity.MainActivity">
 
     <com.hm.viewdemo.widget.MyFrameLayout

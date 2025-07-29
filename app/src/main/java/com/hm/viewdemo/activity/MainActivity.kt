@@ -20,6 +20,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.soft_keyboard.TestSoftKeyboardActivity
 import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
@@ -72,6 +74,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
     }
 
     override fun initData() {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.show(WindowInsetsCompat.Type.statusBars())
+        // 同时隐藏状态栏和导航栏
+        //controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.setAppearanceLightStatusBars(true)
+
         val filesDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         if (filesDir != null) {
             val filePath = "$filesDir/mytrace.trace"

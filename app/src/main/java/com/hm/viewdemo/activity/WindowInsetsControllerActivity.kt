@@ -4,11 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.view.WindowInsets
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityWindowInsetsControllerBinding
 
@@ -33,7 +31,7 @@ class WindowInsetsControllerActivity : BaseActivity<ActivityWindowInsetsControll
     }
 
     override fun initData() {
-        changeStatusBarUI()
+        //changeStatusBarUI()
         binding.btnHideSystemBars.setOnClickListener {
             hide()
         }
@@ -43,8 +41,6 @@ class WindowInsetsControllerActivity : BaseActivity<ActivityWindowInsetsControll
     }
 
     private fun changeStatusBarUI() {
-        //让内容延伸到状态栏上
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         //注释1处，设置状态栏的背景颜色
         window.statusBarColor = Color.TRANSPARENT
         WindowCompat.getInsetsController(window, window.decorView).let { controller ->
@@ -84,17 +80,17 @@ class WindowInsetsControllerActivity : BaseActivity<ActivityWindowInsetsControll
         // 取消导航栏反色
         controller.isAppearanceLightNavigationBars = false
         // 隐藏状态栏
-        controller.hide(WindowInsets.Type.statusBars())
+        controller.hide(WindowInsetsCompat.Type.statusBars())
         // 显示状态栏
-        controller.show(WindowInsets.Type.statusBars())
+        controller.show(WindowInsetsCompat.Type.statusBars())
         // 隐藏导航栏
-        controller.hide(WindowInsets.Type.navigationBars())
+        controller.hide(WindowInsetsCompat.Type.navigationBars())
         // 显示导航栏
-        controller.show(WindowInsets.Type.navigationBars())
+        controller.show(WindowInsetsCompat.Type.navigationBars())
         // 同时隐藏状态栏和导航栏
-        controller.hide(WindowInsets.Type.systemBars())
+        controller.hide(WindowInsetsCompat.Type.systemBars())
         // 同时隐藏状态栏和导航栏
-        controller.show(WindowInsets.Type.systemBars())
+        controller.show(WindowInsetsCompat.Type.systemBars())
     }
 
 

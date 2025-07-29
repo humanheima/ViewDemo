@@ -1,5 +1,6 @@
 package com.hm.viewdemo.widget.dialog
 
+import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -32,9 +33,12 @@ class FullScreenDialogFragment : DialogFragment() {
     }
 
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setStyle(STYLE_NORMAL, R.style.FullScreenDialog)
 
         //貌似高版本不调用也可以。多高的版本呢？猜测是5.0以上。
         //dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE);
@@ -45,11 +49,11 @@ class FullScreenDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated: ")
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(0x00000000))
-        dialog?.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT
-        )
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(0x00000000))
+//        dialog?.window?.setLayout(
+//            WindowManager.LayoutParams.MATCH_PARENT,
+//            WindowManager.LayoutParams.MATCH_PARENT
+//        )
     }
 
 }

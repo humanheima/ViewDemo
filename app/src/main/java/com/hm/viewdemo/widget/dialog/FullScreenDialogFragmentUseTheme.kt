@@ -47,7 +47,7 @@ class FullScreenDialogFragmentUseTheme : DialogFragment() {
         dialog?.window?.let {
             WindowCompat.setDecorFitsSystemWindows(it, false)
             //注释1处，设置状态栏的背景颜色
-            it.statusBarColor = Color.TRANSPARENT
+            //it.statusBarColor = Color.TRANSPARENT
             WindowCompat.getInsetsController(it, it.decorView).let { controller ->
                 //注释2处，false，状态栏上的颜色是白色的。true ，状态栏上的颜色是黑色的。
                 controller.isAppearanceLightStatusBars = true

@@ -16,6 +16,7 @@ import com.hm.viewdemo.widget.dialog.AnimateInDialogFragment
 import com.hm.viewdemo.widget.dialog.CustomDialogFragment
 import com.hm.viewdemo.widget.dialog.FireMissilesDialogFragment
 import com.hm.viewdemo.widget.dialog.FullScreenDialog2
+import com.hm.viewdemo.widget.dialog.FullScreenDialog3
 import com.hm.viewdemo.widget.dialog.FullScreenDialogFragment
 import com.hm.viewdemo.widget.dialog.FullScreenDialogFragmentUseTheme
 import com.hm.viewdemo.widget.hongyang.RoundImageView
@@ -64,6 +65,10 @@ class DialogTestActivity : AppCompatActivity() {
 
         binding.btnFullscreenDialogFragment1.setOnClickListener {
             val fullScreenDialogFragment = FullScreenDialogFragment()
+            fullScreenDialogFragment.show(supportFragmentManager, null)
+        }
+        binding.btnFullscreenDialogFragment3.setOnClickListener {
+            val fullScreenDialogFragment = FullScreenDialog3()
             fullScreenDialogFragment.show(supportFragmentManager, null)
         }
 
