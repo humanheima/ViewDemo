@@ -30,8 +30,8 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:indeterminate="true"
-                    android:indeterminateTint="@color/pink_A200"
                     android:indeterminateDrawable="@drawable/my_progress_large_white"
+                    android:indeterminateTint="@color/pink_A200"
                     android:indeterminateTintMode="multiply" />
 
                 <View
@@ -75,15 +75,6 @@
                     app:duration="@android:integer/config_mediumAnimTime"
                     app:endColor="#ffffff"
                     app:startColor="#ffffff" />
-
-                <com.github.silvestrpredko.dotprogressbar.CircularProgressBar
-                    android:id="@+id/circular_progress_bar"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp" />
-
-                <com.github.silvestrpredko.dotprogressbar.CustomProgressBar
-                    android:layout_width="100dp"
-                    android:layout_height="40dp" />
 
             </LinearLayout>
 
@@ -180,12 +171,14 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp" />
 
             <ProgressBar
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:indeterminate="true" />
 
@@ -193,6 +186,7 @@
                 style="@style/MyHorizontalProgressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:indeterminate="false"
                 android:max="100"
@@ -202,6 +196,7 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:max="100"
                 android:progress="70"

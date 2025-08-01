@@ -3,7 +3,7 @@
 
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="5dp"/>
+            <corners android:radius="15dp"/>
             <gradient
                 android:angle="270"
                 android:centerColor="#ff5a5d5a"
@@ -18,7 +18,7 @@
         <clip>
             <shape>
 
-                <corners android:radius="5dp"/>
+                <corners android:radius="15dp"/>
 
                 <gradient
                     android:angle="0"
@@ -32,7 +32,7 @@
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <corners android:radius="5dip"/>
+                <corners android:radius="15dp"/>
                 <gradient
                     android:angle="0"
                     android:endColor="#ffff4b00"
