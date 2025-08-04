@@ -13,7 +13,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.brotherd.pullrefresh'
+    namespace = 'com.brotherd.pullrefresh'
 }
 
 dependencies {

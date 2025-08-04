@@ -71,7 +71,7 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
-    namespace 'com.hm.viewdemo'
+    namespace = 'com.hm.viewdemo'
 }
 
 //walle {

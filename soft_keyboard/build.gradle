@@ -35,7 +35,7 @@ android {
         jvmTarget = '17'
     }
 
-    namespace 'com.example.soft_keyboard'
+    namespace = 'com.example.soft_keyboard'
 }
 
 dependencies {

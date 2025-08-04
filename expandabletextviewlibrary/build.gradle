@@ -20,7 +20,7 @@ android {
         }
     }
 
-    namespace 'com.ctetin.expandabletextviewlibrary'
+    namespace = 'com.ctetin.expandabletextviewlibrary'
 
 }
 

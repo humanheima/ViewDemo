@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.zkk.view.rulerview'
+    namespace = 'com.zkk.view.rulerview'
 }
 
 
