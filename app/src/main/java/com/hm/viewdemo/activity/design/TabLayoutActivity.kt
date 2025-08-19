@@ -157,6 +157,7 @@ class TabLayoutActivity : BaseActivity<ActivityTabLayoutBinding>() {
             tabLayoutMediator?.detach()
             tabLayoutMediator?.attach()
             binding.tabLayout.selectTab(null)
+            binding.viewPager2.currentItem = 0
         }
     }
 

@@ -84,10 +84,26 @@ class ChangeImageColorActivity : AppCompatActivity() {
 
         tintIvColorWithStatus()
 
+
+        testTintBG()
+
+    }
+
+    /**
+     * 没有背景时，着色，不起作用。有背景，但是背景透明度不一样的时候，着色效果也是不一样的。
+     */
+    private fun testTintBG() {
+        binding.ivNoBg.backgroundTintList = ColorStateList.valueOf(getColor(R.color.colorAccent))
+        binding.ivHalfTransparentBg.backgroundTintList =
+            ColorStateList.valueOf(getColor(R.color.colorAccent))
+        binding.ivHalfNotTransparentBg.backgroundTintList =
+            ColorStateList.valueOf(getColor(R.color.colorAccent))
+
     }
 
     private fun tintIvColor(iv: ImageView, resId: Int, color: Int) {
-        iv.imageTintList = ColorStateList.valueOf(color)
+        //iv.imageTintList = ColorStateList.valueOf(color)
+        iv.backgroundTintList = ColorStateList.valueOf(color)
     }
 
     /**

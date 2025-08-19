@@ -1,35 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.TestBlurActivity">
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/ll_content"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp">
+        <!-- 背景模糊层 -->
+        <LinearLayout
+            android:id="@+id/blurBackground"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/sample_background"
+            android:orientation="vertical" />
+
+        <!-- 内容层，保持清晰 -->
+        <LinearLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高斯模糊背景（内容清晰）"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- 控制模糊的按钮 -->
+    <Button
+        android:id="@+id/toggleBlurButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contentContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="关闭模糊" />
+
+    <RelativeLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context=".activity.TestBlurActivity">
 
-
-    <ImageView
+        <ImageView
             android:id="@+id/iv_first"
-            android:src="@drawable/balloon"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-    <ImageView
-            android:layout_below="@+id/iv_first"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/ic_soft_avatar"
+            android:src="@drawable/balloon" />
+
+        <ImageView
             android:id="@+id/iv_fast_blur"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-    <ImageView
-            android:layout_below="@+id/iv_fast_blur"
-            android:scaleType="centerCrop"
+            android:layout_height="200dp"
+            android:layout_below="@+id/iv_first"
             android:background="@drawable/ic_soft_avatar"
+            android:scaleType="centerCrop" />
+
+        <ImageView
             android:id="@+id/iv_blurry"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_below="@+id/iv_fast_blur"
+            android:background="@drawable/ic_soft_avatar"
+            android:scaleType="centerCrop" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_change_blur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="改变模糊度" />
+
+
+</LinearLayout>
