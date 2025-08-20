@@ -4,30 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.ColorTestActivity">
 
     <TextView
         android:id="@+id/tvHue"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hue(色调、色相)\n取值范围 0～360"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+
+        android:text="Hue(色调、色相),取值范围 0～360"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvSaturation"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Saturation(饱和度、色彩纯净度)\n取值范围 0～1"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+
+        android:text="Saturation(饱和度、色彩纯净度),取值范围 0～1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHue" />
 
     <TextView
         android:id="@+id/tvValue"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Value(明度)\n取值范围 0～1"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+
+        android:text="Value(明度),取值范围 0～1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSaturation" />
 
@@ -41,7 +48,8 @@
     <EditText
         android:id="@+id/etHue"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="number"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +59,8 @@
     <EditText
         android:id="@+id/etSaturation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="numberDecimal"
         android:text="0.5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +70,8 @@
     <EditText
         android:id="@+id/etValue"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="numberDecimal"
         android:text="0.5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,24 +90,28 @@
     <TextView
         android:id="@+id/tvHue2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hue(色调、色相)\n取值范围 0～360"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Hue(色调、色相),取值范围 0～360"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangeHsv" />
 
     <TextView
         android:id="@+id/tvSaturation2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Saturation(饱和度、色彩纯净度)\n取值范围 0～1"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="Saturation(饱和度、色彩纯净度),取值范围 0～1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHue2" />
 
     <TextView
         android:id="@+id/tvLight"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Light(亮度)\n取值范围 0～1"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="Light(亮度),取值范围 0～1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSaturation2" />
 
@@ -111,7 +125,8 @@
     <EditText
         android:id="@+id/etHue2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="number"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +136,8 @@
     <EditText
         android:id="@+id/etSaturation2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="numberDecimal"
         android:text="0.3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +147,8 @@
     <EditText
         android:id="@+id/etLight"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:inputType="numberDecimal"
         android:text="0.8"
         app:layout_constraintEnd_toEndOf="parent"
