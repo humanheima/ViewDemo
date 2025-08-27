@@ -1,5 +1,6 @@
 package com.hm.viewdemo.activity
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Message
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.databinding.ActivityProgressBarBinding
 import java.lang.ref.WeakReference
+
 
 /**
  * Created by dumingwei on 2020/4/15
@@ -50,6 +52,22 @@ class ProgressBarActivity : BaseActivity<ActivityProgressBarBinding>() {
 //        if (drawable is AnimatedVectorDrawable){
 //            drawable.setduration(1000)
 //        }
+
+        binding.btnChangeHorizontalProgress.setOnClickListener {
+            setProgress()
+        }
+    }
+
+    private fun setProgress() {
+        val progressAnimator: ObjectAnimator =
+            ObjectAnimator.ofInt(
+                binding.horizontalProgressBar,
+                "progress",
+                0,
+                100
+            ) // progress从0到100g, "progress", currentProgress, newProgress)
+        progressAnimator.setDuration(1000) // 动画时长
+        progressAnimator.start()
     }
 
     private class MyHandler(baseActivity: BaseActivity<*>) : Handler() {

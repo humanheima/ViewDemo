@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
     tools:context=".activity.ProgressBarActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -12,13 +13,13 @@
         android:layout_height="match_parent"
         android:paddingBottom="40dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ProgressBar
+                android:id="@+id/horizontal_progressBar"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,6 +29,11 @@
                 android:progress="100"
                 android:progressDrawable="@drawable/progress_horizontal_simple_drawable" />
 
+            <Button
+                android:id="@+id/btn_change_horizontal_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改横向进度条的进度" />
 
             <LinearLayout
                 android:layout_width="match_parent"
