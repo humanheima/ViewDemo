@@ -21,6 +21,22 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnCustomViewGetStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="《Android自定义控件开发入门与实战》"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="TextView/Spannable的使用"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/btnPickColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,14 +175,6 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/btn_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="TextView/Spannable的使用"
-                android:textAllCaps="false" />
-
-            <Button
                 android:id="@+id/btnTestRelativeRule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,14 +211,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="launchMatrixTestActivity"
                 android:text="测试矩阵"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/btnCustomViewGetStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="《Android自定义控件开发入门与实战》"
                 android:textAllCaps="false" />
 
             <androidx.compose.ui.platform.ComposeView

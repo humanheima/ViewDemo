@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".custom_view.chapter7.BlurMaskFilterActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clTop"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="40dp">
 
         <com.hm.viewdemo.custom_view.chapter7.widget.BlurMaskFilterView
             android:id="@+id/blurview1"
@@ -56,6 +55,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.hm.viewdemo.custom_view.chapter7.widget.BitmapShadowView
+        android:id="@+id/shadowview"
         android:layout_width="360dp"
         android:layout_height="200dp"
         android:layout_marginTop="30dp"
@@ -64,4 +64,27 @@
         app:layout_constraintTop_toBottomOf="@+id/clTop" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_blur_mask_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下面测试改变TextView部分文字的模糊程度" />
+
+
+    <TextView
+        android:id="@+id/text_view_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp" />
+
+
+    <SeekBar
+        android:id="@+id/radiusSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="25"
+        android:padding="8dp" />
+
+
+</LinearLayout>
