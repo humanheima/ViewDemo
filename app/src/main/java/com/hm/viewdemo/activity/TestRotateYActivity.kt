@@ -30,11 +30,9 @@ class TestRotateYActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnRotate.setOnClickListener {
-            //rotate()
-
-            MatrixExample.main()
+            rotate()
+            //MatrixExample.main()
         }
-
     }
 
     private fun rotate() {
