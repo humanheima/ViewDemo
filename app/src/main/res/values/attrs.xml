@@ -299,7 +299,6 @@
         <attr name="hl_stroke_dashGap" format="dimension" />
 
 
-
         <!-- 这里最终舍弃了系统clickable的方案，因为系统系统主动设置setOnClickListener后，会主动设置成true,所以这里采用自定义 -->
         <attr name="clickable" format="boolean" />
         <!-- hl_clickable为false时，要展示的图片或颜色-->
@@ -325,7 +324,11 @@
         <attr name="hl_text" format="string" />
         <attr name="hl_text_true" format="string" />
 
+    </declare-styleable>
 
+    <!-- 自定义Round ScrollView属性-->
+    <declare-styleable name="CustomActivityPosition">
+        <attr name="showCloseButton" format="boolean" />
     </declare-styleable>
 
 </resources>
