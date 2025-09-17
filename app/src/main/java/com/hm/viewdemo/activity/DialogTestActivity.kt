@@ -19,6 +19,7 @@ import com.hm.viewdemo.widget.dialog.FullScreenDialog2
 import com.hm.viewdemo.widget.dialog.FullScreenDialog3
 import com.hm.viewdemo.widget.dialog.FullScreenDialogFragment
 import com.hm.viewdemo.widget.dialog.FullScreenDialogFragmentUseTheme
+import com.hm.viewdemo.widget.dialog.TopSlideDialogFragment
 import com.hm.viewdemo.widget.hongyang.RoundImageView
 import kotlin.random.Random
 
@@ -100,10 +101,21 @@ class DialogTestActivity : AppCompatActivity() {
         arrayList.add("https://xxvirtualcharactercdn.rongshuxia.com/2CD92938CCCDC972D4C3038217AD7FAF.jpg")
 
         binding.btnAnimateIn.setOnClickListener {
-            val animateInDialogFragment = AnimateInDialogFragment()
-            animateInDialogFragment.show(supportFragmentManager, null)
+            //scaleInDialog()
+            topInDialog()
         }
     }
+
+    private fun scaleInDialog() {
+        val animateInDialogFragment = AnimateInDialogFragment()
+        animateInDialogFragment.show(supportFragmentManager, null)
+    }
+
+    private fun topInDialog() {
+        val dialog = TopSlideDialogFragment()
+        dialog.show(supportFragmentManager, "TopSlideDialog")
+    }
+
 
     private fun showDialog() {
         if (dialogFragment == null) {
