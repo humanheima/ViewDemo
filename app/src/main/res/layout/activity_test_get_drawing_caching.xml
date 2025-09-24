@@ -6,7 +6,9 @@
     android:orientation="vertical"
     tools:context=".activity.TestGetDrawingCachingActivity">
 
-    <include layout="@layout/layout_drawing_cache" />
+    <include
+        android:id="@+id/include_layout_drawing_cache"
+        layout="@layout/layout_drawing_cache" />
 
     <ImageView
         android:id="@+id/ivTop"

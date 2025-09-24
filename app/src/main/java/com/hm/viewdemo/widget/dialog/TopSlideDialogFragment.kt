@@ -44,6 +44,6 @@ class TopSlideDialogFragment : DialogFragment() {
         dialog?.window?.setGravity(Gravity.TOP)
 
         // 添加从顶部滑入的动画
-        dialog?.window?.setWindowAnimations(R.style.TopSlideAnimation)
+        //dialog?.window?.setWindowAnimations(R.style.TopSlideAnimation)
     }
 }

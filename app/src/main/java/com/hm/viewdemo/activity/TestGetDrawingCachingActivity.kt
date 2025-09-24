@@ -1,59 +1,51 @@
-package com.hm.viewdemo.activity;
+package com.hm.viewdemo.activity
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.hm.viewdemo.base.BaseActivity
+import com.hm.viewdemo.databinding.ActivityTestGetDrawingCachingBinding
+import com.hm.viewdemo.util.SaveViewBitmapUtils
 
-import com.hm.viewdemo.R;
-
-public class TestGetDrawingCachingActivity extends AppCompatActivity {
-
-
-    private final String TAG = "TestGetDrawingCachingAc";
+/**
+ * Created by p_dmweidu on 2025/9/24
+ * Desc: 测试获取ViewGroup上的 Bitmap
+ */
+class TestGetDrawingCachingActivity : BaseActivity<ActivityTestGetDrawingCachingBinding>() {
 
     //布局文件对应的view
-    private View view;
-    private TextView tvNumber;
-    private int number = 0;
-
+    private var tvNumber: TextView? = null
+    private var number = 0
     //用来显示生成的bitmap
-    private ImageView ivTop;
-    private Button btnGetBitmap;
+    private var ivTop: ImageView? = null
 
-
-    public static void launch(Context context) {
-        Intent starter = new Intent(context, TestGetDrawingCachingActivity.class);
-        context.startActivity(starter);
+    companion object {
+        fun launch(context: Context) {
+            val starter = Intent(context, TestGetDrawingCachingActivity::class.java)
+            context.startActivity(starter)
+        }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_get_drawing_caching);
-        //view = LayoutInflater.from(this).inflate(R.layout.layout_drawing_cache, null);
-        tvNumber = findViewById(R.id.tvNumber);
+    override fun createViewBinding(): ActivityTestGetDrawingCachingBinding {
+        return ActivityTestGetDrawingCachingBinding.inflate(layoutInflater)
+    }
 
-        ivTop = findViewById(R.id.ivTop);
-        btnGetBitmap = findViewById(R.id.btnGetBitmap);
-        btnGetBitmap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                number++;
-                //每次生成bitmap之前改变一下tvNumber的text
-                tvNumber.setText(String.valueOf(number));
-                Bitmap bitmap = convertViewToBitmap2(tvNumber);
-                ivTop.setBackgroundDrawable(new BitmapDrawable(bitmap));
-            }
-        });
+    override fun initData() {
+        tvNumber = binding.includeLayoutDrawingCache.tvNumber
+        binding.btnGetBitmap.setOnClickListener {
+            number++
+            //每次生成bitmap之前改变一下tvNumber的text
+            tvNumber?.text = number.toString()
+            // val bitmap = convertViewToBitmap2(tvNumber)
+            val bitmap = SaveViewBitmapUtils.getViewBitmap(tvNumber)
+            binding.ivTop.background = BitmapDrawable(resources, bitmap)
+        }
     }
 
     /**
@@ -62,12 +54,12 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
      * @param view
      * @return
      */
-    private Bitmap convertViewToBitmap2(View view) {
-        view.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+    private fun convertViewToBitmap2(view: View?): Bitmap {
+        view!!.isDrawingCacheEnabled = true
+        val bitmap = Bitmap.createBitmap(view.drawingCache)
         //如果不调用这个方法，每次生成的bitmap相同
-        view.setDrawingCacheEnabled(false);
-        return bitmap;
+        view.isDrawingCacheEnabled = false
+        return bitmap
     }
 
     /**
@@ -76,15 +68,15 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
      * @param view
      * @return
      */
-    private Bitmap copyByCanvas2(View view) {
-        int width = view.getMeasuredWidth();
-        int height = view.getMeasuredHeight();
-        Log.i(TAG, "copyByCanvas: width=" + width + ",height=" + height);
-        Bitmap bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bp);
-        view.draw(canvas);
-        canvas.save();
-        return bp;
+    private fun copyByCanvas2(view: View): Bitmap {
+        val width = view.measuredWidth
+        val height = view.measuredHeight
+        Log.i(TAG, "copyByCanvas: width=$width,height=$height")
+        val bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bp)
+        view.draw(canvas)
+        canvas.save()
+        return bp
     }
 
     /**
@@ -93,16 +85,18 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
      * @param view
      * @return
      */
-    private Bitmap convertViewToBitmap(View view) {
-        view.setDrawingCacheEnabled(true);
-        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+    private fun convertViewToBitmap(view: View): Bitmap {
+        view.isDrawingCacheEnabled = true
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
         //Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-        Bitmap bitmap = view.getDrawingCache();
+        val bitmap = view.drawingCache
         //如果不调用这个方法，每次生成的bitmap相同
-        view.setDrawingCacheEnabled(false);
-        return bitmap;
+        view.isDrawingCacheEnabled = false
+        return bitmap
     }
 
     /**
@@ -111,17 +105,20 @@ public class TestGetDrawingCachingActivity extends AppCompatActivity {
      * @param view
      * @return
      */
-    private Bitmap copyByCanvas(View view) {
-        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        int width = view.getMeasuredWidth();
-        int height = view.getMeasuredHeight();
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        Log.i(TAG, "copyByCanvas: width=" + width + ",height=" + height);
-        Bitmap bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bp);
-        view.draw(canvas);
-        canvas.save();
-        return bp;
+    private fun copyByCanvas(view: View): Bitmap {
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        val width = view.measuredWidth
+        val height = view.measuredHeight
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        Log.i(TAG, "copyByCanvas: width=$width,height=$height")
+        val bp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bp)
+        view.draw(canvas)
+        canvas.save()
+        return bp
     }
+
 }
