@@ -29,6 +29,7 @@ import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity2
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity3
+import com.hm.viewdemo.activity.compose.ComposePagerActivity
 import com.hm.viewdemo.activity.compose.UseComposeInFragmentActivity
 import com.hm.viewdemo.activity.compose.UseViewInComposeActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
@@ -208,6 +209,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 PullRefreshExampleActivity3.launch(this@MainActivity)
             }) {
                 Text(text = "测试Compose 下拉刷新3（页不足10条停止加载）")
+            }
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                ComposePagerActivity.launch(this@MainActivity)
+            }) {
+                Text(text = "Compose Pager 示例（每页下拉刷新/上拉加载）")
             }
         }
 

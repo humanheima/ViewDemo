@@ -237,6 +237,9 @@
         <activity
             android:name=".activity.compose.PullRefreshExampleActivity3"
             android:exported="false" />
+        <activity
+            android:name=".activity.compose.ComposePagerActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
