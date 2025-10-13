@@ -28,6 +28,7 @@ import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity2
+import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity3
 import com.hm.viewdemo.activity.compose.UseComposeInFragmentActivity
 import com.hm.viewdemo.activity.compose.UseViewInComposeActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
@@ -94,7 +95,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
         Debug.stopMethodTracing()
 
-        btnRoundProgressView = findViewById(R.id.btn_round_progress_view);
+        btnRoundProgressView = findViewById(R.id.btn_round_progress_view)
         btnRoundProgressView.scrollX = 100
 
         binding.scrollViewRoot.post {
@@ -116,10 +117,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
         ScreenUtil.printDisplayMetricsInfo(this)
 
         binding.composeView.setContent {
-
             MaterialTheme {
                 Surface {
-                    composeButton()
+                    ComposeButton()
                 }
             }
         }
@@ -186,7 +186,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
     }
 
     @Composable
-    fun composeButton() {
+    fun ComposeButton() {
         Column() {
             Button(modifier = Modifier.fillMaxWidth(),
                 onClick = {
@@ -203,6 +203,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 PullRefreshExampleActivity2.launch(this@MainActivity)
             }) {
                 Text(text = "测试Compose 下拉刷新2（智能加载更多）")
+            }
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                PullRefreshExampleActivity3.launch(this@MainActivity)
+            }) {
+                Text(text = "测试Compose 下拉刷新3（页不足10条停止加载）")
             }
         }
 
