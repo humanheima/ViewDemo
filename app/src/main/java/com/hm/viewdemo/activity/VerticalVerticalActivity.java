@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
 import com.hm.viewdemo.base.BaseActivity;
 import com.hm.viewdemo.databinding.ActivityVerticalVerticalBinding;
 import com.hm.viewdemo.widget.StickyLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by p_dmweidu on 2025/9/26
+ * Desc:
+ */
 public class VerticalVerticalActivity extends BaseActivity<ActivityVerticalVerticalBinding> {
 
     private List<String> dataList;

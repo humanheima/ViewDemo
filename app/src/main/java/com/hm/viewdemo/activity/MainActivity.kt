@@ -27,6 +27,7 @@ import com.hm.viewdemo.R
 import com.hm.viewdemo.RoundViewActivity
 import com.hm.viewdemo.TestScreenScrollViewActivity
 import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity
+import com.hm.viewdemo.activity.compose.PullRefreshExampleActivity2
 import com.hm.viewdemo.activity.compose.UseComposeInFragmentActivity
 import com.hm.viewdemo.activity.compose.UseViewInComposeActivity
 import com.hm.viewdemo.activity.compose.WidgetsActivity
@@ -197,6 +198,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 PullRefreshExampleActivity.launch(this@MainActivity)
             }) {
                 Text(text = "测试Compose 下拉刷新，上拉加载")
+            }
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                PullRefreshExampleActivity2.launch(this@MainActivity)
+            }) {
+                Text(text = "测试Compose 下拉刷新2（智能加载更多）")
             }
         }
 
@@ -575,7 +581,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             R.id.btn_horizontal_vertical_conflict -> HorizontalVerticalConflictActivity.launch(this)
             R.id.btn_customer_view -> CustomerViewActivity.launch(this)
             R.id.btn_expandable_listview -> ExpandableListViewActivity.launch(this)
-            R.id.btn_vertical_verticla_activity -> VerticalVerticalActivity.launch(this)
+            R.id.btn_vertical_vertical_activity -> VerticalVerticalActivity.launch(this)
             R.id.btn_scrollview_recyclerview_activity -> ScrollViewNestRecyclerViewActivity.launch(
                 this
             )
