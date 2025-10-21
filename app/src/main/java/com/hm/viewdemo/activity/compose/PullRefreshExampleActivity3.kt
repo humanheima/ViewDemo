@@ -7,10 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -18,6 +21,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -66,7 +70,9 @@ class PullRefreshExampleActivity3 : AppCompatActivity() {
 // 数据模型
 data class PullRefreshItem3(
     val id: Int,
-    val title: String
+    val title: String,
+    // 新增 checkbox 状态
+    val checked: Boolean = false
 )
 
 // UI 状态
@@ -88,7 +94,7 @@ class ListViewModel3 : ViewModel() {
     private val pageSize = 10
 
     // 模拟总数据量，方便演示（例如 25 条，导致最后一页不足 10 条）
-    private val simulatedTotal = 25
+    private val simulatedTotal = 45
 
     init {
         loadFirstPage()
@@ -141,13 +147,23 @@ class ListViewModel3 : ViewModel() {
         }
     }
 
+    // 新增：切换某项 checkbox 状态
+    fun toggleItemChecked(id: Int) {
+        _uiState.update { state ->
+            val newItems = state.items.map { item ->
+                if (item.id == id) item.copy(checked = !item.checked) else item
+            }
+            state.copy(items = newItems)
+        }
+    }
+
     private fun fetchItems(page: Int): List<PullRefreshItem3> {
         // 根据 simulatedTotal 生成固定的分页数据，便于复现最后一页不足 pageSize 的情况
         val from = (page - 1) * pageSize
         if (from >= simulatedTotal) return emptyList()
         val toExclusive = minOf(from + pageSize, simulatedTotal)
         val list = (from until toExclusive).map { idx ->
-            PullRefreshItem3(id = idx + 1, title = "Item ${idx + 1}")
+            PullRefreshItem3(id = idx + 1, title = "Item ${idx + 1}", checked = false)
         }
         return list
     }
@@ -194,16 +210,20 @@ fun PullRefreshListScreen3(viewModel: ListViewModel3 = viewModel()) {
             }
         } else {
             LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {
-                items(uiState.items) { item ->
-                    Box(
+                items(uiState.items, key = { it.id }) { item ->
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(64.dp)
                             .padding(6.dp)
                             .background(MaterialTheme.colorScheme.surfaceVariant),
-                        contentAlignment = Alignment.Center
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text(text = item.title, textAlign = TextAlign.Center)
+                        Checkbox(checked = item.checked, onCheckedChange = { viewModel.toggleItemChecked(item.id) })
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            Text(text = item.title, textAlign = TextAlign.Center)
+                        }
                     }
                 }
 
@@ -223,4 +243,3 @@ fun PullRefreshListScreen3(viewModel: ListViewModel3 = viewModel()) {
         PullRefreshIndicator(refreshing = uiState.isRefreshing, state = pullState, modifier = Modifier.align(Alignment.TopCenter))
     }
 }
-

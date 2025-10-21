@@ -224,16 +224,13 @@
         <activity android:name=".moneyscale.MoneyScaleMainActivity" />
         <activity android:name=".activity.RulerMainActivity" />
         <activity android:name=".activity.RuleViewMainActivity" />
-        <activity android:name=".activity.compose.PullRefreshExampleActivity" />
         <activity
             android:name=".animtest.ActivityAnimTestActivity"
             android:theme="@style/ActivityAnimTestTheme" />
         <activity android:name=".activity.MathTestActivity" />
 
         <receiver android:name=".alarm.YourBroadcastReceiver" />
-        <activity
-            android:name=".activity.compose.PullRefreshExampleActivity2"
-            android:exported="false" />
+
         <activity
             android:name=".activity.compose.PullRefreshExampleActivity3"
             android:exported="false" />
