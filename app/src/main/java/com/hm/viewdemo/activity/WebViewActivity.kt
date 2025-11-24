@@ -3,6 +3,7 @@ package com.hm.viewdemo.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,9 +17,9 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
-import com.hm.viewdemo.util.MD5Utils
 
 /**
  * Created by p_dmweidu on 2025/11/24
@@ -241,7 +242,7 @@ class WebViewActivity : AppCompatActivity() {
         val secretKey = "UoRH8417"
         /* 准备post参数 */
         val signature: String = "$openid$nickname$headimgurl$secretKey"
-        val md5String = MD5Utils.md5(signature)
+        val md5String = MD5Utils2.md5Encode(signature)
 
         // 2. 拼接参数为 "key1=value1&key2=value2" 格式，并 URLEncoder 编码
 //        val postDataStr = params.entries.joinToString("&") { entry ->
@@ -266,25 +267,12 @@ class WebViewActivity : AppCompatActivity() {
         //Log.d("WebViewPOST", "表单POST参数：$postDataStr")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun postJsonData() {
-        // 1. 构建 JSON 字符串（建议使用 Gson 库简化对象转 JSON，此处为原生字符串示例）
-        val openid = "246245927461851136" // 用户的openid
-        val nickname = "戏友5790" // 用户的nickname
-        val headimgurl =
-            "https://staticcdn-test.rolepub.com/13af773c478235e6228a6907a3b9da3c.jpg" // 用户的头像url
-
-
-        val jsonData = """
-            {
-                "openid": $openid,
-                "nickname": "$nickname",
-                "avatar": "$headimgurl",
-                "timestamp": ${System.currentTimeMillis()}
-            }
-        """.trimIndent()
-
         // 2. 转换为字节数组（UTF-8 编码）
-        val postData = jsonData.toByteArray(charset("UTF-8"))
+       // val postData = NativeAesEncryptUtils.simulateEncryptTransfer()
+        val postData = LoginStateEncryptUtils.main()
+        //val postData ="6eOq-S7hW0wZKFgPRl6hnx7jhxAv4ULv20eD-Y4D5IeqwDLx5oswky16IkBMk0wV1Z_tAgK8eibpLszJIBXWONHvYzF5XFgoGwdZRWyMQvX82K2Y0CZVknbRgForgzuC8ap0R3i63gVnvOFVQZwoUnnnKKmhp5o755Wf19jXTgAFT9Hc6_4nFx3e0NEkQnh1Mg471nYC3jpzwe0S75ie4pwG7kOrojkn8TP368Hz3HyVzGwixuPRm_1IrI9o52CX_V12iS6_hIFSke2b_eviZw"
 
         // 3. 配置 POST 请求头（关键：指定 Content-Type 为 application/json）
 //        webView.settings.setRequestHeader(
@@ -293,8 +281,8 @@ class WebViewActivity : AppCompatActivity() {
 //        )
 
         // 4. 发起 POST 请求
-        webView.postUrl(postJsonUrl, postData)
-        Log.d("WebViewPOST", "JSON POST参数：$jsonData")
+        webView.postUrl(postJsonUrl, postData.toByteArray())
+        //Log.d("WebViewPOST", "JSON POST参数：$jsonData")
     }
 
 
