@@ -18,12 +18,16 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hm.viewdemo.R
+import com.hm.viewdemo.util.MD5Utils
 
 /**
  * Created by p_dmweidu on 2025/11/24
  * Desc: 测试兔小巢
  */
 class WebViewActivity : AppCompatActivity() {
+
+
+    private val TAG = "WebViewActivity"
 
 
     private lateinit var webView: WebView
@@ -140,7 +144,7 @@ class WebViewActivity : AppCompatActivity() {
         }
 
         // 6. 加载网页
-        webView.loadUrl(testUrl)
+        //webView.loadUrl(testUrl)
 
         // 7. 绑定按钮点击事件
         bindButtonEvents()
@@ -229,14 +233,15 @@ class WebViewActivity : AppCompatActivity() {
             "age" to "25"
         )
 
-        val openid = "tucao_123" // 用户的openid
-        val nickname = "tucao_test" // 用户的nickname
+        val openid = "246245927461851136" // 用户的openid
+        val nickname = "戏友5790" // 用户的nickname
         val headimgurl =
-            "https://txc.qq.com/static/desktop/img/products/def-product-logo.png" // 用户的头像url
+            "https://staticcdn-test.rolepub.com/13af773c478235e6228a6907a3b9da3c.jpg" // 用户的头像url
 
-
+        val secretKey = "UoRH8417"
         /* 准备post参数 */
-        val postData: String = "nickname=$nickname&avatar=$headimgurl&openid=$openid"
+        val signature: String = "$openid$nickname$headimgurl$secretKey"
+        val md5String = MD5Utils.md5(signature)
 
         // 2. 拼接参数为 "key1=value1&key2=value2" 格式，并 URLEncoder 编码
 //        val postDataStr = params.entries.joinToString("&") { entry ->
@@ -252,17 +257,28 @@ class WebViewActivity : AppCompatActivity() {
 //            "application/x-www-form-urlencoded; charset=UTF-8"
 //        )
 
+        //webView.loadUrl(postFormUrl)
         // 5. 发起 POST 请求
-        webView.postUrl(postFormUrl, postData.toByteArray())
+        val postData2: String =
+            "nickname=$nickname&avatar=$headimgurl&openid=$openid&user_signature=$md5String"
+
+        webView.postUrl(postFormUrl, postData2.toByteArray(charset("UTF-8")))
         //Log.d("WebViewPOST", "表单POST参数：$postDataStr")
     }
 
     private fun postJsonData() {
         // 1. 构建 JSON 字符串（建议使用 Gson 库简化对象转 JSON，此处为原生字符串示例）
+        val openid = "246245927461851136" // 用户的openid
+        val nickname = "戏友5790" // 用户的nickname
+        val headimgurl =
+            "https://staticcdn-test.rolepub.com/13af773c478235e6228a6907a3b9da3c.jpg" // 用户的头像url
+
+
         val jsonData = """
             {
-                "name": "Android WebView",
-                "desc": "通过 WebView 提交 JSON 格式 POST 数据",
+                "openid": $openid,
+                "nickname": "$nickname",
+                "avatar": "$headimgurl",
                 "timestamp": ${System.currentTimeMillis()}
             }
         """.trimIndent()
