@@ -24,6 +24,8 @@
             android:name=".activity.TestRotateYActivity"
             android:exported="false" />
 
+        <activity android:name=".activity.WebViewActivity" />
+
         <activity
             android:name=".activity.WindowInsetsControllerActivity"
             android:exported="false" />
