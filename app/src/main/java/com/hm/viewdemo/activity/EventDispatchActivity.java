@@ -14,10 +14,6 @@ import com.hm.viewdemo.databinding.ActivityEventDispatchBinding;
 import com.hm.viewdemo.widget.EventDispatchButton;
 import com.hm.viewdemo.widget.MyImageView;
 
-/**
- * Created by p_dmweidu on 2024/4/5
- * Desc: 测试事件分发机制
- */
 public class EventDispatchActivity extends BaseActivity<ActivityEventDispatchBinding> {
 
     private static final String TAG = "EventDispatchActivity";

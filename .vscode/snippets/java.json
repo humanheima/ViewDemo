@@ -1,0 +1,13 @@
+{
+  "File header create": {
+    "prefix": "create",
+    "body": [
+      "/**",
+      " * Created by ${TM_USERNAME:${USER}} on ${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DATE}",
+      " * Desc: ${1:描述}",
+      " */",
+      "$0"
+    ],
+    "description": "Insert created-by header comment"
+  }
+}
