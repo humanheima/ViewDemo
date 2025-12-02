@@ -105,6 +105,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:2.7.0"
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation project(path: ':ruler')
     implementation project(path: ':myruleview')

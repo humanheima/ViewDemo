@@ -50,6 +50,9 @@
         <activity
             android:name=".activity.design.CoordinateLayoutActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.HotTopicActivity"
+            android:exported="false" />
         <activity android:name=".activity.OutlineTestActivity" />
         <activity android:name=".activity.ColorTestActivity" />
         <activity android:name=".activity.ShadowLayoutActivity" />

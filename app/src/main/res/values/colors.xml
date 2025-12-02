@@ -8,6 +8,14 @@
     <color name="colorAccent_1">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
+    
+    <!-- 热议榜相关颜色 -->
+    <color name="rank_first">#FF0101</color>
+    <color name="rank_second">#FF9102</color>
+    <color name="rank_third">#FFD901</color>
+    <color name="rank_others">#8E8E8E</color>
+    <color name="hot_topic_primary">#9780FF</color>
+    <color name="discussion_orange">#FF6200</color>
 
     <color name="vip_start_color">#4B4854</color>
     <color name="vip_end_color">#282533</color>

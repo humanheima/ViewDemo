@@ -299,6 +299,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 ChangeDayNightThemeActivity.launch(this)
             }
 
+            R.id.btn_hot_topic -> {
+                HotTopicActivity.launch(this)
+            }
+
             R.id.btn_test_merge -> {
                 MergeTestActivity.launch(this)
             }
