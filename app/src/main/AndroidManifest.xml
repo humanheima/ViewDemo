@@ -242,6 +242,10 @@
         <activity
             android:name=".activity.compose.ComposePagerActivity"
             android:exported="false" />
+        <activity
+            android:name="com.example.viewdemo.placeholder.PlaceholderExampleActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

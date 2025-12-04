@@ -49,6 +49,7 @@ import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
+import com.example.viewdemo.placeholder.PlaceholderExampleActivity
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.math.abs
 import kotlin.random.Random
@@ -301,6 +302,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btn_hot_topic -> {
                 HotTopicActivity.launch(this)
+            }
+
+            R.id.btn_placeholder_example -> {
+                // 启动占位符示例Activity
+                val intent = Intent(this, PlaceholderExampleActivity::class.java)
+                startActivity(intent)
             }
 
             R.id.btn_test_merge -> {
