@@ -44,6 +44,11 @@
         <attr name="textSize" format="dimension" />
     </declare-styleable>
 
+    <!--自定义页面指示器-->
+    <declare-styleable name="CustomPagerIndicator">
+        <attr name="dotMargin" format="dimension" />
+    </declare-styleable>
+
     <!--侧滑删除-->
     <declare-styleable name="SlideDeleteLayout">
         <!--是否可以通过滑动，显示删除菜单，默认true-->

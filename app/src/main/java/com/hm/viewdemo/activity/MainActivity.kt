@@ -459,6 +459,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 TabLayoutActivity.launch(this)
             }
 
+            R.id.btnPagerAdapterExample -> {
+                val intent = Intent(this, PagerAdapterExampleActivity::class.java)
+                startActivity(intent)
+            }
+
             R.id.btnListViewFloat -> {
                 ListViewFloatActivity.launch(this)
             }

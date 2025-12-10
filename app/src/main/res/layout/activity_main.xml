@@ -136,6 +136,14 @@
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/btnPagerAdapterExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="PagerAdapter示例（自定义指示器）"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/btn_test_blur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

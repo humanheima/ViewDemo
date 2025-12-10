@@ -118,6 +118,7 @@
         <activity android:name=".activity.AutoSizingTextViewActivity" />
         <activity android:name=".custom_view.chapter7.GradientDrawableActivity" />
         <activity android:name=".activity.design.TabLayoutActivity" />
+        <activity android:name=".activity.PagerAdapterExampleActivity" />
         <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.TestTickerActivity" />
         <activity android:name=".RoundViewActivity" />
