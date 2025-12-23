@@ -244,6 +244,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 TestRotateYActivity.launch(this)
             }
 
+            R.id.btn_test_vibration -> {
+                VibrationTestActivity.launch(this)
+            }
+
             R.id.btnTestWindowInsetsController -> {
                 WindowInsetsControllerActivity.launch(this)
             }

@@ -24,6 +24,10 @@
             android:name=".activity.TestRotateYActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activity.VibrationTestActivity"
+            android:exported="false" />
+
         <activity android:name=".activity.WebViewActivity" />
 
         <activity

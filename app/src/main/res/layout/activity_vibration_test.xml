@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity.VibrationTestActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="震动功能测试"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 基础震动测试 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="基础震动测试"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_short_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="短震动 (50ms)"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_long_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="长震动 (500ms)"
+            android:textAllCaps="false" />
+
+        <!-- 节拍震动测试 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="节拍震动测试"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_pattern_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="节拍震动 (短-长-短-长)"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_double_click_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="双击震动"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_custom_pattern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="自定义节拍 (SOS摩尔斯电码)"
+            android:textAllCaps="false" />
+
+        <!-- 场景震动测试 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="场景震动测试"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_success_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="成功提示震动"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_warning_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:text="警告震动"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_error_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:text="错误震动"
+            android:textAllCaps="false" />
+
+        <!-- 控制按钮 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="震动控制"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_stop_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="停止震动"
+            android:textAllCaps="false" />
+
+        <!-- 说明文本 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:text="使用说明:\n\n• 短震动: 适用于按钮点击反馈\n• 长震动: 适用于重要操作确认\n• 节拍震动: 适用于特殊提示\n• 场景震动: 适用于不同类型的用户反馈\n• 自定义节拍: 演示复杂震动模式\n\n注意: 需要在AndroidManifest.xml中添加震动权限"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>
