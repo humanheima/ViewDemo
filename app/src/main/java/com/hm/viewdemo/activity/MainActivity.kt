@@ -248,6 +248,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 VibrationTestActivity.launch(this)
             }
 
+            R.id.btn_curved_image_view -> {
+                CurvedImageViewActivity.launch(this)
+            }
+
             R.id.btnTestWindowInsetsController -> {
                 WindowInsetsControllerActivity.launch(this)
             }

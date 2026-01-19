@@ -72,7 +72,6 @@
         <activity
             android:name=".day_night.ChangeDayNightThemeActivity"
             android:exported="false" />
-        <activity android:name=".day_night.DarkModeManager" />
         <activity
             android:name=".activity.NinePatchDrawableActivity"
             android:exported="false" />
@@ -247,9 +246,12 @@
         <activity
             android:name=".activity.compose.ComposePagerActivity"
             android:exported="false" />
+
         <activity
             android:name="com.example.viewdemo.placeholder.PlaceholderExampleActivity"
             android:exported="false" />
+
+        <activity android:name=".activity.CurvedImageViewActivity" />
 
     </application>
 

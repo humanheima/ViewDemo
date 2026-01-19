@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ImageView弯曲效果演示"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textColor="#333333" />
+
+    <!-- 弯曲效果的ImageView容器 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="24dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp">
+
+        <com.hm.viewdemo.widget.CurvedImageView
+            android:id="@+id/curved_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_soft_avatar"
+            android:scaleType="centerCrop" />
+
+    </FrameLayout>
+
+    <!-- 弯曲程度控制 -->
+    <TextView
+        android:id="@+id/tv_curvature_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="弯曲程度: 0.50"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:textColor="#666666" />
+
+    <SeekBar
+        android:id="@+id/seek_bar_curvature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:max="100"
+        android:progress="50" />
+
+    <!-- 示例图片按钮 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择示例图片："
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#333333" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_sample_image_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="图片1"
+            android:textAllCaps="false"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <Button
+            android:id="@+id/btn_sample_image_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="图片2"
+            android:textAllCaps="false"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <Button
+            android:id="@+id/btn_sample_image_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="图片3"
+            android:textAllCaps="false"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+    </LinearLayout>
+
+    <!-- 重置按钮 -->
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重置 (使用应用图标)"
+        android:textAllCaps="false"
+        android:background="?attr/colorPrimary"
+        android:textColor="@android:color/white" />
+
+    <!-- 说明文字 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="使用SeekBar调节弯曲程度，实现图片以中心竖直轴向屏幕内弯曲的效果。\n\n弯曲原理：将图片分成多个垂直段，对每段应用不同的3D旋转和Z轴偏移，距离中心越远的部分旋转角度和Z轴偏移越大。"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:lineSpacingExtra="2dp" />
+
+</LinearLayout>

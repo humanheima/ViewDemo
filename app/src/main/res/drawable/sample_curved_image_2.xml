@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- 网格背景 -->
+    <path
+        android:pathData="M0,0 L200,0 L200,200 L0,200 Z"
+        android:fillColor="#E8F5E8" />
+
+    <!-- 垂直线条 -->
+    <path android:pathData="M20,0 L25,0 L25,200 L20,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M40,0 L45,0 L45,200 L40,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M60,0 L65,0 L65,200 L60,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M80,0 L85,0 L85,200 L80,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M100,0 L105,0 L105,200 L100,200 Z" android:fillColor="#2E7D32" />
+    <path android:pathData="M120,0 L125,0 L125,200 L120,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M140,0 L145,0 L145,200 L140,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M160,0 L165,0 L165,200 L160,200 Z" android:fillColor="#4CAF50" />
+    <path android:pathData="M180,0 L185,0 L185,200 L180,200 Z" android:fillColor="#4CAF50" />
+
+    <!-- 水平线条 -->
+    <path android:pathData="M0,50 L200,50 L200,55 L0,55 Z" android:fillColor="#81C784" />
+    <path android:pathData="M0,100 L200,100 L200,105 L0,105 Z" android:fillColor="#81C784" />
+    <path android:pathData="M0,150 L200,150 L200,155 L0,155 Z" android:fillColor="#81C784" />
+
+</vector>
+

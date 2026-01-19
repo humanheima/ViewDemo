@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- 白色背景 -->
+    <path android:pathData="M0,0 L200,0 L200,200 L0,200 Z" android:fillColor="#FFFFFF" />
+
+    <!-- 简化的棋盘图案 -->
+    <!-- 第一行黑色方块 -->
+    <path android:pathData="M0,0 L25,0 L25,25 L0,25 Z" android:fillColor="#000000" />
+    <path android:pathData="M50,0 L75,0 L75,25 L50,25 Z" android:fillColor="#000000" />
+    <path android:pathData="M100,0 L125,0 L125,25 L100,25 Z" android:fillColor="#000000" />
+    <path android:pathData="M150,0 L175,0 L175,25 L150,25 Z" android:fillColor="#000000" />
+
+    <!-- 第二行黑色方块 -->
+    <path android:pathData="M25,25 L50,25 L50,50 L25,50 Z" android:fillColor="#000000" />
+    <path android:pathData="M75,25 L100,25 L100,50 L75,50 Z" android:fillColor="#000000" />
+    <path android:pathData="M125,25 L150,25 L150,50 L125,50 Z" android:fillColor="#000000" />
+    <path android:pathData="M175,25 L200,25 L200,50 L175,50 Z" android:fillColor="#000000" />
+
+    <!-- 第三行黑色方块 -->
+    <path android:pathData="M0,50 L25,50 L25,75 L0,75 Z" android:fillColor="#000000" />
+    <path android:pathData="M50,50 L75,50 L75,75 L50,75 Z" android:fillColor="#000000" />
+    <path android:pathData="M100,50 L125,50 L125,75 L100,75 Z" android:fillColor="#000000" />
+    <path android:pathData="M150,50 L175,50 L175,75 L150,75 Z" android:fillColor="#000000" />
+
+    <!-- 第四行黑色方块 -->
+    <path android:pathData="M25,75 L50,75 L50,100 L25,100 Z" android:fillColor="#000000" />
+    <path android:pathData="M75,75 L100,75 L100,100 L75,100 Z" android:fillColor="#000000" />
+    <path android:pathData="M125,75 L150,75 L150,100 L125,100 Z" android:fillColor="#000000" />
+    <path android:pathData="M175,75 L200,75 L200,100 L175,100 Z" android:fillColor="#000000" />
+
+    <!-- 中心红色方块突出显示中心线 -->
+    <path android:pathData="M87.5,87.5 L112.5,87.5 L112.5,112.5 L87.5,112.5 Z" android:fillColor="#FF4444" />
+
+</vector>
+
