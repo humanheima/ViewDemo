@@ -20,7 +20,6 @@ import com.hm.viewdemo.databinding.ActivityEdittextBinding
 class EditTextActivity : BaseActivity<ActivityEdittextBinding>() {
 
 
-
     companion object {
 
         fun launch(context: Context) {
@@ -35,6 +34,11 @@ class EditTextActivity : BaseActivity<ActivityEdittextBinding>() {
     }
 
     override fun initData() {
+        binding.et1.onFocusChangeListener = object : android.view.View.OnFocusChangeListener {
+            override fun onFocusChange(p0: android.view.View?, hasFocus: Boolean) {
+                Log.d(TAG, "onFocusChange: hasFocus = $hasFocus")
+            }
+        }
 
         binding.et1.customSelectionActionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
