@@ -16,11 +16,13 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             app:hl_cornerRadius="18dp"
+            app:hl_shadowSymmetry="false"
             app:hl_shadowColor="#55ff00d5"
-            app:hl_shadowLimit="20dp"
-            app:hl_shadowOffsetY="5dp">
+            app:hl_shadowLimit="15dp"
+            app:hl_shadowOffsetY="15dp">
 
             <TextView
+                android:background="@color/green"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:gravity="center"

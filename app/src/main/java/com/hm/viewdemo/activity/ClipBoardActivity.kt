@@ -17,7 +17,8 @@ import java.net.URLEncoder
 
 /**
  * Created by p_dmweidu on 2022/9/5
- * Desc: 1. 测试粘贴板的使用
+ * Desc: 1. 测试粘贴板的使用；注意，如果要是在SplashActivity中使用粘贴板，可能会存在获取不到内容的情况，最好要 post 一个 Runnable 来获取粘贴板内容。
+ *
  *       2. 研究 Uri 和 URLEncode
  */
 class ClipBoardActivity : AppCompatActivity() {
@@ -142,9 +143,11 @@ class ClipBoardActivity : AppCompatActivity() {
                     }
                 }
             }
+
             R.id.btn_clear_clipboard -> {
                 ClipBoardUtil.clear(this)
             }
+
             R.id.btn_test_Uri -> {
                 val text = "abcdeffffff"
                 val uri = Uri.parse(text)
@@ -154,6 +157,7 @@ class ClipBoardActivity : AppCompatActivity() {
 
 
             }
+
             R.id.btn_test_URLEncoder -> {
                 val text = "http://www.baidu.com?params=abcdeffffff"
                 val encoder = URLEncoder.encode(text, "UTF-8")

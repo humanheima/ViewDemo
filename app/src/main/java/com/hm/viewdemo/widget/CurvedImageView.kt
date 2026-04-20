@@ -94,13 +94,15 @@ class CurvedImageView @JvmOverloads constructor(
             val distanceFromCenter = (segmentCenterX - centerX) / centerX
 
             // 使用更平滑的曲线函数来计算旋转角度
-            val maxRotationAngle = 45f * curvature // 减小最大旋转角度使效果更自然
+            // 减少旋转角度以保持更好的高度视觉效果
+            val maxRotationAngle = 30f * curvature // 进一步减小最大旋转角度
             val rotationAngle =
                 distanceFromCenter * maxRotationAngle * sin(PI * abs(distanceFromCenter) / 2).toFloat()
 
             // 计算Z轴偏移，使用二次函数实现更自然的弯曲
-            val maxZOffset = 150f * curvature
+            val maxZOffset = 100f * curvature // 减少Z轴偏移量
             val zOffset = maxZOffset * distanceFromCenter * distanceFromCenter
+
 
             // 准备矩阵变换
             matrix.reset()
@@ -115,6 +117,7 @@ class CurvedImageView @JvmOverloads constructor(
             // 调整变换中心点
             matrix.preTranslate(-segmentCenterX, -height / 2f)
             matrix.postTranslate(segmentCenterX, height / 2f)
+
 
             // 创建该段的源矩形和目标矩形
             val srcRect = Rect(left.toInt(), 0, right.toInt(), height.toInt())
