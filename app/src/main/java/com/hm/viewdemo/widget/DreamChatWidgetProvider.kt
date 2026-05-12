@@ -32,9 +32,23 @@ class DreamChatWidgetProvider : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         if (intent.action == ACTION_REFRESH) {
-            val manager = AppWidgetManager.getInstance(context)
-            val widgetIds = manager.getAppWidgetIds(ComponentName(context, javaClass))
-            widgetIds.forEach { updateSingleWidget(context, manager, it, defaultData()) }
+
+            // 再模拟网络请求，加载新图片并局部更新
+            IMAGE_EXECUTOR.execute {
+                // 模拟网络延迟
+                Thread.sleep(1000)
+                val newData = WidgetData(
+                    title = "跟你的梦中人聊聊",
+                    brandName = "筑梦岛",
+                    characters = listOf(
+                        WidgetData.Character("红羽", REFRESH_URL),
+                        WidgetData.Character("君山", REFRESH_URL),
+                        WidgetData.Character("摄羽", REFRESH_URL),
+                        WidgetData.Character("鹤白", REFRESH_URL)
+                    )
+                )
+                refreshWithData(context, newData)
+            }
         }
     }
 
@@ -43,6 +57,9 @@ class DreamChatWidgetProvider : AppWidgetProvider() {
 
         private const val DEFAULT_URL =
             "https://imgservices-1252317822.image.myqcloud.com/coco/s11172022/6db4fb37.u34k62.png"
+
+        private const val REFRESH_URL =
+            "https://imgservices-1252317822.image.myqcloud.com/coco/s11272024/163fb33f.clpj4j.png"
 
         private val IMAGE_EXECUTOR = Executors.newFixedThreadPool(2)
         private val IMAGE_CACHE = LruCache<String, Bitmap>(8)
