@@ -312,6 +312,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 HotTopicActivity.launch(this)
             }
 
+            R.id.btn_widget_demo -> {
+                AppWidgetDemoActivity.launch(this)
+            }
+
             R.id.btn_placeholder_example -> {
                 // 启动占位符示例Activity
                 val intent = Intent(this, PlaceholderExampleActivity::class.java)

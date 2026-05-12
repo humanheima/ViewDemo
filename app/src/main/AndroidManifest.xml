@@ -240,6 +240,19 @@
 
         <receiver android:name=".alarm.YourBroadcastReceiver" />
 
+        <receiver
+            android:name=".widget.DreamChatWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.hm.viewdemo.action.DREAM_WIDGET_REFRESH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/dream_chat_widget_info" />
+        </receiver>
+
         <activity
             android:name=".activity.compose.PullRefreshExampleActivity3"
             android:exported="false" />
@@ -249,6 +262,10 @@
 
         <activity
             android:name="com.example.viewdemo.placeholder.PlaceholderExampleActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AppWidgetDemoActivity"
             android:exported="false" />
 
         <activity android:name=".activity.CurvedImageViewActivity" />
