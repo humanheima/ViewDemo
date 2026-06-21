@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
+
 import com.hm.viewdemo.R;
 import com.hm.viewdemo.util.ScreenUtil;
 
@@ -32,7 +34,7 @@ import java.util.List;
  * V           ^
  * >>>>>>>>>>>>>
  */
-public class WaveView extends View {
+public class BreathView extends View {
 
     private static final String TAG = "SubscribeButtonWaveView";
 
@@ -53,15 +55,15 @@ public class WaveView extends View {
     private long mLastCreateTime;
     private List<Rim> mRimList = new ArrayList<>();
 
-    public WaveView(Context context) {
+    public BreathView(Context context) {
         this(context, null);
     }
 
-    public WaveView(Context context, AttributeSet attrs) {
+    public BreathView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public WaveView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BreathView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -89,9 +91,10 @@ public class WaveView extends View {
                     mIsRunning = false;
                     return;
                 }*/
+                //取值 0,1,2,3,4
                 int mod = mPlayCount % 5;
                 if (mod == 3 || mod == 4) {
-                    //创建了不绘制
+                    //创建了不绘制，留有空白，形成波纹之间的间隔
                     newRim(true);
                 } else {
                     newRim(false);
@@ -136,7 +139,7 @@ public class WaveView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         Log.d(TAG, "onDraw: ");
         Iterator<Rim> iterator = mRimList.iterator();
@@ -153,7 +156,12 @@ public class WaveView extends View {
                 iterator.remove();
             }
         }
-        if (mRimList.size() > 0) {
+        /**
+         * onDraw(Canvas canvas) 默认不会每一帧自动回调。
+         * 它只在 View 需要重绘 的时候才会被系统调用，而不是像游戏引擎那样每秒固定 60 次自动执行。
+         * 所以这里要主动调用。
+         */
+        if (!mRimList.isEmpty()) {
             postInvalidateDelayed(50);
         }
     }
@@ -180,7 +188,7 @@ public class WaveView extends View {
     }
 
     private class Rim {
-        private long mCreateTime;
+        private final long mCreateTime;
         private boolean noDraw;
 
         Rim() {

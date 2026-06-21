@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.TestWaveViewActivity">
+    tools:context=".activity.TestBreathViewActivity">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_round_rect_stroke">
 
-        <com.hm.viewdemo.widget.WaveView
+        <com.hm.viewdemo.widget.BreathView
             android:id="@+id/wave_view"
             android:layout_width="0dp"
             android:layout_height="match_parent" />

@@ -110,7 +110,7 @@
 
         <activity android:name=".activity.TestScrollerUpViewActivity" />
         <activity android:name=".activity.SeekBarTestActivity" />
-        <activity android:name=".activity.TestWaveViewActivity" />
+        <activity android:name=".activity.TestBreathViewActivity" />
         <activity android:name=".activity.WebViewTestActivity" />
         <activity android:name=".activity.ScrollFlingTestActivity" />
         <activity android:name=".nested_scroll.NestedScrollMainActivity" />

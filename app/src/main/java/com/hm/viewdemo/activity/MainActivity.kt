@@ -439,7 +439,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
 
             R.id.btnTestWaveView -> {
-                TestWaveViewActivity.launch(this)
+                TestBreathViewActivity.launch(this)
             }
 
             R.id.btnTestScrollFling -> {

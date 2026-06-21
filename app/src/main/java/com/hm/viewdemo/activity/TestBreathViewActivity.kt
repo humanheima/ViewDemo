@@ -9,23 +9,23 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.hm.viewdemo.R
-import com.hm.viewdemo.databinding.ActivityTestWaveViewBinding
+import com.hm.viewdemo.databinding.ActivityTestBreathViewBinding
 import com.hm.viewdemo.util.ScreenUtil
-import com.hm.viewdemo.widget.WaveView
+import com.hm.viewdemo.widget.BreathView
 
 /**
  * Created by dumingwei on 2020/12/11
  *
  * Desc: 测试呼吸动效的View
  */
-class TestWaveViewActivity : AppCompatActivity() {
+class TestBreathViewActivity : AppCompatActivity() {
 
     private val TAG: String = "TestWaveViewActivity"
 
-    private lateinit var binding: ActivityTestWaveViewBinding
+    private lateinit var binding: ActivityTestBreathViewBinding
 
     private lateinit var textView: TextView
-    private lateinit var waveView: WaveView
+    private lateinit var breathView: BreathView
 
 
     private lateinit var circleAnimation1: Animation
@@ -39,26 +39,26 @@ class TestWaveViewActivity : AppCompatActivity() {
     companion object {
 
         fun launch(context: Context) {
-            val intent = Intent(context, TestWaveViewActivity::class.java)
+            val intent = Intent(context, TestBreathViewActivity::class.java)
             context.startActivity(intent)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTestWaveViewBinding.inflate(layoutInflater)
+        binding = ActivityTestBreathViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         textView = binding.mainAlbumSingleSubscribeTv
-        waveView = binding.waveView
+        breathView = binding.waveView
 
-        val layoutParams = waveView.layoutParams
+        val layoutParams = breathView.layoutParams
         textView.post {
             val width = textView.measuredWidth
             if (layoutParams is ViewGroup.MarginLayoutParams) {
                 layoutParams.width = width + ScreenUtil.dpToPx(this, 26)
-                waveView.layoutParams = layoutParams
-                waveView.start()
+                breathView.layoutParams = layoutParams
+                breathView.start()
             }
         }
 
@@ -134,12 +134,12 @@ class TestWaveViewActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        waveView.start()
+        breathView.start()
     }
 
     override fun onPause() {
         super.onPause()
-        waveView.stop()
+        breathView.stop()
     }
 
 }
