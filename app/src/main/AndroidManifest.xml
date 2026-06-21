@@ -272,6 +272,8 @@
 
         <activity android:name=".activity.CylinderImageViewActivity" />
 
+        <activity android:name=".activity.WaveProgressViewActivity" />
+
     </application>
 
 </manifest>

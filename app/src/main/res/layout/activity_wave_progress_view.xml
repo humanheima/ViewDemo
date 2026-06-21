@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EFEFEF">
+
+        <com.hm.viewdemo.widget.WaveProgressView
+            android:id="@+id/wave"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="进度 progress: 0" />
+
+    <SeekBar
+        android:id="@+id/seekProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/tvAmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="振幅 amplitudeRatio: 0.08" />
+
+    <SeekBar
+        android:id="@+id/seekAmp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30"
+        android:progress="8" />
+
+    <TextView
+        android:id="@+id/tvWaveCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="波密度 waveCount: 1.6" />
+
+    <SeekBar
+        android:id="@+id/seekWaveCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="50"
+        android:progress="16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAutoFill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动加载到100%"
+            android:textAllCaps="false" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnWaveAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止水流"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</LinearLayout>

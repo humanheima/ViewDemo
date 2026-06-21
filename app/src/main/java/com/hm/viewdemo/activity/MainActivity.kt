@@ -256,6 +256,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 CylinderImageViewActivity.launch(this)
             }
 
+            R.id.btn_wave_progress_view -> {
+                WaveProgressViewActivity.launch(this)
+            }
+
             R.id.btnTestWindowInsetsController -> {
                 WindowInsetsControllerActivity.launch(this)
             }
