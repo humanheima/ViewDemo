@@ -252,6 +252,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 CurvedImageViewActivity.launch(this)
             }
 
+            R.id.btn_cylinder_image_view -> {
+                CylinderImageViewActivity.launch(this)
+            }
+
             R.id.btnTestWindowInsetsController -> {
                 WindowInsetsControllerActivity.launch(this)
             }

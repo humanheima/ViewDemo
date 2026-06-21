@@ -270,6 +270,8 @@
 
         <activity android:name=".activity.CurvedImageViewActivity" />
 
+        <activity android:name=".activity.CylinderImageViewActivity" />
+
     </application>
 
 </manifest>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EFEFEF">
+
+        <com.hm.viewdemo.widget.CylinderImageView
+            android:id="@+id/cylinder"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_dog" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvArc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="弯曲角度 arcDegrees: 120" />
+
+    <SeekBar
+        android:id="@+id/seekArc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="150"
+        android:progress="120" />
+
+    <TextView
+        android:id="@+id/tvCam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="透视强度 cameraFactor: 1.2" />
+
+    <SeekBar
+        android:id="@+id/seekCam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="40"
+        android:progress="12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/switchAxis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="横轴弯曲(上下边)" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="呼吸动画" />
+    </LinearLayout>
+
+</LinearLayout>
