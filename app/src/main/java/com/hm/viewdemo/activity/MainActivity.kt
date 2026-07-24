@@ -47,6 +47,7 @@ import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
 import com.hm.viewdemo.guide.GuideQueueManagerActivity
 import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
+import com.hm.viewdemo.startup.StartupDemo
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
 import com.example.viewdemo.placeholder.PlaceholderExampleActivity
@@ -124,6 +125,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
             }
         }
 
+        StartupDemo.triggerDeferredInit(this)
         testGestureDetector()
     }
 
@@ -696,4 +698,3 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
     }
 
 }
-
