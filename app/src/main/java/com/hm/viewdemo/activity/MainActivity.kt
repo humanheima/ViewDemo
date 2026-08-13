@@ -47,6 +47,7 @@ import com.hm.viewdemo.day_night.ChangeDayNightThemeActivity
 import com.hm.viewdemo.guide.GuideQueueManagerActivity
 import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
+import com.hm.viewdemo.navigation.NavigationFragmentExampleActivity
 import com.hm.viewdemo.startup.StartupDemo
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
@@ -284,6 +285,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btn_use_compose_in_fragment -> {
                 UseComposeInFragmentActivity.launch(this)
+            }
+
+            R.id.btn_navigation_fragment_example -> {
+                NavigationFragmentExampleActivity.launch(this)
             }
 
             R.id.btnCalendar -> {

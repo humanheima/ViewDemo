@@ -58,6 +58,9 @@
             android:name=".activity.compose.UseComposeInFragmentActivity"
             android:exported="false" />
         <activity
+            android:name=".navigation.NavigationFragmentExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".calendar.CalendarTestActivity"
             android:exported="false" />
         <activity

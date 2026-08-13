@@ -19,6 +19,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+              <Button
+                android:id="@+id/btn_navigation_fragment_example"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Navigation + Fragment 导航示例"
+                android:textAllCaps="false" />
+
             <androidx.compose.ui.platform.ComposeView
                 android:id="@+id/compose_view"
                 android:layout_width="match_parent"

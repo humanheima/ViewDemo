@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_fragment_graph"
+    app:startDestination="@id/navigationHomeFragment">
+
+    <fragment
+        android:id="@+id/navigationHomeFragment"
+        android:name="com.hm.viewdemo.navigation.NavigationHomeFragment"
+        android:label="首页">
+        <action
+            android:id="@+id/action_navigationHomeFragment_to_navigationDetailFragment"
+            app:destination="@id/navigationDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationDetailFragment"
+        android:name="com.hm.viewdemo.navigation.NavigationDetailFragment"
+        android:label="详情">
+        <argument
+            android:name="item_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigationDetailFragment_to_navigationConfirmationFragment"
+            app:destination="@id/navigationConfirmationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationConfirmationFragment"
+        android:name="com.hm.viewdemo.navigation.NavigationConfirmationFragment"
+        android:label="确认">
+        <argument
+            android:name="item_id"
+            app:argType="string" />
+    </fragment>
+</navigation>
