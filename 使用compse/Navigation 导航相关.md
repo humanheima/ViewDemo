@@ -7,7 +7,9 @@ Navigation 组件用于管理应用内的页面跳转和返回栈。传统 View 
 | 文件 | 作用 |
 | --- | --- |
 | `app/src/main/java/com/hm/viewdemo/navigation/NavigationFragmentExampleActivity.kt` | 设置 Activity 布局，布局中声明 `NavHostFragment` |
+| `app/src/main/java/com/hm/viewdemo/navigation/DynamicNavigationFragmentExampleActivity.kt` | 只使用普通容器，在代码中动态创建并安装 `NavHostFragment` |
 | `app/src/main/res/layout/activity_navigation_fragment_example.xml` | `FragmentContainerView` 容器，绑定 `app:navGraph` 和 `app:defaultNavHost` |
+| `app/src/main/res/layout/activity_dynamic_navigation_fragment_example.xml` | 普通 `FrameLayout` 容器，不声明 `NavHostFragment` |
 | `app/src/main/res/navigation/navigation_fragment_graph.xml` | 声明 destination、action 和参数 |
 | `NavigationHomeFragment.kt` | 首页，点击按钮导航到详情页并传参 |
 | `NavigationDetailFragment.kt` | 读取参数，继续导航到确认页 |
@@ -65,6 +67,36 @@ supportFragmentManager.beginTransaction()
 ```
 
 因此，`android:name` 不是 Navigation 组件本身绝对不可缺少的属性，而是当前“通过 XML 自动创建 NavHostFragment”方案中的必要属性。使用代码创建方案时，可以移除它，但必须补上对应的 Fragment 创建和事务提交逻辑。
+
+#### 1.1 动态创建 NavHostFragment 的完整示例
+
+主页面中的“动态创建 NavHostFragment 示例”使用普通 `FrameLayout` 作为容器，Activity 中通过代码安装 NavHost：
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_dynamic_navigation_fragment_example)
+
+    // 只在首次创建时添加。重建时 FragmentManager 会自动恢复已有 NavHost。
+    if (savedInstanceState == null) {
+        val navHost = NavHostFragment.create(
+            R.navigation.navigation_fragment_graph
+        )
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.navigation_dynamic_host, navHost)
+            .setPrimaryNavigationFragment(navHost)
+            .commit()
+    }
+}
+```
+
+这种方式与 XML 方式使用的是同一个 `navigation_fragment_graph.xml`，因此三个 Fragment 的导航行为完全一致。区别只在于 NavHost 的创建时机：
+
+- XML 方式由 `FragmentContainerView` 根据 `android:name` 自动创建，`app:navGraph` 自动绑定导航图。
+- 动态方式由 Activity 调用 `NavHostFragment.create(graphId)` 创建，再通过 `FragmentTransaction.replace()` 放入普通容器。
+
+动态方式必须注意 `savedInstanceState` 判断。如果每次 `onCreate()` 都执行 `replace()`，屏幕旋转或系统回收后恢复 Activity 时可能重复添加 NavHost，导致重复 Fragment 或返回栈状态异常。`setPrimaryNavigationFragment()` 对应 XML 的 `app:defaultNavHost="true"`，用于让系统返回键交给这个 NavHost。
 
 #### 2. 在 navigation graph 中声明目的地和 action
 

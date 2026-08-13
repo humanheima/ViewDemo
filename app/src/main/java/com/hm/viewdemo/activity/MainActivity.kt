@@ -48,6 +48,7 @@ import com.hm.viewdemo.guide.GuideQueueManagerActivity
 import com.hm.viewdemo.moneyscale.MoneyScaleMainActivity
 import com.hm.viewdemo.nested_scroll.NestedScrollMainActivity
 import com.hm.viewdemo.navigation.NavigationFragmentExampleActivity
+import com.hm.viewdemo.navigation.DynamicNavigationFragmentExampleActivity
 import com.hm.viewdemo.startup.StartupDemo
 import com.hm.viewdemo.util.ScreenUtil
 import com.hm.viewdemo.widget.ChatThreeAvatarView
@@ -289,6 +290,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btn_navigation_fragment_example -> {
                 NavigationFragmentExampleActivity.launch(this)
+            }
+
+            R.id.btn_dynamic_navigation_fragment_example -> {
+                DynamicNavigationFragmentExampleActivity.launch(this)
             }
 
             R.id.btnCalendar -> {

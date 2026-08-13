@@ -61,6 +61,9 @@
             android:name=".navigation.NavigationFragmentExampleActivity"
             android:exported="false" />
         <activity
+            android:name=".navigation.DynamicNavigationFragmentExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".calendar.CalendarTestActivity"
             android:exported="false" />
         <activity
