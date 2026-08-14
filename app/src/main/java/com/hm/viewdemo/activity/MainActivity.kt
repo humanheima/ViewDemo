@@ -35,6 +35,7 @@ import com.hm.viewdemo.activity.design.CoordinateLayoutActivity
 import com.hm.viewdemo.activity.design.PinScrollTextActivity
 import com.hm.viewdemo.activity.design.TabLayoutActivity
 import com.hm.viewdemo.activity.textview.FontMetricsActivity
+import com.hm.viewdemo.aibot.AiBotActivity
 import com.hm.viewdemo.animtest.ActivityAnimTestActivity
 import com.hm.viewdemo.base.BaseActivity
 import com.hm.viewdemo.bean.Info
@@ -230,6 +231,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
     fun onClick(view: View) {
         when (view.id) {
+
+            R.id.btn_ai_bot -> AiBotActivity.launch(this)
 
             R.id.btn_test_webview -> WebViewActivity.launch(this)
             R.id.btnTestLayerDrawable -> LayerDrawableTestActivity.launch(this)

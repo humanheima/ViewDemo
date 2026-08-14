@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ai_bot_background">#F6F7FB</color>
+    <color name="ai_bot_toolbar">#FFFFFF</color>
+    <color name="ai_bot_primary">#3157D5</color>
+    <color name="ai_bot_primary_pressed">#2748B7</color>
+    <color name="ai_bot_text_primary">#172033</color>
+    <color name="ai_bot_text_secondary">#6B7280</color>
+    <color name="ai_bot_assistant_bubble">#FFFFFF</color>
+    <color name="ai_bot_user_bubble">#3157D5</color>
+    <color name="ai_bot_input">#FFFFFF</color>
+    <color name="ai_bot_input_border">#E0E4EC</color>
+    <color name="ai_bot_code_background">#F0F2F7</color>
+    <color name="ai_bot_table_header">#EEF2FF</color>
+    <color name="ai_bot_table_cell">#FFFFFF</color>
+    <color name="ai_bot_table_border">#D9DFEC</color>
+</resources>
