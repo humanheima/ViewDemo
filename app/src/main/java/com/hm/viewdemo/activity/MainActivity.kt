@@ -234,6 +234,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btn_ai_bot -> AiBotActivity.launch(this)
 
+            R.id.btn_share_demo -> ShareDemoActivity.launch(this)
+
             R.id.btn_test_webview -> WebViewActivity.launch(this)
             R.id.btnTestLayerDrawable -> LayerDrawableTestActivity.launch(this)
 

@@ -4,6 +4,18 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FFFF4081</color>
 
+    <color name="share_background">#F5F7FB</color>
+    <color name="share_surface">#FFFFFFFF</color>
+    <color name="share_preview_surface">#EEF3FF</color>
+    <color name="share_input_surface">#FAFBFE</color>
+    <color name="share_input_stroke">#DCE3EF</color>
+    <color name="share_primary">#3159C9</color>
+    <color name="share_secondary_button">#E7EDFF</color>
+    <color name="share_badge_surface">#E3EBFF</color>
+    <color name="share_text_primary">#17233D</color>
+    <color name="share_text_secondary">#5D6880</color>
+    <color name="share_text_hint">#8994A8</color>
+
 
     <color name="colorAccent_1">#FF4081</color>
     <color name="white">#ffffff</color>
