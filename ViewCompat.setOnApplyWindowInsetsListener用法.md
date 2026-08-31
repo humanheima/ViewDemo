@@ -61,6 +61,17 @@ Insets 回调不是一次性初始化。必须使用每次回调提供的最新�
 
 如果内容需要延伸到状态栏或导航栏后面，先关闭窗口的默认避让，再由应用根据 Insets 决定哪些控件加 padding 或 margin：
 
+### `setDecorFitsSystemWindows` 的作用
+
+`WindowCompat.setDecorFitsSystemWindows(window, false)` 控制的是窗口的根布局是否由系统自动避让系统栏：
+
+| 参数 | 布局行为 | 应用需要做什么 |
+| --- | --- | --- |
+| `true` | Decor View 会按系统窗口区域布局，内容通常不会被状态栏或导航栏遮挡 | 一般不需要手动处理系统栏 Insets |
+| `false` | 内容允许延伸到状态栏、导航栏后面，启用边到边布局 | 使用 `WindowInsets` 为 Toolbar、列表、底部按钮等需要避让的控件补上 padding 或 margin |
+
+这个 API 只改变内容的布局范围，不负责设置状态栏/导航栏颜色、切换图标明暗，也不会自动为每个子 View 添加 padding。即使设置了 `false`，仍然要在合适的 View 上安装 Insets listener；否则内容可能被系统栏或软键盘遮挡。通常应在 `setContentView` 之前调用：
+
 ```kotlin
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat

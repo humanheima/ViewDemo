@@ -234,6 +234,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
 
             R.id.btn_ai_bot -> AiBotActivity.launch(this)
 
+            R.id.btn_number_picker -> NumberPickerActivity.launch(this)
+
+            R.id.btn_bullet_quote_span -> BulletQuoteSpanActivity.launch(this)
+
             R.id.btn_share_demo -> ShareDemoActivity.launch(this)
 
             R.id.btn_test_webview -> WebViewActivity.launch(this)

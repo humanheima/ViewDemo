@@ -1,4 +1,5 @@
 <resources>
+    <string name="number_picker_selected_value">当前选择：%1$02d:%2$02d</string>
     <string name="app_name">ViewDemo</string>
     <string name="share_demo_entry">Android 系统分享：文本链接</string>
     <string name="share_demo_title">系统分享</string>
