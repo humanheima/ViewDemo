@@ -273,6 +273,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), EasyPermissions.Permis
                 WindowInsetsControllerActivity.launch(this)
             }
 
+            R.id.btnTestOnApplyWindowInsets -> {
+                OnApplyWindowInsetsDemoActivity.launch(this)
+            }
+
             R.id.btn_three_dot_progressbar -> {
                 ThreeDotProgressBarActivity.launch(this)
             }
