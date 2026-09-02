@@ -1,8 +1,16 @@
-apply plugin: 'com.android.application'
-//apply plugin: 'walle'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlinx-serialization'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlinx-serialization'
+    id 'com.google.protobuf' version '0.9.4'
+}
+//apply plugin: 'com.android.application'
+////apply plugin: 'walle'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlinx-serialization'
+//apply plugin: 'com.google.protobuf'
 
 
 android {
@@ -71,6 +79,14 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+            }
+        }
+    }
+
     namespace = 'com.hm.viewdemo'
 }
 
@@ -82,6 +98,27 @@ android {
 //    // 渠道配置文件
 //    channelFile = new File("${project.getProjectDir()}/channel")
 //}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.24.4"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.59.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { option 'lite' }
+            }
+            task.plugins {
+                grpc { option 'lite' }
+            }
+        }
+    }
+}
 
 
 dependencies {
@@ -156,5 +193,14 @@ dependencies {
     implementation "androidx.startup:startup-runtime:1.2.0"
 
     //api 'com.github.lihangleo2:ShadowLayout:3.4.1'
+
+    // === gRPC (流式语音识别) ===
+    implementation 'io.grpc:grpc-okhttp:1.59.0'
+    implementation 'io.grpc:grpc-protobuf-lite:1.59.0'
+    implementation 'io.grpc:grpc-stub:1.59.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    // proto/gRPC 生成代码会加 @javax.annotation.Generated 注解；
+    // Android SDK 33+ 的 javac 环境中 javax.annotation 包不再随 JDK 一起提供，需显式引入。
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
 
 }

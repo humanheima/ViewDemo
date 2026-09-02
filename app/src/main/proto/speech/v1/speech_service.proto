@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package speech.v1;
+
+option java_package = "com.hm.viewdemo.grpc.speech.v1";
+option java_multiple_files = true;
+option java_outer_classname = "SpeechProto";
+option objc_class_prefix = "SPE";
+
+// ============= 请求：客户端 → 服务端，双向流首包元信息 + 后续分片 =============
+message StreamingRecognizeRequest {
+  oneof payload {
+    // 首包：携带配置，必须在第一个 AudioChunk 之前发送
+    RecognitionConfig config = 1;
+    // 后续包：PCM 分片
+    AudioChunk audio_chunk = 2;
+  }
+}
+
+message RecognitionConfig {
+  enum AudioEncoding {
+    ENCODING_UNSPECIFIED = 0;
+    LINEAR16 = 1;              // 16-bit signed PCM (默认)
+  }
+  AudioEncoding encoding = 1;
+  int32 sample_rate_hertz = 2; // 默认 16000
+  int32 audio_channel_count = 3; // 默认 1
+  string language_code = 4;     // "zh-CN", "en-US"
+  bool enable_interim_results = 5; // 是否返回中间结果(默认 true)
+  bool enable_word_time_offsets = 6; // 可选：词级时间戳
+  string session_id = 7;         // 用于链路追踪，客户端 UUID
+  string user_id = 8;            // 可选：用户标识
+}
+
+message AudioChunk {
+  bytes content = 1;             // PCM 分片，建议每包 20~100ms 数据
+  // 16kHz 16bit mono: 20ms = 16000*2*0.02 = 640 字节
+  int64 timestamp_ms = 2;        // 采集相对时间(ms)，用于抖动重排
+  bool is_last = 3;              // true 表示结束，服务端可触发最终识别
+}
+
+// ============= 响应：服务端 → 客户端，流式返回一次或多次 =============
+message StreamingRecognizeResponse {
+  repeated StreamingRecognitionResult results = 1;
+  SpeechError error = 2;
+}
+
+message StreamingRecognitionResult {
+  repeated SpeechRecognitionAlternative alternatives = 1;
+  bool is_final = 2;             // false=中间结果，true=最终结果
+  int32 channel_tag = 3;
+}
+
+message SpeechRecognitionAlternative {
+  string transcript = 1;         // 识别文本
+  float confidence = 2;          // 0~1
+  repeated WordInfo words = 3;   // 可选
+}
+
+message WordInfo {
+  int32 start_ms = 1;
+  int32 end_ms = 2;
+  string word = 3;
+  float confidence = 4;
+}
+
+message SpeechError {
+  int32 code = 1;                // gRPC Status Code 映射
+  string message = 2;
+}
+
+// ============= gRPC 服务 =============
+service SpeechService {
+  // 双向流式：客户端推音频分片，服务端推识别结果
+  rpc StreamingRecognize(stream StreamingRecognizeRequest) returns (stream StreamingRecognizeResponse);
+
+  // 可选：单通道非流式，用于短音频一次性上传
+  rpc Recognize(RecognizeRequest) returns (RecognizeResponse);
+}
+
+message RecognizeRequest {
+  RecognitionConfig config = 1;
+  bytes audio = 2;               // 完整 PCM 数据
+}
+message RecognizeResponse {
+  repeated SpeechRecognitionResult results = 1;
+  SpeechError error = 2;
+}
+message SpeechRecognitionResult {
+  repeated SpeechRecognitionAlternative alternatives = 1;
+}
